@@ -1,0 +1,721 @@
+/----------------------------------------------
+/--------------LESSON NOTES-------------------- 
+/----------------------------------------------
+
+* string literaller (string literals):
+  - C   --> char[]
+  - C++ --> const char[]
+
+* karakter sabitlerinin data tipi (the data type of character constant)
+ - C   --> int 
+ - C++ --> char 
+
+* user defined tipler için C++ typedef kullanýmýna ihtiyaç yoktur:
+struct Data
+{
+    int Data;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+* enum underlined type: int --> default
+* enum class (scoped enums) should be preffered in C++ 
+
+#include <iostream>
+#include <assert.h>
+
+enum Color{White, Gray, Black};
+
+int main() {
+
+	assert(sizeof(Color) == sizeof(int)); // true
+}
+
+/----------------------------------------------
+/----------------------------------------------
+* CPP --> No conversion from arithmetic types to enum types automatically
+
+#include <iostream>
+
+enum Color{White, Gray, Black};
+
+int main() {
+
+	enum Color mycolor = Gray;
+	mycolor = (Color)2;
+	// mycolor = 2; --> is OK in main.c
+
+	std::cout << "mycolor: " << mycolor << "\n"; // mycolor: 2
+
+}
+
+/----------------------------------------------
+/----------------------------------------------
+* CPP --> No conversion between different enum types automatically 
+
+#include <iostream>
+
+enum Color{White, Gray, Black};
+enum Position{OFF, ON};
+
+int main() {
+
+	enum Color myColor = Gray;// --> Gray : 1
+	enum Position myPosition = ON; // --> ON : 0
+
+	myColor = (Color)myPosition;
+	// mycolor = myPosition; --> is OK in main.c
+
+	std::cout << "myPosition: " << myPosition << "\n"; // myPosition: 1
+	std::cout << "myColor: " << myColor << "\n"; // myColor: 1
+
+}
+
+/----------------------------------------------
+/----------------------------------------------
+* CPP --> The conversion from enum types to the other types is OK 
+		  For example: enum --> int 
+
+#include <iostream>
+
+enum Color{White, Gray, Black};
+enum Position{OFF, ON};
+
+int main() {
+
+	enum Color myColor = Black;// --> Gray : 2
+	enum Position myPosition = OFF; // --> OFF : 0
+
+	int number1 = myColor;
+	int number2 = myPosition;
+	std::cout << "number1: " << number1 << "\n"; // number1: 2 --> myColor
+	std::cout << "number2: " << number2 << "\n"; // number2: 0 --> myPosition
+
+}
+
+/----------------------------------------------
+/----------------------------------------------
+* C    --> The conversion from pointer types to arithmetic types is OK 
+  C ++ --> No conversion from pointer types to arithmetic types automatically
+
+#include <iostream>
+
+int main() {
+	
+	int x = 0;
+	int* ptr = &x; // int* ptr = x;     --> OK, warning in main.c 
+				   // int number = ptr; --> OK, warning in main.c 
+}
+
+/----------------------------------------------
+/----------------------------------------------
+* C++ data conversion types:
+	- static_cast
+	- const_cast
+	- reinterpret_cast
+	- dynamic_cast
+
+
+/----------------------------------------------
+/----------------------------------------------
+* The type conversion between different address types:
+	- The data type and pointer type shall be compatible to each other, C++ --> error
+	- The data type and pointer type shall be compatible to each other, C   --> warning
+
+#include <iostream>
+
+int main() {
+	
+	int x = 10;
+	// double* ptr = &x; --> C++ a value of type cannot be used to initialize an entity of type
+	// double* ptr = &x; --> C warning C4133 : incompatible types from 'int*' to 'double*'
+	double* ptr = (double*)&x;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+* C ++ --> No type conversion between pointer types automatically 
+		   T* --> U* (T and U are two different data type)
+
+#include <iostream>
+
+int main() {
+	
+	int x = 10;
+	int* ptr = &x;
+}
+/----------------------------------------------
+/----------------------------------------------
+* The data types for addresses: 
+
+#include <iostream>
+
+int main() {
+	
+	int x = 10;
+	// &x --> the data type of x : int*
+
+	int primes[10] = {};
+	// &primes --> the data type of primes array : int* (array decay)
+
+	const int cx = 10;
+	// &cx --> the data type of cx : const int*
+
+	int const icx = 10;
+	// &icx --> the data type of cx : const int* (like the previous one)
+
+	const int cprimes[10] = {};
+	// &cprimes --> the data type of cprimes array : const int* 
+	
+	char name[6] = "gamze";	
+	// string literals in C
+	// &name --> the data type of name : char* in C
+
+	const char cname[6] = "gamze";	
+	// string literals in C++ 
+	// &cname --> the data type of cname : const char* in C++ 
+}
+
+/----------------------------------------------
+/----------------------------------------------
+* The type conversion rules for const address types (const int *):
+
+-  C   --> The type conversion from const address data types to non-const address data types is OK.
+   C++ --> No type conversion from const address data types to non-const address data types. 
+		  const T* --> T* (NOT OK)
+
+-  C   --> The type conversion from non-const address data types to const address data types is OK.
+   C++ --> The type conversion from non-const address data types to const address data types is OK.
+		  T* --> const T* (OK)
+
+#include <iostream>
+
+int main() {
+	
+	int x = 10;
+	const int *cptr = &x; // T* --> const T* (OK)
+
+	const char* name = "Gamze Efendioglu";
+	// char* name = "Gamze Efendioglu"; --> Error in main.cpp, not Error in main.c
+	// Error C2440 'initializing': cannot convert from 'const int *' to 'int *'	
+}
+
+/----------------------------------------------
+/----------------------------------------------
+* The type conversion for void pointers:
+	- C++ --> T* --> void T* (OK) 
+	- C++ --> void T* --> T* (OK)
+	  C   --> void T* --> T* (NOT OK)
+
+#include <iostream>
+
+int main() {
+	
+	int ival = 10;
+	unsigned int uval = 20;
+	double dval = 5;
+	char str[] = "gamze";
+
+	// T* --> void T* (OK) in main.cpp
+	void* vptr = &ival; // void pointer 
+	vptr = &uval;
+	vptr = &dval;
+	vptr = str;
+
+	// void T* --> T* (NOT OK) in main.cpp
+	// int* iptr = vptr;
+	// Error E0144: a value of type "void *" cannot be used to initialize an entity of type "int *
+}
+
+/----------------------------------------------
+/----------------------------------------------
+* 
+
+#include <iostream>
+#include <stdlib.h>
+
+int main() {
+	size_t n;
+	// int* iptr = malloc(n * sizeof(int)); // NOT OK --> 
+	int* iptr = (int*)malloc(n * sizeof(int));
+}
+
+/----------------------------------------------
+/----------------------------------------------
+* nullptr was added to the language with C++11:
+	- What is null pointer?
+	- When we need to use null pointers?
+	- NULL is a macro defined in the libraries like as <stdlib>, <stdio>, <time>, <string> 
+	- In our system   --> #define NULL 0 
+	  In some systems --> #define NULL ((void*) 0) 
+
+* What is null pointer conversion in C?
+	- int *ptr = NULL;
+	  int *ptr = 0; 
+
+* The type of implicit pointer conversion:
+	- array to pointer conversion (array decay) --> the address of first element 
+	  function to pointer conversion --> func() --> &func()
+	  NULL pointer conversion --> int *ptr = 0; --> int *ptr = NULL;
+
+* nullptr --> is an address constant to eliminate the disadvantages of using 0 to represent null 
+		  --> data type is nullptr_t (in <cstddef> lib)
+			  void func(nullptr_t) --> especially used for function overloading 
+		  --> nullptr is only assigned to pointers (not taking consideration of data types)
+		  --> nullptr doesnt point any objects, and it can not be dereferenced. 
+
+* The following if conditions are same: 
+	- if (iptr == nullptr) {} 
+	- if (!iptr) {}
+
+* The following if conditions are same: 
+	- if (iptr != nullptr) {} 
+	- if (iptr) {}
+
+* It is not suggested to use NULL macro in cpp 
+
+#include <stdlib.h>
+#include <cstddef>
+
+struct Data {};
+
+int main() {
+	
+	// int x = nullptr; --> NOT OK in main.cpp 
+	// Error : C++ a value of type "std::nullptr_t" cannot be used to initialize an entity of type "int"
+	
+	int* iptr = nullptr;
+	double* dptr = nullptr;
+	Data* sptr = nullptr; 
+
+
+
+	bool flag;
+	flag = 0;
+	flag = NULL;
+	flag = nullptr;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+* Initialization : There are lots of initialization methods in C++
+	- copy initialization
+	- default initialization
+	- zero initialization
+* What is indetermined value? 
+
+#include <iostream>
+
+int randomNumber; // default : zero initialization for global variables 
+
+int main() {
+	
+	// Default initialization and undefined behaviour
+	// The value is indetermined value 
+	int number; 
+	int *ptr; 
+
+	// Copy initialization
+	int inum = 10; 
+	double dnum = 2.3;
+	
+	// Zero initializaiton
+	static int snum; // default : zero initialization for static local variables
+	bool flag = false;
+	int* iptr = nullptr;
+	long double ldnum = 0;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+* The syntax type of initialization: 
+	- copy initialization
+	- value initialization (direct initialization)
+	- uniform initialization (brace initialization)
+
+#include <iostream>
+
+struct Data {};
+
+int main() {
+	
+	// Copy init. 
+	int number1 = 10; 
+
+	// Value init. (direct init.)
+	int number2(20); 
+	int number3{};
+	Data myData{};
+	int func(); // --> NOT value init.,it is function  declaration
+	Data myData(); // --> NOT value init.,it is function  declaration
+
+	// Uniform init. (brace init.)
+	int number4{ 30 };
+	int primes[]{2,3,5,7,11,13};
+	
+	int* firstPtr{ primes }; // --> int* secondPtr = &primes[0];
+	int* secondPtr = &primes[0];
+
+	std::cout << "Dereferencing firstPtr (*firstPtr): "<< *firstPtr << "\n";
+	std::cout << "Dereferencing secondPtr (*secondPtr): "<< *secondPtr << "\n";
+}
+
+
+/----------------------------------------------
+/----------------------------------------------
+* What are the reasons of using uniform initialization?
+	- narrowing conversion
+	- most vexing parse : 
+	  If the definition has the meaning both variable and function at the same time (because of using paranthesis)
+
+* narrowing conversion sample: 
+/----------------------------------------------
+#include <iostream>
+
+int main() {
+	
+	// Narrowing conversion: (double --> int) 
+	double dnumber = 2.6;
+	int copyInit = dnumber;     // Warning : possible loss of data 
+	int directInit(dnumber);    // Warning : possible loss of data
+	int uniformInit{ dnumber }; // Error : narrowing conversion 
+
+	std::cout << "dnumber: " << dnumber << "\n";
+	std::cout << "copyInit: " << copyInit << "\n";
+	std::cout << "directInit: " << directInit << "\n";
+	std::cout << "uniformInit: " << uniformInit << "\n";
+}
+
+* most vexing parse sample: 
+/----------------------------------------------
+#include <iostream>
+
+struct Data {};
+struct Stream {
+	Stream(Data);
+};
+
+int main() {
+	
+	// Function declaration, not a direct init.
+	// warning C4930 :prototyped function not called (was a variable definition intended ? )
+	Stream firstStream(Data());
+	
+	// Uniform initialization, not a function declaration
+	Stream secondStream{ Data() }; 
+}
+
+
+/----------------------------------------------
+/----------------------------------------------
+
+* The tools in Cpp using the specifications of type deduction: 
+	- auto specifier 
+	- decltype specifier (TBD)
+	- templates (TBD)
+
+/----------------------------------------------
+- auto specifier : 
+	- the meaning of auto specifier is different in C and C++
+	- AAA : Almost Always Auto
+	- the advantages of using auto specifier:
+		- to force all variables to be initialized
+		- the common usage of auto:  
+			generic programming
+			while assigning a function result/address to a variable/pointer
+
+#include <iostream>
+#include <cstring>
+
+int main() {
+
+	int number = 10;
+	auto inum = number; // inum --> int
+	auto dnum = number + 2.4; // dnum --> double 
+	// auto x; --> auto variable must be initialized !!!
+
+    // the data type of strcmp --> int *(fp)(const char *, const char *)
+	auto functionPointer = strcmp;
+
+	int foo();
+	auto x = foo(); // --> instead of int x = foo();
+	// If the return type of foo(), then it is necessary to change the assigned variable
+
+	int func(int);
+	auto y = func(10); // the data type of y --> int 
+
+	int funct(int, int);
+	auto fptr = &funct; // the data type of fptr --> int(*fptr)(int, int)
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+* REFERENCES :
+	- RValue References && LValue References 
+	- References must be initialized wþth LValue expressions!!!
+	
+
+/----------------------------------------------
+#include <iostream>
+
+int main() {
+
+	int number = 10;
+	int* fptr = &number; // --> (*fptr) = number
+
+	std::cout << "(*fptr) : " << *fptr << "\n"; // (*fptr) : 10
+	std::cout << "(fptr) : " << fptr << "\n";   // (fptr) : 00C0F7F0
+}
+
+/----------------------------------------------
+#include <iostream>
+
+int main() {
+
+	int number = 10;
+	int counter = 30;
+	int& refNum = number; // refNum is a reference for number 
+	// int& ref; --> Error : 'ref' references must be initialized 
+	// int& ref = 20; --> Error : initial value of reference to non-const must be an lvalue
+
+	refNum = 20;
+	std::cout << "After changing reference \"number\" : " << number << "\n"; 
+	// number : 20 
+
+	++refNum;
+	std::cout << "After incrementing reference \"number\" : " << number << "\n";
+	// number : 21 
+
+	refNum = counter; // --> number = counter; number should be 30 (counter value)
+	std::cout << "After changing reference value \"number\" : " << number << "\n";
+	// number : 30 
+
+	int* const ptr = &number; // --> ptr is a const pointer
+	// ptr = &counter; --> Error : cannot assign to a variable that is const
+}
+
+/----------------------------------------------
+#include <iostream>
+
+int main() {
+
+	int number = 10;
+	int* ptr = &number; // (*ptr) : LValue 
+	int& ref = *ptr;    // &ref : LValue (ref = *ptr = number = 10)
+
+	std::cout << " ptr: " << ptr << "\n";   // --> ptr: 00CFFE28
+	std::cout << " *ptr: " << *ptr << "\n"; // --> * ptr : 10
+	std::cout << " ref: " << ref << "\n";   // --> ref : 10
+}
+
+/----------------------------------------------
+#include <iostream>
+
+int main() {
+
+	int number = 10;
+	int& ref1 = number; 
+	int& ref2(number);
+	int& ref3{ number };
+	int* ptr = &ref3;
+
+	++ref1;
+	std::cout << " After ++ref1, number: " << number << "\n";   // --> number : 11
+
+	++ref2;
+	std::cout << " After ++ref2, number: " << number << "\n";   // --> number : 12
+
+	++ref3;
+	std::cout << " After ++ref3, number: " << number << "\n";   // --> number : 13
+
+	ref3 = 30;
+	++*ptr;
+	std::cout << " After ++*ptr, number: " << number << "\n";   // --> number : 31
+}
+
+/----------------------------------------------
+#include <iostream>
+
+int main() {
+
+	int firstNumber = 10;
+	int secondNumber = 20;
+
+	int* ptr = &firstNumber;
+	int*& rptr = ptr;
+
+	rptr = &secondNumber; // --> rptr --> ptr = &secondNumber;
+	*rptr = 99; // --> *rptr = secondNumber;
+
+	std::cout << "rptr :  " << rptr << "\n";   // --> rptr : 003DF7B0
+	std::cout << "*rptr :  " << *rptr << "\n";   // --> *rptr : 99
+	std::cout << "secondNumber :  " << secondNumber << "\n";   // --> secondNumber : 99
+}
+
+/----------------------------------------------
+#include <iostream>
+
+int main() {
+
+	int array[5] = {1,3,5,7,9};
+	int (*ptr)[5] = &array;    // array pointer *ptr = array[0]
+	int(&refArray)[5] = array; // array reference refArray = array
+	auto& refArray2 = array;   // auto --> int  
+	
+	std::cout << "(*ptr) :  " << (*ptr) << "\n\n";
+
+	for (int i = 0; i < 5; ++i)
+		std::cout << "refArray :  " << refArray[i] << "\n";
+	
+	for (int i = 0; i < 5; ++i)
+		std::cout << "refArray2 :  " << refArray2[i] <<"\n" ;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+* VALUE CATEGORY:
+ - What is the difference between "expression" and "statement"?
+   expression --> 10, x, x+10, a*a + b*b > 10. etc (operators, objects, constants, etc.)
+   statement  --> all expressions which have ; at the end. 
+	              x = 10  --> expression
+				  x = 10; --> statement (expression statement)
+	- "const" keyword doesnt effect the value category 
+
+- What is the data type?
+	- int, int*, int&, int [], int (*)(int), etc.
+
+- The value category types in Cpp:
+	- L Value (Left Value):
+	  the values that point objects
+	  they have a place in the memory 
+
+	- X Value (Expiring Value):
+	  not defined in C language
+	  the values that point objects
+	  kodda doðrudan bir isim olarak karþýmýza çýkmaz (bir kimliði yoktur.)
+	  
+	- PR Value (Pure Right Value):
+	  the values that not point any objects
+	  they dont have any place in the memory 
+
+	- L Value + X Value = GL Value 
+	- PR Value + X Value = R Value 
+
+- A value belongs to only one of the above value categories !!!
+/----------------------------------------------
+#include <iostream>
+
+struct Data{
+	int x, y;
+};
+
+int main() {
+	
+	int number = 10; // number --> L Value
+	
+	Data myData; // myData --> L Value 
+	myData.x;    // myData.x --> L Value 
+
+	int* ptr = &number; // (*ptr) --> L Value
+	int array[5]{};     // array[2] --> L Value
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+* The differences of value categories between C and CPP ? 
+				C			   C++
+			----------		-----------
+	++x		  R-Value		  L-Value
+	--x		  R-Value		  L-Value
+	a,b		  R-Value		  L-Value (even if right operand is an object)
+	x++		  R-Value		  PR-Value 
+	x--		  R-Value		  PR-Value
+x>0 ? y:z	  R-Value		  L-Value (for operands)
+
+/----------------------------------------------
+/----------------------------------------------
+
+* ValueCategory.h --> 
+/----------------------------------------------
+#pragma once
+#include <iostream>
+
+template <typename T>
+struct ValueCategory {
+	constexpr static const char* ptrstr{ "PR Value" };
+};
+
+template <typename T>
+struct ValueCategory<T &> {
+	constexpr static const char* ptrstr{ "L Value" };
+};
+
+template <typename T>
+struct ValueCategory<T &&> {
+	constexpr static const char* ptrstr{ "X Value" };
+};
+
+#define valuecategory(exp) (std::cout << "Value category of \"" #exp"\" is : " << ValueCategory<decltype((exp))>::ptrstr << "\n");
+
+
+* main.cpp -->
+/----------------------------------------------
+#include <iostream>
+#include "ValueCategory.h"
+
+int foo();
+int& func();
+int&& xfunc();
+
+int main() {
+	
+	int number = 10;		   // number --> L Value
+	const int realNumber = 0;  // realNumber --> L Value 
+	int& refNumber = ++number; // ++number is L Value and  &refNumber is L Value
+	// int& refNumber = number++;  --> Error : number++ is R Value, &refNumber is L Value 
+
+	int firstNumber = 10;
+	int secondNumber = 20;
+	int& ref = (firstNumber, secondNumber);
+	int array[10]{};
+
+	valuecategory(number);      // Value category of "number" is : L Value
+	valuecategory(realNumber);  // Value category of "realNumber" is : L Value
+	valuecategory(number++);    // Value category of "number++" is : PR Value
+	valuecategory(number--);    // Value category of "number--" is : PR Value
+	valuecategory(++number);    // Value category of "++number" is : L Value
+	valuecategory(--number);    // Value category of "--number" is : L Value
+
+	valuecategory(refNumber);   // Value category of "refNumber" is : L Value
+	valuecategory(ref);         // Value category of "ref" is : L Value
+	valuecategory(array);       // Value category of "array" is : L Value
+		
+	valuecategory(foo());       // Value category of "foo()" is : PR Value
+	valuecategory(func());      // Value category of "func()" is : L Value
+	valuecategory(xfunc());     // Value category of "xfunc()" is : X Value
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+* What is unevaluated context? --> for array[3] in the following example
+
+#include <iostream>
+#include "ValueCategory.h"
+
+int main() {
+	
+	int array[2] = {0,1};
+	sizeof(array[3]);
+	
+	valuecategory(sizeof(array[3])); // Value category of "sizeof(array[3])" is : PR Value
+
+	std::cout << "sizeof(array[3]) :  " << sizeof(array[3]) << "\n"; 
+	// sizeof(array[3]) :  4
+}
+
+/----------------------------------------------
+/----------------------------------------------
