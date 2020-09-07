@@ -1,0 +1,58 @@
+
+/----------------------------------------------
+/----------------------------------------------
+
+NULL POINTER:
+
+* nullptr was added to the language with C++11:
+	- What is null pointer?
+	- When we need to use null pointers?
+	- NULL is a macro defined in the libraries like as <stdlib>, <stdio>, <time>, <string> 
+	- In our system   --> #define NULL 0 
+	  In some systems --> #define NULL ((void*) 0) 
+
+* What is null pointer conversion in C?
+	- int *ptr = NULL;
+	  int *ptr = 0; 
+
+* The type of implicit pointer conversion:
+	- array to pointer conversion (array decay) --> the address of first element 
+	  function to pointer conversion --> func() --> &func()
+	  NULL pointer conversion --> int *ptr = 0; --> int *ptr = NULL;
+
+* nullptr --> is an address constant to eliminate the disadvantages of using 0 to represent null 
+		  --> data type is nullptr_t (in <cstddef> lib)
+			  void func(nullptr_t) --> especially used for function overloading 
+		  --> nullptr is only assigned to pointers (not taking consideration of data types)
+		  --> nullptr doesnt point any objects, and it can not be dereferenced. 
+
+* The following if conditions are same: 
+	- if (iptr == nullptr) {} 
+	- if (!iptr) {}
+
+* The following if conditions are same: 
+	- if (iptr != nullptr) {} 
+	- if (iptr) {}
+
+* It is not suggested to use NULL macro in cpp 
+
+#include <stdlib.h>
+#include <cstddef>
+
+struct Data {};
+
+int main() {
+	
+	// int x = nullptr; --> NOT OK in main.cpp 
+	// Error : C++ a value of type "std::nullptr_t" cannot be used to initialize an entity of type "int"
+	
+	int* iptr = nullptr;
+	double* dptr = nullptr;
+	Data* sptr = nullptr; 
+
+	bool flag;
+	flag = 0;
+	flag = NULL;
+	flag = nullptr;
+}
+
