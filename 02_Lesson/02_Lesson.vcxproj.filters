@@ -9,6 +9,9 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{713e9102-11a5-4a22-b83f-e31776ccdce7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ValueCategory.h">
@@ -21,8 +24,29 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="02_Lesson_Notes.txt">
-      <Filter>Source Files</Filter>
+    <Text Include="1_Enum_Classes.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="2_Type_Conversion.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="3_Null_Pointers.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="4_Initialization.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="5_Auto_Type_Deduction.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="6_References.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="7_Value_Category.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="7_Value_Category1.txt">
+      <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
 </Project>

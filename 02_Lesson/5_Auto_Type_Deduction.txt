@@ -1,0 +1,41 @@
+/----------------------------------------------
+/----------------------------------------------
+
+* The tools in Cpp using the specifications of type deduction: 
+	- auto specifier 
+	- decltype specifier (TBD)
+	- templates (TBD)
+
+/----------------------------------------------
+- auto specifier : 
+	- the meaning of auto specifier is different in C and C++
+	- AAA : Almost Always Auto
+	- the advantages of using auto specifier:
+		- to force all variables to be initialized
+		- the common usage of auto:  
+			generic programming
+			while assigning a function result/address to a variable/pointer
+
+#include <iostream>
+#include <cstring>
+
+int main() {
+
+	int number = 10;
+	auto inum = number; // inum --> int
+	auto dnum = number + 2.4; // dnum --> double 
+	// auto x; --> auto variable must be initialized !!!
+
+    // the data type of strcmp --> int *(fp)(const char *, const char *)
+	auto functionPointer = strcmp;
+
+	int foo();
+	auto x = foo(); // --> instead of int x = foo();
+	// If the return type of foo(), then it is necessary to change the assigned variable
+
+	int func(int);
+	auto y = func(10); // the data type of y --> int 
+
+	int funct(int, int);
+	auto fptr = &funct; // the data type of fptr --> int(*fptr)(int, int)
+}
