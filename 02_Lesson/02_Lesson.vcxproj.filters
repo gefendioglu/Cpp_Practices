@@ -45,8 +45,5 @@
     <Text Include="7_Value_Category.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="7_Value_Category1.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
   </ItemGroup>
 </Project>

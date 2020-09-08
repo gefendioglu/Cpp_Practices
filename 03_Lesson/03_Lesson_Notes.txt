@@ -2,4 +2,389 @@
 /--------------LESSON NOTES-------------------- 
 /----------------------------------------------
 
+* Undefined Behaviour:
+	- Always avoid undefined behaviour (ub)
+	1 - Dereferencing null pointers
+	2 - Changing string literals (read only)
+	3 - Changing variables which assigned as const
+	4 - Overflowing for signed variables
+	5 - No returning value for a function
+	6 - Using uninitialized auto variables 
+* Unspecified Behaviour:
+	- do not rely on unspecified behaviour
+	- It depends on compiler type
+	- It depends on the implementation (compiler here), implementation is not required to document which behaviour occurs; range of possible behaviours usually specified in standard
+* Implementation Defined Behaviour: 
+	- try not to rely on implemetation defined behaviour
+	- this behaviour should be documented
 
+* Unspecified Behaviour
+/----------------------------------------------
+
+#include <iostream>
+
+int main() {
+
+	int x = 10, y = 20;
+	bool flag = &x > & y; // flag = true OR flag = false
+
+	std::cout << "flag : " << flag << "\n";
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+#include <iostream>
+
+int func1();
+int func2();
+
+int main() {
+
+	int x = func1()*5 + func2();
+	// which function is called first ? Not clear!
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+#include <iostream>
+
+int g = 10;
+
+int func1(int x, int y) { return x + y;}
+int func2() {
+	g += 5;
+	return 100;
+}
+int func3() { return g + 3; }
+
+int main() {
+
+	int number = func1(func2(), func3());
+	// which function is called first ? Not clear!
+	// x value can be changed compiler to compiler
+
+	std::cout << "number : " << number << "\n";
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+#include <iostream>
+#include <cstdint>
+
+int main() {
+
+	int firstNumber;
+	int32_t secondNumber; // guaranteed that secondNumber -->  32 bits 
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+* R VALUE REFERENCES - L VALUE REFERENCES
+
+#include <iostream>
+
+int main() {
+
+	int firstNumber = 10;
+	int& ref = firstNumber; // ref --> L value ref. ref = firstNumber
+	int* const ptr = &firstNumber; // (*ptr) = firstNumber
+
+	std::cout << "ref : " << ref << "\n";     // ref = 10
+	std::cout << "(*ptr) : " << *ptr << "\n"; // (*ptr) = 10 
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+#include <iostream>
+
+int main() {
+
+	int firstNumber = 10;
+	int& ref = firstNumber; // ref --> L value ref. ref = firstNumber
+
+	// int& referans = 10;
+	// referans --> L Value , 10 --> R-Value
+	// Error: 'initializing': cannot convert from 'int' to 'int &'
+
+	int* const ptr = &firstNumber; // (*ptr) = firstNumber
+
+	std::cout << "ref : " << ref << "\n";     // ref = 10
+	std::cout << "(*ptr) : " << *ptr << "\n"; // (*ptr) = 10
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+#include <iostream>
+
+int main() {
+
+	int array[5]{ 0,1,2,3,4 };
+	int (&refArray)[5] = array;
+	auto &referansArray = array;
+	// if auto is used  --> auto  = int* referansArray
+	// if auto& is used --> auto = int (&referansArray)[5]
+
+	std::cout << "(&refArray) : " << (&refArray) << "\n"; // (&refArray) = 006FF7F4
+	std::cout << "(&refArray) address: " << refArray << "\n";     // refArray = 006FF7F4
+	std::cout << "referansArray address: " << referansArray << "\n"; // referansArray = 006FF7F4
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+* Pointers can be referenced for other pointers
+
+#include <iostream>
+
+int main() {
+
+	int number = 10;
+	int* ptr = &number;   // (*ptr) --> number = 10
+	int** ptrptr = &ptr;  // ptrptr --> &ptr
+	int**& ref = ptrptr;  // ref --> ptrptr 
+	
+	std::cout << "(*ptr) : " << *ptr << "\n";     // *ptr  = 10
+	std::cout << "(ptrptr) : " << ptrptr << "\n"; // ptrptr = 005BFB4C
+	std::cout << "(**ref) : " << **ref << "\n";   // **ref = 10
+	std::cout << "(++**ref) : " << ++**ref << "\n";   // ++**ref = 11
+	std::cout << "(&ref) : " << &ref << "\n";     // &ref = 005BFB40
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+* Swap Function with pointers - call by value
+
+#include <iostream>
+
+void Swap(int *ptr1, int *ptr2) {
+	int temp = *ptr1;
+	*ptr1 = *ptr2;
+	*ptr2 = temp;
+}
+
+int main() {
+	int firstNumber = 35;
+	int secondNumber = 43;
+
+	Swap(&firstNumber, &secondNumber);
+
+	std::cout << "firstNumber : " << firstNumber << "\n";     // firstNumber = 43 
+	std::cout << "secondNumber : " << secondNumber << "\n";     // secondNumber = 35
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+* Swap Function with references - call by reference 
+
+#include <iostream>
+
+void Swap(int &ref1, int &ref2) {
+	int temp = ref1;
+	ref1 = ref2;
+	ref2 = temp;
+}
+
+int main() {
+	int firstNumber = 35;
+	int secondNumber = 43;
+
+	Swap(firstNumber, secondNumber);
+
+	std::cout << "firstNumber : " << firstNumber << "\n";     // firstNumber = 43 
+	std::cout << "secondNumber : " << secondNumber << "\n";     // secondNumber = 35
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+* C   --> always call-by-value
+  C++ --> depends on function definition
+		  func(int);   --> call-by-value OR 
+		  func(int &); --> call-by-reference
+
+* C --> setfunc(T *ptr); --> set function, setter, mutator
+		getfunc(const T *ptr);  --> get function, getter, accessor
+							    --> copy only pointer size, not all data
+								--> applicable especially for arrays
+		func(T value);		    --> copy all amount of data
+
+* C --> setfunc(T *ptr);        --> output parameters
+		getfunc(const T *ptr);  --> input parameters
+
+* C++ --> class Data{};
+		  void setter(Data &ref);       --> the parameter will be changed
+		  void getter(const Data& ref); --> the parameter will only be read
+
+/----------------------------------------------
+
+#include <iostream>
+
+int main() {
+	int firstNumber = 35;
+	const int& ref1 = firstNumber;
+	int const& ref2 = firstNumber;
+	int& const ref3 = firstNumber;
+
+	// ref1 = 30; --> Error: expression must be a modifiable lvalue
+	// ++ref1; --> Error: expression must be a modifiable lvalue
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+* getter function 
+
+#include <iostream>
+
+int getter(const int& ref) {
+	return ref;
+}
+
+int main() {
+	int firstNumber = 35;
+	const int secondNumber = 43;
+	
+	std::cout << "getter(firstNumber): " << getter(firstNumber)<<"\n";
+	std::cout << "getter(secondNumber): " << getter(secondNumber)<<"\n";
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+* setter function 
+* no conversion from const --> non-const
+
+#include <iostream>
+
+int setter(int& ref) {
+	ref = 15;
+	return ref;
+}
+
+int main() {
+	int firstNumber = 35;
+	const int secondNumber = 43;
+	
+	std::cout << "getter(firstNumber): " << setter(firstNumber)<<"\n";
+	
+	//std::cout << "getter(secondNumber): " << setter(secondNumber)<<"\n";
+
+// Error: qualifiers dropped in binding reference of type "int &" to initializer of type "const int"
+
+// Error : 'int setter(int &)' : cannot convert argument 1 from 'const int' to 'int &'
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+#include <iostream>
+
+int main() {
+
+	int firstNumber = 35;
+	const int& ref = firstNumber; // firstNumber --> L-Value  
+	const int& ref = 10; // 10 --> R Value 
+	
+	// A temporary object was defined for R Value 
+	// int temp_object{10};
+	// const int &ref = temp_object;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+* no conversion from const ref --> non-const ref
+
+#include <iostream>
+
+int main() {
+
+	int firstNumber = 35;
+	const int& ref1 = firstNumber; // firstNumber --> L-Value  
+	const int& ref2 = 10; // 10 --> R Value 
+	// A temporary object was defined for R Value 
+	// int temp_object{10};
+	// const int &ref = temp_object;
+
+	// int& reference = ref2;
+	// Error: 'initializing' cannot convert from 'const int' to 'int &'	
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+* no reference to reference definition
+
+#include <iostream>
+
+int main() {
+
+	int number = 35;
+	int& ref1 = number;
+	int& ref2 = ref1; // ref2 = number
+	int& ref3 = ref2; // ref3 = number
+
+	std::cout << "number: " << number << "\n"; // number = 35
+	std::cout << "ref1: " << ref1 << "\n"; // ref1 = 35
+	std::cout << "ref2: " << ref2 << "\n"; // ref2 = 35
+	std::cout << "ref3: " << ref3 << "\n"; // ref3 = 35
+
+	++ref1;
+	++ref2;
+	++ref3;
+
+	std::cout << "number: " << number << "\n"; // number = 38
+	std::cout << "ref1: " << ref1 << "\n"; // ref1 = 38
+	std::cout << "ref2: " << ref2 << "\n"; // ref2 = 38
+	std::cout << "ref3: " << ref3 << "\n"; // ref3 = 38
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+* return value is pointer 
+
+int* ptrFunc() {
+	static int number = 10;
+	//....
+	return &number;
+}
+
+* return value is reference 
+
+int& refFunc() {
+	static int number = 10;
+	//....
+	return number;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+* When function return value is reference, then the function is a L-Value 
+
+
+#include <iostream>
+
+int command = 45;
+
+int& refFunc() {
+	return command;
+}
+
+int main() {
+
+	refFunc() = 100; // refFunc() is a L-Value
+	std::cout << "command: " << command << "\n"; // command = 100
+}
+
+/----------------------------------------------
+/----------------------------------------------
