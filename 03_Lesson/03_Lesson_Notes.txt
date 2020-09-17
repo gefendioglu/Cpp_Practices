@@ -369,8 +369,7 @@ int& refFunc() {
 /----------------------------------------------
 /----------------------------------------------
 
-* When function return value is reference, then the function is a L-Value 
-
+* When function return value is reference, then the function is a L-Value (1)
 
 #include <iostream>
 
@@ -388,3 +387,380 @@ int main() {
 
 /----------------------------------------------
 /----------------------------------------------
+
+* When function return value is reference, then the function is a L-Value (2)
+
+#include <iostream>
+
+int command = 45;
+
+int& refFunc() {
+	return command;
+}
+
+int main() {
+
+	int& ref = refFunc();
+
+	ref = 500;
+
+	std::cout << "command : " << command << "\n"; // command : 500
+
+}
+/----------------------------------------------
+/----------------------------------------------
+
+* When function return value is reference or address --> undefined behaviour
+
+#include <iostream>
+
+int& refFunc() {
+	int x = 10;
+	return x; 
+	// warning C4172: returning address of local variable or temporary: x
+}
+
+int* ptrFunc() {
+	int x = 10;
+	return &x; 
+	// warning C4172: returning address of local variable or temporary: x
+}
+
+int main() {
+
+	int& ref = refFunc();
+	std::cout << "ref : " << ref << "\n"; // ref: 10
+
+	int* ptr = ptrFunc();
+	std::cout << "ptr : " << ptr << "\n"; // ptr : 008FF7A0
+}
+
+/----------------------------------------------
+
+* Hangi nesne parametre olarak alýndýysa onun adresi ile geri dönülebilir. 
+
+struct Data {
+	int x, y, z;
+};
+
+struct Data *func(struct Data *ptr){
+	
+	//...
+	return ptr;
+}
+
+/----------------------------------------------
+
+* Nesnenin kendisi parametre olarak alýnýr ve geri dönüþ deðeri de kendisi olur
+
+struct Data& reffunc(struct Data &ref) { 
+
+	//...
+	return ref;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+* Example: Assigning a pointer and reference values 
+
+#include <iostream>
+
+int main() {
+
+	int firstNumber = 10;
+	int secondNumber = 99;
+
+	int* ptr = &firstNumber;
+	int*& refPointer = ptr;
+
+	std::cout << "ptr : " << ptr << "\n";				// ptr : 00AFFAF8
+	std::cout << "refPointer : " << refPointer << "\n"; // refPointer : 00AFFAF8
+
+	*refPointer = 300; // *refPointer --> firstNumber
+	std::cout << "firstNumber : " << firstNumber << "\n";  // firstNumber : 300
+		
+	refPointer = &secondNumber;
+	*refPointer = 700; // *refPointer --> secondNumber
+	std::cout << "secondNumber : " << secondNumber << "\n"; // secondNumber : 700
+
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+* Example: Assigning references 
+
+#include <iostream>
+
+int main() {
+
+	int firstNumber = 10;
+	int secondNumber = 99;
+
+	int& ref1 = firstNumber;
+	int& ref2 = ref1;
+	++ref2; 
+  
+	std::cout << "ref1 : " << ref1 << "\n"; // ref1: 11
+	std::cout << "ref2 : " << ref2 << "\n"; // ref2 : 11
+
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+* Referans ve pointerlarýn karþýlaþtýrýlmasý:
+
+	- Referanslara ilk deðer vermek zorunlu, ilk deðer vermeden referans oluþturulamaz ! 
+	- Pointer deðiþkenlere ilk deðer vermek zorunlu deðildir. 
+	- "Reference to reference" kavramý yoktur; ancak "pointer to pointer" kavramý mecvuttur. 
+/----------------------------------------------
+	- Pointer deðiþken farklý nesne adreslerini gösterebilir. Kendisi const olmak zorunda deðildir. 
+
+#include <iostream>
+
+int main() {
+
+	int firstNumber = 10;
+	int secondNumber = 99;
+
+	int *ptr = &firstNumber;
+	ptr = &secondNumber; // OK
+	//...
+	int* const ptr2 = &secondNumber; // const pointer
+	ptr2 = &firstNumber; // NOT OK
+
+}
+
+/----------------------------------------------
+	- Referanslardan oluþan bir dizi yazýlamaz. 
+
+#include <iostream>
+
+int x, y, z, t;
+
+int main() {
+
+	int* ptrArray[] = { &x, &y, &z, &t }; // OK
+	int& refArray[] = { x, y, z, t };     // NOT OK
+	// Error C2234 'refArray': arrays of references are illegal	
+
+}
+
+/----------------------------------------------
+/----------------------------------------------
+* Initialization of pointer and reference arrays:
+
+#include <iostream>
+
+int main() {
+
+	int a[10] = {0}; 
+	int(*ptrArray)[10] = &a;
+	int(&refArray)[10] = a;
+
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+* Pointer Types: Valid / Invalid Pointer
+	- Invalid pointer: otomatik ömürlü tanýmlanan pointer için ilk deðer verilmezse
+
+	- invalid pointer: bir pointer a dinamik ömürlü nesnenin adresi atandýysa/ilk deðer verilirse ve pointer deðiþkenin hayatý devam ederken onun gösterdiði nesnenin hayatý biterse
+	
+	- Valid pointer: Bir pointer bir dizinin son elemanýnýn adresini tutarken, deðeri bir arttýrýlýrsa dizinin bittiði yerin adresini tutuyor olacaktýr 
+
+	- Deðeri nullptr olan bir pointer deðiþken hiçbir nesneyi göstermemektedir. Asla derefere edilmemelidir. 
+
+	- "Null pointer" kavramý mevcut; ancak "null reference" kavramý bulunmaz!
+
+/----------------------------------------------
+#include <iostream>
+
+int main() {
+
+	int* ptr = nullptr;
+	std::cout << "(*ptr) : " << *ptr << "\n"; 
+	// Exception thrown : read access violation.
+}
+
+/----------------------------------------------	
+/----------------------------------------------
+
+* The usage of null pointer: 
+	- Adres döndüren fonksiyonlarda, baþarýsýzlýk deðeri olarak --> return nullptr; 
+	  T* func(){...}
+
+	- Bazý fonksiyonlarda arama iþlemi için kullanýlabilir.
+	  Aranan deðer bulunursa   --> bulunan deðerin adresi
+	  Aranan deðer bulunamazsa --> nullptr deðeri döndürülür.
+	
+	- Parametresi pointer olan fonksiyonlarda yaygýn olarak kullanýlmaktadýr.
+	  Ya nesne adresi ya da nullptr argüman olarak bu fonksiyonlara gönderilebilmektedir. 
+	  Bu durumda fonksiyon nesne adresi ile çaðrýldýðýnda farklý, nullptr ile çaðrýldýðýnda farklý bir iþ yapacak þekilde tasarlanabilir.
+	  void func(T *ptr){...} --> func(nullptr); 
+	  fflush(nullptr); --> from standard lib. 
+
+	- Pointer deðiþkenlerin flag olarak kullanýlmasý yaygýndýr. 
+	/----------------------------------------------
+	int *ptr = nullptr;
+	if(expr){
+		ptr = nesne adresi; 
+	}
+	if(ptr == nullptr) {...}
+	/----------------------------------------------
+
+	- Dangling pointer: Gösterdiði nesnenin ömrünün bitmesi ile geçerliliðini kaybeden pointerlardýr.
+/----------------------------------------------
+#include <iostream>
+#include <cstdlib>
+
+int main() {
+
+	size_t n = 10;
+	int* ptr = (int*)malloc(n* sizeof(int));
+	// malloc() --> its return value can be nullptr 
+
+	free(ptr);     // ptr --> a dangling pointer --> invalid pointer
+	ptr = nullptr; // ptr --> is not a dangling pointer
+}
+
+/----------------------------------------------	
+/----------------------------------------------
+
+ * auto type deduction with reference semantics: 
+	-  Aþaðýdakiler auto tanýmlamalarý için uygulanan kurallar farklýdýr: 
+	   auto x = expr;
+	   auto &ref = expr; 
+	   auto &&refref = expr; 
+
+/----------------------------------------------
+/----------------------------------------------
+
+* Rules for "auto x = expr;" 
+
+#include <iostream>
+
+int main() {
+
+	auto x = 10; // x --> int
+
+	const int firstNumber = 10;
+	auto y = firstNumber; // y --> int / not const int 
+
+	// Reference / Const Reference :
+	// ----------------------------------------------
+	int secondNumber = 20;
+	int& firstRef = secondNumber;
+	auto z = firstRef; // z --> int
+
+	const int& secondRef = secondNumber;
+	auto k = secondRef; // k --> int / not const int&
+
+	// Arrays / Const Arrays : 
+	// ----------------------------------------------
+	int a[10] = {};
+	auto firstArray = a; // firstArray --> int*, like as --> auto firstArray = &a[0]
+
+	int const array[10] = {0};
+	auto secondArray = a; // secondArray --> int*
+
+	// String Literals :
+	// ----------------------------------------------
+	auto name = "gamze"; // name --> const char* (array to pointer conversion)
+
+
+	// Function Pointers :
+	// ----------------------------------------------
+	int func(int);
+	auto function = func; // function --> int(*)(int)
+}
+
+
+/----------------------------------------------
+/----------------------------------------------
+
+* Rules for "auto &ref = expr;" 
+
+#include <iostream>
+
+int main() {
+
+	// Reference / Const Reference :
+	// ----------------------------------------------
+	int firstNumber = 10;
+
+	auto &x = firstNumber; // OK 
+	auto &x = 10;          // NOT OK 
+
+	int*** ptr;
+	auto& ref = ptr; // ref --> int***& 
+		
+	const int constNumber = 10;
+	auto& refConst = constNumber; // refConst --> const int &
+	refConst = 20; // NOT OK --> refConst is a L-Value
+
+	// Arrays / Const Arrays : 
+	// ----------------------------------------------
+	int array[5] = { 0 };
+	auto& refArray = array; // refArray --> int(&refArray)[5] 
+
+	const int constArray[5] = { 0 };
+	auto& refConstArray = constArray; // refConstArray --> const int (&refConstArray)[5]
+
+	// String Literals :
+	// ----------------------------------------------
+	auto& stringLiteral = "gamze"; // stringLiteral --> const char (&stringLiteral)[6]
+
+
+	// Function Pointers / Function Reference:
+	// ----------------------------------------------
+	int(*fptr)(int, int);
+	auto& refFunction = fptr; // refFunction --> int(*&)(int,int)
+	
+	int foo(int, int);
+	int (*ptrFunction)(int, int) = &foo; // pointer function
+	int (&refFunction)(int, int) = foo;  // reference function
+	auto& refFunctionAuto = foo;
+
+}
+
+
+/----------------------------------------------
+/----------------------------------------------
+
+* Rules for "auto &&ref = expr;"  --> LATER !!!!
+
+/----------------------------------------------
+/----------------------------------------------
+
+* auto with const keyword: 
+
+#include <iostream>
+
+int main() {
+
+	// Const Auto --> const is a type specifier
+	// ----------------------------------------------
+	int firstNumber = 10;
+	const auto x = firstNumber; // y --> const int 
+	auto const y = firstNumber; // z --> const int
+
+	// Const Auto Ref : 
+	// ----------------------------------------------
+	auto& refAuto = firstNumber;        // refAuto -->  int &
+	const auto &refConstAuto = refAuto; // refConstAuto --> const int& --> very common usage
+	
+	// Static Auto -->  static is not a type specifier
+	// ----------------------------------------------
+	static int staticNumber = 10;
+	auto staticNum = staticNumber; // staticNum --> int 
+	
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+2:22:27
