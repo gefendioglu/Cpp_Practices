@@ -1,11 +1,12 @@
 # Undefined Behaviour :
-	- Always avoid undefined behaviour (ub)
-	1 - Dereferencing null pointers
-	2 - Changing string literals (read only)
-	3 - Changing variables which assigned as const
-	4 - Overflowing for signed variables
-	5 - No returning value for a function
-	6 - Using uninitialized auto variables 
+- Always avoid undefined behaviour (ub)
+- The reason samples for undefined behaviour 
+ - Dereferencing null pointers
+ - Changing string literals (read only)
+ - Changing variables which assigned as const
+ - Overflowing for signed variables
+ - No returning value for a function
+ - Using uninitialized auto variables 
 
 # Undefined Specifier :
 	- do not rely on unspecified behaviour
