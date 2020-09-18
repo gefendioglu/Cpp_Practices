@@ -18,10 +18,11 @@
 	- this behaviour should be documented
 
 * Unspecified Behaviour
+
 /----------------------------------------------
 /----------------------------------------------
 
-### Example: Unspecified Behaviour
+#### Example: Unspecified Behaviour
 
 ```cpp
 
