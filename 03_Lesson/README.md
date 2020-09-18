@@ -1,17 +1,17 @@
-# Undefined Behaviour :
+## Undefined Behaviour :
 - Always avoid undefined behaviour (ub)
 - The reason samples for undefined behaviour 
- - Dereferencing null pointers
- - Changing string literals (read only)
- - Changing variables which assigned as const
- - Overflowing for signed variables
- - No returning value for a function
- - Using uninitialized auto variables 
+  - Dereferencing null pointers
+  - Changing string literals (read only)
+  - Changing variables which assigned as const
+  - Overflowing for signed variables
+  - No returning value for a function
+  - Using uninitialized auto variables 
 
-# Undefined Specifier :
-	- do not rely on unspecified behaviour
-	- It depends on compiler type
-	- It depends on the implementation (compiler here), implementation is not required to document which behaviour occurs; range of possible behaviours usually specified in standard
+## Unspecified Behaviour :
+- do not rely on unspecified behaviour
+- It depends on compiler type
+- It depends on the implementation (compiler here), implementation is not required to document which behaviour occurs; range of possible behaviours usually specified in standard
   
 * Implementation Defined Behaviour: 
 	- try not to rely on implemetation defined behaviour
@@ -19,8 +19,9 @@
 
 * Unspecified Behaviour
 /----------------------------------------------
+/----------------------------------------------
 
-# C++ Example
+### Example: Unspecified Behaviour
 
 ```cpp
 
