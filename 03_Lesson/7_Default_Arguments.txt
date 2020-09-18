@@ -1,0 +1,74 @@
+
+/----------------------------------------------
+/----------------------------------------------
+
+* DEFAULT ARGUMENT :
+	- Fonksiyonlarýn Varsayýlan Argüman Almasý
+	- Programda ayný argüman deðerlerini alan fonksiyon çaðrýlarý için default tanýmlamalarýn yapýlmasý, hataya karþý koruma saðlar.
+	- Run-time maliyeti bulunmaz. Tamamen compile-time'a yönelik bir mekanizmadýr. 
+	
+
+/----------------------------------------------
+/----------------------------------------------
+
+* Default Argument : 
+	- variadic function --> ellipses token ile birlikte kullanýlýr. 
+
+#include <iostream>
+
+void func(int x, int y, int z);
+void variadicFunc(int, ...);     // variadic function
+int Printf(const char* p, ...);  // variadic function
+
+int main() {
+
+	func(10, 20, 30);  // OK
+	func(10, 20);      // NOT OK
+	func(10);		   // NOT OK
+	func();			   // NOT OK
+	func(1, 2, 3, 4);  // NOT OK
+
+	variadicFunc(10, 20, 30);  // OK
+	variadicFunc(10, 20);      // OK
+	variadicFunc(10);		   // OK
+	variadicFunc();			   // NOT OK --> first parameter shall be filled !!!
+	variadicFunc(1, 2, 3, 4);  // OK
+
+	Printf("gamze", 20, 30);   // OK
+	Printf("gamze", 20);       // OK
+	Printf("gamze");		   // OK
+	Printf();			       // NOT OK --> first parameter shall be filled !!!
+	Printf("gamze", 2, 3, 4);  // OK
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+* Default Argument : 
+	- Default argümanlarýn fonksiyon bildiriminde (function definition) yapýlmasý yaygýndýr. Ancak özel durumlarda fonksiyon tanýmlarýnda (function declaration) da uygulanmaktadýr. Ancak he  bildirimde hem de tanýmda yapýlmasý hatadýr.
+
+#include <iostream>
+
+void func(int , int , int z=10);
+void foo1(int x = 30, int y =20 , int z=10);
+
+void foo2(int x, int y =20 , int);		   // Syntax Error
+void foo3(int x, int y =20 , int z = 10);  // Not Syntax Error
+
+
+int main() {
+
+	func(10, 20, 30);  // OK --> z = 30
+	func(10, 20);      // OK --> z = 10
+	func(10);		   // NOT OK --> second argument shall be sent !
+	func();			   // NOT OK --> first and second arguments shall be sent !
+	func(1, 2, 3, 4);  // NOT OK --> No fourth parameters in function declaration
+
+	foo1();       // OK --> foo1(30,20,10);
+	foo1(1);      // OK --> foo1(1,20,10);
+	foo1(1, 2);   // OK --> foo1(1,2,10);
+	foo1(1, 2,3); // OK --> foo1(1,2,3);
+}
+
+/----------------------------------------------
+/----------------------------------------------

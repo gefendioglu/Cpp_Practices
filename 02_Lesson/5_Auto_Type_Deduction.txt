@@ -39,3 +39,146 @@ int main() {
 	int funct(int, int);
 	auto fptr = &funct; // the data type of fptr --> int(*fptr)(int, int)
 }
+
+
+ * auto type deduction with reference semantics: 
+	-  Aþaðýdakiler auto tanýmlamalarý için uygulanan kurallar farklýdýr: 
+	   auto x = expr;
+	   auto &ref = expr; 
+	   auto &&refref = expr; 
+
+/----------------------------------------------
+/----------------------------------------------
+
+* Rules for "auto x = expr;" 
+
+#include <iostream>
+
+int main() {
+
+	auto x = 10; // x --> int
+
+	const int firstNumber = 10;
+	auto y = firstNumber; // y --> int / not const int 
+
+	// Reference / Const Reference :
+	// ----------------------------------------------
+	int secondNumber = 20;
+	int& firstRef = secondNumber;
+	auto z = firstRef; // z --> int
+
+	const int& secondRef = secondNumber;
+	auto k = secondRef; // k --> int / not const int&
+
+	// Arrays / Const Arrays : 
+	// ----------------------------------------------
+	int a[10] = {};
+	auto firstArray = a; // firstArray --> int*, like as --> auto firstArray = &a[0]
+
+	int const array[10] = {0};
+	auto secondArray = a; // secondArray --> int*
+
+	// String Literals :
+	// ----------------------------------------------
+	auto name = "gamze"; // name --> const char* (array to pointer conversion)
+
+
+	// Function Pointers :
+	// ----------------------------------------------
+	int func(int);
+	auto function = func; // function --> int(*)(int)
+}
+
+
+/----------------------------------------------
+/----------------------------------------------
+
+* Rules for "auto &ref = expr;" 
+
+#include <iostream>
+
+int main() {
+
+	// Reference / Const Reference :
+	// ----------------------------------------------
+	int firstNumber = 10;
+
+	auto &x = firstNumber; // OK 
+	auto &x = 10;          // NOT OK 
+
+	int*** ptr;
+	auto& ref = ptr; // ref --> int***& 
+		
+	const int constNumber = 10;
+	auto& refConst = constNumber; // refConst --> const int &
+	refConst = 20; // NOT OK --> refConst is a L-Value
+
+	// Arrays / Const Arrays : 
+	// ----------------------------------------------
+	int array[5] = { 0 };
+	auto& refArray = array; // refArray --> int(&refArray)[5] 
+
+	const int constArray[5] = { 0 };
+	auto& refConstArray = constArray; // refConstArray --> const int (&refConstArray)[5]
+
+	// String Literals :
+	// ----------------------------------------------
+	auto& stringLiteral = "gamze"; // stringLiteral --> const char (&stringLiteral)[6]
+
+
+	// Function Pointers / Function Reference:
+	// ----------------------------------------------
+	int(*fptr)(int, int);
+	auto& refFunction = fptr; // refFunction --> int(*&)(int,int)
+	
+	int foo(int, int);
+	int (*ptrFunction)(int, int) = &foo; // pointer function
+	int (&refFunction)(int, int) = foo;  // reference function
+	auto& refFunctionAuto = foo;
+
+}
+
+
+/----------------------------------------------
+/----------------------------------------------
+
+* Rules for "auto &&ref = expr;"  --> LATER !!!!
+
+/----------------------------------------------
+/----------------------------------------------
+
+* auto with const keyword: 
+
+#include <iostream>
+
+int main() {
+
+	// Const Auto --> const is a type specifier
+	// ----------------------------------------------
+	int firstNumber = 10;
+	const auto x = firstNumber; // y --> const int y
+	auto const y = firstNumber; // z --> const int z
+	auto ptr = &firstNumber;    // ptr --> int* ptr 
+	auto* p = &firstNumber;     // p --> int* p
+	// ----------------------------------------------
+	int* intPtr;
+	auto p = &intPtr;  // p --> int** p
+	// ----------------------------------------------
+	int* const constPtr = &firstNumber;
+	auto p = &constPtr; // p --> int* const* p
+
+	// Const Auto Ref : 
+	// ----------------------------------------------
+	auto& refAuto = firstNumber;        // refAuto -->  int& refAuto
+	const auto &refConstAuto = refAuto; // refConstAuto --> const int& refConstAuto --> 
+									    // very common usage
+	
+	// Static Auto -->  static is not a type specifier
+	// ----------------------------------------------
+	static int staticNumber = 10;
+	auto staticNum = staticNumber; // staticNum --> int staticNum
+	
+}
+
+/----------------------------------------------
+/----------------------------------------------

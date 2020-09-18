@@ -56,3 +56,46 @@ int main() {
 	flag = nullptr;
 }
 
+/----------------------------------------------	
+/----------------------------------------------
+
+* The usage of null pointer: 
+	- Adres döndüren fonksiyonlarda, baþarýsýzlýk deðeri olarak --> return nullptr; 
+	  T* func(){...}
+
+	- Bazý fonksiyonlarda arama iþlemi için kullanýlabilir.
+	  Aranan deðer bulunursa   --> bulunan deðerin adresi
+	  Aranan deðer bulunamazsa --> nullptr deðeri döndürülür.
+	
+	- Parametresi pointer olan fonksiyonlarda yaygýn olarak kullanýlmaktadýr.
+	  Ya nesne adresi ya da nullptr argüman olarak bu fonksiyonlara gönderilebilmektedir. 
+	  Bu durumda fonksiyon nesne adresi ile çaðrýldýðýnda farklý, nullptr ile çaðrýldýðýnda farklý bir iþ yapacak þekilde tasarlanabilir.
+	  void func(T *ptr){...} --> func(nullptr); 
+	  fflush(nullptr); --> from standard lib. 
+
+	- Pointer deðiþkenlerin flag olarak kullanýlmasý yaygýndýr. 
+	/----------------------------------------------
+	int *ptr = nullptr;
+	if(expr){
+		ptr = nesne adresi; 
+	}
+	if(ptr == nullptr) {...}
+	/----------------------------------------------
+
+	- Dangling pointer: Gösterdiði nesnenin ömrünün bitmesi ile geçerliliðini kaybeden pointerlardýr.
+/----------------------------------------------
+#include <iostream>
+#include <cstdlib>
+
+int main() {
+
+	size_t n = 10;
+	int* ptr = (int*)malloc(n* sizeof(int));
+	// malloc() --> its return value can be nullptr 
+
+	free(ptr);     // ptr --> a dangling pointer --> invalid pointer
+	ptr = nullptr; // ptr --> is not a dangling pointer
+}
+
+/----------------------------------------------	
+/----------------------------------------------

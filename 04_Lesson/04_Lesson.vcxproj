@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{28D62241-A56F-45F4-9C65-365459805D29}</ProjectGuid>
-    <RootNamespace>My03Lesson</RootNamespace>
+    <ProjectGuid>{4C3B7EB2-DB53-44D7-884C-BF55D7BD8E64}</ProjectGuid>
+    <RootNamespace>My04Lesson</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -141,13 +141,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="1_Undefined_Behaviour.txt" />
-    <Text Include="2_RValue_LValue_References.txt" />
-    <Text Include="3_Call_By_Value_Reference.txt" />
-    <Text Include="4_Return_Value.txt" />
-    <Text Include="5_Pointers.txt" />
-    <Text Include="6_Assignment.txt" />
-    <Text Include="7_Default_Arguments.txt" />
+    <Text Include="04_Lesson_Notes.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
