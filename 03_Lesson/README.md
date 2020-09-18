@@ -1,4 +1,4 @@
-# UNDEFINED BEHAVIOUR :
+# Undefined Behaviour :
 	- Always avoid undefined behaviour (ub)
 	1 - Dereferencing null pointers
 	2 - Changing string literals (read only)
@@ -7,7 +7,7 @@
 	5 - No returning value for a function
 	6 - Using uninitialized auto variables 
 
-# UNDEFINED BEHAVIOUR :
+# Undefined Specifier :
 	- do not rely on unspecified behaviour
 	- It depends on compiler type
 	- It depends on the implementation (compiler here), implementation is not required to document which behaviour occurs; range of possible behaviours usually specified in standard
