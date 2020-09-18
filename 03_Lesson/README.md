@@ -20,6 +20,10 @@
 * Unspecified Behaviour
 /----------------------------------------------
 
+# C++ Example
+
+```cpp
+
 #include <iostream>
 
 int main() {
@@ -29,10 +33,13 @@ int main() {
 
 	std::cout << "flag : " << flag << "\n";
 }
+```
 
 /----------------------------------------------
 /----------------------------------------------
 
+
+```cpp
 #include <iostream>
 
 int func1();
@@ -43,10 +50,11 @@ int main() {
 	int x = func1()*5 + func2();
 	// which function is called first ? Not clear!
 }
-
+```
 /----------------------------------------------
 /----------------------------------------------
 
+```cpp
 #include <iostream>
 
 int g = 10;
@@ -66,10 +74,11 @@ int main() {
 
 	std::cout << "number : " << number << "\n";
 }
-
+```
 /----------------------------------------------
 /----------------------------------------------
 
+```cpp
 #include <iostream>
 #include <cstdint>
 
@@ -78,6 +87,5 @@ int main() {
 	int firstNumber;
 	int32_t secondNumber; // guaranteed that secondNumber -->  32 bits 
 }
+```
 
-/----------------------------------------------
-/----------------------------------------------
