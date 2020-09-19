@@ -76,3 +76,34 @@ int main() {
 
 /----------------------------------------------
 /----------------------------------------------
+
+* L-Value References for functions : 
+
+*  void  func(Type x);          --> call by value
+/----------------------------------------------
+*  void  func(Type *ptr);       --> call by reference (nesneyi hem okur hem de yazar)
+*  void  func(Type &ref);       --> call by reference (nesneyi hem okur hem de yazar)
+/----------------------------------------------
+*  void  func(const Type *ptr); --> call by reference (nesneden sadece okuma yapar)
+*  void  func(const Type &ref); --> call by reference (nesneden sadece okuma yapar)
+/----------------------------------------------
+*  Type  *func();       --> return value geri dönülen nesnenin adresi
+*  Type  &func();       --> return value geri dönülen nesnenin referansý
+/----------------------------------------------
+*  const Type  *func(); --> return value geri dönülen nesnenin adresi
+*  const Type  &func(); --> return value geri dönülen nesnenin referansý
+
+/----------------------------------------------
+/----------------------------------------------
+
+* Type func(); 
+  func(); --> R-Value expression
+  Type &ref = func();       // NOT OK
+  const Type &ref = func(); // OK --> R-Value expression
+
+* Type &func(); 
+  func(); --> L-Value expression
+  Type &ref = func(); // OK --> L-Value expression
+
+/----------------------------------------------
+/----------------------------------------------
