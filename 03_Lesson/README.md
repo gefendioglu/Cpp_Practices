@@ -199,16 +199,17 @@ const Type  &func(); --> return value is the reference of object
 ```
 /----------------------------------------------
 /----------------------------------------------
-
-* Type func(); 
-  func(); --> R-Value expression
-  Type &ref = func();       // NOT OK
-  const Type &ref = func(); // OK --> R-Value expression
-
-* Type &func(); 
-  func(); --> L-Value expression
-  Type &ref = func(); // OK --> L-Value expression
-
+```cpp
+Type func(); 
+func();                   //R-Value expression
+Type &ref = func();       // NOT OK
+const Type &ref = func(); // OK --> R-Value expression
+```
+```cpp
+Type &func(); 
+func(); 	    // L-Value expression
+Type &ref = func(); // OK --> L-Value expression
+```
 /----------------------------------------------
 /---------------------------------------------
 
