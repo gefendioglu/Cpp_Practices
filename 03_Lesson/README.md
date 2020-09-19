@@ -562,12 +562,6 @@ struct Data& reffunc(struct Data &ref) {
 }
 ```
 
-/----------------------------------------------
-/----------------------------------------------
-
-/----------------------------------------------
-/----------------------------------------------
-
 ## POINTER TYPES: 
 - Invalid Pointer: 
   - otomatik ömürlü tanımlanan pointer için ilk değer verilmezse
