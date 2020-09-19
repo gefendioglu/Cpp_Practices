@@ -1,4 +1,4 @@
-## Undefined Behaviour :
+## UNDEFINED BEHAVIOUR :
 - Always avoid undefined behaviour (ub)
 - The reason samples for undefined behaviour 
   - Dereferencing null pointers
@@ -8,7 +8,7 @@
   - No returning value for a function
   - Using uninitialized auto variables 
 
-## Unspecified Behaviour :
+## UNSPECIFIED BEHAVIOUR :
 - do not rely on unspecified behaviour
 - It depends on compiler type
 - It depends on the implementation (compiler here), implementation is not required to document which behaviour occurs; range of possible behaviours usually specified in standard
@@ -16,8 +16,6 @@
 * Implementation Defined Behaviour: 
 	- try not to rely on implemetation defined behaviour
 	- this behaviour should be documented
-
-* Unspecified Behaviour
 
 /----------------------------------------------
 /----------------------------------------------
@@ -176,20 +174,29 @@ int main() {
 
 * L-Value References for functions : 
 
-*  void  func(Type x);          --> call by value
+```cpp
+void  func(Type x); //  call by value
+```
 /----------------------------------------------
-*  void  func(Type *ptr);       --> call by reference (nesneyi hem okur hem de yazar)
-*  void  func(Type &ref);       --> call by reference (nesneyi hem okur hem de yazar)
+```cpp
+void  func(Type *ptr); // call by reference (nesneyi hem okur hem de yazar)
+void  func(Type &ref); // call by reference (nesneyi hem okur hem de yazar)
+```
 /----------------------------------------------
-*  void  func(const Type *ptr); --> call by reference (nesneden sadece okuma yapar)
-*  void  func(const Type &ref); --> call by reference (nesneden sadece okuma yapar)
+```cpp
+void  func(const Type *ptr); // call by reference (nesneden sadece okuma yapar)
+void  func(const Type &ref); // call by reference (nesneden sadece okuma yapar)
+```
 /----------------------------------------------
-*  Type  *func();       --> return value geri dönülen nesnenin adresi
-*  Type  &func();       --> return value geri dönülen nesnenin referansý
+```cpp
+Type  *func();  // return value is the address of object
+Type  &func();  // return value is the reference of object 
+```
 /----------------------------------------------
-*  const Type  *func(); --> return value geri dönülen nesnenin adresi
-*  const Type  &func(); --> return value geri dönülen nesnenin referansý
-
+```cpp
+const Type  *func(); --> return value is the address of object
+const Type  &func(); --> return value is the reference of object 
+```
 /----------------------------------------------
 /----------------------------------------------
 
