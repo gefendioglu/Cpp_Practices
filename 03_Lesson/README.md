@@ -89,6 +89,9 @@ int main() {
 }
 ```
 
+/----------------------------------------------
+/----------------------------------------------
+
 ## R VALUE REFERENCES - L VALUE REFERENCES :
 
 ```cpp
@@ -177,28 +180,38 @@ int main() {
 ```cpp
 void  func(Type x); //  call by value
 ```
+
 /----------------------------------------------
+
 ```cpp
 void  func(Type *ptr); // call by reference (nesneyi hem okur hem de yazar)
 void  func(Type &ref); // call by reference (nesneyi hem okur hem de yazar)
 ```
+
 /----------------------------------------------
+
 ```cpp
 void  func(const Type *ptr); // call by reference (nesneden sadece okuma yapar)
 void  func(const Type &ref); // call by reference (nesneden sadece okuma yapar)
 ```
+
 /----------------------------------------------
+
 ```cpp
 Type  *func();  // return value is the address of object
 Type  &func();  // return value is the reference of object 
 ```
+
 /----------------------------------------------
+
 ```cpp
 const Type  *func(); --> return value is the address of object
 const Type  &func(); --> return value is the reference of object 
 ```
+
 /----------------------------------------------
 /----------------------------------------------
+
 ```cpp
 Type func(); 
 func();                   //R-Value expression
@@ -210,6 +223,7 @@ Type &func();
 func(); 	    // L-Value expression
 Type &ref = func(); // OK --> L-Value expression
 ```
+
 /----------------------------------------------
 /---------------------------------------------
 
@@ -436,7 +450,6 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-
 ## RETURN VALUE
 
 * When return value is a pointer: 
@@ -562,7 +575,11 @@ struct Data& reffunc(struct Data &ref) {
 }
 ```
 
+/----------------------------------------------
+/----------------------------------------------
+
 ## POINTER TYPES: 
+
 - Invalid Pointer: 
   - otomatik ömürlü tanımlanan pointer için ilk değer verilmezse
   - bir pointer a dinamik ömürlü nesnenin adresi atandıysa/ilk değer verilirse ve pointer değişkenin hayatı devam ederken onun gösterdiği nesnenin hayatı biterse
@@ -616,6 +633,7 @@ int main() {
 
 /----------------------------------------------
 /----------------------------------------------
+
 - Referanslardan oluşan bir dizi yazılamaz. 
 
 ```cpp
