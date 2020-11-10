@@ -29,6 +29,7 @@
 #include <cstring>
 
 int main() {
+
 	int number = 10;
 	auto inum = number; // inum --> int
 	auto dnum = number + 2.4; // dnum --> double 
@@ -46,6 +47,7 @@ int main() {
 
 	int funct(int, int);
 	auto fptr = &funct; // the data type of fptr --> int(*fptr)(int, int)
+	
 }
 ```
 
@@ -57,6 +59,7 @@ int main() {
 #include <iostream>
 
 int main() {
+
 	auto x = 10; // x --> int
 
 	const int firstNumber = 10;
@@ -87,6 +90,7 @@ int main() {
 	// ----------------------------------------------
 	int func(int);
 	auto function = func; // function --> int(*)(int)
+	
 }
 ```
 
@@ -98,6 +102,7 @@ int main() {
 #include <iostream>
 
 int main() {
+
 	// Reference / Const Reference :
 	// ----------------------------------------------
 	int firstNumber = 10;
@@ -134,6 +139,7 @@ int main() {
 	int (*ptrFunction)(int, int) = &foo; // pointer function
 	int (&refFunction)(int, int) = foo;  // reference function
 	auto& refFunctionAuto = foo;
+	
 }
 ```
 
