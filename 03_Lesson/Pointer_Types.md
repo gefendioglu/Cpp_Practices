@@ -13,7 +13,7 @@
 /----------------------------------------------
 /----------------------------------------------
 
--Example: 
+- Example: 
 ```cpp
 #include <iostream>
 
@@ -36,8 +36,8 @@ int main() {
 /----------------------------------------------
 
 - Example: 
- - Non-const pointer types can point different addresses of objects  
- - Const pointer types can not point different addresses of objects. It must point the same object.  
+  - Non-const pointer types can point different addresses of objects  
+  - Const pointer types can not point different addresses of objects. It must point the same object.  
 ```cpp
 #include <iostream>
 
@@ -73,7 +73,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
--Example: Initialization of pointer and reference arrays
+- Example: Initialization of pointer and reference arrays
 
 ```cpp
 #include <iostream>
