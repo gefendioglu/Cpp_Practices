@@ -155,11 +155,11 @@ int main() {
 - **Example** : 
   - The type conversion rules for const address types (const int *):
     - The type conversion from const address data types to non-const address data types is OK (C)
-    - No type conversion from const address data types to non-const address data types (C++) 
-		  - const T* --> T* (NOT OK)
+    - No type conversion from const address data types to non-const address data types (C++)
+      - const T* --> T* (NOT OK)
     - The type conversion from non-const address data types to const address data types is OK (C)
     - The type conversion from non-const address data types to const address data types is OK (C++)
-		  - T* --> const T* (OK)
+      - T* --> const T* (OK)
 ```cpp
 #include <iostream>
 
@@ -178,8 +178,8 @@ int main() {
 
 - **Example** :
   - The type conversion for void pointers:
-	  - (C++) : void T* (OK) 
-	  - (C++) : void T* --> T* (OK) 
+    - (C++) : void T* (OK) 
+    - (C++) : void T* --> T* (OK) 
     - (C)   : void T* --> T* (NOT OK) 
 ```cpp
 #include <iostream>
