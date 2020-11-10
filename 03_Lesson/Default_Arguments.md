@@ -16,20 +16,20 @@ int Printf(const char* p, ...);  // variadic function
 int main() {
 	func(10, 20, 30);  // OK
 	func(10, 20);      // NOT OK
-	func(10);		   // NOT OK
-	func();			   // NOT OK
+	func(10);          // NOT OK
+	func();		   // NOT OK
 	func(1, 2, 3, 4);  // NOT OK
 
 	variadicFunc(10, 20, 30);  // OK
 	variadicFunc(10, 20);      // OK
-	variadicFunc(10);		   // OK
-	variadicFunc();			   // NOT OK --> first parameter shall be filled !!!
+	variadicFunc(10);	   // OK
+	variadicFunc();		   // NOT OK --> first parameter shall be filled !!!
 	variadicFunc(1, 2, 3, 4);  // OK
 
 	Printf("gamze", 20, 30);   // OK
 	Printf("gamze", 20);       // OK
-	Printf("gamze");		   // OK
-	Printf();			       // NOT OK --> first parameter shall be filled !!!
+	Printf("gamze");	   // OK
+	Printf();		   // NOT OK --> first parameter shall be filled !!!
 	Printf("gamze", 2, 3, 4);  // OK
 }
 ```
@@ -44,14 +44,14 @@ int main() {
 void func(int , int , int z = 10);
 void foo1(int x = 30, int y = 20 , int z = 10);
 
-void foo2(int x, int y = 20 , int);		    // Syntax Error
+void foo2(int x, int y = 20 , int);	    // Syntax Error
 void foo3(int x, int y = 20 , int z = 10);  // Not Syntax Error
 
 int main() {
 	func(10, 20, 30);  // OK --> z = 30
 	func(10, 20);      // OK --> z = 10
-	func(10);		   // NOT OK --> second argument shall be sent !
-	func();			   // NOT OK --> first and second arguments shall be sent !
+	func(10);	   // NOT OK --> second argument shall be sent !
+	func();		   // NOT OK --> first and second arguments shall be sent !
 	func(1, 2, 3, 4);  // NOT OK --> No fourth parameters in function declaration
 
 	foo1();       // OK --> foo1(30,20,10);
@@ -103,14 +103,13 @@ int fooDefArg(int y = funcDefArg(15)) {
 }
 
 int main() {
-	std::cout << "foo(func(27, 37)) : " << foo(func(27, 37)) << "\n"; // : 64
-	std::cout << "foo(125) : " << foo(125) << "\n"; // foo(125) : 125 
-	std::cout << "foo() : " << foo() << "\n";       // foo() : 40
+	std::cout << "foo(func(27, 37)) : " << foo(func(27, 37)) << "\n"; // foo(func(27, 37)) : 64
+	std::cout << "foo(125) : " << foo(125) << "\n"; 		  // foo(125) : 125 
+	std::cout << "foo() : " << foo() << "\n";                         // foo() : 40
 
-	std::cout << "fooDefArg(funcDefArg(27)) : " << fooDefArg(funcDefArg(27)) << "\n"; 
-	// fooDefArg(funcDefArg(27)) : 37
-	std::cout << "fooDefArg(125) : " << fooDefArg(125) << "\n"; // fooDefArg(125) : 125
-	std::cout << "fooDefArg() : " << fooDefArg() << "\n"; // fooDefArg() : 25
+	std::cout << "fooDefArg(funcDefArg(27)) : " << fooDefArg(funcDefArg(27)) << "\n";  // fooDefArg(funcDefArg(27)) : 37
+	std::cout << "fooDefArg(125) : " << fooDefArg(125) << "\n"; 			   // fooDefArg(125) : 125
+	std::cout << "fooDefArg() : " << fooDefArg() << "\n"; 				   // fooDefArg() : 25
 }
 ```
 
@@ -271,8 +270,8 @@ void wrapperFunc(int x, int z, int y = 10) {
 }
 
 int main() {
-	wrapperFunc(10,20,30);  // OK     --> func(10,20,30);
-	wrapperFunc(10,20);     // OK     --> func(10,10,20);
+	wrapperFunc(10,20,30);  // OK --> func(10,20,30);
+	wrapperFunc(10,20);     // OK --> func(10,10,20);
 	wrapperFunc(10);        // NOT OK !!! 
 }
 ```
