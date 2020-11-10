@@ -2,14 +2,15 @@
 ## VALUE CATEGORY:
 
  - What is the difference between "expression" and "statement"?
-   expression --> 10, x, x+10, a*a + b*b > 10. etc (operators, objects, constants, etc.)
-   statement  --> all expressions which have ; at the end. 
-	              x = 10  --> expression
-				  x = 10; --> statement (expression statement)
-	- "const" keyword doesnt effect the value category 
+   - expression --> 10, x, x+10, a*a + b*b > 10. etc (operators, objects, constants, etc.)
+   - statement  --> all expressions which have ; at the end. 
+     - x = 10  --> expression
+     - x = 10; --> statement (expression statement)
+     
+- "const" keyword doesnt effect the value category 
 
 - What is the data type?
-	- int, int*, int&, int [], int (*)(int), etc.
+  - int, int*, int&, int [], int (*)(int), etc.
 
 /----------------------------------------------
 /----------------------------------------------
@@ -17,26 +18,27 @@
 ## R Value References & L Value References :
 
 - The value category types in Cpp:
-	- L Value (Left Value):
-	  the values that point objects
-	  they have a place in the memory 
-
-	- X Value (Expiring Value):
-	  not defined in C language
-	  the values that point objects
-	  kodda doðrudan bir isim olarak karþýmýza çýkmaz (bir kimliði yoktur.)
+  - L Value (Left Value):
+    - the values that point objects
+    - they have a place in the memory 
+    
+  - X Value (Expiring Value):
+    - not defined in C language
+    - the values that point objects
+    - it is not named in a code (no identity for this type of value category)
 	  
-	- PR Value (Pure Right Value):
-	  the values that not point any objects
-	  they dont have any place in the memory 
-
-	- L Value + X Value = GL Value 
-	- PR Value + X Value = R Value 
+   - PR Value (Pure Right Value):
+     - the values that not point any objects
+     - they dont have any place in the memory 
+   
+   - L Value + X Value = GL Value 
+   - PR Value + X Value = R Value 
 
 - A value belongs to only one of the above value categories !!!
+
 - The differences of value categories between C and CPP ? 
-				       C			     C++
-			     ----------		-----------
+			       C	            C++
+			   ----------		-----------
 	++x		    R-Value		   L-Value
 	--x		    R-Value		   L-Value
 	a,b		    R-Value		   L-Value (even if right operand is an object)
@@ -78,7 +80,7 @@ int main() {
 	// referans --> L Value , 10 --> R-Value
 	// Error: 'initializing': cannot convert from 'int' to 'int &'
 
-	int* const ptr = &firstNumber; // (*ptr) = firstNumber
+	int* const ptr = &firstNumber;            // (*ptr) = firstNumber
 
 	std::cout << "ref : " << ref << "\n";     // ref = 10
 	std::cout << "(*ptr) : " << *ptr << "\n"; // (*ptr) = 10
@@ -100,8 +102,8 @@ int main() {
 	// if auto is used  --> auto  = int* referansArray
 	// if auto& is used --> auto = int (&referansArray)[5]
 
-	std::cout << "(&refArray) : " << (&refArray) << "\n"; // (&refArray) = 006FF7F4
-	std::cout << "(&refArray) address: " << refArray << "\n";     // refArray = 006FF7F4
+	std::cout << "(&refArray) : " << (&refArray) << "\n";            // (&refArray) = 006FF7F4
+	std::cout << "(&refArray) address: " << refArray << "\n";        // refArray = 006FF7F4
 	std::cout << "referansArray address: " << referansArray << "\n"; // referansArray = 006FF7F4
 }
 ```
@@ -120,11 +122,11 @@ int main() {
 	int** ptrptr = &ptr;  // ptrptr --> &ptr
 	int**& ref = ptrptr;  // ref --> ptrptr 
 	
-	std::cout << "(*ptr) : " << *ptr << "\n";     // *ptr  = 10
-	std::cout << "(ptrptr) : " << ptrptr << "\n"; // ptrptr = 005BFB4C
-	std::cout << "(**ref) : " << **ref << "\n";   // **ref = 10
-	std::cout << "(++**ref) : " << ++**ref << "\n";   // ++**ref = 11
-	std::cout << "(&ref) : " << &ref << "\n";     // &ref = 005BFB40
+	std::cout << "(*ptr) : " << *ptr << "\n";       // *ptr  = 10
+	std::cout << "(ptrptr) : " << ptrptr << "\n";   // ptrptr = 005BFB4C
+	std::cout << "(**ref) : " << **ref << "\n";     // **ref = 10
+	std::cout << "(++**ref) : " << ++**ref << "\n"; // ++**ref = 11
+	std::cout << "(&ref) : " << &ref << "\n";       // &ref = 005BFB40
 }
 ```
 
@@ -176,7 +178,7 @@ const Type  &func(); --> return value is the reference of object
 
 ```cpp
 Type func(); 
-func();                   //R-Value expression
+func();                   // R-Value expression
 Type &ref = func();       // NOT OK
 const Type &ref = func(); // OK --> R-Value expression
 ```
@@ -272,7 +274,6 @@ int main() {
 	valuecategory(xfunc());     // Value category of "xfunc()" is : X Value
 }
 ```
-
 /----------------------------------------------
 /----------------------------------------------
 
