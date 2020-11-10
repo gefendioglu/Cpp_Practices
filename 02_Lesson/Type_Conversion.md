@@ -57,7 +57,7 @@ enum Color{White, Gray, Black};
 enum Position{OFF, ON};
 
 int main() {
-	enum Color myColor = Black;// --> Gray : 2
+	enum Color myColor = Black;     // --> Gray : 2
 	enum Position myPosition = OFF; // --> OFF : 0
 
 	int number1 = myColor;
@@ -79,7 +79,7 @@ int main() {
 int main() {
 	int x = 0;
 	int* ptr = &x; // int* ptr = x;     --> OK, warning in main.c 
-				         // int number = ptr; --> OK, warning in main.c 
+		       // int number = ptr; --> OK, warning in main.c 
 }
 ```
 
