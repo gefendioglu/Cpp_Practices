@@ -10,6 +10,8 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
 
 - [Return Value](https://github.com/gefendioglu/Cpp_Practices/blob/master/03_Lesson/Return_Value.md)
 
+- [Pointer Types](https://github.com/gefendioglu/Cpp_Practices/blob/master/03_Lesson/Pointer_Types.md)
+
 
 
 
