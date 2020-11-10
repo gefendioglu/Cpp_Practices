@@ -14,7 +14,7 @@ int main() {
 	int* ptr = &firstNumber;
 	int*& refPointer = ptr;
 
-	std::cout << "ptr : " << ptr << "\n";				// ptr : 00AFFAF8
+	std::cout << "ptr : " << ptr << "\n";	            // ptr : 00AFFAF8
 	std::cout << "refPointer : " << refPointer << "\n"; // refPointer : 00AFFAF8
 
 	*refPointer = 300; // *refPointer --> firstNumber
