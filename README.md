@@ -16,6 +16,7 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
 
 - [Default Argument](https://github.com/gefendioglu/Cpp_Practices/blob/master/03_Lesson/Default_Arguments.md)
 
+- [Type Conversion](https://github.com/gefendioglu/Cpp_Practices/blob/master/02_Lesson/Type_Conversion.md)
 
 
 
