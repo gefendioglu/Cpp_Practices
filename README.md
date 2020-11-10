@@ -22,6 +22,8 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
 
 - [Type Conversion](https://github.com/gefendioglu/Cpp_Practices/blob/master/02_Lesson/Type_Conversion.md)
 
+- [Auto Type Deduction](https://github.com/gefendioglu/Cpp_Practices/blob/master/02_Lesson/Auto_Type_Deduction.md)
+
 
 
 
