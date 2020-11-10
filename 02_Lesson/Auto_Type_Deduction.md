@@ -1,24 +1,24 @@
 ## AUTO TYPE DEDUCTION
 
-* The tools in Cpp using the specifications of type deduction: 
-	- auto specifier 
-	- decltype specifier
-	- templates 
+- The tools in Cpp using the specifications of type deduction: 
+  - auto specifier 
+  - decltype specifier
+  - templates 
 
 - "auto" specifier : 
-	- the meaning of auto specifier is different in C and C++
-	- AAA : Almost Always Auto
-	- The advantages of using auto specifier:
-		- to force all variables to be initialized
-		- the common usage of auto:  
-			generic programming
-			while assigning a function result/address to a variable/pointer
+  - the meaning of auto specifier is different in C and C++
+  - AAA : Almost Always Auto
+  - The advantages of using auto specifier:
+    - to force all variables to be initialized
+    - the common usage of auto:
+      - generic programming
+      - while assigning a function result/address to a variable/pointer
 
  - "auto" type deduction with reference semantics: 
-	-  The rules are different for each shown in the following: 
-	   auto x = expr;
-	   auto &ref = expr; 
-	   auto &&refref = expr; 
+   - The rules are different for each shown in the following: 
+     - auto x = expr;
+     - auto &ref = expr; 
+     - auto &&refref = expr; 
 
 /----------------------------------------------
 /----------------------------------------------
@@ -34,7 +34,7 @@ int main() {
 	auto dnum = number + 2.4; // dnum --> double 
 	// auto x; --> auto variable must be initialized !!!
 
-    // the data type of strcmp --> int *(fp)(const char *, const char *)
+        // the data type of strcmp --> int *(fp)(const char *, const char *)
 	auto functionPointer = strcmp;
 
 	int foo();
