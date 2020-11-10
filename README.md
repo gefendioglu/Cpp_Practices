@@ -12,6 +12,8 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
 
 - [Pointer Types](https://github.com/gefendioglu/Cpp_Practices/blob/master/03_Lesson/Pointer_Types.md)
 
+- [Assignment](https://github.com/gefendioglu/Cpp_Practices/blob/master/03_Lesson/Assignment.md)
+
 
 
 
