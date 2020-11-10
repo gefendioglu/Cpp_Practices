@@ -1,6 +1,6 @@
 ## UNDEFINED BEHAVIOUR :
 - Always avoid undefined behaviour (ub) !!!
-- The reasons of undefined behaviours:  
+- The reasons of undefined behaviour: 
   - Dereferencing null pointers
   - Changing string literals (read only)
   - Changing variables which assigned as const
@@ -12,10 +12,10 @@
 - Do not rely on unspecified behaviour !!!
 - It depends on compiler type.
 - It depends on the implementation (compiler here), implementation is not required to document which behaviour occurs; range of possible behaviours usually specified in standard
-  
-* Implementation Defined Behaviour: 
-	- try not to rely on implemetation defined behaviour
-	- this behaviour should be documented
+
+## IMPLEMENTATION DEFINED BEHAVIOUR :
+- Try not to rely on implementation defined behaviour !!!
+- This behaviour should be documented 
 
 /----------------------------------------------
 /----------------------------------------------
@@ -23,7 +23,6 @@
 #### Example: Unspecified Behaviour
 
 ```cpp
-
 #include <iostream>
 
 int main() {
@@ -75,6 +74,7 @@ int main() {
 	std::cout << "number : " << number << "\n";
 }
 ```
+
 /----------------------------------------------
 /----------------------------------------------
 
