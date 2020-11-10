@@ -2,7 +2,7 @@
 /----------------------------------------------
 /----------------------------------------------
 
-*Example:
+- Example:
 
 ```cpp
 #include <iostream>
@@ -21,7 +21,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-**Example:
+- Example:
 
 ```cpp
 #include <iostream>
@@ -45,7 +45,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-**Example:
+- Example:
 
 ```cpp
 #include <iostream>
@@ -67,7 +67,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-**Example:  Pointers can be referenced for other pointers
+- Example: Pointers can be referenced for other pointers
 
 ```cpp
 #include <iostream>
@@ -90,7 +90,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-**Example: L-Value References for functions : 
+- Example: L-Value References for functions : 
 
 ```cpp
 void  func(Type x); //  call by value
@@ -127,7 +127,7 @@ const Type  &func(); --> return value is the reference of object
 /----------------------------------------------
 /----------------------------------------------
 
-**Example:
+- Example:
 
 ```cpp
 Type func(); 
