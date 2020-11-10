@@ -12,6 +12,8 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
 
 - [Pointer Types](https://github.com/gefendioglu/Cpp_Practices/blob/master/03_Lesson/Pointer_Types.md)
 
+- [Null Pointers](https://github.com/gefendioglu/Cpp_Practices/blob/master/02_Lesson/Null_Pointers.md)
+
 - [Assignment](https://github.com/gefendioglu/Cpp_Practices/blob/master/03_Lesson/Assignment.md)
 
 - [Default Argument](https://github.com/gefendioglu/Cpp_Practices/blob/master/03_Lesson/Default_Arguments.md)
