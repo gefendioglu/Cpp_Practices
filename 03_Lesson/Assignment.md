@@ -3,7 +3,7 @@
 /----------------------------------------------
 /----------------------------------------------
 
-- Example: Assigning a pointer and reference values 
+- **Example**: Assigning a pointer and reference values 
 ```cpp
 #include <iostream>
 
@@ -29,7 +29,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- Example: Assigning references 
+- **Example**: Assigning references 
 ```cpp
 #include <iostream>
 
