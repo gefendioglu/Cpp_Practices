@@ -37,12 +37,10 @@
 - A value belongs to only one of the above value categories !!!
 
 - The differences of value categories between C and CPP ?
-  - ++x       --> R-Value (C), L-Value (C++)
-  - --x       --> R-Value (C), L-Value (C++)
-  - a,b       --> R-Value (C), L-Value (C++) (even if right operand is an object)
-  - x++       --> R-Value (C), PR-Value (C++)
-  - x--       --> R-Value (C), PR-Value (C++)
-  - x>0 ? y:z --> R-Value (C), L-Value (C++) (for operands)
+  - **++x**, **--x**  --> R-Value (C), L-Value (C++)
+  - **a**,**b**       --> R-Value (C), L-Value (C++) (even if right operand is an object)
+  - **x++**, **x--**  --> R-Value (C), PR-Value (C++)
+  - **x>0 ? y:z**     --> R-Value (C), L-Value (C++) (for operands)
 
 /----------------------------------------------
 /----------------------------------------------
