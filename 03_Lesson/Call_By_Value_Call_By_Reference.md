@@ -1,5 +1,5 @@
 
-## CALL BY VALUE - CALL BY REFERENCE :
+## CALL BY VALUE & CALL BY REFERENCE :
 - C   --> always call-by-value
 - C++ --> depends on function definition
 
