@@ -1,14 +1,15 @@
 ## POINTER TYPES: 
 
 - Invalid Pointer: 
-  - otomatik ömürlü tanımlanan pointer için ilk değer verilmezse
-  - bir pointer a dinamik ömürlü nesnenin adresi atandıysa/ilk değer verilirse ve pointer değişkenin hayatı devam ederken onun gösterdiği nesnenin hayatı biterse
+  - If the automatically defined pointer types are not initialized --> invalid pointer 
+  - If a pointer type is assigned/initialized with an address of dynamic object and then this pointed objects are deleted before deleting the pointer type --> invalid pointer 
   
-- Valid pointer: 
-  - Bir pointer bir dizinin son elemanının adresini tutarken, değeri bir arttırılırsa dizinin bittiği yerin adresini tutuyor olacaktır 
-  
-- Değeri nullptr olan bir pointer değişken hiçbir nesneyi göstermemektedir. Asla derefere edilmemelidir. 
-- "Null pointer" kavramı mevcut; ancak "null reference" kavramı bulunmaz!
+- Valid Pointer: 
+  - If a pointer points the address of the last array element and its value is incremented, then this pointer holds the address of the ending place of the same array.  
+ 
+- Null Pointer (nullptr):
+  - Null pointers point to anything. There is nothing in this address. That's why, it must not be dereferenced.  
+  - There is no "null reference" concept in Cpp.
 
 /----------------------------------------------
 /----------------------------------------------
@@ -36,8 +37,8 @@ int main() {
 /----------------------------------------------
 
 - Example: 
-  - Non-const pointer types can point different addresses of objects  
-  - Const pointer types can not point different addresses of objects. It must point the same object.  
+  - Non-const pointer types can point the addresses of different objects   
+  - Const pointer types can not point the addresses of different objects. It must point the same object.  
 ```cpp
 #include <iostream>
 
@@ -57,7 +58,6 @@ int main() {
 /----------------------------------------------
 
 - Example: There is no definition for reference arrays.
-
 ```cpp
 #include <iostream>
 
@@ -74,7 +74,6 @@ int main() {
 /----------------------------------------------
 
 - Example: Initialization of pointer and reference arrays
-
 ```cpp
 #include <iostream>
 
