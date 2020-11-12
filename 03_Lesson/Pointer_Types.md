@@ -14,7 +14,7 @@
 /----------------------------------------------
 /----------------------------------------------
 
-- Example: 
+- **Example**: 
 ```cpp
 #include <iostream>
 
@@ -29,14 +29,14 @@ int main() {
 /----------------------------------------------
 
 ### The Comparisons for References and Pointers:
-- Referanslara ilk değer vermek zorunlu, ilk değer vermeden referans oluşturulamaz ! 
-- Pointer değişkenlere ilk değer vermek zorunlu değildir. 
-- "Reference to reference" kavramı yoktur; ancak "pointer to pointer" kavramı mecvuttur. 
+- References must be initialized !!!
+- There is no obligation to initialize a pointer type. 
+- There is no "reference to reference" definition. However, "pointer to pointer" definition is commonly used.  
 
 /----------------------------------------------	
 /----------------------------------------------
 
-- Example: 
+- **Example**: 
   - Non-const pointer types can point the addresses of different objects   
   - Const pointer types can not point the addresses of different objects. It must point the same object.  
 ```cpp
@@ -57,7 +57,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- Example: There is no definition for reference arrays.
+- **Example**: There is no definition for reference arrays.
 ```cpp
 #include <iostream>
 
@@ -73,7 +73,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- Example: Initialization of pointer and reference arrays
+- **Example**: Initialization of pointer and reference arrays
 ```cpp
 #include <iostream>
 
