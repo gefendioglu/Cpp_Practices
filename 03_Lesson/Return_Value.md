@@ -2,8 +2,7 @@
 /----------------------------------------------
 /----------------------------------------------
 
-- Example: When return value is a pointer: 
-
+- **Example**: When return value is a pointer 
 ```cpp
 int* ptrFunc() {
 	static int number = 10;
@@ -14,8 +13,7 @@ int* ptrFunc() {
 /----------------------------------------------
 /----------------------------------------------
 
-- Example: When return value is a reference: 
-
+- **Example**: When return value is a reference
 ```cpp
 int& refFunc() {
 	static int number = 10;
@@ -27,8 +25,7 @@ int& refFunc() {
 /----------------------------------------------
 /----------------------------------------------
 
-- Example: When function return value is reference, then the function is a L-Value (1)
-
+- **Example**: When function return value is reference, then the function is a L-Value (1)
 ```cpp
 #include <iostream>
 
@@ -48,8 +45,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- Example: When function return value is reference, then the function is a L-Value (2)
-
+- **Example**: When function return value is reference, then the function is a L-Value (2)
 ```cpp
 #include <iostream>
 
@@ -70,8 +66,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- Example: When function return value is reference or address --> undefined behaviour
-
+- **Example**: When function return value is reference or address --> undefined behaviour
 ```cpp
 #include <iostream>
 
@@ -100,8 +95,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- Example: The return value is the same with the function parameter as an object address (pointer)
-
+- **Example**: The return value is the same with the function parameter as an object address (pointer)
 ```cpp
 struct Data {
 	int x, y, z;
@@ -117,8 +111,7 @@ struct Data *func(struct Data *ptr){
 /----------------------------------------------
 /----------------------------------------------
 
-- Example: The return value is the same with the function parameter as an object reference
-
+- **Example**: The return value is the same with the function parameter as an object reference
 ```cpp
 struct Data& reffunc(struct Data &ref) { 
 
