@@ -37,7 +37,10 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** : Default argümanlarýn fonksiyon bildiriminde (function definition) yapýlmasý yaygýndýr. Ancak özel durumlarda fonksiyon tanýmlarýnda (function declaration) da uygulanmaktadýr. Ancak he  bildirimde hem de tanýmda yapýlmasý hatadýr.
+- **Example** : 
+  - It is common that default arguments are applied in the function definition.  
+  - Default arguments can also be applied in function declarations for some special cases. 
+  - Applying default argument both in function definitions and function declaration is an error. 
 ```cpp
 #include <iostream>
 
@@ -254,7 +257,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** : Calling default arguments with wrapper functions
+- **Example** : Calling default arguments using wrapper functions
 
 ```cpp
 #include <iostream>
