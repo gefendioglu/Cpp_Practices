@@ -2,4 +2,301 @@
 /----------------------------------------------
 /----------------------------------------------
 
-*
+- Tekrar
+void func(int &ref);
+void func(const int &ref);
+int& func(void); --> return value is L value
+func() = 10; not an error !!!
+
+- L value Reference
+void func(T *ptr);       --> void func(T &ref);
+void func(const T *ptr); --> void func(const T &ref);
+T* func();               --> T& func();
+const T* func();         --> const T& func();
+
+- R Value / L Value Functions
+ - T foo();   --> R value expression --> T &ref = foo();  // ERROR --> const T &ref 
+ - T& func(); --> L value expression --> T &ref = func(); // NOT ERROR
+
+/----------------------------------------------
+/----------------------------------------------
+
+- Default Argument
+  - int func(int x, int y);
+    int foo(int = func(12, 64));
+    foo();   --> foo(func(12,64));
+    foo(45); --> foo(func(45, 64));
+
+- Global variables and functions are run before main() function !!! 
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Default arguments for value parameters (call by value)
+
+#include <iostream>
+
+// default argument in function declaration
+void func(int x = 1, int y = 2, int z= 3);
+
+// no default argument in function definition
+void func(int x, int y, int z) {
+	std::cout << "x : " << x << " y : " << y << " z : " << z << "\n";
+}
+
+int main() {
+	
+	func();         // x: 1 y : 2 z : 3
+	func(10);       // x : 10 y : 2 z : 3
+	func(10,20);    // x : 10 y : 20 z : 3
+	func(10,20,30); // x : 10 y : 20 z : 30
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Default arguments for reference parameters (call by reference) 
+
+#include <iostream>
+
+int g = 23;
+// default argument in function declaration
+void func(int& ref = g);
+
+// no default argument in function definition
+void func(int& ref) {
+	std::cout << "ref : " << ref << "\n";
+}
+
+int main() {
+	
+	func(); // ref : 23 (like as func(g);)
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Default arguments for pointer type parameters
+
+#include <iostream>
+
+void func(int* ptr = nullptr);
+void func(int* ptr) {
+	std::cout << "ptr : " << ptr << "\n";
+}
+
+int main() {
+	
+	int x = 10;
+	func(&x);   // ptr : 00AFFA24
+	func();     // ptr : 00000000 (like as func(nullptr);)
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Default arguments for pointer type parameters
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+void time_func(time_t* ptr);
+void time_func(time_t* ptr = nullptr); // redecleration
+
+int main() {
+	time_func(); // OK --> time_func(nullptr);
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Default arguments for const char pointr type parameters
+
+#include <iostream>
+
+void func(const char* error = "Exception Handling");
+void func(const char* error) {
+	std::cout << "error : " << error << "\n";
+}
+
+int main() {
+	func("Error !!!"); // error : Error !!!
+	func();            // error : Exception Handling
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : 
+  - If there is no default arguments in function decleration, it can be added with redecleration 
+
+#include <iostream>
+
+void func(int x, int y, int z);
+void func(int x, int y, int z=0); // redecleration
+
+int main() {
+	func(10,20 ); // OK --> func(10,20,0);
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Function redecleration for default arguments
+
+#include <iostream>
+
+void func(int x, int y, int z);
+// redecleration, if no default argument for the same function definition
+void func(int x, int y, int z = 0);
+
+void foo(int x, int y, int z = 300);
+// redecleration, merging two functions by compiler
+void foo(int x, int y = 200, int z = 300);
+
+
+int main() {
+	func(1, 2, 3); // OK --> func(1,2,3);
+	func(1, 2);    // OK --> func(1,2,0);
+	func(1);       // NOT OK --> func does not take 1 arguments
+	func();        // NOT OK --> func does not take 0 arguments
+	
+	foo(1,2,3);    // OK --> foo(1,2,3);
+	foo(1,2);      // OK --> foo(1,2,300);
+	foo(1);        // OK --> foo(1,200,300);
+	foo();         // NOT OK --> func does not take 0 arguments 
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Default argument definition for the middle parameter with wrapper function
+
+#include <iostream>
+
+void func(int x, int y, int z);
+void wrapper_func(int x, int z, int y = 20) {
+	func(x, y, z);
+}
+
+int main() {
+	wrapper_func(10, 30); // OK --> func(12, 20, 30);
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Default argument for the last parameter of a function
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <chrono>
+#include <ctime>
+
+// Checking if the last parameter is sent or not !!!
+void process_date(int day, int month, int year = -1);
+void process_date(int day, int month, int year) {
+	if (year == -1) {
+		auto start = std::chrono::system_clock::now();
+		std::time_t end_time = std::chrono::system_clock::to_time_t(start);
+		auto date = std::ctime(&end_time);
+		
+		std::cout << "date : " << date << "\n";
+	}
+	else {
+		std::cout << "day: " << day << " month : " << month << " year : " << year << "\n";
+	}
+}
+
+int main() {
+	process_date(11,11,2020); // day: 11 month : 11 year : 2020
+	process_date(11,11);      // date : Thu Nov 12 22 : 29 : 13 2020
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- R Value References: 
+  - References does not allocate memory, the memory allocation is for objects 
+  - Adding to C++ standard with C++11 
+  - Adding for move semantics and perfect forwarding reference 
+  - R value reference must be initialized with R Value expression 
+    - T &&ref = 10; // OK --> R value reference 
+	- ref is a L value expression 
+	- T &&ref is a R value expression (the data type of ref is a R value expression)
+	- void func(T &&ref); --> move semantic
+	- T&& func(); --> return value is R value reference 
+    - auto &&ref = expr; --> this is not R value reference, it is forwarding reference !!! (forwarding reference, if there is type deduction using with && specifier.)
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** :R value references and R value expressions
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+int foo();
+int &func();
+
+int main() {
+
+	int value = 10;
+	int&& ref = value;    // NOT OK --> value is a L value expression
+	int&& ref1 = 10;      // OK --> 10 is a R value expression
+	int&& ref2 = foo();   // OK --> foo() is a R value expression
+	int&& ref = func();   // NOT OK --> func() is a L value expression
+	int& r = ref1;        // OK --> ref is a L value expression
+	r = 10;				  // OK --> assignment for L-value expression
+
+	value + 5;			// --> R value expression
+	++value;			// --> L value expression
+	--value;			// --> L value expression
+	value > 10;			// --> R value expression (comparisons)
+	value && 10;		// --> R value expression
+	!value ;			// --> R value expression
+	value & 10;			// --> R value expression
+	value++;			// --> R value expression
+	value--;	        // --> R value expression
+	value > 10 ? 1 : 0; // --> R value expression
+	foo();				// --> R value expression
+
+	int x = 10, y = 20;
+	(x = 10) = y;       // (x = 10) --> L value expression
+
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- Type Deduction --> decltype specifier 
+  - 
+
+
+
+
+
+
+
+
+- Type Deduction --> decltype 
+  - 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
