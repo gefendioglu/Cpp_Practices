@@ -1,4 +1,4 @@
-## C++ FEATURES && PRACTICES
+## C++ Features && Practices
 
 This repo includes the important CPP features with sample codes (C++11, C++14, C++17).
 
