@@ -30,6 +30,7 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
 
 - [C++ Code Examples](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Practices/Cpp_Practices.md)
 
+- [HackerRank C++ Code Examples](https://github.com/gefendioglu/Cpp_Practices/blob/master/HackerRank/HackerRank_Cpp.md)
 
 
 
