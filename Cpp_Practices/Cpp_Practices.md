@@ -3,7 +3,7 @@
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: 
+- **Example** : 
   - Write a program that prints the numbers from 1 to 100. 
   - If a number is divisible by 3, print “Fizz” instead of the number, 
   - If a number is divisible by 5, print “Buzz” instead of the number, 
@@ -35,7 +35,7 @@ int main()
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: Write a function that reverses a string without using any library functions.
+- **Example** : Write a function that reverses a string without using any library functions.
 ```cpp
 #include <iostream>
 #include <string>
@@ -57,8 +57,7 @@ int main()
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**:
-  - Given an unsorted list of integers, write a function that returns a new list with all duplicate values removed.
+- **Example** : Given an unsorted list of integers, write a function that returns a new list with all duplicate values removed.
 ```cpp
 #include <iostream>
 #include <list>
@@ -100,8 +99,9 @@ int main()
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: 
-  - The same problem can be solved by converting the list to a set, which doesn’t allow duplicated values. Sets don’t preserve the original ordering of their data (as the problem statement doesn’t require that ordering be preserved).
+- **Example** : 
+  - The same problem can be solved by converting the list to a set, which doesn’t allow duplicated values. 
+  - Sets don’t preserve the original ordering of their data (as the problem statement doesn’t require that ordering be preserved).
 ```cpp
 #include <iostream>
 #include <list>
@@ -134,12 +134,12 @@ int main()
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: 
+- **Example** : 
   - You are given a string that contains left and right parenthesis characters.
   - Write code to determine whether the parentheses are correctly nested. 
   - For example, the strings "(())" and "()()" are correctly nested but "(()()" and ")(" are not.
 
-- **Solution**:
+- **Solution** :
   - There will be an equal number of left and right parentheses (counting problem)
   - Using a single variable that tracks the relative number of left and right parentheses.
   - Increment a counter when you see a left parenthesis, and decrement it when you see a right parenthesis.
