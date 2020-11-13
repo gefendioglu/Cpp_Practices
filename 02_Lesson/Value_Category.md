@@ -15,7 +15,7 @@
 /----------------------------------------------
 /----------------------------------------------
 
-## R Value References & L Value References :
+## R-VALUE REFERENCES & L-VALUE REFERENCES :
 - References does not allocate memory, the memory allocation is for objects !!! 
 - Adding to C++ standard with C++11 
 - The value category types in Cpp:
