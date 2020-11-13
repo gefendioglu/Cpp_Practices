@@ -16,7 +16,8 @@
 /----------------------------------------------
 
 ## R Value References & L Value References :
-
+- References does not allocate memory, the memory allocation is for objects !!! 
+- Adding to C++ standard with C++11 
 - The value category types in Cpp:
   - L Value (Left Value):
     - the values that point objects
@@ -41,6 +42,60 @@
   - **a**,**b**       --> R-Value (C), L-Value (C++) (even if right operand is an object)
   - **x++**, **x--**  --> R-Value (C), PR-Value (C++)
   - **x>0 ? y:z**     --> R-Value (C), L-Value (C++) (for operands)
+
+/----------------------------------------------
+/----------------------------------------------
+
+## R Value References:
+- Adding for move semantics and perfect forwarding reference 
+
+- Forwarding reference, if there is type deduction using with && specifier.
+  - auto &&ref = expr; --> this is not R value reference, it is forwarding reference !!! 
+  
+- R value reference must be initialized with R Value expression 
+  - T &&ref = 10; // OK --> R value reference 
+    - ref is a L value expression 
+    - T &&ref is a R value expression (the data type of ref is a R value expression)
+    - void func(T &&ref); --> move semantic
+    - T&& func(); --> return value is R value reference 
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** :R value references and R value expressions
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+int foo();
+int &func();
+
+int main() {
+
+	int value = 10;
+	int&& ref = value;    // NOT OK --> value is a L value expression
+	int&& ref1 = 10;      // OK --> 10 is a R value expression
+	int&& ref2 = foo();   // OK --> foo() is a R value expression
+	int&& ref = func();   // NOT OK --> func() is a L value expression
+	int& r = ref1;        // OK --> ref is a L value expression
+	r = 10;		      // OK --> assignment for L-value expression
+
+	value + 5;	      // --> R value expression
+	++value;	      // --> L value expression
+	--value;	      // --> L value expression
+	value > 10;	      // --> R value expression 
+	value && 10;	      // --> R value expression
+	!value ;	      // --> R value expression
+	value & 10;	      // --> R value expression
+	value++;	      // --> R value expression
+	value--;	      // --> R value expression
+	value > 10 ? 1 : 0;   // --> R value expression
+	foo();		      // --> R value expression
+
+	int x = 10, y = 20;
+	(x = 10) = y;         // (x = 10) --> L value expression
+}
+```
 
 /----------------------------------------------
 /----------------------------------------------
@@ -244,7 +299,7 @@ int&& xfunc();
 
 int main() {
 	
-	int number = 10;		       // number --> L Value
+	int number = 10;           // number --> L Value
 	const int realNumber = 0;  // realNumber --> L Value 
 	int& refNumber = ++number; // ++number is L Value and  &refNumber is L Value
 	// int& refNumber = number++;  --> Error : number++ is R Value, &refNumber is L Value 
