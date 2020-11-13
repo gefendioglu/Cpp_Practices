@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "04_Lesson", "04_Lesson\04_L
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cpp_Practices", "Cpp_Practices\Cpp_Practices.vcxproj", "{F169DD8B-E2B1-4387-9DA6-BA67D48F8FEC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HackerRank", "HackerRank\HackerRank.vcxproj", "{3545B80E-D1B9-4499-B22B-B7FFFFBC6722}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -51,6 +53,14 @@ Global
 		{F169DD8B-E2B1-4387-9DA6-BA67D48F8FEC}.Release|x64.Build.0 = Release|x64
 		{F169DD8B-E2B1-4387-9DA6-BA67D48F8FEC}.Release|x86.ActiveCfg = Release|Win32
 		{F169DD8B-E2B1-4387-9DA6-BA67D48F8FEC}.Release|x86.Build.0 = Release|Win32
+		{3545B80E-D1B9-4499-B22B-B7FFFFBC6722}.Debug|x64.ActiveCfg = Debug|x64
+		{3545B80E-D1B9-4499-B22B-B7FFFFBC6722}.Debug|x64.Build.0 = Debug|x64
+		{3545B80E-D1B9-4499-B22B-B7FFFFBC6722}.Debug|x86.ActiveCfg = Debug|Win32
+		{3545B80E-D1B9-4499-B22B-B7FFFFBC6722}.Debug|x86.Build.0 = Debug|Win32
+		{3545B80E-D1B9-4499-B22B-B7FFFFBC6722}.Release|x64.ActiveCfg = Release|x64
+		{3545B80E-D1B9-4499-B22B-B7FFFFBC6722}.Release|x64.Build.0 = Release|x64
+		{3545B80E-D1B9-4499-B22B-B7FFFFBC6722}.Release|x86.ActiveCfg = Release|Win32
+		{3545B80E-D1B9-4499-B22B-B7FFFFBC6722}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

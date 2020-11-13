@@ -34,4 +34,48 @@ int main()
 	
 }
 
+//
+//#include <cmath>
+//#include <cstdio>
+//#include <vector>
+//#include <iostream>
+//#include <algorithm>
+//#include <array>
+//
+//int* reverse_array(int* ptr, int size) {
+//
+//    int rvr_array[size];
+//    for (int i = size - 1; i >= 0; --i) {
+//        rvr_array[i] = *ptr;
+//        ptr--;
+//    }
+//    return rvr_array;
+//}
+//
+//int main() {
+//
+//    int size;
+//    std::cin >> size;
+//    if (size <= 1000 && size >= 1) {
+//        int arr[size];
+//        std::cout << size << "\n";
+//    }
+//
+//    int value;
+//    for (int i = 0; i < arr.length(); ++i) {
+//        std::cin >> value;
+//        arr[i] = value;
+//        if (arr[i] >= 1 && arr[i] <= 10000) {
+//            std::cout << arr[i] << " ";
+//        }
+//    }
+//
+//    int* ptr = reverse_array(arr, arr.length());
+//    for (int i = 0; i < arr.length(); ++i) {
+//        std::cout << *p[i] << " ";
+//    }
+//
+//    return 0;
+//}
+
 
