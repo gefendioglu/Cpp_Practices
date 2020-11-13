@@ -14,15 +14,15 @@
 #include <iostream>
 
 void func(int x, int y, int z);
-void variadicFunc(int, ...);     // variadic function
-int Printf(const char* p, ...);  // variadic function
+void variadicFunc(int, ...);       // variadic function
+int Printf(const char* p, ...);    // variadic function
 
 int main() {
-	func(10, 20, 30);  // OK
-	func(10, 20);      // NOT OK
-	func(10);          // NOT OK
-	func();		   // NOT OK
-	func(1, 2, 3, 4);  // NOT OK
+	func(10, 20, 30);          // OK
+	func(10, 20);              // NOT OK
+	func(10);                  // NOT OK
+	func();		           // NOT OK
+	func(1, 2, 3, 4);          // NOT OK
 
 	variadicFunc(10, 20, 30);  // OK
 	variadicFunc(10, 20);      // OK
@@ -55,6 +55,7 @@ void foo2(int x, int y = 20 , int);	    // Syntax Error
 void foo3(int x, int y = 20 , int z = 10);  // Not Syntax Error
 
 int main() {
+
 	func(10, 20, 30);  // OK --> z = 30
 	func(10, 20);      // OK --> z = 10
 	func(10);	   // NOT OK --> second argument shall be sent !
@@ -79,9 +80,7 @@ int main() {
 void func(int x = 1, int y = 2, int z= 3);
 
 // no default argument in function definition
-void func(int x, int y, int z) {
-	std::cout << "x : " << x << " y : " << y << " z : " << z << "\n";
-}
+void func(int x, int y, int z) { std::cout << "x : " << x << " y : " << y << " z : " << z << "\n"; }
 
 int main() {
 	
@@ -213,10 +212,7 @@ int main() {
 #include <iostream>
 
 int globalVal = 25;
-
-int func(int& ref = globalVal) {
-	return ref + 5;
-}
+int func(int& ref = globalVal) { return ref + 5;}
 
 int main() {
 	int value = 5;
@@ -237,9 +233,7 @@ int g = 23;
 void func(int& ref = g);
 
 // no default argument in function definition
-void func(int& ref) {
-	std::cout << "ref : " << ref << "\n";
-}
+void func(int& ref) { std::cout << "ref : " << ref << "\n";}
 
 int main() {
 	
@@ -255,9 +249,7 @@ int main() {
 #include <iostream>
 
 void func(int* ptr = nullptr);
-void func(int* ptr) {
-	std::cout << "ptr : " << ptr << "\n";
-}
+void func(int* ptr) { std::cout << "ptr : " << ptr << "\n";}
 
 int main() {
 	
@@ -277,9 +269,7 @@ int main() {
 
 void time_func(time_t* ptr);
 void time_func(time_t* ptr = nullptr); // redecleration
-void time_func(int* ptr) {
-	std::cout << "time_func() is called !!! " << "\n";
-}
+void time_func(int* ptr) { std::cout << "time_func() is called !!! " << "\n"; }
 
 int main() {
 	int value = 10;
@@ -296,9 +286,7 @@ int main() {
 #include <iostream>
 
 void func(const char* error = "Exception Handling");
-void func(const char* error) {
-	std::cout << "error : " << error << "\n";
-}
+void func(const char* error) { std::cout << "error : " << error << "\n"; }
 
 int main() {
 	func("Error !!!"); // error : Error !!!
@@ -313,9 +301,7 @@ int main() {
 ```cpp
 #include <iostream>
 
-void funcErr(std::string ptr = "Not enough memory !!") {
-	std::cout << ptr << "\n";
-}
+void funcErr(std::string ptr = "Not enough memory !!") { std::cout << ptr << "\n"; }
 
 int main() {
 	funcErr("gamze");   // OK --> funcErr("gamze"); 
@@ -386,27 +372,3 @@ int main() {
 
 /----------------------------------------------
 /----------------------------------------------
-
-- **Example** :
-```cpp
-#include <iostream>
-
-void processDate(int day, int month, int year = -1);
-void processDate(int day, int month, int year) {
-	if (year == -1) {
-
-	}
-}
-
-void time(time_t *ptr = nullptr){}
-void func(int *ptr = nullptr){}
-
-int main() {
-	time();
-	func();
-}
-```
-
-/----------------------------------------------
-/----------------------------------------------
-
