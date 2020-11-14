@@ -1,5 +1,5 @@
 ## BIG O ANALYSIS : 
-
+Notes From "Programming Interviews Exposed" 
 - The general procedure for Big-O runtime analysis is as follows:
   1. Figure out what the input is and what n represents.
   2. Express the number of operations the algorithm performs in terms of n.
