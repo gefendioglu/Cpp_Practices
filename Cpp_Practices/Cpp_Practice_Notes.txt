@@ -128,7 +128,7 @@ int main()
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: 
+- **Example**: TO BE COMPLETED
   - You are given a string that contains left and right parenthesis characters.
   - Write code to determine whether the parentheses are correctly nested. 
   - For example, the strings "(())" and "()()" are correctly nested but "(()()" and ")(" are not.
@@ -142,3 +142,400 @@ int main()
   - It’s not sufficient for there to be merely the same number of right and left parentheses; every right parenthesis has to come after a left parenthesis that it’s paired with.
   - Put in terms of the counter that you’re using, it’s not sufficient for it to end at zero; it also has to never be negative.
   - The counter can only become negative after it’s decremented, so you can just check immediately following the decrement.
+
+
+#include <iostream>
+#include <list>
+#include <set>
+
+bool checkNesting(std::string str) {
+	int count = 0;
+	for (int i = 0; i < str.length(); ++i) {
+		char ch = str.at(i);
+		if (ch == '(') {
+			++count;
+		}
+		else if (ch == ')') {
+			--count;
+			if (count < 0)
+				return false;
+		}
+	}
+	return count == 0;
+}
+
+int main()
+{
+	std::string str_test1 = "(())";
+	std::string str_test2 = "()()";
+	std::string str_test3 = "(()()";
+	std::string str_test4 = ")(";
+
+	std::set<std::string> str_test{ str_test1 ,str_test2, str_test3, str_test4 };
+	for (const auto& i : str_test) {
+		if (checkNesting(str_test.))
+			std::cout << "True";
+	}
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+## BIG O ANALYSIS : 
+- The general procedure for Big-O runtime analysis is as follows:
+  1. Figure out what the input is and what n represents.
+  2. Express the number of operations the algorithm performs in terms of n.
+  3. Eliminate all but the highest-order terms.
+  4. Remove all constant factors
+
+- Which Algorithm Is Better? (From the best to the worst) 
+  - O(1) : The fastest running time (constant running time)
+  - O(log n) : A logarithmic running time if it increases logarithmically in proportion to the input size.
+  - O(n) : A linear algorithm’s running time increases in direct proportion to the input size.
+  - O(n log n) : A quasilinear algorithm is midway between a linear algorithm and a polynomial algorithm.
+  - O(nc) : A polynomial algorithm grows quickly based on the size of the input.
+  - O(cn) : An exponential algorithm grows even faster than a polynomial algorithm.
+  - O(n!) : A factorial algorithm grows the fastest and becomes quickly unusable for even small values of n.
+  - Algorithms that run in constant-O(1), logarithmic-O(log n), linear-O(n) , or quasilinear-O(n log n) time are preferred !!!
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Big O Analysis
+  - Consider a simple function that returns the maximum value stored in an array of nonnegative integers. The size of the array is n.
+  - What are the complexities of CompareToMax and CompareToAll functions?
+  - In CompareToMax, each array element was compared once to a maximum value. Thus, the input items are each examined once, resulting in n examinations. --> O(n)
+  - In CompareToMax, the best-case, average-case, and worst-case running times are identical. Regardless of the arrangement of the values in the array, the algorithm is always O(n).
+
+  - In CompareToAll, this function may compare each of n elements to n other elements. Thus you have nxn examinations, so this is an O(n^2) algorithm.
+  - The analysis of CompareToAll 
+    - a worst-case scenario: the maximum value was at the end of the array ---> O(n^2)
+	- an average case scenario: the largest value is in the middle
+	  - checking n(n/2) = n^2/2 times --> O(n^2/2) running time
+	  - the average case for CompareToAll is no better than the worst case ---> O(n^2)
+	- a best-case scenario: the maximum value is at the beginning of the array
+	  - The maximum value is compared to all other values only once --> O(n) 
+  - As the array grows, the number of comparisons in CompareToAll becomes much larger than in CompareToMax
+
+  - There is a check in CompareToMax to ensure that the array is not empty and a step that initializes the curMax variable. It may seem more accurate to call this an O(n + 2) function to reflect these extra operations. As n approaches infinity, the difference between n and n + 2 is insignificant, so the constant term can be ignored.
+  - Similarly, for an algorithm running in n + n^2 time, the difference between n^2 and n + n^2 is negligible for a very large n.
+  - In Big-O analysis you eliminate all but the highest-order term.
+
+#include <iostream>
+#include <array>
+
+// Returns the largest value in an array of n non-negative integers 
+int CompareToMax(int array[], int n) {
+	int curMax, i;
+
+	// Make sure that there is at least one element in the array.
+	if (n <= 0)
+		return -1;
+
+	// Set the largest number so far to the first array value.
+	curMax = array[0];
+
+	// Compare every number with the largest number so far. 
+	for (i = 1; i < n; i++) {
+		if (array[i] > curMax) {
+			curMax = array[i];
+		}
+	}
+	return curMax;
+}
+
+int CompareToAll(int array[], int n) {
+
+	int i, j;
+	bool isMaxValue;
+
+	// Make sure that there is at least one element in the array.
+	if (n <= 0)
+		return -1;
+
+	for (i = 0; i < n; ++i)
+	{
+		isMaxValue = true;
+		for (j = 0; j < n; ++j)
+		{
+			// See if any value is greater.
+			if (array[j] > array[i]) {
+				isMaxValue = false; // array[i] is not the largest value.
+				break;
+			}
+		}
+		// If isMaxValue is true, no larger value exists; array[i] is max.
+		if (isMaxValue)
+			break;
+	}
+	return array[i];
+}
+
+int main()
+{
+	int arr[10] = { 0,1,2,3,4,5,6,7,8,9 };
+	std::cout << "max value : " << CompareToAll(arr, sizeof(arr) / sizeof(&arr[0])) << "\n";
+
+	std::cout << "max value : " << CompareToMax(arr, sizeof(arr) / sizeof(&arr[0])) << "\n";
+	// max value : 9
+}
+/----------------------------------------------
+/----------------------------------------------
+
+## LINKED LISTS
+- Three basic kinds of linked lists exist: 
+  - Singly linked lists
+  - Doubly linked lists 
+  - Circular linked lists 
+
+## Singly Linked Lists
+- Each data element in the list has a link (a pointer or reference) to the element that follows it in the list. 
+- The first element in a singly linked list is referred to as the "head" of the list. 
+- The last element in such a list is called the "tail".
+
+- When defining classes in C++ for singly linked list, particularly in template form, it’s best to add copy constructors and copy assignment operators so you don’t depend on the compiler- generated versions.
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Tracking the Head Element (Inserting an element at the front of a list)
+  - In C++, the head pointer could also be passed in by reference, or the function could return the new head pointer.
+
+// when return value is a class pointer type
+IntElement* IntElement::insertInFront(IntElement** head, int data) {
+	IntElement* newElem =new IntElement(data);
+	if (!newElem)
+		return nullptr;
+	newElem->data = data;
+	newElem->next = *head;  // The correct version passes in a pointer to the head pointer
+	*head = newElem;
+	return newElem;
+}
+
+// when return value is bool 
+bool IntElement::insertInFront(IntElement** head, int data) {
+	IntElement* newElem =new IntElement(data);
+	if (!newElem)
+		return false;
+	newElem->data = data;
+	newElem->next = *head;  // The correct version passes in a pointer to the head pointer
+	*head = newElem;
+	return true;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Traversing a List
+  - When traversing, you must always check that you haven’t reached the end of the list.
+  - Deletion and insertion require a pointer or reference to the element immediately preceding the deletion or insertion location.
+
+IntElement* IntElement::find(IntElement* head, int data) {
+	IntElement* elem = head;
+	while (elem != nullptr && elem->getData() != data) {
+		elem = elem->getNext();
+	}
+	return elem;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Inserting and Deleting Elements
+  - Any insertion or deletion of elements in the middle of a list requires modification of the previous element’s next pointer or reference.
+  - If you’re given only the element to delete (or before which to insert), this requires traversal of the list from the head because there’s no other way to find the preceding element. 
+  - Special care must be taken when the element to be deleted is the head of the list.
+  - Deletion and insertion require a pointer or reference to the element immediately preceding the deletion or insertion location. 
+
+/----------------------------------------------
+
+- **Example**: First implementation for deleting elements  from a singly linked list
+
+bool IntElement::deleteElement(IntElement** head, IntElement* deleteMe)
+{
+	IntElement* elem;
+	if (!head || !*head || !deleteMe) /* Check for null pointers */
+		return false;
+
+	elem = *head;
+	if (deleteMe == *head) { /* special case for head */
+		*head = elem->next;
+		free(deleteMe);
+		return true;
+	}
+	while (elem) {
+		if (elem->next == deleteMe) {
+			/* elem is element preceding deleteMe */
+			elem->next = deleteMe->next;
+			free(deleteMe);
+			return true;
+		}
+		elem = elem->next;
+	}
+	/* deleteMe not found */
+	return false;
+}
+
+/----------------------------------------------
+
+- **Example**: Second implementation for deleting elements from a singly linked list 
+
+bool IntElement::deleteElement_I(IntElement** npp, IntElement* deleteMe) {
+
+	IntElement* elem;
+
+	if (!npp || !*npp || !deleteMe) /* Check for null pointers */
+		return false;
+
+	while (*npp) {
+		if (*npp == deleteMe) {
+			/* npp points to head pointer (if deleteMe is first element) or to next pointer within preceding element */
+			*npp = deleteMe->next;
+			free(deleteMe);
+			return true;
+		}
+		/* Iterating for the next list element */
+		npp = &((*npp)->next);
+	}
+	/* deleteMe not found */
+	return false;
+}
+
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Deleting all list elements
+  - Performing deletions raises another issue in languages without garbage collection, like C or C++. 
+  - Do you advance the pointer first or free the element first? 
+    - If you advance the pointer first, then the freeing is impossible because you overwrote the pointer to the element to be freed. 
+	- If you free the element first, advancing the pointer is impossible, because it involves reading the next pointer in the element that was just freed.
+	- The solution is to use two pointers !!!
+
+
+void IntElement::deleteList(IntElement** head)
+{
+	// First pointer points the first element of list
+	IntElement* deleteMe = *head;
+
+	while (deleteMe) {
+		// Second pointer points the next element of the element which will be deleted
+		IntElement* next = deleteMe->next;
+		// delete the element
+		free(deleteMe);
+		deleteMe = next;
+	}
+	*head = nullptr;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Singly LÝnked List Implementation (not using templates)
+  - Client Code shall be written !!!
+
+#include <iostream>
+#include <array>
+
+// A singly linked list in C++
+class IntElement {
+public:
+	IntElement(const int &value) :next{ nullptr }, data{ value }{}
+	~IntElement() {}
+
+	// getter functions
+	IntElement* getNext()const { return next; }
+	const int& getData()const { return data; }
+
+	// setter functions
+	void setNext(IntElement* ptr) { next = ptr; }
+	void setData(const int& value) { data = value; }
+
+	// other linked list functions
+	IntElement* insertInFront(IntElement** head, int data);
+	IntElement* find(IntElement* head, int data);
+	bool deleteElement(IntElement** head, IntElement* deleteMe);
+	bool deleteElement_I(IntElement** head, IntElement* deleteMe);
+	void deleteList(IntElement** head);
+
+	//operator overloading function ???
+	//std::ostream& operator<<(std::ostream& str, IntElement* ptr);
+
+private:
+	IntElement* next;
+	int data;
+};
+
+IntElement* IntElement::insertInFront(IntElement** head, int data) {
+	IntElement* newElem =new IntElement(data);
+	if (!newElem)
+		return nullptr;
+	newElem->data = data;
+	newElem->next = *head;  // The correct version passes in a pointer to the head pointer
+	*head = newElem;
+	return newElem;
+}
+
+IntElement* IntElement::find(IntElement* head, int data) {
+	IntElement* elem = head;
+	while (elem != nullptr && elem->getData() != data) {
+		elem = elem->getNext();
+	}
+	return elem;
+}
+
+bool IntElement::deleteElement(IntElement** npp, IntElement* deleteMe) {
+
+	IntElement* elem;
+
+	if (!npp || !*npp || !deleteMe) /* Check for null pointers */
+		return false;
+
+	while (*npp) {
+		if (*npp == deleteMe) {
+			/* npp points to head pointer (if deleteMe is first element) or to next pointer within preceding element */
+			*npp = deleteMe->next;
+			free(deleteMe);
+			return true;
+		}
+		/* Iterating for the next list element */
+		npp = &((*npp)->next);
+	}
+	/* deleteMe not found */
+	return false;
+}
+
+void IntElement::deleteList(IntElement** head)
+{
+	// First pointer points the first element of list
+	IntElement* deleteMe = *head;
+
+	while (deleteMe) {
+		// Second pointer points the next element of the element which will be deleted
+		IntElement* next = deleteMe->next;
+		// delete the element
+		free(deleteMe);
+		deleteMe = next;
+	}
+	*head = nullptr;
+}
+
+int main()
+{
+	IntElement ilist(0);
+	//ilist.insertInFront(&ilist.getNext(), ilist.getData());
+	//IntElement *ptr = ilist.find(ilist.getNext(), 6);
+	//std::cout << *ptr << "\n";
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Stack Implementation (TO BE COMPLETED)
+  - The createStack function sets the stack pointer to NULL and returns success
+  - The push function allocates the new element, checks for failure, sets the data of the new element, places it at the top of the stack, and adjusts the stack pointer.
+  - The pop operation checks that the stack isn’t empty, fetches the data from the top element, adjusts the stack pointer, and frees the element that is no longer on the stack. 
+  - Although deleteStack could call pop repeatedly, it’s more efficient to simply traverse the data structure, freeing as you go. Don’t forget that you need a temporary pointer to hold the address of the next element while you free the current one.
+  - The createStack and deleteStack functions become the constructor and destructor, respectively.
+  - A more complete C++ implementation should include a copy constructor and assignment operator, because the default versions created by the compiler could lead to multiple deletes of the same Element due to inadvertent sharing of elements between copies of a Stack.
+
