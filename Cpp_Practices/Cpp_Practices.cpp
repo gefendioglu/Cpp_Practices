@@ -1,30 +1,22 @@
 #include <iostream>
+#include <string>
 
-template <class T>
-class Stack
-{
+class ResourceHandle {};
+class Resource {
 public:
-	Stack() : head(nullptr) {};
-	~Stack();
-	void push(T data);
-	T pop();
-
-protected:
-	class Element {
-	public:
-		Element(Element* n, T d) : next(n), data(d) {}
-		Element* getNext() const { return next; }
-		T value() const { return data; }
-
-	private:
-		Element* next;
-		T data;
-	};
-
-	Element* head;
+	Resource() { handle = openResource(); }
+	~Resource() { closeResource(handle); }
+	ResourceHandle getHandle() { return handle; }
+private:
+	ResourceHandle handle;
+	Resource(Resource const&); // private copy constructor
+	Resource& operator= (Resource const&); // private assignment operator
 };
 
-
+void useResource() {
+	Resource r; 
+	/* Use resource here */
+}
 
 int main()
 {
