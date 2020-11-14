@@ -15,6 +15,8 @@
   - O(cn) : An exponential algorithm grows even faster than a polynomial algorithm.
   - O(n!) : A factorial algorithm grows the fastest and becomes quickly unusable for even small values of n.
   - Algorithms that run in constant-O(1), logarithmic-O(log n), linear-O(n) , or quasilinear-O(n log n) time are preferred !!!
+  - For an algorithm running in n + n^2 time, the difference between n^2 and n + n^2 is negligible for a very large n.
+  - In Big-O analysis you eliminate all but the highest-order term.
 
 /----------------------------------------------
 /----------------------------------------------
@@ -29,15 +31,13 @@
   - The analysis of CompareToAll 
     - a worst-case scenario: the maximum value was at the end of the array ---> O(n^2)
     - an average case scenario: the largest value is in the middle
-	    - checking n(n/2) = n^2/2 times --> O(n^2/2) running time
-	    - the average case for CompareToAll is no better than the worst case ---> O(n^2)
+      - checking n(n/2) = n^2/2 times --> O(n^2/2) running time
+      - the average case for CompareToAll is no better than the worst case ---> O(n^2)
      - a best-case scenario: the maximum value is at the beginning of the array
        - The maximum value is compared to all other values only once --> O(n) 
   - As the array grows, the number of comparisons in CompareToAll becomes much larger than in CompareToMax
-
   - There is a check in CompareToMax to ensure that the array is not empty and a step that initializes the curMax variable. It may seem more accurate to call this an O(n + 2) function to reflect these extra operations. As n approaches infinity, the difference between n and n + 2 is insignificant, so the constant term can be ignored.
-  - Similarly, for an algorithm running in n + n^2 time, the difference between n^2 and n + n^2 is negligible for a very large n.
-  - In Big-O analysis you eliminate all but the highest-order term.
+  
 
 ```cpp
 #include <iostream>
