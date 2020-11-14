@@ -24,17 +24,15 @@
 - **Example**: Big O Analysis
   - Consider a simple function that returns the maximum value stored in an array of nonnegative integers. The size of the array is n.
   - What are the complexities of CompareToMax and CompareToAll functions?
-  - In CompareToMax, each array element was compared once to a maximum value. Thus, the input items are each examined once, resulting in n examinations. --> O(n)
-  - In CompareToMax, the best-case, average-case, and worst-case running times are identical. Regardless of the arrangement of the values in the array, the algorithm is always O(n).
-
-  - In CompareToAll, this function may compare each of n elements to n other elements. Thus you have nxn examinations, so this is an O(n^2) algorithm.
-  - The analysis of CompareToAll 
-    - a worst-case scenario: the maximum value was at the end of the array ---> O(n^2)
-    - an average case scenario: the largest value is in the middle
-      - checking n(n/2) = n^2/2 times --> O(n^2/2) running time
-      - the average case for CompareToAll is no better than the worst case ---> O(n^2)
-     - a best-case scenario: the maximum value is at the beginning of the array
-       - The maximum value is compared to all other values only once --> O(n) 
+    - In CompareToMax, each array element was compared once to a maximum value. Thus, the input items are each examined once, resulting in n examinations. --> O(n)
+    - In CompareToMax, the best-case, average-case, and worst-case running times are identical. Regardless of the arrangement of the values in the array, the algorithm is always O(n).
+    - In CompareToAll, this function may compare each of n elements to n other elements. Thus you have nxn examinations, so this is an O(n^2) algorithm.
+      - a worst-case scenario: the maximum value was at the end of the array ---> O(n^2)
+      - an average case scenario: the largest value is in the middle
+        - checking n(n/2) = n^2/2 times --> O(n^2/2) running time
+        - the average case for CompareToAll is no better than the worst case ---> O(n^2)
+      - a best-case scenario: the maximum value is at the beginning of the array
+        - The maximum value is compared to all other values only once --> O(n) 
   - As the array grows, the number of comparisons in CompareToAll becomes much larger than in CompareToMax
   - There is a check in CompareToMax to ensure that the array is not empty and a step that initializes the curMax variable. It may seem more accurate to call this an O(n + 2) function to reflect these extra operations. As n approaches infinity, the difference between n and n + 2 is insignificant, so the constant term can be ignored.
   
