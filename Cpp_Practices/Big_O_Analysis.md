@@ -96,6 +96,6 @@ int main()
 	std::cout << "max value : " << CompareToMax(arr, sizeof(arr) / sizeof(&arr[0])) << "\n";
 	// max value : 9
 }
-```cpp
+```
 /----------------------------------------------
 /----------------------------------------------
