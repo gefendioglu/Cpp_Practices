@@ -43,7 +43,6 @@ public:
 	Point* relativeTo(int dx, int dy) {
 		return new Point(mx + dx, my + dy);
 	}
-
 	std::string toString() {
 		std::string str;
 		str.push_back('(');
@@ -53,7 +52,6 @@ public:
 		str.push_back(')');
 		return str;
 	}
-
 private:
 	int mx, my;
 };
@@ -84,7 +82,6 @@ int main()
   - Adding a new shape to the library shall be just a matter of subclassing one of the existing classes and implementing the things that are different.
 ```cpp
 #include <iostream>
-#include <string>
 
 class Point {
 public:
@@ -100,33 +97,23 @@ public:
 		std::cout << "Assignment operator called " << "\n";
 		return *this;
 	}
-
-	// getter functions
 	int getX() const { return mx; }
 	int getY() const { return my; }
-
-	//setter functions
 	void setX(const int& x) { this->mx = x; }
 	void setY(const int& y) { this->my = y; }
-
-	// other functions
-	Point* relativeTo(int dx, int dy) {
-		return new Point(mx + dx, my + dy);
-	}
+	Point* relativeTo(int dx, int dy) { return new Point(mx + dx, my + dy);	}
 private:
 	int mx{ 0 }, my{ 0 };
 
 };
 
 class Rectangle;
-class Graphics {};
 
+// Base Class
 class Shape {
 public:
-
 	Point getCenter() const { return center; }
 	virtual Rectangle getBounds();
-	virtual void draw(Graphics g);
 protected:
 	Point center;
 	Shape() {
@@ -134,9 +121,9 @@ protected:
 		this->center.setY(0);
 	}
 	Shape(Point center) { this->center = center; }
-
 };
 
+// Derived Class inherited from Shape class
 class Rectangle : public Shape {
 public:
 	Rectangle() :height{ 0 }, width{ 0 } {}
@@ -148,9 +135,6 @@ public:
 	Rectangle getBounds() override {
 		return *this;
 	}
-	void draw(Graphics g) override {
-		// code to paint rectangle
-	}
 	int getHeight() const { return height; }
 	int getWidth() const { return width; }
 
@@ -159,6 +143,7 @@ private:
 	int width{ 0 };
 };
 
+// Derived Class inherited from Shape class
 class Ellipse : public Shape {
 public:
 	Ellipse() :horizontalAxis{ 0 }, verticalAxis{ 0 }{}
@@ -172,10 +157,6 @@ public:
 		Rectangle* ptr = new Rectangle(center, horizontalAxis * 2, verticalAxis * 2);
 		return (*ptr);
 	}
-	void draw(Graphics g) override {
-		// code to paint ellipse
-	}
-
 	int getHorizontalAxis()const { return horizontalAxis; }
 	int getVerticalAxis() const { return verticalAxis; }
 
@@ -388,7 +369,6 @@ public:
 	Resource() { handle = openResource(); } // memory is allocated in constructor 
 	~Resource() { closeResource(handle); }  // memory is deallocated in ddestructor by destroying object 
 	ResourceHandle getHandle() { return handle; }
-
 private:
 	ResourceHandle handle;
 	Resource(Resource const&);             // private copy constructor as a guard (why isnt it deleted?) 
