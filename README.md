@@ -26,16 +26,22 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
 
 - [Enum Class](https://github.com/gefendioglu/Cpp_Practices/blob/master/02_Lesson/Enum_Class.md)
 
-## C++ Code Examples: 
+## Data Structures in C++: 
 
-- [C++ Code Examples](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Practices/Cpp_Practices.md)
-
-- [HackerRank C++ Code Examples](https://github.com/gefendioglu/Cpp_Practices/blob/master/HackerRank/HackerRank_Cpp.md)
+- [Linked Lists](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Practices/Linked_List.md)
 
 ## General Features in C++: 
 
 - [Big O Analysis in C++](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Practices/Big_O_Analysis.md)
 
+- [Object Oriented Programming](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Practices/Object_Oriented_Programming.md)
 
+- [Design Patterns](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Practices/Design_Patterns.md)
+
+## C++ Code Examples: 
+
+- [C++ Code Examples](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Practices/Cpp_Practices.md)
+
+- [HackerRank C++ Code Examples](https://github.com/gefendioglu/Cpp_Practices/blob/master/HackerRank/HackerRank_Cpp.md)
 
 
