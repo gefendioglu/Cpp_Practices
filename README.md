@@ -36,7 +36,7 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
 
 - [Object Oriented Programming](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Practices/Object_Oriented_Programming.md)
 
-- [Design Patterns](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Practices/Big_O_Analysis.md)
+- [Design Patterns](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Practices/Design_Patterns.md)
 
 ## C++ Code Examples: 
 
