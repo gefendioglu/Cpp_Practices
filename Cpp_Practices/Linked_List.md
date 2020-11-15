@@ -11,6 +11,8 @@
 - The last element in such a list is called the "tail".
 - When defining classes in C++ for singly linked list, particularly in template form, it’s best to add copy constructors and copy assignment operators so you don’t depend on the compiler- generated versions.
 
+**Note**: The class IntElement is a linked list class defined by user and all definitions are at the end of this section
+
 /----------------------------------------------
 /----------------------------------------------
 
