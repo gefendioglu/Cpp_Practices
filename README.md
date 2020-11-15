@@ -28,7 +28,7 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
 
 ## Data Structures in C++: 
 
-- [Linked Lists](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Practices/Big_O_Analysis.md)
+- [Linked Lists](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Practices/Linked_List.md)
 
 ## General Features in C++: 
 
