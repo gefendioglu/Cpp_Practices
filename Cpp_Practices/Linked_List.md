@@ -68,8 +68,6 @@ IntElement* IntElement::find(IntElement* head, int data) {
   - Special care must be taken when the element to be deleted is the head of the list.
   - Deletion and insertion require a pointer or reference to the element immediately preceding the deletion or insertion location. 
 
-/----------------------------------------------
-
 - **Example**: First implementation for deleting elements  from a singly linked list
 ```cpp
 bool IntElement::deleteElement(IntElement** head, IntElement* deleteMe)
@@ -98,13 +96,12 @@ bool IntElement::deleteElement(IntElement** head, IntElement* deleteMe)
 }
 ```
 /----------------------------------------------
+/----------------------------------------------
 
 - **Example**: Second implementation for deleting elements from a singly linked list 
 ```cpp
 bool IntElement::deleteElement_I(IntElement** npp, IntElement* deleteMe) {
-
 	IntElement* elem;
-
 	if (!npp || !*npp || !deleteMe) /* Check for null pointers */
 		return false;
 
@@ -152,7 +149,7 @@ void IntElement::deleteList(IntElement** head)
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** : Singly LÝnked List Implementation (not using templates) - Client Code shall be written !!!
+- **Example** : Singly Linked List Implementation (not using templates) - Client Code shall be written !!!
 ```cpp
 #include <iostream>
 #include <array>
@@ -205,9 +202,7 @@ IntElement* IntElement::find(IntElement* head, int data) {
 }
 
 bool IntElement::deleteElement(IntElement** npp, IntElement* deleteMe) {
-
 	IntElement* elem;
-
 	if (!npp || !*npp || !deleteMe) /* Check for null pointers */
 		return false;
 
