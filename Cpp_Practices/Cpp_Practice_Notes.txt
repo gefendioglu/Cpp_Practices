@@ -544,6 +544,160 @@ int main()
 /----------------------------------------------
 /----------------------------------------------
 
+## TREES and GRAPHS
+
+- A tree is made up of nodes (data elements) with zero, one, or several references (or pointers) to other nodes. Each node has only one other node referencing it.
+- In object-oriented languages you usually define a class for the common parts of a node and one or more subclasses for the data held by a node.
+
+## Binary Tree
+
+
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Binary Search Tree / Searching an element with class and class member function
+
+#include <iostream>
+#include <array>
+
+// Binary Tree
+class Node {
+public:
+
+	Node(int v) : left{ nullptr }, right{ nullptr }, value{v}{}
+	
+	//getter functions
+	Node* getLeft() const { return left; }
+	Node* getRight() const { return right; }
+	int getValue() const { return value; }
+
+	// setter functions
+	void setLeft(Node* left) { this->left = left; }
+	void setRight(Node* right) { this->right = right; }
+	
+	// tree functions
+	Node* findNode(Node* root, int value);
+	Node* findNode_rcrsv(Node* root, int value);
+
+private:
+	Node* left;
+	Node* right;
+	int value;
+};
+
+// Searching an element in a binary search tree
+Node* Node::findNode(Node* root, int value) {
+    // This process continues until you reach a null reference (the end of a tree)
+	while (root != nullptr) {
+		int curVal = root->getValue();
+		if (curVal == value) break;
+		if (curVal < value) {
+			root = root->getRight();
+		}
+		else { // curVal > value
+			root = root->getLeft();
+		}
+	}
+	return root;
+}
+
+// Searching an element in a binary search tree with a recursive function
+Node* Node::findNode_rcrsv(Node* root, int value) {
+	if (root == nullptr) return nullptr;
+	int curVal = root->getValue();
+	if (curVal == value) return root;
+	if (curVal < value) { 
+		return findNode_rcrsv(root->getRight(), value);	
+	}
+	else { // curVal > value
+		return findNode_rcrsv(root->getLeft(), value);
+	}
+
+}
+
+
+int main()
+{
+	// Making a binary search tree with available values
+	Node* root = new Node(5);
+	Node* left = new Node(3);
+	Node* right = new Node(10);
+
+	root->setLeft(left);
+	root->setRight(right);
+
+	Node* left_left = new Node(1);
+	Node* left_right = new Node(4);
+
+	left->setLeft(left_left);
+	left->setRight(left_right);
+
+	Node* right_left = new Node(7);
+	Node* right_right = new Node(12);
+
+	right->setLeft(right_left);
+	right->setRight(right_right);
+
+	Node* searched = root->findNode(root, 7);
+	std::cout << "value address: " << searched << "\n"; // value address: 0170F028
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Binary Search Tree / Searching an element with structure and recursion function
+
+#include <iostream>
+
+// Binary Tree
+struct node
+{
+	int data;
+	struct node* left;
+	struct node* right;
+	node(int value) {
+		data = value;
+		left = nullptr;
+		right = nullptr;
+	}
+};
+
+// Searching an element in binary search tree with recursion function
+node* search(node* root, int key)
+{
+	// Base Cases: root is null or key is present at root data
+	if (root == NULL || root->data == key)
+		return root;
+
+	// Key is greater than root's data 
+	if (root->data < key)
+		return search(root->right, key);
+
+	// Key is smaller than root's data 
+	return search(root->left, key);
+}
+
+int main()
+{
+	// Making a binary search tree with available values
+	node* root = new node(5);
+	root->left = new node(3);
+	root->right = new node(10);
+	root->left->left = new node(1);
+	root->left->right = new node(4);
+	root->right->left = new node(7);
+	root->right->right = new node(12);
+
+	node* searched = search(root, 7);
+	std::cout << "value address: " << searched << "\n"; // value address: 00D621C8
+
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+
 ## OBJECT ORIENTED PROGRAMMING (OOP)
 
 - **Class** : A class is an abstract definition of something that has data members and member class functions. 
@@ -1005,3 +1159,153 @@ void useResource() {
 - **Example** : Singleton Pattern 
   - Using a logging class to write debugging messages to the console. 
   - How would you implement this logging facility using the Singleton pattern?
+
+/----------------------------------------------
+/----------------------------------------------
+
+## KNOWLEDGE-BASED C++:
+
+/----------------------------------------------
+/----------------------------------------------
+ 
+## Macros and Inline Functions 
+- Unlike macros, inline functions are handled by the compiler directly. From the compiler’s perspective, when it encounters a call to an inline function, it writes a copy of the compiled function definition instead of generating a function call
+- You must specify the argument and return types for an inline function, which is not necessary (or possible) for the macro.
+- A templated inline function would avoid the need to write a separate definition for each argument type, at the expense of increased complexity.
+- Both inline functions and macros provide a way to eliminate function call overhead at the expense of program size.
+- Macros can create bugs due to the unexpected behavior of text replacement semantics.
+- When macros are used, the code that is compiled is not visible in the source. This makes debugging macro-related problems particularly difficult.
+
+Macro definition: 
+#define TRIPLE(x) 3 * x
+
+Inline function equivalent for the same definition: 
+inline int Triple(int x) { return 3 * x; }
+
+- **Example** : Unexpected result with using macro (changing value for each calling in macro)
+
+int main()
+{
+	#define CUBE(x) x * x * x
+	int foo, bar = 2;
+	foo = CUBE(++bar);  // The expectaton is --> foo = ++bar * ++bar * ++bar; and foo : 27
+
+	std::cout << "foo : " << foo << "\n"; // foo : 125
+	std::cout << "bar : " << bar << "\n"; // bar : 5 (incremented each calling from macro)
+}
+
+- **Example** : Unexpected result with using macro (if condition scope)
+
+int main()
+{
+	#define INCREMENT_BOTH(x, y) x++; y++
+	int foo=3, bar = 2;
+	bool flag = true;
+
+ 	if (flag)
+		INCREMENT_BOTH(foo, bar); // The expection --> if (flag) {	foo++;	bar++;}
+
+	std::cout << "foo : " << foo << "\n"; // foo : 4 (it is changed and in if condition scope)
+	std::cout << "bar : " << bar << "\n"; // bar : 3 (not changed, it is out of if condition scope)
+
+	// After using function scope 
+	if (flag) {
+		INCREMENT_BOTH(foo, bar); 
+	}
+
+	std::cout << "foo : " << foo << "\n"; // foo : 5
+	std::cout << "bar : " << bar << "\n"; // bar : 4 (it is also changed, it is in if condition scope)
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+## Linkedin Questions: C++ Code Snipets
+
+/----------------------------------------------
+/----------------------------------------------
+
+char c = 255;
+if (c > 10)
+	printf("c = %i is greater than 10.", c); // c = -1 is less than 10. 
+else
+	printf("c = %i is less than 10.", c);
+
+/----------------------------------------------
+/----------------------------------------------
+
+int x = 5, y = 2; // x = 0101 and y = 0010 
+if (x & y)
+	printf("x&y is run"); 
+else 
+	printf("x&y is not run"); // x&y = 0101 & 0010 = 0000 (false)
+
+/----------------------------------------------
+/----------------------------------------------
+
+printf("1/2 : %f", (float)(1 / 2)); // 1/2 : 0.000000
+printf("1/2 : %f", (float)1 / 2);   // 1/2 : 0.500000
+printf("1/2 : %f", 1 / (float)2);   // 1/2 : 0.500000
+
+/----------------------------------------------
+/----------------------------------------------
+
+int8_t a = 200;
+std::cout << "a : " << a << "\n"; // a : not readable
+uint8_t b = 100;
+std::cout << "b : " << b << "\n"; // b : d
+
+if (a > b)
+	std::cout << "a is greater than b"<< "\n";
+else
+	std::cout << "a is less than b" << "\n"; // OK
+
+int8_t a2 = 200;
+uint8_t b2 = 100;
+if ((uint8_t)a2 > b2)
+	std::cout << "a2 is greater than b2" << "\n"; // OK
+else
+	std::cout << "a2 is less than b2" << "\n";
+
+/----------------------------------------------
+/----------------------------------------------
+
+What is the mean of --> void *ptr ?
+- A void* does not mean anything. It is a pointer, but the type that it points to is not known.
+- void is used as a keyword. The void pointer, also known as the generic pointer, is a special type of pointer that can be pointed at objects of any data type! 
+- It's not that it can return "anything". 
+- However, because the void pointer does not know what type of object it is pointing to, it can not be dereferenced! Rather, the void pointer must first be explicitly cast to another pointer type before it is dereferenced.
+
+- **Example** : void *ptr 
+int main()
+{
+	int nValue = 5;
+	float fValue;
+
+	struct Something
+	{
+		int nValue;
+		float fValue;
+	};
+
+	Something sValue;
+
+	void* pVoid;
+	pVoid = &fValue; // valid
+	pVoid = &sValue; // valid
+	pVoid = &nValue; // valid
+
+	// can not dereference pVoid because it is a void pointer
+	int* pInt = static_cast<int*>(pVoid); // cast from void* to int*
+	std::cout << *pInt << "\n"; // can dereference pInt : 5
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+
+
+
+
+
+
