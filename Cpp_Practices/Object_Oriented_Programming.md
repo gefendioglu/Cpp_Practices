@@ -167,7 +167,6 @@ private:
 
 int main()
 {
-	Shape* shape;
 	Point* point_ptr = new Point(10, 20);
 	Ellipse* ellipse_ptr = new Ellipse(*point_ptr, 30, 40);
 	Rectangle* rectangle_ptr = new Rectangle(*point_ptr, 50, 60);
