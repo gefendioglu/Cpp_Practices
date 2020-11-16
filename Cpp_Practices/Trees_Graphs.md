@@ -34,12 +34,12 @@
 - The algorithm to perform a lookup in a BST is as follows not recursively (if the tree value less than the searched value --> left, else --> right):
   1. Start at the root node
   2. Loop while current node is non-null
-    - If the current node's value is equal to the search value
-      - Return the current node
-    - If the current node's value is less than the search value
-      - Make the right node the current node
-    - If the current node's value is greater than the search value
-      - Make the left node the current node
+     - If the current node's value is equal to the search value
+       - Return the current node
+     - If the current node's value is less than the search value
+       - Make the right node the current node
+     - If the current node's value is greater than the search value
+       - Make the left node the current node
   3. End loop
 
 /----------------------------------------------
