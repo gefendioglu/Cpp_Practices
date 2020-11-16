@@ -1,11 +1,11 @@
-## TREES and GRAPHS
+## TREES
 
--	Trees provide moderate access/search (quicker than Linked List and slower than arrays).
--	Trees provide moderate insertion/deletion (quicker than Arrays and slower than Unordered Linked Lists).
--	Like Linked Lists and unlike Arrays, Trees don’t have an upper limit on number of nodes as nodes are linked using pointers.
--	A tree is made up of nodes (data elements) with zero, one, or several references (or pointers) to other nodes. Each node has only one other node referencing it.
--	In object-oriented languages you usually define a class for the common parts of a node and one or more subclasses for the data held by a node.
--	This top-level node is called the root. The root is the only node from which you have a path to every other node. The root node is inherently the start of any tree.
+- Trees provide moderate access/search (quicker than Linked List and slower than arrays).
+- Trees provide moderate insertion/deletion (quicker than Arrays and slower than Unordered Linked Lists).
+- Like Linked Lists and unlike Arrays, Trees don’t have an upper limit on number of nodes as nodes are linked using pointers.
+- A tree is made up of nodes (data elements) with zero, one, or several references (or pointers) to other nodes. Each node has only one other node referencing it.
+- In object-oriented languages you usually define a class for the common parts of a node and one or more subclasses for the data held by a node.
+- This top-level node is called the root. The root is the only node from which you have a path to every other node. The root node is inherently the start of any tree.
 - Some important tree-related terms shall be known hereafter: 
   - Parent. A node that points to other nodes is the parent of those nodes. Every node except the root has one parent.
   - Child. A node is the child of any node that points to it.
