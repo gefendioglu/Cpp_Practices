@@ -18,6 +18,18 @@
     <Text Include="DesignPatterns.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="Behavioral_Iterator.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Creational_Builder.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Creational_Singleton.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Structural_Decorator.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Creational_Builder.cpp">
@@ -27,6 +39,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Structural_Decorator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Creational_Singleton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

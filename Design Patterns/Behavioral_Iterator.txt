@@ -1,0 +1,7 @@
+
+
+Iterator Design Pattern
+-	In object-oriented programming, the iterator pattern is a design pattern in which an iterator is used to traverse a container and access the container's elements.
+-	The simplest iterators provide for unidirectional traversal of elements with no changes allowed to the underlying data structure.
+-	More complex iterators allow for bidirectional traversal and/or permit elements to be added to or removed from the underlying data structure.
+-	They all provide an interface to iterate through the respective channels, songs or radio stations.

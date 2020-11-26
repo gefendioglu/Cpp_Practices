@@ -1,3 +1,7 @@
+
+
+- **Example**:  DEcorator Design Pattern (To Be Controlled !!!)
+
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
 #include<algorithm> 
@@ -94,24 +98,23 @@ protected:
 };
 
 
-//int main()
-//{
-//	// Lets make a coffee now
-//	Coffee* someCoffee = new SimpleCoffee();
-//	std::cout << "Simple Coffee cost : " << someCoffee->getCost() << "\n"; // 10
-//	std::cout << "Simple Coffee Description : " << someCoffee->getDescription() << "\n"; // Simple Coffee
-//	 
-//	someCoffee = new MilkCoffee(*someCoffee);
-//	std::cout << "Milk Coffee cost : " << someCoffee->getCost() << "\n"; // 12
-//	std::cout << "Milk Coffee Description : " << someCoffee->getDescription() << "\n"; // Simple Coffee, milk
-//
-//	someCoffee = new WhipCoffee(*someCoffee);
-//	std::cout << "Whip Coffee cost : " << someCoffee->getCost() << "\n"; // 17
-//	std::cout << "Whip Coffee Description : " << someCoffee->getDescription() << "\n"; // Simple Coffee, milk, whip
-//
-//	someCoffee = new VanillaCoffee(*someCoffee);
-//	std::cout << "Vanilla Coffee cost : " << someCoffee->getCost() << "\n"; // 20
-//	std::cout << "Vanilla Coffee Description : " << someCoffee->getDescription() << "\n"; //  Simple Coffee, milk, whip, vanilla
-//
-//}
+int main()
+{
+	// Lets make a coffee now
+	Coffee* someCoffee = new SimpleCoffee();
+	std::cout << "Simple Coffee cost : " << someCoffee->getCost() << "\n"; // 10
+	std::cout << "Simple Coffee Description : " << someCoffee->getDescription() << "\n"; // Simple Coffee
+	 
+	someCoffee = new MilkCoffee(*someCoffee);
+	std::cout << "Milk Coffee cost : " << someCoffee->getCost() << "\n"; // 12
+	std::cout << "Milk Coffee Description : " << someCoffee->getDescription() << "\n"; // Simple Coffee, milk
 
+	someCoffee = new WhipCoffee(*someCoffee);
+	std::cout << "Whip Coffee cost : " << someCoffee->getCost() << "\n"; // 17
+	std::cout << "Whip Coffee Description : " << someCoffee->getDescription() << "\n"; // Simple Coffee, milk, whip
+
+	someCoffee = new VanillaCoffee(*someCoffee);
+	std::cout << "Vanilla Coffee cost : " << someCoffee->getCost() << "\n"; // 20
+	std::cout << "Vanilla Coffee Description : " << someCoffee->getDescription() << "\n"; //  Simple Coffee, milk, whip, vanilla
+
+}

@@ -21,7 +21,7 @@ private:
 
 class WindowBuilder {
 public:
-	WindowBuilder() {}
+	WindowBuilder() :dialog{ false }, modal{ false }, visible{ false }{}
 
 	WindowBuilder setDialog(bool flag) {
 		dialog = flag;

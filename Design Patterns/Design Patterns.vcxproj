@@ -147,11 +147,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="Behavioral_Iterator.txt" />
+    <Text Include="Creational_Builder.txt" />
+    <Text Include="Creational_Singleton.txt" />
     <Text Include="DesignPatterns.txt" />
+    <Text Include="Structural_Decorator.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Behavioral_Iterator.cpp" />
     <ClCompile Include="Creational_Builder.cpp" />
+    <ClCompile Include="Creational_Singleton.cpp" />
     <ClCompile Include="Structural_Decorator.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

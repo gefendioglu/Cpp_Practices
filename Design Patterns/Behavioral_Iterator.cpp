@@ -19,56 +19,56 @@ protected:
 	float frequency;
 };
 
-class StationList {
-public:
-	void addStation(RadioStation* station)
-	{
-		this->stations[] = station;
-	}
-
-	void removeStation(RadioStation toRemove)
-	{
-		float toRemoveFrequency = toRemove.getFrequency();
-
-		this->stations = array_filter(this->stations) {
-			return stations.getFrequency() != = toRemoveFrequency;
-		});
-	}
-
-	int count()
-	{
-		return count(this->stations);
-	}
-
-	RadioStation current()
-	{
-		return this->stations[this->counter];
-	}
-
-	void key()
-	{
-		return this->counter;
-	}
-
-	void next()
-	{
-		this->counter++;
-	}
-
-	void rewind()
-	{
-		this->counter = 0;
-	}
-
-	bool valid()
-	{
-		return isset(this->stations[this->counter]);
-	}
-
-protected:
-	int stations[];
-	int counter;
-};
+//class StationList {
+//public:
+//	void addStation(RadioStation* station)
+//	{
+//		this->stations[] = station;
+//	}
+//
+//	void removeStation(RadioStation toRemove)
+//	{
+//		float toRemoveFrequency = toRemove.getFrequency();
+//
+//		this->stations = array_filter(this->stations) {
+//			return stations.getFrequency() != = toRemoveFrequency;
+//		});
+//	}
+//
+//	int count()
+//	{
+//		return count(this->stations);
+//	}
+//
+//	RadioStation current()
+//	{
+//		return this->stations[this->counter];
+//	}
+//
+//	void key()
+//	{
+//		return this->counter;
+//	}
+//
+//	void next()
+//	{
+//		this->counter++;
+//	}
+//
+//	void rewind()
+//	{
+//		this->counter = 0;
+//	}
+//
+//	bool valid()
+//	{
+//		return isset(this->stations[this->counter]);
+//	}
+//
+//protected:
+//	int stations[];
+//	int counter;
+//};
 
 
 //int main()
