@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include<iostream> 
 #include<climits> 
 
@@ -7,11 +9,7 @@ using namespace std;
 void swap(int* x, int* y);
 
 // A class for Min Heap 
-class MinHeap
-{
-	int* harr; // pointer to array of elements in heap 
-	int capacity; // maximum possible size of min heap 
-	int heap_size; // Current number of elements in min heap 
+class MinHeap{
 public:
 	// Constructor 
 	MinHeap(int capacity);
@@ -41,6 +39,11 @@ public:
 
 	// Inserts a new key 'k' 
 	void insertKey(int k);
+
+private: 
+	int* harr; // pointer to array of elements in heap 
+	int capacity; // maximum possible size of min heap 
+	int heap_size; // Current number of elements in min heap 
 };
 
 // Constructor: Builds a heap from a given array a[] of given size 
@@ -105,7 +108,6 @@ int MinHeap::extractMin()
 	return root;
 }
 
-
 // This function deletes key at index i. It first reduced value to minus 
 // infinite, then calls extractMin() 
 void MinHeap::deleteKey(int i)
@@ -151,6 +153,7 @@ int main()
 	h.insertKey(5);
 	h.insertKey(4);
 	h.insertKey(45);
+
 	cout << h.extractMin() << " ";
 	cout << h.getMin() << " ";
 	h.decreaseKey(2, 1);
