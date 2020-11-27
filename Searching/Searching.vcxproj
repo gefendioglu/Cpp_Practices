@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{F169DD8B-E2B1-4387-9DA6-BA67D48F8FEC}</ProjectGuid>
+    <ProjectGuid>{3299E519-3E1C-4018-8BAC-C4E1B4967CB5}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>CppPractices</RootNamespace>
+    <RootNamespace>Searching</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -147,11 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Cpp_Practices.cpp" />
-    <ClCompile Include="Recursion.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Cpp_Practice_Notes.txt" />
+    <ClCompile Include="Searching.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

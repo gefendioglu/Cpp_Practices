@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{F169DD8B-E2B1-4387-9DA6-BA67D48F8FEC}</ProjectGuid>
+    <ProjectGuid>{533444FF-0349-4310-AF69-49AC9C9B1AE7}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>CppPractices</RootNamespace>
+    <RootNamespace>DataStructures</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -147,11 +147,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Cpp_Practices.cpp" />
-    <ClCompile Include="Recursion.cpp" />
+    <ClCompile Include="Data_Structures.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Cpp_Practice_Notes.txt" />
+    <Text Include="Data_Structures.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

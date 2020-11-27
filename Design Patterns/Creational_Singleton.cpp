@@ -64,17 +64,17 @@ private:
 
 };
 
-int main() {
-	President* president = president->getInstance();
-	std::cout << president->getData() << "\n"; // 0 
-	president->setData(100);
-	std::cout << president->getData() << "\n"; // 100
-
-
-	Ceo &ceo = ceo.getInstance();
-	std::cout << ceo.getData() << "\n"; // 0 
-	ceo.setData(200);
-	std::cout << ceo.getData() << "\n"; // 200
-
-	return 0;
-}
+//int main() {
+//	President* president = president->getInstance();
+//	std::cout << president->getData() << "\n"; // 0 
+//	president->setData(100);
+//	std::cout << president->getData() << "\n"; // 100
+//
+//
+//	Ceo &ceo = ceo.getInstance();
+//	std::cout << ceo.getData() << "\n"; // 0 
+//	ceo.setData(200);
+//	std::cout << ceo.getData() << "\n"; // 200
+//
+//	return 0;
+//}

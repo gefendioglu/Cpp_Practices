@@ -15,16 +15,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Cpp_Practices.cpp">
+    <ClCompile Include="Concurrency.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Recursion.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Cpp_Practice_Notes.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
   </ItemGroup>
 </Project>

@@ -15,15 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Cpp_Practices.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Recursion.cpp">
+    <ClCompile Include="Data_Structures.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Cpp_Practice_Notes.txt">
+    <Text Include="Data_Structures.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
