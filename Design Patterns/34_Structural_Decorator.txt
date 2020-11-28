@@ -1,3 +1,19 @@
+
+Decorator Design Pattern (Wrapper Pattern)
+-	The Decorator pattern modifies the behavior of an object by “wrapping” it with another object that is derived from the same base class and thus has the same set of methods as the original object.
+-	The decorator modifies the behavior of the underlying object by performing some additional processing before and/or after calling some of the methods of the underlying object.
+-	Decorators provide an alternative to subclassing.
+-	Decorator pattern involves four kinds of classes: 
+o	Component: 
+Component is an abstract class or interface that defines all the public methods needed for the underlying object and the decorators that wrap it. 
+o	Concrete Component:
+Component serves as the base class for both Concrete Components and Decorators.
+o	Decorator:
+Decorator is a (typically abstract) class that provides the functionality shared by all decorators: it wraps a Concrete Component and forwards all method calls to the Component.
+o	Concrete Decorator
+Concrete Decorators modify the behavior of the wrapped Concrete Component by overriding one or more methods of their parent Decorator class.
+
+
 /----------------------------------------------
 /----------------------------------------------
 

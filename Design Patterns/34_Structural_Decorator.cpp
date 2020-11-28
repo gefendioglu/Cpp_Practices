@@ -1,6 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
-#include<algorithm> 
 #include<string>
 
 // Abstract Component : Coffee
@@ -14,15 +13,8 @@ public:
 // Concrete Component : SimpleCoffee
 class SimpleCoffee : public Coffee {
 public:
-	int getCost()
-	{
-		return 10;
-	}
-
-	std::string getDescription()
-	{
-		return "Simple Coffee";
-	}
+	int getCost() { return 10;}
+	std::string getDescription() { return "Simple Coffee";}
 };
 
 // Decorator : CoffeeDecorator

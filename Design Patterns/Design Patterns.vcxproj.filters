@@ -15,33 +15,96 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="DesignPatterns.txt">
+    <Text Include="11_Creational_Simple_Factory.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="Behavioral_Iterator.txt">
+    <Text Include="12_Creational_Factory_Method.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="Creational_Builder.txt">
+    <Text Include="13_Creational_Abstract_Factory.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="Creational_Singleton.txt">
+    <Text Include="14_Creational_Builder.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="Structural_Decorator.txt">
+    <Text Include="15_Creational_Prototype.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="16_Creational_Singleton.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="21_Behavioral_Chain_of_Responsibility.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="22_Behavioral_Command.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="23_Behavioral_Iterator.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="24_Behavioral_Interpreter.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="25_Behavioral_Mediator.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="26_Behavioral_Memento.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="27_Behavioral_Observer.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="28_Behavioral_Visitor.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="29_Behavioral_Strategy.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="34_Structural_Decorator.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="31_Structural_Adapter.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="29_Behavioral_State.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="29_Behavioral_Template_Method.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="32_Structural_Bridge.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="33_Structural_Composite.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="35_Structural_Facade.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="36_Structural_Flyweight.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="37_Structural_Proxy.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="1_DesignPatterns.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Creational_Builder.cpp">
+    <ClCompile Include="23_Behavioral_Iterator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Behavioral_Iterator.cpp">
+    <ClCompile Include="14_Creational_Builder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Structural_Decorator.cpp">
+    <ClCompile Include="16_Creational_Singleton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Creational_Singleton.cpp">
+    <ClCompile Include="34_Structural_Decorator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="11_Creational_Simple_Factory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
