@@ -15,16 +15,19 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="1_Selection_Sort.cpp">
+    <ClCompile Include="11_Selection_Sort.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="2_Insertion_Sort.cpp">
+    <ClCompile Include="21_Insertion_Sort.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="3_Quick_Sort.cpp">
+    <ClCompile Include="22_Binary_Insertion_Sort.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="4_Merge_Sort.cpp">
+    <ClCompile Include="31_Quick_Sort.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="41_Merge_Sort.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

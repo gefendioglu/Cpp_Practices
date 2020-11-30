@@ -1,3 +1,5 @@
+#if Liskov_Substitution
+
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
 #include <assert.h>     
@@ -127,15 +129,17 @@ void process(Shape& s) {
     std::cout << s.area() << "\n";
 }
 
-//int main() {
-//
-//    Rectangle rec{ 5, 5 };
-//    // Derived --> Base (upcasting)
-//    process(rec); // 25
-//
-//    Square square{ 5 };
-//    // Derived --> Base (upcasting)
-//    process(square); // 25
-//
-//    return EXIT_SUCCESS;
-//}
+int main() {
+
+    Rectangle rec{ 5, 5 };
+    // Derived --> Base (upcasting)
+    process(rec); // 25
+
+    Square square{ 5 };
+    // Derived --> Base (upcasting)
+    process(square); // 25
+
+    return EXIT_SUCCESS;
+}
+
+#endif // Liskov_Substitution

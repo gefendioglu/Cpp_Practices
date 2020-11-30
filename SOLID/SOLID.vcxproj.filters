@@ -30,6 +30,9 @@
     <ClCompile Include="5_Dependency_Inversion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SOLID.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="1_Single_Responsibility.txt">

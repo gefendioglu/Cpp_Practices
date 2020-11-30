@@ -1,3 +1,5 @@
+#ifdef Dependecy_Inversion
+
 #define _CRT_SECURE_NO_WARNINGS
 
 #include<iostream> 
@@ -48,3 +50,5 @@ int main() {
         John has a child called Matt
     */
 }
+
+#endif // Dependecy_Inversion

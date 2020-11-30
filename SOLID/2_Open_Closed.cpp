@@ -1,3 +1,5 @@
+#if Open_Closed
+
 #define _CRT_SECURE_NO_WARNINGS
 #define ALL(C)  begin(C), end(C)
 
@@ -147,40 +149,42 @@ AndSpecification<T> operator&&(const Specification<T>& first, const Specificatio
 }
 
 
-//int main() {
-//
-//	const Items all{
-//		new Product{"Apple", COLOR::GREEN, SIZE::SMALL},
-//		new Product{"Tree", COLOR::GREEN, SIZE::LARGE},
-//		new Product{"House", COLOR::BLUE, SIZE::LARGE},
-//	};
-//
-//	BetterFilter bf;
-//
-//	// For testing ColorSpecification class
-//	for (auto& x : bf.filter(all, ColorSpecification(COLOR::GREEN)))
-//		std::cout << x->m_name << " is green\n";
-//
-//	// For testing SizeSpecification class
-//	for (auto& x : bf.filter(all, SizeSpecification(SIZE::LARGE)))
-//		std::cout << x->m_name << " is large\n";
-//
-//	// For testing AndSpecification class
-//	auto green_things = ColorSpecification{ COLOR::GREEN };
-//	auto large_things = SizeSpecification{ SIZE::LARGE };
-//
-//	for (auto& x : bf.filter(all, green_things&& large_things))
-//		std::cout << x->m_name << " is green and large\n";
-//
-//	return EXIT_SUCCESS;
-//
-//	/*
-//		Apple is green
-//		Tree is green
-//		Tree is large
-//		House is large
-//		Tree is green and large
-//	*/
-//}
+int main() {
+
+	const Items all{
+		new Product{"Apple", COLOR::GREEN, SIZE::SMALL},
+		new Product{"Tree", COLOR::GREEN, SIZE::LARGE},
+		new Product{"House", COLOR::BLUE, SIZE::LARGE},
+	};
+
+	BetterFilter bf;
+
+	// For testing ColorSpecification class
+	for (auto& x : bf.filter(all, ColorSpecification(COLOR::GREEN)))
+		std::cout << x->m_name << " is green\n";
+
+	// For testing SizeSpecification class
+	for (auto& x : bf.filter(all, SizeSpecification(SIZE::LARGE)))
+		std::cout << x->m_name << " is large\n";
+
+	// For testing AndSpecification class
+	auto green_things = ColorSpecification{ COLOR::GREEN };
+	auto large_things = SizeSpecification{ SIZE::LARGE };
+
+	for (auto& x : bf.filter(all, green_things&& large_things))
+		std::cout << x->m_name << " is green and large\n";
+
+	return EXIT_SUCCESS;
+
+	/*
+		Apple is green
+		Tree is green
+		Tree is large
+		House is large
+		Tree is green and large
+	*/
+}
+
+#endif
 
 
