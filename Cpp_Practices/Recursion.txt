@@ -1,0 +1,43 @@
+
+## RECURSION
+
+/----------------------------------------------
+/----------------------------------------------
+
+- TO BE CONTROLLED !!!
+- *Example*: If you need a factorial function that returns all its intermediate results (factorials less than n), as well as the final result(n!), you would most naturally return these results as an integer array, which means the function needs to allocate an array.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
+int doAllFactorials(int n, int* results, int level) {
+	
+	if (n > 1) { /* Recursive case */
+		results[level] = n * doAllFactorials(n - 1, results, level + 1);
+		return results[level];
+	}
+	else { /* Base case */
+		results[level] = 1;
+		return 1;
+	}
+}
+
+int* allFactorials(int n) { /* Wrapper function */
+	int* results;
+	if (n == 0)
+		results = new int[1]{};
+	else
+		results = new int[n]{};
+
+	doAllFactorials(n, results, 0);
+	return results;
+}
+
+int main(void) {
+
+	std::cout << allFactorials(3)<< std::endl;
+	return 0;
+}
+
+/----------------------------------------------
+/----------------------------------------------

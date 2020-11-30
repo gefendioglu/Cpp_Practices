@@ -147,7 +147,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Searching.cpp" />
+    <ClCompile Include="Binary_Search.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Binary_Search.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

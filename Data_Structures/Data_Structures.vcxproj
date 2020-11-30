@@ -147,7 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Data_Structures.cpp" />
+    <ClCompile Include="Heap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Data_Structures.txt" />

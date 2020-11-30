@@ -26,5 +26,8 @@
     <Text Include="Cpp_Practice_Notes.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="Recursion.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
