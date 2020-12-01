@@ -147,9 +147,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Heap.cpp" />
+    <ClCompile Include="12_Doubly_Linked_List.cpp" />
+    <ClCompile Include="13_Stack.cpp" />
+    <ClCompile Include="21_Binary_Tree.cpp" />
+    <ClCompile Include="22_Binary_Search_Tree.cpp" />
+    <ClCompile Include="23_Heap.cpp" />
+    <ClCompile Include="11_Singly_Linked_List.cpp" />
+    <ClCompile Include="31_Graphs.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="11_Singly_Linked_List.txt" />
+    <Text Include="12_Doubly_Linked_List.txt" />
+    <Text Include="13_Stack.txt" />
+    <Text Include="21_Binary_Tree.txt" />
+    <Text Include="22_Binary_Search_Tree.txt" />
+    <Text Include="23_Heap.txt" />
+    <Text Include="31_Graphs.txt" />
     <Text Include="Data_Structures.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

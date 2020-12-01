@@ -20,7 +20,7 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Binary_Search.cpp">
+    <ClCompile Include="11_Binary_Search.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -147,7 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Binary_Search.cpp" />
+    <ClCompile Include="11_Binary_Search.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Binary_Search.txt" />

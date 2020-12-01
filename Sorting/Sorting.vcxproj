@@ -149,9 +149,14 @@
   <ItemGroup>
     <ClCompile Include="22_Binary_Insertion_Sort.cpp" />
     <ClCompile Include="21_Insertion_Sort.cpp" />
+    <ClCompile Include="33_Quick_Sort_Doubly_Linked_List.cpp" />
+    <ClCompile Include="34_Quick_Sort_Three_Way.cpp" />
+    <ClCompile Include="32_Quick_Sort_Singly_Linked_List.cpp" />
     <ClCompile Include="41_Merge_Sort.cpp" />
     <ClCompile Include="31_Quick_Sort.cpp" />
     <ClCompile Include="11_Selection_Sort.cpp" />
+    <ClCompile Include="42_Merge_Sort_Singly_Linked_List.cpp" />
+    <ClCompile Include="43_Merge_Sort_Doubly_Linked_List.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="1_Selection_Sort.txt" />

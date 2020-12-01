@@ -15,12 +15,51 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Heap.cpp">
+    <ClCompile Include="11_Singly_Linked_List.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="12_Doubly_Linked_List.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="13_Stack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="21_Binary_Tree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="22_Binary_Search_Tree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="23_Heap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="31_Graphs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Data_Structures.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="11_Singly_Linked_List.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="12_Doubly_Linked_List.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="13_Stack.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="21_Binary_Tree.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="22_Binary_Search_Tree.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="23_Heap.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="31_Graphs.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

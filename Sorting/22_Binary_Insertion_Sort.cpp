@@ -44,20 +44,20 @@ void insertionSort(int* a, int length)
 }
 
 // Client Code
-int main()
-{
-	int a[] = { 37, 23, 0, 17, 12, 72, 31, 46, 100, 88, 54 };
-	int length = sizeof(a) / sizeof(a[0]), i;
-
-	insertionSort(a, length);
-
-	printf("Sorted array: \n");
-	for (i = 0; i < length; i++)
-		printf("%d ", a[i]); 
-
-	// Sorted array: 0 12 17 23 31 37 46 54 72 88 100 
-	return 0;
-}
+//int main()
+//{
+//	int a[] = { 37, 23, 0, 17, 12, 72, 31, 46, 100, 88, 54 };
+//	int length = sizeof(a) / sizeof(a[0]), i;
+//
+//	insertionSort(a, length);
+//
+//	printf("Sorted array: \n");
+//	for (i = 0; i < length; i++)
+//		printf("%d ", a[i]); 
+//
+//	// Sorted array: 0 12 17 23 31 37 46 54 72 88 100 
+//	return 0;
+//}
 
 /*
 	Time Complexity : The algorithm as a whole still has a running worst case running time of O(n^2) because of the series of swaps required for each insertion.

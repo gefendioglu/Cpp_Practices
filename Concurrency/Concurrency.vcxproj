@@ -149,6 +149,9 @@
   <ItemGroup>
     <ClCompile Include="Concurrency.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Concurrency.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

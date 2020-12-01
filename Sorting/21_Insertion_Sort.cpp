@@ -31,15 +31,15 @@ void printArray(int* arr, const int &length)
 }
 
 /* Client Code */
-int main()
-{
-	int arr[] = { 12, 11, 13, 5, 6 };
-	int length = sizeof(arr) / sizeof(arr[0]);
-
-	insertionSort(arr, length);
-	printArray(arr, length); // 5 6 11 12 13
-
-	return 0;
-}
+//int main()
+//{
+//	int arr[] = { 12, 11, 13, 5, 6 };
+//	int length = sizeof(arr) / sizeof(arr[0]);
+//
+//	insertionSort(arr, length);
+//	printArray(arr, length); // 5 6 11 12 13
+//
+//	return 0;
+//}
 
 
