@@ -1,0 +1,163 @@
+
+## Abstract Factory Design Pattern 
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: The Problem
+  - C++ has the support of polymorphic object destruction using it’s base class’s virtual destructor. 
+  - However, equivalent support for creation & copying of objects does not exist in C++ virtual constructor & virtual copy constructors.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
+struct Point {
+    virtual ~Point() { std::cout << "~Point\n"; }
+};
+
+struct Point2D : Point {
+    ~Point2D() { std::cout << "~Point2D\n"; }
+};
+
+struct Point3D : Point {
+    ~Point3D() { std::cout << "~Point3D\n"; }
+};
+
+void who_am_i(Point* who) { 
+    // Not sure whether "Point2D" would be passed here or "Point3D"
+    // How to `create` the object of same type i.e. pointed by who ?
+    // How to `copy` object of same type i.e. pointed by who ?
+    // you can delete object pointed by who, thanks to virtual destructor
+    delete who; 
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Abstract Factory Pattern
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+#include<memory>
+
+
+class Point {
+public:
+    Point(int x, int y) : m_x(x), m_y(y) {}
+    virtual ~Point() = default;
+
+    // Like virtual constructor
+    virtual std::unique_ptr<Point> create() = 0;
+
+    // Like virtual copy constructor
+    virtual std::unique_ptr<Point> clone() = 0;
+
+    friend std::ostream& operator<<(std::ostream& os, const Point& obj) {
+        return os << "x: " << obj.m_x << " y: " << obj.m_y;
+    }
+
+private:
+    int   m_x;
+    int   m_y;
+};
+
+class Point2D : public Point {
+public:
+    std::unique_ptr<Point> create() { 
+        // Derived --> Base (upcasting)
+        // Point2D --> Point
+        return std::make_unique<Point2D>(); 
+    }
+
+    std::unique_ptr<Point> clone() { 
+        return std::make_unique<Point2D>(*this); 
+    }
+};
+
+class Point3D : public Point {
+public:
+    // Derived --> Base (upcasting)
+    // Point3D --> Point
+    std::unique_ptr<Point> create() { 
+        return std::make_unique<Point3D>(); 
+    }
+
+    std::unique_ptr<Point> clone() { 
+        return std::make_unique<Point3D>(*this); 
+    }
+};
+
+void point_func(Point* point) {
+    
+    // "create" the object of same type i.e. pointed by who ?
+    auto new_point = point->create(); 
+
+    // "copy" the object of same type i.e. pointed by who ?
+    auto duplicate_point = point->clone();    
+    delete point;
+}
+
+int main() {
+
+    // TO BE IMPLEMENTED !!!
+    return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Functional Approach to Factory Design Pattern using Modern C++
+  - Let’s build a similar kind of Factory without relying on polymorphic functionality as it might not suit some time-constrained application like an embedded system.
+  -	Because the virtual table & dynamic dispatch mechanism may troll system during critical functionality.
+  -	In this case, it uses functional & lambda functions.
+
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+#include<memory>
+#include<map>
+#include<functional>
+
+enum class PointType{ Point2D, Point3D };
+
+class Point {
+public:
+    Point(int x, int y) : m_x(x), m_y(y) {}
+    Point() = default;
+    virtual ~Point() = default;
+
+    friend std::ostream& operator<<(std::ostream& os, const Point& obj) {
+        return os << "x: " << obj.m_x << " y: " << obj.m_y;
+    }
+private:
+    int   m_x;
+    int   m_y;
+    
+};
+
+class Point2D : public Point {/* . . . */ };
+class Point3D : public Point {/* . . . */ };
+
+class PointFunctionalFactory {
+public:
+    PointFunctionalFactory() {
+        m_factories[PointType::Point2D] = [] { return std::make_unique<Point2D>(); };
+        m_factories[PointType::Point3D] = [] { return std::make_unique<Point3D>(); };
+    }
+    std::unique_ptr<Point> create(PointType type) { return m_factories[type](); }
+private:
+    std::map<PointType, std::function<std::unique_ptr<Point>() >> m_factories;
+};
+
+int main() {
+
+    PointFunctionalFactory pf;
+    auto p2D = pf.create(PointType::Point2D);
+    std::cout << p2D << "\n"; // The address of object will print
+    return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+

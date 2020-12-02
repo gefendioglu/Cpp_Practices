@@ -168,25 +168,25 @@ public:
 	float getPrice()const override { return m_MilkShake->getPrice() + 80;}
 };
 
-int main()
-{
-	MilkShake* baseMilkShake = new BaseMilkShake();
-	std::cout << "Basic Milk shake \n";
-	std::cout << baseMilkShake->getServe() << "\n";
-	std::cout << baseMilkShake->getPrice() << "\n";
-
-	MilkShake* decoratedMilkShake = new MangoMilkShake(baseMilkShake);
-	std::cout << "Mango decorated Milk shake \n";
-	std::cout << decoratedMilkShake->getServe() << "\n";
-	std::cout << decoratedMilkShake->getPrice() << "\n";
-
-	decoratedMilkShake = new VanillaMilkShake(baseMilkShake);
-	std::cout << "Vanilla decorated Milk shake \n";
-	std::cout << decoratedMilkShake->getServe() << "\n";
-	std::cout << decoratedMilkShake->getPrice() << "\n";
-
-	delete decoratedMilkShake;
-	delete baseMilkShake;
-	return 0;
-}
+//int main()
+//{
+//	MilkShake* baseMilkShake = new BaseMilkShake();
+//	std::cout << "Basic Milk shake \n";
+//	std::cout << baseMilkShake->getServe() << "\n";
+//	std::cout << baseMilkShake->getPrice() << "\n";
+//
+//	MilkShake* decoratedMilkShake = new MangoMilkShake(baseMilkShake);
+//	std::cout << "Mango decorated Milk shake \n";
+//	std::cout << decoratedMilkShake->getServe() << "\n";
+//	std::cout << decoratedMilkShake->getPrice() << "\n";
+//
+//	decoratedMilkShake = new VanillaMilkShake(baseMilkShake);
+//	std::cout << "Vanilla decorated Milk shake \n";
+//	std::cout << decoratedMilkShake->getServe() << "\n";
+//	std::cout << decoratedMilkShake->getPrice() << "\n";
+//
+//	delete decoratedMilkShake;
+//	delete baseMilkShake;
+//	return 0;
+//}
 

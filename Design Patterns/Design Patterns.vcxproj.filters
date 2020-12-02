@@ -15,24 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="11_Creational_Simple_Factory.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="12_Creational_Factory_Method.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="13_Creational_Abstract_Factory.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="14_Creational_Builder.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="15_Creational_Prototype.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="16_Creational_Singleton.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="21_Behavioral_Chain_of_Responsibility.txt">
       <Filter>Resource Files</Filter>
     </Text>
@@ -90,21 +72,96 @@
     <Text Include="1_DesignPatterns.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="11_Creational_Factory_Method.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="12_Creational_Abstract_Factory.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="13_Creational_Builder.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="14_Creational_Prototype.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="15_Creational_Singleton.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="30_Behavioral_Visitor.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="23_Behavioral_Iterator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="14_Creational_Builder.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="16_Creational_Singleton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="34_Structural_Decorator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="11_Creational_Simple_Factory.cpp">
+    <ClCompile Include="11_Creational_Factory_Method.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="12_Creational_Abstract_Factory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="13_Creational_Builder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="14_Creational_Prototype.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="15_Creational_Singleton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="21_Behavioral_Chain_of_Responsibility.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="22_Behavioral_Command.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="24_Behavioral_Interpreter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="25_Behavioral_Mediator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="26_Behavioral_Memento.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="27_Behavioral_Observer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="28_Behavioral_Visitor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="29_Behavioral_State.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="29_Behavioral_Strategy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="29_Behavioral_Template_Method.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="30_Behavioral_Visitor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="31_Structural_Adapter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="32_Structural_Bridge.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="33_Structural_Composite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="35_Structural_Facade.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="36_Structural_Flyweight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="37_Structural_Proxy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

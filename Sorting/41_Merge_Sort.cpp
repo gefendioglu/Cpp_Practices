@@ -81,18 +81,18 @@ void printArray(int* A, int size)
 }
 
 // Client Code
-int main()
-{
-	int arr[] = { 12, 11, 13, 5, 6, 7 };
-	int arr_size = sizeof(arr) / sizeof(arr[0]);
-
-	std::cout << "Given array is : \n";
-	printArray(arr, arr_size);  // Given array is : 12 11 13 5 6 7 
-
-	mergeSort(arr, 0, arr_size - 1);
-
-	std::cout << "\nSorted array is : \n";
-	printArray(arr, arr_size);  // Sorted array is : 5 6 7 11 12 13
-	return 0;
-}
+//int main()
+//{
+//	int arr[] = { 12, 11, 13, 5, 6, 7 };
+//	int arr_size = sizeof(arr) / sizeof(arr[0]);
+//
+//	std::cout << "Given array is : \n";
+//	printArray(arr, arr_size);  // Given array is : 12 11 13 5 6 7 
+//
+//	mergeSort(arr, 0, arr_size - 1);
+//
+//	std::cout << "\nSorted array is : \n";
+//	printArray(arr, arr_size);  // Sorted array is : 5 6 7 11 12 13
+//	return 0;
+//}
 

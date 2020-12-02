@@ -177,3 +177,139 @@ int main()
 
 /----------------------------------------------
 /----------------------------------------------
+
+- **Example**:  Builder Design Pattern – Fluent API
+
+// Person.h
+/----------------------------------------------
+
+#pragma once
+#include <iostream>
+
+class PersonBuilder;
+
+class Person{
+ public:
+    friend class PersonBuilder;
+    friend std::ostream& operator<<(std::ostream& os, const Person& obj);
+    static PersonBuilder create(std::string name);
+
+private:
+    std::string m_name, m_street_address, m_post_code, m_city;  // Personal Detail
+    std::string m_company_name, m_position, m_annual_income;    // Employment Detail
+    Person(std::string name) : m_name(name) {}
+};
+
+// Person_Builder.h
+/----------------------------------------------
+
+#pragma once
+#include "Person.h"
+
+class PersonBuilder{
+  
+public:
+    PersonBuilder(std::string name) : person(name) {}
+    operator Person() const { return std::move(person); }
+    
+    PersonBuilder& lives();
+    PersonBuilder& at(std::string street_address);
+    PersonBuilder& with_postcode(std::string post_code);
+    PersonBuilder& in(std::string city);
+    PersonBuilder& works();
+    PersonBuilder& with(std::string company_name);
+    PersonBuilder& as_a(std::string position);
+    PersonBuilder& earning(std::string annual_income);
+
+private:
+    Person person;
+};
+
+// Person.cpp
+/----------------------------------------------
+
+#include <iostream>
+#include "Person.h"
+#include "Person_Builder.h"
+
+PersonBuilder Person::create(std::string name) { return PersonBuilder{ name }; }
+std::ostream& operator<<(std::ostream& os, const Person& obj)
+{
+    return os << obj.m_name
+        << std::endl
+        << "lives : " << std::endl
+        << "at " << obj.m_street_address
+        << " with postcode " << obj.m_post_code
+        << " in " << obj.m_city
+        << std::endl
+        << "works : " << std::endl
+        << "with " << obj.m_company_name
+        << " as a " << obj.m_position
+        << " earning " << obj.m_annual_income;
+}
+
+// Person_Builder.cpp
+/----------------------------------------------
+
+#include "Person_Builder.h"
+
+PersonBuilder& PersonBuilder::lives() { return *this; }
+PersonBuilder& PersonBuilder::works() { return *this; }
+
+PersonBuilder& PersonBuilder::with(std::string company_name) {
+    person.m_company_name = company_name;
+    return *this;
+}
+
+PersonBuilder& PersonBuilder::as_a(std::string position) {
+    person.m_position = position;
+    return *this;
+}
+
+PersonBuilder& PersonBuilder::earning(std::string annual_income) {
+    person.m_annual_income = annual_income;
+    return *this;
+}
+
+PersonBuilder& PersonBuilder::at(std::string street_address) {
+    person.m_street_address = street_address;
+    return *this;
+}
+
+PersonBuilder& PersonBuilder::with_postcode(std::string post_code) {
+    person.m_post_code = post_code;
+    return *this;
+}
+
+PersonBuilder& PersonBuilder::in(std::string city) {
+    person.m_city = city;
+    return *this;
+}
+
+// main.cpp
+/----------------------------------------------
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include "Person.h"
+#include "Person_Builder.h"
+
+int main()
+{
+    Person p = Person::create("John")
+                .lives()
+                .at("123 London Road")
+                .with_postcode("SW1 1GB")
+                .in("London")
+                .works()
+                .with("PragmaSoft")
+                .as_a("Consultant")
+                .earning("1000000");
+
+    std::cout << p << "\n";
+
+    return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
