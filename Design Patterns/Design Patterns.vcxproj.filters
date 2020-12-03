@@ -146,9 +146,6 @@
     <ClCompile Include="30_Behavioral_Visitor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="31_Structural_Adapter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="32_Structural_Bridge.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -162,6 +159,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="37_Structural_Proxy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="14_Creational_Prototype_Factory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="31_Structural_Adapter_Classical.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="31_Structural_Adapter_Pluggable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

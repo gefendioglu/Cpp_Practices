@@ -1,0 +1,143 @@
+
+## Bridge Design Pattern
+
+// ----------------------------------------------------
+// ----------------------------------------------------
+
+- **Example** : The problem (not compiled because of the redefinitions for Circle and Square classes)
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
+class DrawingAPI_1 { };
+class DrawingAPI_2 { };
+
+class Shape { 
+public:
+	virtual void draw() = 0; 
+};
+
+/* 2 x 2 scenario */
+class Circle : public Shape, public DrawingAPI_1{ 
+public:
+	void draw() { 
+		std::cout << "Circle - Drawing Api-1"<< "\n";
+	};
+};
+
+class Circle : public Shape, public DrawingAPI_2 {
+public:
+	void draw() {
+		std::cout << "Circle - Drawing Api-2" << "\n";
+	};
+};
+
+class Square : public Shape, public DrawingAPI_1 {
+public:
+	void draw() {
+		std::cout << "Shape - Drawing Api-1" << "\n";
+	};
+};
+
+class Square : public Shape, public DrawingAPI_2 { 
+public:
+	void draw() {
+		std::cout << "Shape - Drawing Api-2" << "\n";
+	};
+};
+
+int main() {
+
+	Shape* shape = new Square();
+	shape->draw();
+
+	shape = new Circle();
+	shape->draw();
+
+	return 0;
+}
+
+// ----------------------------------------------------
+// ----------------------------------------------------
+
+- **Example** : The solution - Bridge Design Pattern
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
+class DrawingAPI { 
+public: 
+	virtual void drawCircle() = 0;
+	virtual void drawSquare() = 0;
+	
+};
+
+class DrawingAPI_1 : public DrawingAPI {
+public:
+	void drawCircle() { 
+		std::cout << "Circle is drawn by API 1" << "\n"; 
+	}
+	void drawSquare() { 
+		std::cout << "Square is drawn by API 1" << "\n"; 
+	}
+};
+
+class DrawingAPI_2 : public DrawingAPI {
+public:
+	void drawCircle() { 
+		std::cout << "Circle is drawn by API 2" << "\n"; 
+	}
+
+	void drawSquare() {
+		std::cout << "Square is drawn by API 2" << "\n";
+	}
+};
+
+class Shape {
+public:
+	Shape(DrawingAPI& drawingAPI) : m_drawingAPI{ drawingAPI } {}
+	virtual void draw() = 0;
+
+protected:
+	DrawingAPI& m_drawingAPI;   
+};
+
+class Circle : public Shape {
+public:
+	Circle(DrawingAPI& drawingAPI) : Shape{ drawingAPI } {}
+	void draw() override { m_drawingAPI.drawCircle(); }
+};
+
+class Square : public Shape {
+public:
+	Square(DrawingAPI& drawingAPI) : Shape{ drawingAPI } {}
+	void draw() override { m_drawingAPI.drawSquare(); }
+};
+
+int main() {
+
+	DrawingAPI_1 API_1;
+	DrawingAPI_2 API_2;
+
+	Circle(API_1).draw();
+	Circle(API_2).draw();
+
+	Square(API_1).draw();
+	Square(API_2).draw();
+
+	return EXIT_SUCCESS;
+
+	/*
+		Circle is drawn by API 1
+		Circle is drawn by API 2
+		Square is drawn by API 1
+		Square is drawn by API 2
+	*/
+}
+
+// ----------------------------------------------------
+// ----------------------------------------------------
+
+- **Example** : Bridge Design Pattern using C++ Idiom: Pointer to Implementation(PIMPL)
+
+

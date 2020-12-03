@@ -1,0 +1,131 @@
+
+## Adapter Design Pattern
+
+// ----------------------------------------------------
+// ----------------------------------------------------
+
+- **Example** : Classical Adapter Design Pattern
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
+// Base Class
+class Point {
+public:
+    virtual void draw() { std::cout << "Point\n"; }
+
+private:
+    int32_t m_x;
+};
+
+// Template Definition for a generic adapter
+template<class T>
+class GenericLineAdapter : public Point {
+public:
+    GenericLineAdapter(T& line) : m_line(line) {}
+    void draw() { m_line.draw(); }
+
+private:
+    T& m_line;
+};
+
+// Derived Class (from Point base class)
+class Point2D : public Point {
+public:
+    void draw() override { std::cout << "Point2D\n"; }
+private:
+    int32_t m_y;
+};
+
+// Global Function Definition
+void draw_point(Point& p) {
+    p.draw();
+}
+
+// "Line" class is composed of "Point2D" derived class
+class Line {
+public:
+    void draw() { std::cout << "Line\n"; }
+
+private:
+    Point2D m_start;
+    Point2D m_end;
+};
+
+// Adapter class for "Line" class
+class LineAdapter : public Point {
+public:
+    LineAdapter(Line& line) : m_line(line) {}
+    void draw() override { m_line.draw(); }
+
+private:
+    Line& m_line;
+};
+
+int main() {
+
+    Line line;
+    LineAdapter lineAdapter(line);
+    draw_point(lineAdapter);
+
+    return EXIT_SUCCESS;
+}
+
+
+// ----------------------------------------------------
+// ----------------------------------------------------
+
+- **Example** : Pluggable Object Adapter Design Pattern (bypassing lambda function in constructor argument)
+  - Suppose we have a bird that can makeSound(), and we have a plastic toy duck that can squeak(). 
+  - Now suppose our client changes the requirement and he wants the toyDuck to makeSound.
+  - Simple solution is that we will just change the implementation class to the new adapter class and tell the client to pass the instance of the bird (which wants to squeak()) to that class.
+  - Before : ToyDuck* toyDuck = new PlasticToyDuck();
+    After  : ToyDuck* toyDuck = new BirdAdapter(sparrow);
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+#include<functional> 
+
+/* Legacy code -------------------------------------------------------------- */
+class Beverage {
+public:
+    virtual void getBeverage() = 0;
+};
+
+class CoffeeMaker : public Beverage {
+public:
+    void Brew() { std::cout << "brewing coffee" << "\n"; }
+    void getBeverage() override { Brew(); }
+};
+
+void make_drink(Beverage& drink) {
+    drink.getBeverage(); 
+}
+/* --------------------------------------------------------------- */
+
+class JuiceMaker {        
+public:
+    void Squeeze() { std::cout << "making Juice" << "\n"; }
+};
+
+// Adapter class for "Beverage" base class 
+class Adapter : public Beverage {  
+public:
+    Adapter(CoffeeMaker* cm) { m_request = [cm]() { cm->Brew(); }; }
+    Adapter(JuiceMaker* jm) { m_request = [jm]() { jm->Squeeze(); }; }
+    void getBeverage() override { m_request(); }
+
+private:
+    std::function<void()> m_request;
+};
+
+int main() {
+
+    Adapter adp1(new CoffeeMaker());
+    make_drink(adp1); // brewing coffee
+
+    Adapter adp2(new JuiceMaker());
+    make_drink(adp2); // making Juice
+
+    return EXIT_SUCCESS;
+}

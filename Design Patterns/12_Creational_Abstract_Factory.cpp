@@ -35,11 +35,11 @@ private:
     std::map<PointType, std::function<std::unique_ptr<Point>() >> m_factories;
 };
 
-int main() {
-
-    PointFunctionalFactory pf;
-    auto p2D = pf.create(PointType::Point2D);
-    std::cout << p2D << "\n"; // The address of object will print
-    return EXIT_SUCCESS;
-}
+//int main() {
+//
+//    PointFunctionalFactory pf;
+//    auto p2D = pf.create(PointType::Point2D);
+//    std::cout << p2D << "\n"; // The address of object will print
+//    return EXIT_SUCCESS;
+//}
 
