@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{19EBEB5F-0F41-4DA5-8CD5-B10E8A23987E}</ProjectGuid>
+    <ProjectGuid>{B6F965FC-46C5-41BF-9F2C-5D00722AED2B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>DesignPatternsPIMPL</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
@@ -147,11 +147,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Design_Patterns_PIMPL.cpp" />
-    <ClCompile Include="Person.cpp" />
+    <ClCompile Include="User.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Person.h" />
+    <ClInclude Include="User.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

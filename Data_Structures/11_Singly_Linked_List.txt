@@ -1,0 +1,276 @@
+
+## LINKED LISTS
+
+## Linked Lists:
+- The specifications of Linked Lists:
+  - It is a linear data structure
+  - The elements of a linked lists are not stored at contiguous memory locations.
+  - The elements of a linked lists are linked using pointers. 
+  - A linked lists consists of nodes. A node contains a data field and reference(link) which provides a link to the next node. 
+   
+- The operations of Linked Lists:
+  1. Traversing a linked list
+  2. Append a new node to the end of a list
+  3. Prepend a new node to the beginning of a list
+  4. Inserting a new node to a specific position in the list
+  5. Deleting a node from the list
+  6. Updating a node in the list
+
+- Three basic kinds of linked lists exist: 
+  - Singly linked lists
+  - Doubly linked lists 
+  - Circular linked lists 
+
+- Linked Lists && Arrays:
+  - The advantages of Linked Lists over Arrays:
+    - Dynamic size
+	- Ease of insertion / deletion
+  - The disadvantages of Linked Lists over Arrays: 
+    - Random access is not allowed. We have to access elements sequentially starting from the first node.
+	- Extra memory space for a pointer is required with each element of the list.
+	- Not cache friendly. Since array elements are contiguous locations, there is locality of reference which is not there in case of linked lists. 
+
+/----------------------------------------------
+/----------------------------------------------
+
+## Singly Linked Lists:
+- Each data element in the list has a link (a pointer or reference) to the element that follows it in the list. 
+- The first element in a singly linked list is referred to as the "head" of the list. 
+- The last element in such a list is called the "tail".
+- When defining classes in C++ for singly linked list, particularly in template form, it’s best to add copy constructors and copy assignment operators so you don’t depend on the compiler- generated versions.
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Tracking the Head Element (Inserting an element at the front of a list)
+  - In C++, the head pointer could also be passed in by reference, or the function could return the new head pointer.
+
+// when return value is a class pointer type
+IntElement* IntElement::insertInFront(IntElement** head, int data) {
+	IntElement* newElem =new IntElement(data);
+	if (!newElem)
+		return nullptr;
+	newElem->data = data;
+	newElem->next = *head;  // The correct version passes in a pointer to the head pointer
+	*head = newElem;
+	return newElem;
+}
+
+// when return value is bool 
+bool IntElement::insertInFront(IntElement** head, int data) {
+	IntElement* newElem =new IntElement(data);
+	if (!newElem)
+		return false;
+	newElem->data = data;
+	newElem->next = *head;  // The correct version passes in a pointer to the head pointer
+	*head = newElem;
+	return true;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Traversing a List
+  - When traversing, you must always check that you haven’t reached the end of the list.
+  - Deletion and insertion require a pointer or reference to the element immediately preceding the deletion or insertion location.
+
+IntElement* IntElement::find(IntElement* head, int data) {
+	IntElement* elem = head;
+	while (elem != nullptr && elem->getData() != data) {
+		elem = elem->getNext();
+	}
+	return elem;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Inserting and Deleting Elements
+  - Any insertion or deletion of elements in the middle of a list requires modification of the previous element’s next pointer or reference.
+  - If you’re given only the element to delete (or before which to insert), this requires traversal of the list from the head because there’s no other way to find the preceding element. 
+  - Special care must be taken when the element to be deleted is the head of the list.
+  - Deletion and insertion require a pointer or reference to the element immediately preceding the deletion or insertion location. 
+
+/----------------------------------------------
+
+- **Example**: First implementation for deleting elements  from a singly linked list
+
+bool IntElement::deleteElement(IntElement** head, IntElement* deleteMe)
+{
+	IntElement* elem;
+	if (!head || !*head || !deleteMe) /* Check for null pointers */
+		return false;
+
+	elem = *head;
+	if (deleteMe == *head) { /* special case for head */
+		*head = elem->next;
+		free(deleteMe);
+		return true;
+	}
+	while (elem) {
+		if (elem->next == deleteMe) {
+			/* elem is element preceding deleteMe */
+			elem->next = deleteMe->next;
+			free(deleteMe);
+			return true;
+		}
+		elem = elem->next;
+	}
+	/* deleteMe not found */
+	return false;
+}
+
+/----------------------------------------------
+
+- **Example**: Second implementation for deleting elements from a singly linked list 
+
+bool IntElement::deleteElement_I(IntElement** npp, IntElement* deleteMe) {
+
+	IntElement* elem;
+
+	if (!npp || !*npp || !deleteMe) /* Check for null pointers */
+		return false;
+
+	while (*npp) {
+		if (*npp == deleteMe) {
+			/* npp points to head pointer (if deleteMe is first element) or to next pointer within preceding element */
+			*npp = deleteMe->next;
+			free(deleteMe);
+			return true;
+		}
+		/* Iterating for the next list element */
+		npp = &((*npp)->next);
+	}
+	/* deleteMe not found */
+	return false;
+}
+
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Deleting all list elements
+  - Performing deletions raises another issue in languages without garbage collection, like C or C++. 
+  - Do you advance the pointer first or free the element first? 
+    - If you advance the pointer first, then the freeing is impossible because you overwrote the pointer to the element to be freed. 
+	- If you free the element first, advancing the pointer is impossible, because it involves reading the next pointer in the element that was just freed.
+	- The solution is to use two pointers !!!
+
+
+void IntElement::deleteList(IntElement** head)
+{
+	// First pointer points the first element of list
+	IntElement* deleteMe = *head;
+
+	while (deleteMe) {
+		// Second pointer points the next element of the element which will be deleted
+		IntElement* next = deleteMe->next;
+		// delete the element
+		free(deleteMe);
+		deleteMe = next;
+	}
+	*head = nullptr;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Singly LÝnked List Full Implementation (not using templates)
+  - Client Code shall be written !!!
+
+#include <iostream>
+#include <array>
+
+// A singly linked list in C++
+class IntElement {
+public:
+	IntElement(const int &value) :next{ nullptr }, data{ value }{}
+	~IntElement() {}
+
+	// getter functions
+	IntElement* getNext()const { return next; }
+	const int& getData()const { return data; }
+
+	// setter functions
+	void setNext(IntElement* ptr) { next = ptr; }
+	void setData(const int& value) { data = value; }
+
+	// other linked list functions
+	IntElement* insertInFront(IntElement** head, int data);
+	IntElement* find(IntElement* head, int data);
+	bool deleteElement(IntElement** head, IntElement* deleteMe);
+	bool deleteElement_I(IntElement** head, IntElement* deleteMe);
+	void deleteList(IntElement** head);
+
+	//operator overloading function ???
+	//std::ostream& operator<<(std::ostream& str, IntElement* ptr);
+
+private:
+	IntElement* next;
+	int data;
+};
+
+IntElement* IntElement::insertInFront(IntElement** head, int data) {
+	IntElement* newElem =new IntElement(data);
+	if (!newElem)
+		return nullptr;
+	newElem->data = data;
+	newElem->next = *head;  // The correct version passes in a pointer to the head pointer
+	*head = newElem;
+	return newElem;
+}
+
+IntElement* IntElement::find(IntElement* head, int data) {
+	IntElement* elem = head;
+	while (elem != nullptr && elem->getData() != data) {
+		elem = elem->getNext();
+	}
+	return elem;
+}
+
+bool IntElement::deleteElement(IntElement** npp, IntElement* deleteMe) {
+
+	IntElement* elem;
+
+	if (!npp || !*npp || !deleteMe) /* Check for null pointers */
+		return false;
+
+	while (*npp) {
+		if (*npp == deleteMe) {
+			/* npp points to head pointer (if deleteMe is first element) or to next pointer within preceding element */
+			*npp = deleteMe->next;
+			free(deleteMe);
+			return true;
+		}
+		/* Iterating for the next list element */
+		npp = &((*npp)->next);
+	}
+	/* deleteMe not found */
+	return false;
+}
+
+void IntElement::deleteList(IntElement** head)
+{
+	// First pointer points the first element of list
+	IntElement* deleteMe = *head;
+
+	while (deleteMe) {
+		// Second pointer points the next element of the element which will be deleted
+		IntElement* next = deleteMe->next;
+		// delete the element
+		free(deleteMe);
+		deleteMe = next;
+	}
+	*head = nullptr;
+}
+
+int main()
+{
+	IntElement ilist(0);
+	//ilist.insertInFront(&ilist.getNext(), ilist.getData());
+	//IntElement *ptr = ilist.find(ilist.getNext(), 6);
+	//std::cout << *ptr << "\n";
+}
+
+/----------------------------------------------
+/----------------------------------------------

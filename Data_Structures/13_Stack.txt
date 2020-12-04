@@ -1,0 +1,11 @@
+
+## STACK
+
+- **Example** : Stack Implementation (TO BE COMPLETED)
+  - The createStack function sets the stack pointer to NULL and returns success
+  - The push function allocates the new element, checks for failure, sets the data of the new element, places it at the top of the stack, and adjusts the stack pointer.
+  - The pop operation checks that the stack isn’t empty, fetches the data from the top element, adjusts the stack pointer, and frees the element that is no longer on the stack. 
+  - Although deleteStack could call pop repeatedly, it’s more efficient to simply traverse the data structure, freeing as you go. Don’t forget that you need a temporary pointer to hold the address of the next element while you free the current one.
+  - The createStack and deleteStack functions become the constructor and destructor, respectively.
+  - A more complete C++ implementation should include a copy constructor and assignment operator, because the default versions created by the compiler could lead to multiple deletes of the same Element due to inadvertent sharing of elements between copies of a Stack.
+

@@ -1,0 +1,152 @@
+
+## BINARY TREE
+
+- A tree is made up of nodes (data elements) with zero, one, or several references (or pointers) to other nodes. Each node has only one other node referencing it.
+- In object-oriented languages you usually define a class for the common parts of a node and one or more subclasses for the data held by a node.
+
+## Binary Tree
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Binary Search Tree / Searching an element with class and class member function
+
+#include <iostream>
+#include <array>
+
+// Binary Tree
+class Node {
+public:
+
+	Node(int v) : left{ nullptr }, right{ nullptr }, value{v}{}
+	
+	//getter functions
+	Node* getLeft() const { return left; }
+	Node* getRight() const { return right; }
+	int getValue() const { return value; }
+
+	// setter functions
+	void setLeft(Node* left) { this->left = left; }
+	void setRight(Node* right) { this->right = right; }
+	
+	// tree functions
+	Node* findNode(Node* root, int value);
+	Node* findNode_rcrsv(Node* root, int value);
+
+private:
+	Node* left;
+	Node* right;
+	int value;
+};
+
+// Searching an element in a binary search tree
+Node* Node::findNode(Node* root, int value) {
+    // This process continues until you reach a null reference (the end of a tree)
+	while (root != nullptr) {
+		int curVal = root->getValue();
+		if (curVal == value) break;
+		if (curVal < value) {
+			root = root->getRight();
+		}
+		else { // curVal > value
+			root = root->getLeft();
+		}
+	}
+	return root;
+}
+
+// Searching an element in a binary search tree with a recursive function
+Node* Node::findNode_rcrsv(Node* root, int value) {
+	if (root == nullptr) return nullptr;
+	int curVal = root->getValue();
+	if (curVal == value) return root;
+	if (curVal < value) { 
+		return findNode_rcrsv(root->getRight(), value);	
+	}
+	else { // curVal > value
+		return findNode_rcrsv(root->getLeft(), value);
+	}
+
+}
+
+
+int main()
+{
+	// Making a binary search tree with available values
+	Node* root = new Node(5);
+	Node* left = new Node(3);
+	Node* right = new Node(10);
+
+	root->setLeft(left);
+	root->setRight(right);
+
+	Node* left_left = new Node(1);
+	Node* left_right = new Node(4);
+
+	left->setLeft(left_left);
+	left->setRight(left_right);
+
+	Node* right_left = new Node(7);
+	Node* right_right = new Node(12);
+
+	right->setLeft(right_left);
+	right->setRight(right_right);
+
+	Node* searched = root->findNode(root, 7);
+	std::cout << "value address: " << searched << "\n"; // value address: 0170F028
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Binary Search Tree / Searching an element with structure and recursion function
+
+#include <iostream>
+
+// Binary Tree
+struct node
+{
+	int data;
+	struct node* left;
+	struct node* right;
+	node(int value) {
+		data = value;
+		left = nullptr;
+		right = nullptr;
+	}
+};
+
+// Searching an element in binary search tree with recursion function
+node* search(node* root, int key)
+{
+	// Base Cases: root is null or key is present at root data
+	if (root == NULL || root->data == key)
+		return root;
+
+	// Key is greater than root's data 
+	if (root->data < key)
+		return search(root->right, key);
+
+	// Key is smaller than root's data 
+	return search(root->left, key);
+}
+
+int main()
+{
+	// Making a binary search tree with available values
+	node* root = new node(5);
+	root->left = new node(3);
+	root->right = new node(10);
+	root->left->left = new node(1);
+	root->left->right = new node(4);
+	root->right->left = new node(7);
+	root->right->right = new node(12);
+
+	node* searched = search(root, 7);
+	std::cout << "value address: " << searched << "\n"; // value address: 00D621C8
+
+}
+
+/----------------------------------------------
+/----------------------------------------------
+

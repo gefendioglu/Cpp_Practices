@@ -170,5 +170,8 @@
     <ClCompile Include="31_Structural_Adapter_Pluggable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="32_Structural_Bridge_PIMPL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

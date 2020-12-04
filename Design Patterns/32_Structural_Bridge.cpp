@@ -145,19 +145,19 @@ public:
 };
 
 // Demonstration of bridge design pattern 
-int main() {
-
-	Vehicle* vehicle1 = new Car(new Produce(), new Assemble());
-	vehicle1->manufacture();
-
-	Vehicle* vehicle2 = new Bike(new Produce(), new Assemble());
-	vehicle2->manufacture();
-
-	return 0;
-
-	/*
-		Car Produced And Assembled.
-		Bike Produced And Assembled.
-	*/
-
-}
+//int main() {
+//
+//	Vehicle* vehicle1 = new Car(new Produce(), new Assemble());
+//	vehicle1->manufacture();
+//
+//	Vehicle* vehicle2 = new Bike(new Produce(), new Assemble());
+//	vehicle2->manufacture();
+//
+//	return 0;
+//
+//	/*
+//		Car Produced And Assembled.
+//		Bike Produced And Assembled.
+//	*/
+//
+//}

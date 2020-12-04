@@ -195,6 +195,7 @@
     <ClCompile Include="31_Structural_Adapter_Classical.cpp" />
     <ClCompile Include="31_Structural_Adapter_Pluggable.cpp" />
     <ClCompile Include="32_Structural_Bridge.cpp" />
+    <ClCompile Include="32_Structural_Bridge_PIMPL.cpp" />
     <ClCompile Include="33_Structural_Composite.cpp" />
     <ClCompile Include="34_Structural_Decorator.cpp" />
     <ClCompile Include="35_Structural_Facade.cpp" />

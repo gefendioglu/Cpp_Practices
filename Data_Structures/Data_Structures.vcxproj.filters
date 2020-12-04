@@ -36,6 +36,12 @@
     <ClCompile Include="31_Graphs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="41_Queue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="42_Circular_Queue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Data_Structures.txt">
@@ -60,6 +66,9 @@
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="31_Graphs.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="41_Queue.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
