@@ -7,16 +7,15 @@ public:
 		front = -1;
 		rear = -1;
 		itemCount = 0;
-		for (size_t i = 0; i < length; i++)
+		for (int i = 0; i < length; ++i)
 			arr[i] = 0;
-
 	}
 
 	~CircularQueue() {}
 
 	// getter functions
 	void getData()const {
-		for (size_t i = 0; i < length; i++)
+		for (int i = 0; i < length; ++i)
 			std::cout << arr[i] << "\n";
 	}
 

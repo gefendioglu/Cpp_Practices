@@ -7,16 +7,15 @@ public:
 	Queue() {
 		front = -1;
 		rear = -1;
-		for (size_t i = 0; i < length; i++)
+		for (int i = 0; i < length; i++)
 			arr[i] = 0;
-
 	}
 
 	~Queue() {}
 
 	// getter functions
 	void getData()const {
-		for (size_t i = 0; i < length; i++)
+		for (int i = 0; i < length; i++)
 			std::cout << arr[i] << "\n";
 	}
 
