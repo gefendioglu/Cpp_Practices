@@ -23,5 +23,8 @@
     <ClCompile Include="11_Binary_Search.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="12_Linear_Search.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
