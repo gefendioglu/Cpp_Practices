@@ -39,13 +39,13 @@ private:
 };
 
 
-int main() {
-
-	// Creating objects in stack 
-	Node node1(1, 10);
-	Node node2(2, 20);
-
-	
-
-	return EXIT_SUCCESS;
-}
+//int main() {
+//
+//	// Creating objects in stack 
+//	Node node1(1, 10);
+//	Node node2(2, 20);
+//
+//	
+//
+//	return EXIT_SUCCESS;
+//}
