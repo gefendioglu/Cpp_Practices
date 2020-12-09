@@ -53,6 +53,8 @@
 //	}
 //}
 
+// ---------------------------------------------------------
+// ---------------------------------------------------------
 
 // Iterative Implementation
 int binarySearch_it(std::vector<int>* vec, int left, int right, int number) {
