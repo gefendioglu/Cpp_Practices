@@ -102,143 +102,141 @@
 // ----------------------------------------------
 // ----------------------------------------------
 
-// Strategy Pattern - GeeksForGeeks 
+// Strategy Pattern - GeeksForGeeks - TO BE CONTROLLED !!!
 
-// Abstract as you must have a specific fighter 
-class Fighter {
-public:
-	// Constructor
-	Fighter(KickBehavior &kickBehavior,JumpBehavior &jumpBehavior){
-		this->jumpBehavior = jumpBehavior;
-		this->kickBehavior = kickBehavior;
-	}
-
-	void punch(){
-		std::cout << "Default Punch" << "\n";
-	}
-
-	void kick(){
-		// delegate to kick behavior 
-		kickBehavior->kick();
-	}
-
-	void jump(){
-		// delegate to jump behavior 
-		jumpBehavior->jump();
-	}
-
-	void roll()	{
-		std::cout << "Default Roll" << "\n";
-	}
-
-	void setKickBehavior(KickBehavior *kickBehavior)
-	{
-		this->kickBehavior = kickBehavior;
-	}
-
-	void setJumpBehavior(JumpBehavior *jumpBehavior)
-	{
-		this->jumpBehavior = jumpBehavior;
-	}
-
-	virtual void display()=0;
-
-private:
-	KickBehavior &kickBehavior;
-	JumpBehavior &jumpBehavior;
-};
-
-// Encapsulated kick behaviors (as an interface)
-class KickBehavior {
-public:
-	virtual void kick() = 0;
-};
-
-class LightningKick : public KickBehavior {
-public:
-	void kick() override {
-		std::cout << "Lightning Kick" << "\n";
-	}
-};
-
-class TornadoKick : public KickBehavior {
-public:
-	void kick() override {
-		std::cout << "Tornado Kick" << "\n";
-	}
-};
-
-// Encapsulated jump behaviors (as an interface)
-class JumpBehavior {
-public:
-	virtual void jump() = 0;
-};
-
-class ShortJump : public JumpBehavior {
-public:
-	void jump() override {
-		std::cout << "Short Jump" << "\n";
-	}
-};
-
-class LongJump : public JumpBehavior {
-public:
-	void jump() override {
-		std::cout << "Long Jump" << "\n";
-	}
-};
-
-// Characters 
-class Ryu :public Fighter {
-public:
-	Ryu(KickBehavior kickBehavior, JumpBehavior jumpBehavior){
-		super(&kickBehavior, &jumpBehavior);
-	}
-
-	void display() override	{
-		std::cout << "Ryu" << "\n";
-	}
-};
-
-class Ken : public Fighter{
-public:
-	Ken(KickBehavior kickBehavior, JumpBehavior jumpBehavior):Fighter(&kickBehavior, &jumpBehavior) {	}
-	
-	void display() override{
-		std::cout << "Ken" << "\n";
-	}
-};
-
-class ChunLi : public Fighter{
-public:
-	ChunLi(KickBehavior kickBehavior,JumpBehavior jumpBehavior):Fighter(&kickBehavior, &jumpBehavior)
-	{}
-	void display() override	{
-		std::cout << "ChunLi" << "\n";
-	}
-};
-
-// Driver class 
-int main() {
-
-	// let us make some behaviors first 
-	JumpBehavior *shortJump = new ShortJump();
-	JumpBehavior *LongJump = new LongJump();
-	KickBehavior *tornadoKick = new TornadoKick();
-
-	// Make a fighter with desired behaviors 
-	Fighter *ken = new Ken(tornadoKick, shortJump);
-	ken->display();
-
-	// Test behaviors 
-	ken->punch();
-	ken->kick();
-	ken->jump();
-
-	// Change behavior dynamically (algorithms are 
-	// interchangeable) 
-	ken->setJumpBehavior(LongJump);
-	ken->jump();
-
-	return EXIT_SUCCESS;
-}
+//// Abstract as you must have a specific fighter 
+//class Fighter {
+//public:
+//	// Constructor
+//	Fighter(KickBehavior *kickBehavior,JumpBehavior *jumpBehavior){
+//		this->jumpBehavior = jumpBehavior;
+//		this->kickBehavior = kickBehavior;
+//	}
+//
+//	void punch(){
+//		std::cout << "Default Punch" << "\n";
+//	}
+//
+//	void kick(){
+//		// delegate to kick behavior 
+//		kickBehavior->kick();
+//	}
+//
+//	void jump(){
+//		// delegate to jump behavior 
+//		jumpBehavior->jump();
+//	}
+//
+//	void roll()	{
+//		std::cout << "Default Roll" << "\n";
+//	}
+//
+//	void setKickBehavior(KickBehavior *kickBehavior)
+//	{
+//		this->kickBehavior = kickBehavior;
+//	}
+//
+//	void setJumpBehavior(JumpBehavior *jumpBehavior)
+//	{
+//		this->jumpBehavior = jumpBehavior;
+//	}
+//
+//	virtual void display()=0;
+//
+//private:
+//	KickBehavior *kickBehavior;
+//	JumpBehavior *jumpBehavior;
+//};
+//
+//// Encapsulated kick behaviors (as an interface)
+//class KickBehavior {
+//public:
+//	virtual void kick() = 0;
+//};
+//
+//class LightningKick : public KickBehavior {
+//public:
+//	void kick() override {
+//		std::cout << "Lightning Kick" << "\n";
+//	}
+//};
+//
+//class TornadoKick : public KickBehavior {
+//public:
+//	void kick() override {
+//		std::cout << "Tornado Kick" << "\n";
+//	}
+//};
+//
+//// Encapsulated jump behaviors (as an interface)
+//class JumpBehavior {
+//public:
+//	virtual void jump() = 0;
+//};
+//
+//class ShortJump : public JumpBehavior {
+//public:
+//	void jump() override {
+//		std::cout << "Short Jump" << "\n";
+//	}
+//};
+//
+//class LongJump : public JumpBehavior {
+//public:
+//	void jump() override {
+//		std::cout << "Long Jump" << "\n";
+//	}
+//};
+//
+//// Characters 
+//class Ryu :public Fighter {
+//public:
+//	Ryu(KickBehavior *kickBehavior, JumpBehavior *jumpBehavior): Fighter(kickBehavior,jumpBehavior){}
+//
+//	void display() override	{
+//		std::cout << "Ryu" << "\n";
+//	}
+//};
+//
+//class Ken : public Fighter{
+//public:
+//	Ken(KickBehavior *kickBehavior, JumpBehavior *jumpBehavior):Fighter(kickBehavior, jumpBehavior) {	}
+//	
+//	void display() override{
+//		std::cout << "Ken" << "\n";
+//	}
+//};
+//
+//class ChunLi : public Fighter{
+//public:
+//	ChunLi(KickBehavior *kickBehavior,JumpBehavior *jumpBehavior):Fighter(kickBehavior, jumpBehavior)
+//	{}
+//	void display() override	{
+//		std::cout << "ChunLi" << "\n";
+//	}
+//};
+//
+//
+//// Driver class 
+//int main() {
+//
+//	// let us make some behaviors first 
+//	JumpBehavior *shortJump = new ShortJump();
+//	JumpBehavior *LongJump = new LongJump();
+//	KickBehavior *tornadoKick = new TornadoKick();
+//
+//	// Make a fighter with desired behaviors 
+//	Fighter *ken = new Ken(tornadoKick, shortJump);
+//	ken->display();
+//
+//	// Test behaviors 
+//	ken->punch();
+//	ken->kick();
+//	ken->jump();
+//
+//	// Change behavior dynamically (algorithms are interchangeable) 
+//	ken->setJumpBehavior(LongJump);
+//	ken->jump();
+//
+//	return EXIT_SUCCESS;
+//}
