@@ -1,0 +1,33 @@
+
+
+## Binary Search Algorithm
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** :
+
+
+
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : The same binary search function, but with arrays
+
+// Iterative way 
+int binarySearch_it(int* arr, int left, int right, int number) {
+
+	while (left <= right) {
+		int mid = (right - left / 2);
+
+		if (arr[mid] == number)
+			return mid;
+		else if (arr[mid] < number)
+			left = mid + 1;
+		else
+			right = mid - 1;
+	}
+
+	return -1;
+}
