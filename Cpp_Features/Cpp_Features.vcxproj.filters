@@ -24,6 +24,18 @@
     <ClCompile Include="Virtual_Functions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Virtual_Destructor_Constructor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Virtual_Copy_Constructor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Inheritance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Smart_Pointers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Virtual_Functions.txt">
@@ -33,6 +45,18 @@
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="Function_Overlaoding.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Virtual_Destructor_Constructor.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Virtual_Copy_Constructor.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Inheritance.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Smart_Pointers.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
