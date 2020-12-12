@@ -1,5 +1,3 @@
-#if Open_Closed
-
 #define _CRT_SECURE_NO_WARNINGS
 #define ALL(C)  begin(C), end(C)
 
@@ -184,7 +182,5 @@ int main() {
 		Tree is green and large
 	*/
 }
-
-#endif
 
 

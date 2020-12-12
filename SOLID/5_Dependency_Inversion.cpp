@@ -1,5 +1,3 @@
-#ifdef Dependecy_Inversion
-
 #define _CRT_SECURE_NO_WARNINGS
 
 #include<iostream> 
@@ -51,4 +49,3 @@ int main() {
     */
 }
 
-#endif // Dependecy_Inversion

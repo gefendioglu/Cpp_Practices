@@ -1,4 +1,3 @@
-#if Interface_Segregation
 
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
@@ -92,4 +91,3 @@ int main() {
     return EXIT_SUCCESS;
 }
 
-#endif // Interface_Segregation

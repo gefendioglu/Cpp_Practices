@@ -1,5 +1,3 @@
-#if Liskov_Substitution
-
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
 #include <assert.h>     
@@ -142,4 +140,3 @@ int main() {
     return EXIT_SUCCESS;
 }
 
-#endif // Liskov_Substitution

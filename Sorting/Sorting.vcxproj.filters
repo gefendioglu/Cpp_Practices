@@ -21,28 +21,16 @@
     <ClCompile Include="21_Insertion_Sort.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="22_Binary_Insertion_Sort.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="31_Quick_Sort.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="41_Merge_Sort.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="33_Quick_Sort_Doubly_Linked_List.cpp">
+    <ClCompile Include="51_Bubble_Sort.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="32_Quick_Sort_Singly_Linked_List.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="42_Merge_Sort_Singly_Linked_List.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="43_Merge_Sort_Doubly_Linked_List.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="34_Quick_Sort_Three_Way.cpp">
+    <ClCompile Include="61_Heap_Sort.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -57,6 +45,12 @@
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="4_Merge_Sort.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="5_Bubble_Sort.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="61_Heap_Sort.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

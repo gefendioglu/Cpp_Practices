@@ -9,7 +9,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
 
-/* C++ implementation of QuickSort */
 // A utility function to swap two elements 
 void swap(int* a, int* b)
 {
@@ -24,6 +23,7 @@ void swap(int* a, int* b)
 	places all smaller (smaller than pivot) to left of pivot and 
 	places all greater elements to right of pivot 
 */
+
 int partition(int* arr, int low, int high)
 {
 	int pivot = arr[high]; // pivot 

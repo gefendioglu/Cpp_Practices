@@ -56,4 +56,232 @@ int main()
 // --------------------------------------------
 // --------------------------------------------
 
-- **Example**: 
+- **Example**: unique_ptr
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+#include <memory> 
+
+class Rectangle {
+public:
+	Rectangle(int l, int b){
+		length = l;
+		breadth = b;
+	}
+
+	int area()	{
+		return length * breadth;
+	}
+private:
+	int length;
+	int breadth;
+};
+
+int main(){
+
+	std::unique_ptr<Rectangle> P1(new Rectangle(10, 5));
+	std::cout << P1->area() << "\n"; // 50 
+
+	//std::unique_ptr<Rectangle> P2(P1); // not copyable
+	std::unique_ptr<Rectangle> P2;       // but movable
+	P2 = std::move(P1);              // Transferring ownership
+	std::cout << P2->area() << "\n"; // 50
+
+	// std::cout<<P1->area()<<"\n"; // not reachable
+	return 0;
+}
+
+// --------------------------------------------
+// --------------------------------------------
+
+- **Example**: shared_ptr
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+#include <memory> 
+
+class Rectangle {
+public:
+	Rectangle(int l, int b){
+		length = l;
+		breadth = b;
+	}
+
+	int area()	{
+		return length * breadth;
+	}
+private:
+	int length;
+	int breadth;
+};
+
+int main(){
+
+	std::shared_ptr<Rectangle> P1(new Rectangle(10, 5));
+	std::cout << P1->area() << "\n"; // 50 
+
+	std::shared_ptr<Rectangle> P2;
+	P2 = P1; // copy assignment function is called
+	std::cout << P2->area() << "\n"; // 50 
+	std::cout << P1->area() << "\n"; // 50 - not give an error
+
+	// print 2 as Reference Counter is 2 
+	std::cout << P1.use_count() << "\n"; // 2
+
+	return 0;
+}
+
+
+// --------------------------------------------
+// --------------------------------------------
+
+- **Example**: weak_ptr
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+#include <memory> 
+
+std::shared_ptr<int> p1 = std::make_shared<int>(5);
+std::weak_ptr<int> wp1{ p1 };  // p1 owns the memory
+std::shared_ptr<int> p3 = wp1.lock();
+
+// --------------------------------------------
+// --------------------------------------------
+
+## DANGLING POINTER
+
+// --------------------------------------------
+// --------------------------------------------
+
+- **Example**: De-allocation of memory
+
+int main()
+{
+	int* ptr = (int*)malloc(sizeof(int));
+
+	// Deallocating a memory pointed by ptr causes dangling pointer 
+	free(ptr);
+
+	// No more a dangling pointer 
+	ptr = nullptr;
+}
+
+// --------------------------------------------
+// --------------------------------------------
+
+- **Example**: Function Call
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
+int* fun(){
+
+	// x is local variable and goes out of scope after an execution of fun() is over. 
+	int x = 5;
+
+	// warning:  returning address of local variable or temporary: x
+	return &x; 
+}
+
+int main(){
+
+	int* p = fun();
+	fflush(stdin);
+
+	// p points to something which is not valid anymore, but Cpp compiler wont give an error and prints 5 
+	std::cout << *p << "\n";
+	std::cout << p << "\n";
+
+	return 0;
+}
+
+// --------------------------------------------
+// --------------------------------------------
+
+- **Example**: The above problem doesn’t appear (or p doesn’t become dangling) if x is a static variable.
+
+int* fun(){
+	
+	// x has scope throughout the program 
+	static int x = 5;
+	return &x; 
+}
+
+int main(){
+
+	int* p = fun();
+	fflush(stdin);
+
+	// p points to something which is not valid anymore 
+	std::cout << *p << "\n";
+	std::cout << p << "\n";
+
+	return 0;
+}
+
+// --------------------------------------------
+// --------------------------------------------
+
+- **Example**: void pointers
+
+int main(){
+
+	int x = 4;
+	float y = 5.5;
+
+	// A void pointer 
+	void* ptr;
+
+	// void pointer points an address includes integer value
+	ptr = &x; 
+
+	// (int*)ptr - does type casting of void 
+	// *((int*)ptr) dereferences the typecasted 
+	std::cout << "Integer variable is = " << *((int*)ptr) << "\n";
+	
+	// void pointer points an address includes integer value
+	ptr = &y;
+	std::cout << "Float variable is= = " << *((float*)ptr) << "\n";
+	return 0;
+
+	/*
+		Integer variable is = 4
+		Float variable is= = 5.5
+	*/
+}
+
+// --------------------------------------------
+// --------------------------------------------
+
+- **Example**: null pointers
+
+int main()
+{
+	// Null Pointer 
+	int* ptr = nullptr;
+	std::cout << "The value of ptr is : " << ptr << "\n";
+	return 0;
+
+	// The value of ptr is : 00000000
+}
+
+// --------------------------------------------
+// --------------------------------------------
+
+- **Example**: wild pointers
+
+int main()
+{
+	/* wild pointer - initialize with garbage value*/
+   // Error C4700: uninitialized local variable 'p' used
+	int* p; 
+
+	int x = 10;
+	p = &x; // p is not a wild pointer now 
+	std::cout << "not wild pointer : " << p << "\n";
+
+	return 0;
+}
+
+// --------------------------------------------
+// --------------------------------------------

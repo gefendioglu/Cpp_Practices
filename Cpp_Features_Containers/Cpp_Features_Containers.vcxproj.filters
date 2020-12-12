@@ -3,7 +3,7 @@
   <ItemGroup>
     <Filter Include="Source Files">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
@@ -15,66 +15,54 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Function_Overloading.cpp">
+    <ClCompile Include="12_Sequence_Vector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Operator_Overloading.cpp">
+    <ClCompile Include="13_Sequence_Deque.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Virtual_Functions.cpp">
+    <ClCompile Include="14_Sequence_Forward_List.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Virtual_Destructor_Constructor.cpp">
+    <ClCompile Include="15_Sequence_List.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Virtual_Copy_Constructor.cpp">
+    <ClCompile Include="21_Associative_Set.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Inheritance.cpp">
+    <ClCompile Include="22_Associative_Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Smart_Pointers.cpp">
+    <ClCompile Include="23_Associative_MultiSet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Templates.cpp">
+    <ClCompile Include="24_Associative_Multimap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Forward_Declaration.cpp">
+    <ClCompile Include="32_Unordered_Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="String_Implementation.cpp">
+    <ClCompile Include="31_Unordered_Set.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Vector_Implementation.cpp">
+    <ClCompile Include="34_Unordered_Multimap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="33_Undordered_Multiset.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="11_Sequence_Array.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Virtual_Functions.txt">
+    <Text Include="11_Arrays.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="Operator_Overloading.txt">
+    <Text Include="12_Vectors.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="Function_Overlaoding.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="Virtual_Destructor_Constructor.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="Virtual_Copy_Constructor.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="Inheritance.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="Smart_Pointers.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="Templates.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="Forward_Declaration.txt">
+    <Text Include="13_Deque.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
