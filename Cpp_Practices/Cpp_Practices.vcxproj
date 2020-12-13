@@ -147,8 +147,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="41_Eliminate_Duplication_Arrays.cpp" />
     <ClCompile Include="Cpp_Practices.cpp" />
-    <ClCompile Include="Recursion.cpp" />
+    <ClCompile Include="31_Intersection_Two_Arrays.cpp" />
+    <ClCompile Include="11_Recursion.cpp" />
+    <ClCompile Include="21_Union_Two_Arrays.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Cpp_Practice_Notes.txt" />

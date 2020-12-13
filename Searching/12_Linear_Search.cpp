@@ -20,7 +20,7 @@ void linearSearch(std::vector<int>* vec, int number) {
 //	int num;
 //	std::vector<int> ivec = { 1,22,34,5,7 };
 //	do
-//	{
+//	{zd
 //		std::cout << "Please enter an element to search (Exit with -1) : " << "\n";
 //		
 //		std::cin >> num;

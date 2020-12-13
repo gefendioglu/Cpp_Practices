@@ -54,6 +54,12 @@
     <ClCompile Include="11_Sequence_Array.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="41_Tuple.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="51_Pair.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="11_Arrays.txt">
@@ -63,6 +69,9 @@
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="13_Deque.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="22_Map.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

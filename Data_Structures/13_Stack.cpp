@@ -1,128 +1,189 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
-#include <string>
-#include <vector>
 
 
-void swap_int(int* xp, int* yp)
-{
-	int temp = *xp; //Dereferencing the pointer
-	*xp = *yp;
-	*yp = temp;
-}
+// Implementing Stack using Arrays
+// --------------------------------------------------
+// --------------------------------------------------
+// Pros: 
+// Easy to implement.
+// Memory is saved as pointers are not involved.
+// --------------------------------------------------
+// Cons : 
+// It is not dynamic.
+// It doesn’t grow and shrink depending on needs at runtime.
+// --------------------------------------------------
 
-void selectionSort(int* arr, int length)
-{
-	
-	// One by one move boundary of unsorted subarray 
-	for (int i = 0; i < length - 1; ++i)
-	{
-		// Find the minimum element in unsorted array 
-		int min_idx = i;
-		for (int j = i + 1; j < length; ++j)
-			if (arr[j] < arr[min_idx])
-				min_idx = j;
+//#define MAX 5
+//
+//// To find minimum value of stack swap and selection sort function is required 
+//void swap_int(int* xp, int* yp){
+//	int temp = *xp; //Dereferencing the pointer
+//	*xp = *yp;
+//	*yp = temp;
+//}
+//
+//void selectionSort(int* arr, int length){
+//	
+//	// One by one move boundary of unsorted subarray 
+//	for (int i = 0; i < length - 1; ++i)
+//	{
+//		// Find the minimum element in unsorted array 
+//		int min_idx = i;
+//		for (int j = i + 1; j < length; ++j)
+//			if (arr[j] < arr[min_idx])
+//				min_idx = j;
+//
+//		// Swap the found minimum element with the first element 
+//		swap_int(&arr[min_idx], &arr[i]);
+//	}
+//}
+//// --------------------------------------------------
+//
+//class Stack {
+//public:
+//	Stack() {
+//		top = -1;
+//		for (int i = 0; i < length; i++)
+//			arr[i] = 0;
+//	}
+//
+//	~Stack() {}
+//
+//	bool isEmpty();
+//	bool isFull();
+//	void push(int value);
+//	int pop();
+//	int peek();
+//	int count();
+//	void change(int index, int value);
+//	int minValue();
+//	void display();
+//
+//private:
+//	int top;
+//	int arr[MAX];
+//	int length = sizeof(arr) / sizeof(arr[0]);
+//
+//};
+//
+//// --------------------------------------------------
+//
+//bool Stack::isEmpty() {
+//	if (top < 0) {
+//		std::cout << "Stack Underflow\n";
+//		return true;
+//	}
+//	else
+//		return false;
+//}
+//
+//bool Stack::isFull() {
+//	if (top >= length) {
+//		std::cout << "Stack Overflow\n";
+//		return true;
+//	}
+//	else
+//		return false;
+//}
+//
+//void Stack::push(int value) {
+//	if (isFull()) {
+//		std::cout << "Stack is Full !!" << "\n";
+//	}
+//	else {
+//		top++;
+//		arr[top] = value;
+//		std::cout << value << " pushed into stack\n";
+//
+//	}
+//}
+//
+//int Stack::pop() {
+//
+//	if (isEmpty()) {
+//		std::cout << "Stack is Empty !!" << "\n";
+//		return 0;
+//	}
+//	else {
+//		int popValue = arr[top];
+//		arr[top] = 0;
+//		top--;
+//		return popValue;
+//	}
+//
+//}
+//
+//int Stack::peek() {
+//	if (isEmpty()) {
+//		std::cout << "Stack is Empty !!" << "\n";
+//		return 0;
+//	}
+//	else {
+//		return arr[top];
+//	}
+//}
+//
+//int Stack::count() {
+//	return top + 1;
+//	// return length;
+//}
+//
+//void Stack::change(int index, int value) {
+//	arr[index] = value;
+//	std::cout << "Value is changed for this index :" << index << " with this value : " << value << "\n";
+//}
+//
+//
+//int Stack::minValue() {
+//	selectionSort(arr, length);
+//	return arr[0];
+//}
+//
+//void Stack::display() {
+//	std::cout << "\nAll values in stack are: " << "\n";
+//	for (int i = length - 1; i >= 0; --i)
+//		std::cout << arr[i] << "\n";
+//}
+//
+//// --------------------------------------------------
+//// Short tester code
+//int main(){
+//	
+//	Stack s;
+//	s.push(10);
+//	s.push(20);
+//	s.push(30);
+//	s.display();
+//	
+//	std::cout << s.pop() << " Popped from stack\n";
+//	s.display();
+//
+//	return 0;
+//	/*
+//		10 pushed into stack
+//		20 pushed into stack
+//		30 pushed into stack
+//		
+//		All values in stack are :
+//		0
+//		0
+//		30
+//		20
+//		10
+//		30 Popped from stack
+//		
+//		All values in stack are :
+//		0
+//		0
+//		0
+//		20
+//		10
+//	*/
+//}
 
-		// Swap the found minimum element with the first element 
-		swap_int(&arr[min_idx], &arr[i]);
-	}
-}
 
-class Stack {
-public:
-	Stack() {
-		top = -1;
-		for (int i = 0; i < length; i++)
-			arr[i] = 0;
-	}
-
-	~Stack() {}
-
-	void push(int value) {
-		if (isFull()) {
-			std::cout << "Stack is Full !!" << "\n";
-		}
-		else {
-			top++;
-			arr[top] = value;
-		}
-
-	}
-
-	int pop() {
-
-		if (isEmpty()) {
-			std::cout << "Stack is Empty !!" << "\n";
-			return 0;
-		}
-		else {
-			int popValue = arr[top];
-			arr[top] = 0;
-			top--;
-			return popValue;
-		}
-
-	}
-
-	bool isEmpty() {
-
-		if (top == -1)
-			return true;
-		else
-			return false;
-	}
-
-	bool isFull() {
-		if (top == length)
-			return true;
-		else
-			return false;
-	}
-
-	int peek(int index) {
-		if (isEmpty()) {
-			std::cout << "Stack is Empty !!" << "\n";
-			return 0;
-		}
-		else
-		{
-			return arr[index];
-		}
-	}
-
-	int count() {
-		return top + 1;
-	}
-
-	void change(int index, int value) {
-		arr[index] = value;
-		std::cout << "Value is changed for this index :" << "\n";
-
-	}
-
-
-	int minValue() {
-		// Calling binary search function here!!
-		selectionSort(arr, length);
-		return arr[0];
-
-	}
-
-	void display() {
-		std::cout << "All values in stack are: " << "\n";
-		for (int i = length - 1; i >= 0; --i)
-		{
-			std::cout << arr[i] << "\n";
-		}
-	}
-
-private:
-	int top;
-	int arr[5];
-	int length = sizeof(arr) / sizeof(arr[0]);
-
-};
-
+// Long tester code
 //int main() {
 //	Stack stack;
 //	int option;
@@ -205,3 +266,124 @@ private:
 //
 //}
 
+
+
+
+// Implementing Stack using Linked List
+// --------------------------------------------------
+// --------------------------------------------------
+// Pros: 
+// The stack can grow and shrink according to the needs at runtime.
+// --------------------------------------------------
+// Cons : 
+// Requires extra memory due to involvement of pointers
+// --------------------------------------------------
+
+//using namespace std;
+//
+//class StackNode {
+//public:
+//	int data;
+//	StackNode* next;
+//};
+//
+//StackNode* newNode(int data){
+//	StackNode* stackNode = new StackNode();
+//	stackNode->data = data;
+//	stackNode->next = nullptr;
+//	return stackNode;
+//}
+//
+//int isEmpty(StackNode* next){
+//	//return !next;
+//	return (next == nullptr);
+//}
+//
+//void push(StackNode** root, int data){
+//	StackNode* stackNode = newNode(data);
+//	stackNode->next = *root;
+//	*root = stackNode;
+//	cout << data << " pushed to stack\n";
+//}
+//
+//int pop(StackNode** next){
+//	if (isEmpty(*next))
+//		return INT_MIN;
+//	StackNode* temp = *next;
+//	*next = (*next)->next;
+//	int popped = temp->data;
+//	free(temp);
+//
+//	return popped;
+//}
+//
+//int peek(StackNode* next){
+//	if (isEmpty(next))
+//		return INT_MIN;
+//	return next->data;
+//}
+//
+//// Short tester code
+//int main(){
+//
+//	StackNode* next = nullptr;
+//
+//	push(&next, 10);
+//	push(&next, 20);
+//	push(&next, 30);
+//
+//	cout << pop(&next) << " popped from stack\n";
+//	cout << "Top element is " << peek(next) << endl;
+//
+//	return 0;
+//
+//	/*
+//		10 pushed to stack
+//		20 pushed to stack
+//		30 pushed to stack
+//		30 popped from stack
+//		Top element is 20
+//	*/
+//}
+
+
+
+// Stack Implementation using Arrays with Templates
+// --------------------------------------------------
+// --------------------------------------------------
+
+//#define MAX 5
+//
+//template<typename T>
+//class Stack_Temp {
+//public:
+//	Stack() {
+//		top = -1;
+//		for (T i = 0; i < length; i++)
+//			arr[i] = 0;
+//	}
+//	~Stack() {}
+//
+//	bool isEmpty();
+//	bool isFull();
+//	void push(T value);
+//	T pop();
+//	T peek();
+//	T count();
+//	void change(T index, T value);
+//	T minValue();
+//	void display();
+//
+//private:
+//	T top;
+//	T arr[MAX];
+//	T length = sizeof(arr) / sizeof(arr[0]);
+//};
+//
+//template<typename T>
+//void Stack_Temp<T>::change(T index, T value) {
+//	arr[index] = value;
+//	std::cout << "Value is changed for this index :" << index << " with this value : " << value << "\n";
+//}
+//
+//// ... the other function implementations are here

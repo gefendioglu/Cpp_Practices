@@ -18,7 +18,16 @@
     <ClCompile Include="Cpp_Practices.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Recursion.cpp">
+    <ClCompile Include="11_Recursion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="21_Union_Two_Arrays.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="31_Intersection_Two_Arrays.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="41_Eliminate_Duplication_Arrays.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

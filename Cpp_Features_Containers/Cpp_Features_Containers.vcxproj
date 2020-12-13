@@ -32,11 +32,14 @@
     <ClCompile Include="32_Unordered_Map.cpp" />
     <ClCompile Include="33_Undordered_Multiset.cpp" />
     <ClCompile Include="34_Unordered_Multimap.cpp" />
+    <ClCompile Include="41_Tuple.cpp" />
+    <ClCompile Include="51_Pair.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="11_Arrays.txt" />
     <Text Include="12_Vectors.txt" />
     <Text Include="13_Deque.txt" />
+    <Text Include="22_Map.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
