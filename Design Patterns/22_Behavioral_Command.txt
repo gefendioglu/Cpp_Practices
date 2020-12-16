@@ -1,0 +1,67 @@
+
+## Command Design Pattern
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Command Design Pattern
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+#include<vector> 
+#include<functional> 
+
+class Walk {
+public:
+    void operator()() { 
+        std::cout << "walk" << "\n"; 
+    }
+};
+
+class Run {
+public:
+    void operator()() { 
+        std::cout << "run" << "\n";
+    }
+};
+
+class macroCommand: public std::vector<std::function<void()>> {
+public:
+    void operator()() {
+        for (auto&& f : *this)
+            f();
+    }
+};
+
+void doIt(std::function<void()> f) {
+    f();
+}
+
+int main() {
+
+    doIt(Walk{});
+    doIt(Run{}); // Temporary object 
+    /*
+        walk
+        run
+    */
+    macroCommand cardio_workout;
+    cardio_workout.push_back(Walk{});
+    cardio_workout.push_back(Run{});
+    cardio_workout();
+    /*
+        walk
+        run
+    */
+    
+    return EXIT_SUCCESS;
+}
+
+
+
+
+
+
+
+
+/----------------------------------------------
+/----------------------------------------------
