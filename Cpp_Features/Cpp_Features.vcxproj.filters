@@ -53,79 +53,79 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Virtual_Functions.txt">
+    <Text Include="11_Undefined_Behaviour.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="Operator_Overloading.txt">
+    <Text Include="13_RValue_LValue_References.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="Function_Overlaoding.txt">
+    <Text Include="14_Type_Conversion.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="Virtual_Destructor_Constructor.txt">
+    <Text Include="15_Call_By_Value_Reference.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="Virtual_Copy_Constructor.txt">
+    <Text Include="16_Null_Pointers.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="Inheritance.txt">
+    <Text Include="17_Initialization.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="Smart_Pointers.txt">
+    <Text Include="18_Return_Value.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="Templates.txt">
+    <Text Include="19_Auto_Type_Deduction.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="Forward_Declaration.txt">
+    <Text Include="20_Pointers.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="Default_Arguments.txt">
+    <Text Include="21_Assignment.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="Decltype_Type_Deduction.txt">
+    <Text Include="22_References.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="..\03_Lesson\1_Undefined_Behaviour.txt">
+    <Text Include="23_Default_Arguments.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="..\03_Lesson\2_RValue_LValue_References.txt">
+    <Text Include="24_Value_Category.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="..\03_Lesson\3_Call_By_Value_Reference.txt">
+    <Text Include="25_Classes.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="..\03_Lesson\4_Return_Value.txt">
+    <Text Include="26_Forward_Declaration.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="..\03_Lesson\5_Pointers.txt">
+    <Text Include="27_Function_Overloading.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="..\03_Lesson\6_Assignment.txt">
+    <Text Include="28_Inheritance.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="..\03_Lesson\7_Default_Arguments.txt">
+    <Text Include="29_Operator_Overloading.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="..\02_Lesson\1_Enum_Classes.txt">
+    <Text Include="30_Smart_Pointers.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="..\02_Lesson\2_Type_Conversion.txt">
+    <Text Include="31_Templates.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="..\02_Lesson\3_Null_Pointers.txt">
+    <Text Include="32_Decltype_Type_Deduction.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="..\02_Lesson\4_Initialization.txt">
+    <Text Include="33_Virtual_Copy_Constructor.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="..\02_Lesson\5_Auto_Type_Deduction.txt">
+    <Text Include="34_Virtual_Destructor_Constructor.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="..\02_Lesson\6_References.txt">
+    <Text Include="35_Virtual_Functions.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="..\02_Lesson\7_Value_Category.txt">
+    <Text Include="12_Enum_Types_Classes.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
@@ -133,7 +133,7 @@
     <ClInclude Include="Function_Overloading.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\02_Lesson\ValueCategory.h">
+    <ClInclude Include="Value_Category.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

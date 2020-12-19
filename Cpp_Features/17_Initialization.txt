@@ -1,27 +1,14 @@
-## INITIALIZATION
 
-- There are lots of initialization methods in C++
+## Initialization
+
+/----------------------------------------------
+/----------------------------------------------
+* Initialization : There are lots of initialization methods in C++
 	- copy initialization
 	- default initialization
 	- zero initialization
-  
-- The syntax type of initialization: 
-	- copy initialization
-	- value initialization (direct initialization)
-	- uniform initialization (brace initialization)
+* What is indetermined value? 
 
-- What are the reasons of using uniform initialization?
-	- narrowing conversion
-	- most vexing parse : 
-	  If the definition has the meaning both variable and function at the same time (because of using paranthesis)
-    
-- What is indetermined value? 
-
-/----------------------------------------------
-/----------------------------------------------
-
-- **Example** : 
-```cpp
 #include <iostream>
 
 int randomNumber; // default : zero initialization for global variables 
@@ -43,18 +30,21 @@ int main() {
 	int* iptr = nullptr;
 	long double ldnum = 0;
 }
-```
 
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** : 
-```cpp
+* The syntax type of initialization: 
+	- copy initialization
+	- value initialization (direct initialization)
+	- uniform initialization (brace initialization)
+
 #include <iostream>
 
 struct Data {};
 
 int main() {
+	
 	// Copy init. 
 	int number1 = 10; 
 
@@ -62,7 +52,7 @@ int main() {
 	int number2(20); 
 	int number3{};
 	Data myData{};
-	int func();    // --> NOT value init.,it is function  declaration
+	int func(); // --> NOT value init.,it is function  declaration
 	Data myData(); // --> NOT value init.,it is function  declaration
 
 	// Uniform init. (brace init.)
@@ -75,16 +65,21 @@ int main() {
 	std::cout << "Dereferencing firstPtr (*firstPtr): "<< *firstPtr << "\n";
 	std::cout << "Dereferencing secondPtr (*secondPtr): "<< *secondPtr << "\n";
 }
-```
+
 
 /----------------------------------------------
 /----------------------------------------------
+* What are the reasons of using uniform initialization?
+	- narrowing conversion
+	- most vexing parse : 
+	  If the definition has the meaning both variable and function at the same time (because of using paranthesis)
 
-- **Example** :  Narrowing conversion sample
-```cpp
+* narrowing conversion sample: 
+/----------------------------------------------
 #include <iostream>
 
 int main() {
+	
 	// Narrowing conversion: (double --> int) 
 	double dnumber = 2.6;
 	int copyInit = dnumber;     // Warning : possible loss of data 
@@ -96,13 +91,9 @@ int main() {
 	std::cout << "directInit: " << directInit << "\n";
 	std::cout << "uniformInit: " << uniformInit << "\n";
 }
-```
 
+* most vexing parse sample: 
 /----------------------------------------------
-/----------------------------------------------
-
-- **Example** : Most vexing parse sample: 
-```cpp
 #include <iostream>
 
 struct Data {};
@@ -119,7 +110,3 @@ int main() {
 	// Uniform initialization, not a function declaration
 	Stream secondStream{ Data() }; 
 }
-```
-
-/----------------------------------------------
-/----------------------------------------------

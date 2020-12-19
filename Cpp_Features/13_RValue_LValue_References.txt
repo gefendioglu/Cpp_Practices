@@ -1,0 +1,181 @@
+/----------------------------------------------
+/----------------------------------------------
+
+* R VALUE REFERENCES - L VALUE REFERENCES
+
+#include <iostream>
+
+int main() {
+
+	int firstNumber = 10;
+	int& ref = firstNumber; // ref --> L value ref. ref = firstNumber
+	int* const ptr = &firstNumber; // (*ptr) = firstNumber
+
+	std::cout << "ref : " << ref << "\n";     // ref = 10
+	std::cout << "(*ptr) : " << *ptr << "\n"; // (*ptr) = 10 
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+#include <iostream>
+
+int main() {
+
+	int firstNumber = 10;
+	int& ref = firstNumber; // ref --> L value ref. ref = firstNumber
+
+	// int& referans = 10;
+	// referans --> L Value , 10 --> R-Value
+	// Error: 'initializing': cannot convert from 'int' to 'int &'
+
+	int* const ptr = &firstNumber; // (*ptr) = firstNumber
+
+	std::cout << "ref : " << ref << "\n";     // ref = 10
+	std::cout << "(*ptr) : " << *ptr << "\n"; // (*ptr) = 10
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+#include <iostream>
+
+int main() {
+
+	int array[5]{ 0,1,2,3,4 };
+	int (&refArray)[5] = array;
+	auto &referansArray = array;
+	// if auto is used  --> auto  = int* referansArray
+	// if auto& is used --> auto = int (&referansArray)[5]
+
+	std::cout << "(&refArray) : " << (&refArray) << "\n"; // (&refArray) = 006FF7F4
+	std::cout << "(&refArray) address: " << refArray << "\n";     // refArray = 006FF7F4
+	std::cout << "referansArray address: " << referansArray << "\n"; // referansArray = 006FF7F4
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+* Pointers can be referenced for other pointers
+
+#include <iostream>
+
+int main() {
+
+	int number = 10;
+	int* ptr = &number;   // (*ptr) --> number = 10
+	int** ptrptr = &ptr;  // ptrptr --> &ptr
+	int**& ref = ptrptr;  // ref --> ptrptr 
+	
+	std::cout << "(*ptr) : " << *ptr << "\n";     // *ptr  = 10
+	std::cout << "(ptrptr) : " << ptrptr << "\n"; // ptrptr = 005BFB4C
+	std::cout << "(**ref) : " << **ref << "\n";   // **ref = 10
+	std::cout << "(++**ref) : " << ++**ref << "\n";   // ++**ref = 11
+	std::cout << "(&ref) : " << &ref << "\n";     // &ref = 005BFB40
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+* L-Value References for functions : 
+
+*  void  func(Type x);          --> call by value
+/----------------------------------------------
+*  void  func(Type *ptr);       --> call by reference (nesneyi hem okur hem de yazar)
+*  void  func(Type &ref);       --> call by reference (nesneyi hem okur hem de yazar)
+/----------------------------------------------
+*  void  func(const Type *ptr); --> call by reference (nesneden sadece okuma yapar)
+*  void  func(const Type &ref); --> call by reference (nesneden sadece okuma yapar)
+/----------------------------------------------
+*  Type  *func();       --> return value geri dönülen nesnenin adresi
+*  Type  &func();       --> return value geri dönülen nesnenin referansý
+/----------------------------------------------
+*  const Type  *func(); --> return value geri dönülen nesnenin adresi
+*  const Type  &func(); --> return value geri dönülen nesnenin referansý
+
+/----------------------------------------------
+/----------------------------------------------
+
+* Type func(); 
+  func(); --> R-Value expression
+  Type &ref = func();       // NOT OK
+  const Type &ref = func(); // OK --> R-Value expression
+
+* Type &func(); 
+  func(); --> L-Value expression
+  Type &ref = func(); // OK --> L-Value expression
+
+/----------------------------------------------
+/----------------------------------------------
+
+- R Value References: 
+  - References does not allocate memory, the memory allocation is for objects 
+  - Adding to C++ standard with C++11 
+  - Adding for move semantics and perfect forwarding reference 
+  - R value reference must be initialized with R Value expression 
+    - T &&ref = 10; // OK --> R value reference 
+	- ref is a L value expression 
+	- T &&ref is a R value expression (the data type of ref is a R value expression)
+	- void func(T &&ref); --> move semantic
+	- T&& func(); --> return value is R value reference 
+    - auto &&ref = expr; --> this is not R value reference, it is forwarding reference !!! (forwarding reference, if there is type deduction using with && specifier.)
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** :R value references and R value expressions
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+int foo();
+int &func();
+
+int main() {
+
+	int value = 10;
+	int&& ref = value;    // NOT OK --> value is a L value expression
+	int&& ref1 = 10;      // OK --> 10 is a R value expression
+	int&& ref2 = foo();   // OK --> foo() is a R value expression
+	int&& ref = func();   // NOT OK --> func() is a L value expression
+	int& r = ref1;        // OK --> ref is a L value expression
+	r = 10;				  // OK --> assignment for L-value expression
+
+	value + 5;			// --> R value expression
+	++value;			// --> L value expression
+	--value;			// --> L value expression
+	value > 10;			// --> R value expression (comparisons)
+	value && 10;		// --> R value expression
+	!value ;			// --> R value expression
+	value & 10;			// --> R value expression
+	value++;			// --> R value expression
+	value--;	        // --> R value expression
+	value > 10 ? 1 : 0; // --> R value expression
+	foo();				// --> R value expression
+
+	int x = 10, y = 20;
+	(x = 10) = y;       // (x = 10) --> L value expression
+
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- Tekrar
+void func(int &ref);
+void func(const int &ref);
+int& func(void); --> return value is L value
+func() = 10; not an error !!!
+
+- L value Reference
+void func(T *ptr);       --> void func(T &ref);
+void func(const T *ptr); --> void func(const T &ref);
+T* func();               --> T& func();
+const T* func();         --> const T& func();
+
+- R Value / L Value Functions
+ - T foo();   --> R value expression --> T &ref = foo();  // ERROR --> const T &ref 
+ - T& func(); --> L value expression --> T &ref = func(); // NOT ERROR
+
+/----------------------------------------------
+/----------------------------------------------

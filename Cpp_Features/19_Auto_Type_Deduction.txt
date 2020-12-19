@@ -1,30 +1,24 @@
-## AUTO TYPE DEDUCTION
 
-- The tools in Cpp using the specifications of type deduction: 
-  - auto specifier 
-  - decltype specifier
-  - templates 
-
-- "auto" specifier : 
-  - the meaning of auto specifier is different in C and C++
-  - AAA : Almost Always Auto
-  - The advantages of using auto specifier:
-    - to force all variables to be initialized
-    - the common usage of auto:
-      - generic programming
-      - while assigning a function result/address to a variable/pointer
-
- - "auto" type deduction with reference semantics: 
-   - The rules are different for each shown in the following: 
-     - auto x = expr;
-     - auto &ref = expr; 
-     - auto &&refref = expr; 
+## "auto" Type Deduction 
 
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** : 
-```cpp
+* The tools in Cpp using the specifications of type deduction: 
+	- auto specifier 
+	- decltype specifier (TBD)
+	- templates (TBD)
+
+/----------------------------------------------
+- auto specifier : 
+	- the meaning of auto specifier is different in C and C++
+	- AAA : Almost Always Auto
+	- the advantages of using auto specifier:
+		- to force all variables to be initialized
+		- the common usage of auto:  
+			generic programming
+			while assigning a function result/address to a variable/pointer
+
 #include <iostream>
 #include <cstring>
 
@@ -35,7 +29,7 @@ int main() {
 	auto dnum = number + 2.4; // dnum --> double 
 	// auto x; --> auto variable must be initialized !!!
 
-        // the data type of strcmp --> int *(fp)(const char *, const char *)
+    // the data type of strcmp --> int *(fp)(const char *, const char *)
 	auto functionPointer = strcmp;
 
 	int foo();
@@ -47,15 +41,20 @@ int main() {
 
 	int funct(int, int);
 	auto fptr = &funct; // the data type of fptr --> int(*fptr)(int, int)
-	
 }
-```
+
+
+ * auto type deduction with reference semantics: 
+	-  Aþaðýdakiler auto tanýmlamalarý için uygulanan kurallar farklýdýr: 
+	   auto x = expr;
+	   auto &ref = expr; 
+	   auto &&refref = expr; 
 
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** : Rules for "auto x = expr;" 
-```cpp
+* Rules for "auto x = expr;" 
+
 #include <iostream>
 
 int main() {
@@ -86,19 +85,19 @@ int main() {
 	// ----------------------------------------------
 	auto name = "gamze"; // name --> const char* (array to pointer conversion)
 
+
 	// Function Pointers :
 	// ----------------------------------------------
 	int func(int);
 	auto function = func; // function --> int(*)(int)
-	
 }
-```
+
 
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** : Rules for "auto &ref = expr;" 
-```cpp
+* Rules for "auto &ref = expr;" 
+
 #include <iostream>
 
 int main() {
@@ -139,21 +138,20 @@ int main() {
 	int (*ptrFunction)(int, int) = &foo; // pointer function
 	int (&refFunction)(int, int) = foo;  // reference function
 	auto& refFunctionAuto = foo;
-	
+
 }
-```
+
 
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** : Rules for "auto &&ref = expr;"  --> LATER !!!!
-  - Script to be added here !!!
+* Rules for "auto &&ref = expr;"  --> LATER !!!!
 
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** : "auto" with "const" keyword 
-```cpp
+* auto with const keyword: 
+
 #include <iostream>
 
 int main() {
@@ -165,11 +163,9 @@ int main() {
 	auto const y = firstNumber; // z --> const int z
 	auto ptr = &firstNumber;    // ptr --> int* ptr 
 	auto* p = &firstNumber;     // p --> int* p
-  
 	// ----------------------------------------------
 	int* intPtr;
 	auto p = &intPtr;  // p --> int** p
-  
 	// ----------------------------------------------
 	int* const constPtr = &firstNumber;
 	auto p = &constPtr; // p --> int* const* p
@@ -177,7 +173,8 @@ int main() {
 	// Const Auto Ref : 
 	// ----------------------------------------------
 	auto& refAuto = firstNumber;        // refAuto -->  int& refAuto
-	const auto &refConstAuto = refAuto; // refConstAuto --> const int& refConstAuto --> very common usage
+	const auto &refConstAuto = refAuto; // refConstAuto --> const int& refConstAuto --> 
+									    // very common usage
 	
 	// Static Auto -->  static is not a type specifier
 	// ----------------------------------------------
@@ -185,8 +182,6 @@ int main() {
 	auto staticNum = staticNumber; // staticNum --> int staticNum
 	
 }
-```
 
 /----------------------------------------------
 /----------------------------------------------
-
