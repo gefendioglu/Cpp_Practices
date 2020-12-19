@@ -138,19 +138,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ValueCategory.h" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="1_Enum_Classes.txt" />
-    <Text Include="2_Type_Conversion.txt" />
-    <Text Include="3_Null_Pointers.txt" />
-    <Text Include="4_Initialization.txt" />
-    <Text Include="5_Auto_Type_Deduction.txt" />
-    <Text Include="6_References.txt" />
-    <Text Include="7_Value_Category.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

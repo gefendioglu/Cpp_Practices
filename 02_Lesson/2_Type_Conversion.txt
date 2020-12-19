@@ -217,3 +217,185 @@ int main() {
 
 /----------------------------------------------
 /----------------------------------------------
+
+## Type Conversion 
+
+/----------------------------------------------
+/----------------------------------------------
+
+- static_cast
+  - int ival; 
+    static_cast<double>(ival);
+- const_cast
+- reinterpret_cast
+- dynamic_cast
+
+/----------------------------------------------
+/----------------------------------------------
+- **Example** : C++ Type Conversion
+
+#include <iostream>
+#include <ctime>
+
+int main()
+{
+    int x, y;
+    srand(static_cast<unsigned int>(time(nullptr)));
+    std::cin >> x >> y;
+
+    static_cast<double>(x) / y;
+     
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : C Type Conversion Problem
+
+#include <iostream>
+
+int main()
+{
+    int x = -1; 
+    unsigned int y = 1;
+    if (x > y)
+        std::cout << "True\n"; // return True (why?)
+    else
+        std::cout << "False\n";
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : 
+
+#include <iostream>
+
+int main()
+{
+    char c = 178; 
+    if (c ==178)
+        std::cout << "True\n";
+    else
+        std::cout << "False\n"; // return False  (why?)
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : C Type Comversion Problem 
+
+#include <iostream>
+
+char* StrChr(const char* p, int c
+) {
+	while (*p) {
+		if (*p == c)
+		{
+			return const_cast<char*>(p);
+		}
+	}
+    ++p;
+	// warning C4715: 'StrChr': not all control paths return a value
+}
+
+int main()
+{
+	char c = 178;
+	// warning C4309: 'initializing': truncation of constant value
+	if (c == 178)
+		std::cout << "True\n";
+	else
+		std::cout << "False\n"; // return False 
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : If the other type conversion structure is used rather than reinterpret_cast, then it return a syntax error 
+  - ++i --> prefix operator shall be preferred instead of postfix operator 
+
+#include <iostream>
+
+int main(){
+
+	double dval = 324.2354;
+	unsigned char* p = reinterpret_cast<unsigned char*>(&dval); // OK!!!
+	unsigned char* p = const_cast<unsigned char*>(&dval);  // NOT OK!!!
+	unsigned char* p = static_cast<unsigned char*>(&dval); // NOT OK!!!
+	for (size_t i = 0; i < sizeof(dval); ++i)
+	{
+		std::cout << p[i] << " ";
+	}
+
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Type Conversion Problems
+
+#include <iostream>
+
+enum Color{Black, White, Green};
+
+int main(){
+
+	Color mycolor{Green};
+	mycolor = 3; // ERROR !!!
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+#include <iostream>
+
+enum Color{Black, White, Green};
+
+int main(){
+
+	Color mycolor{Green};
+	int ival = 2;
+	//mycolor = ival; // ERROR !!!
+	mycolor = static_cast<Color>(ival); // NOT ERROR !!!
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+#include <iostream>
+#include <cstdlib>
+
+int main(){
+
+	size_t n = 10000;
+	char* p = malloc(n); // ERROR
+	char* p = static_cast<char*>(malloc(n)); // NOT ERROR
+
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Two different conversion can not be realized at the same time
+
+#include <iostream>
+
+int main(){
+
+	const double* ptr = nullptr;
+	char* p = const_cast<char*>(ptr);       // ERROR
+	char* p = reinterpret_cast<char*>(ptr); // ERROR
+	
+	// The source of error: 
+	// 1 - non-const --> const conversion
+	// 2 - double*   --> char* conversion 
+
+	// The solution is to mix both these type conversions: 
+	const_cast<char*>(reinterpret_cast<const char*>(ptr)); // OK
+	reinterpret_cast<char*>(const_cast<double*>(ptr));     // OK
+}
+
+/----------------------------------------------
+/----------------------------------------------
+

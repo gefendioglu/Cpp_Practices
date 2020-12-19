@@ -48,6 +48,9 @@
     <ClCompile Include="Vector_Implementation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Cpp_Features.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Virtual_Functions.txt">
@@ -77,5 +80,61 @@
     <Text Include="Forward_Declaration.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="Default_Arguments.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Decltype_Type_Deduction.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="..\03_Lesson\1_Undefined_Behaviour.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="..\03_Lesson\2_RValue_LValue_References.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="..\03_Lesson\3_Call_By_Value_Reference.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="..\03_Lesson\4_Return_Value.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="..\03_Lesson\5_Pointers.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="..\03_Lesson\6_Assignment.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="..\03_Lesson\7_Default_Arguments.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="..\02_Lesson\1_Enum_Classes.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="..\02_Lesson\2_Type_Conversion.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="..\02_Lesson\3_Null_Pointers.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="..\02_Lesson\4_Initialization.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="..\02_Lesson\5_Auto_Type_Deduction.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="..\02_Lesson\6_References.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="..\02_Lesson\7_Value_Category.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Function_Overloading.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\02_Lesson\ValueCategory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
