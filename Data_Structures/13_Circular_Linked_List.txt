@@ -1,0 +1,142 @@
+
+## CIRCULAR LINKED LISTS
+
+/----------------------------------------------
+/----------------------------------------------
+
+## Node & Circular Linked List Class Definitions
+
+
+class Node {
+public:
+	int key;
+	int data;
+	Node* next;
+
+	Node() :key{ 0 }, data{ 0 }, next{ nullptr } {}
+	Node(const int& key, const int& data) :key{ key }, data{ data }, next{ nullptr }{}
+};
+
+class CircularLinkedList {
+public:
+
+	CircularLinkedList() : head{ nullptr } {}
+	CircularLinkedList(Node* node) {
+		this->head = node;
+	}
+
+	// Checking if node exists using key value
+	Node* nodeExists(const int& key)
+	{
+		Node* temp = nullptr;
+		Node* ptr = head;
+		while (ptr != nullptr) {
+			if (ptr->key == key)
+			{
+				temp = ptr;
+			}
+			ptr = ptr->next;
+		}
+		return temp;
+	}
+
+private:
+	Node* head;
+};
+
+/----------------------------------------------
+/----------------------------------------------
+
+## The operations of Circular Linked Lists:
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Appending a node algorithm**:
+  - Get the new node
+  - Check if the node exists with the same key value
+    - if true --> abort
+    - if false --> continue
+  - Check if head points nullptr or not
+    - if head == nullptr --> append at the beginning of this circular list
+    - if head != nullptr --> traverse to the end of this circular list
+  - Append a new node at the end of a circular list
+
+
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Prepending a node**:
+  - Get the new node
+  - Check if the node exists with the same key value
+    - if true --> abort
+    - if false --> continue
+  - Assign head value to a temporary pointer (ptr)
+  - Use this ptr to traverse to the end of this circular list
+  - Use this ptr to access next pointer of the last node to point to this newly passed node
+  - Point next pointer of new node to head pointer (to provide circularity)
+  - Change the head pointer to new node 
+
+
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Inserting a node**:
+  - Get the new Node & key value in the list after which you want to link this new node.
+  - Check if the node exists with the same key value
+    - if true --> abort
+    - if false --> continue
+  - Check if node exists with the key entered by user 
+    - if false --> abort
+    - if true --> continue 
+  - Access node N after which you want to append new node new_N
+    - if node to be inserted at the end
+      - new_node->next = head;
+      - previous_node->next = new_node;
+    - if node to be inserted in between 
+      - new_node->next = previous_node->next;
+      - previous_node->next = new_node;
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Deleting a node**:
+  - Get the key value of node you want to delete
+  - Check if the node exists with the same key value
+    - if true --> abort
+    - if false --> continue
+  - Check if head points nullptr or not  
+    - if head == nullptr --> list is empty
+    - if head != nullptr & key value matches head node 
+      - head = head->next;
+      - last_node->next = head; 
+    - if head != nullptr & key value doesnt match head node 
+      - traverse to the node with the key value (ptr)
+  - Check where the node is
+    - If the node is at the end --> previous_node->next = head;
+    - If the node is in between the nodes in the list
+      - previous_node->next = ptr->next;
+
+
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Updating a node**:
+  - Get the key value of node you want to update
+  - Check if node exists with the same key value
+    - if true --> abort
+    - if false --> continue
+  - Traverse to that node
+  - Update the data value of a node in the list.
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Printing a circular linked list**: 
+
+
+/----------------------------------------------
+/----------------------------------------------

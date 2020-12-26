@@ -50,3 +50,44 @@ int main()
 	
 	return 0;
 }
+/----------------------------------------------
+/----------------------------------------------
+
+## "extern" C Definition
+
+- name mangling --> name decoration
+- How to use C code in C++ environment (in Linker phase)?
+
+/----------------------------------------------
+/----------------------------------------------
+
+extern "C" int func1(int, int);
+extern "C" int func2(int, int);
+extern "C" int func3(int, int);
+extern "C" int func4(int, int);
+
+extern "C" {
+	int func1(int, int);
+	int func2(int, int);
+	int func3(int, int);
+	int func4(int, int);
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : predefined symbolic constant: __cplusplus
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+	int func1(int, int);
+	int func2(int, int);
+	int func3(int, int);
+	int func4(int, int);
+#ifdef __cplusplus
+}
+#endif
+
+/----------------------------------------------
+/----------------------------------------------

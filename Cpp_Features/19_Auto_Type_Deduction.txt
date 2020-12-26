@@ -185,3 +185,92 @@ int main() {
 
 /----------------------------------------------
 /----------------------------------------------
+
+- **Example**: A sample for the usage of auto keyword with a const value 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+int main()
+{
+	int x = 10;
+	const int& cr = x;
+	auto& r = cr; // r is a const int here 
+
+	++r; // NOT OK --> not modifiable 
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: A sample for the usage of auto keyword with a const value 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+int main()
+{
+	const int x = 20;
+	auto y = x; // --> y is not const value, y = int type value 
+	++y;
+
+	std::cout << "y : " << y << "\n"; // y : 21
+	std::cout << "x : " << x << "\n"; // x : 20
+
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: A sample for the usage of auto keyword with arrays
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+int main()
+{
+	int a[] = { 0, 1, 2, 3, 4, 5 };
+	auto r1 = a;  // int *r1 = a 
+	auto& r2 = a; // int (&r2)[6] = a --> r2 ref for a 
+
+	++r2[3]; // r2 is int& and r2[3]=a[3]= 3 --> ++r2[3] = a[3]= 4
+
+	std::cout << "r1[3] : " << r1[3] << "\n"; // r1[3] : 4
+	std::cout << "r2[3] : " << r2[3] << "\n"; // r2[3] : 4
+	std::cout << "(r1[3] == r2[3]) : " << (r1[3] == r2[3]) << "\n"; // (r1[3] == r2[3]) : 1
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+## Forwarding Reference: 
+- Related to perfect forwarding mechanism 
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Forwarding Reference (Universal Reference)
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+int main()
+{
+	int x = 10;
+	int y = 20;
+
+	// forwarding reference (both ref1 and ref2)
+	// universal reference (called by Scott Meyers)
+	auto&& ref1 = x;      // OK, x --> L-Value 
+	// ref1 is initialized a L-value, so ref1 is a L-value
+	
+	auto&& ref2 = x + 10; // OK,  x + 10 --> R-Value
+	// ref2 is initialized a R-value, so ref2 is a R-value
+    
+	// R-Value ref. (both ref3 and ref4)
+	int&& ref3 = x;    // NOT OK, x is L-Value is not assigned to R-Value ref. syntax error 
+	int&& ref4 = x+10; // OK,  x + 10 --> R-Value, ref4 is alsý R-Value ref. here 
+}
+
+/----------------------------------------------
+/----------------------------------------------

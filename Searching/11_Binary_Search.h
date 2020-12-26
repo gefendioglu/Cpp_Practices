@@ -1,60 +1,14 @@
+#pragma once
+
+// Binary Search Algorithm - Recursive & Iterative Implementation
+// ---------------------------------------------------------
+// ---------------------------------------------------------
+
+#ifdef BINARY_SEARCH_RECURSIVE_ITERATIVE
+
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
 #include<vector> 
-
-
-//int binarySearch(int[] array, int target){
-//	return binarySearch(array, target, 0, array.length - 1);
-//}
-//
-//int binarySearch(int[] array, int target, int lower, int upper) {
-//	int center, range;
-//	range = upper - lower;
-//	if (range < 0) {
-//		throw new BSException("Element not in array");
-//	}
-//	if (array[lower] > array[upper]) {
-//		throw new BSException("Array not sorted");
-//	}
-//	center = (range / 2) + lower;
-//	if (target == array[center]) {
-//		return center;
-//	}
-//	else if (target < array[center]) {
-//		return binarySearch(array, target, lower, center - 1);
-//	}
-//	else {
-//		return binarySearch(array, target, center + 1, upper);
-//	}
-//}
-//
-////The method that follows is a more efficient, iterative analog of the recursive binary search :
-//int iterBinarySearch(int[] array, int target) {
-//	int lower = 0, upper = array.length - 1;
-//	int center, range;
-//	while (true) {
-//		range = upper - lower;
-//		if (range < 0) {
-//			throw new BSException("Element not in array");
-//		}
-//		if (array[lower] > array[upper]) {
-//			throw new BSException("Array not sorted");
-//		}
-//		center = (range / 2) + lower;
-//		if (target == array[center]) {
-//			return center;
-//		}
-//		else if (target < array[center]) {
-//			upper = center - 1;
-//		}
-//		else {
-//			lower = center + 1;
-//		}
-//	}
-//}
-
-// ---------------------------------------------------------
-// ---------------------------------------------------------
 
 // Iterative Implementation
 int binarySearch_it(std::vector<int>* vec, int left, int right, int number) {
@@ -111,18 +65,17 @@ int getIndex(std::vector<int>* vec, int K)
 }
 
 int main() {
+
 	int number, output;
 	std::vector<int> ivec = { 1,2,3,4,5,6,7,8,9,10 };
-	/*std::cout << "Enter 10 integers in ascending order : " << "\n";
-	for (size_t i = 0; i < ivec.size(); ++i)
-	{
-		ivec.push_back(i);
-	}*/
+
 	std::cout << "Enter one number that you want to search in vector: " << "\n";
 	std::cin >> number;
+
 	int left = getIndex(&ivec, ivec.front());
 	int right = getIndex(&ivec, ivec.back());
 	output = binarySearch_rec(&ivec, left, right, number);
+	//output = binarySearch_it(&ivec, left, right, number);
 
 	if (output == -1)
 		std::cout << "No Match Found" << "\n";
@@ -131,3 +84,69 @@ int main() {
 
 	return EXIT_SUCCESS;
 }
+
+#endif // BINARY_SEARCH_RECURSIVE_ITERATIVE
+
+
+#ifdef BINARY_SEARCH_TODO
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+#include<vector> 
+
+
+int binarySearch(int[] array, int target) {
+	return binarySearch(array, target, 0, array.length - 1);
+}
+
+int binarySearch(int[] array, int target, int lower, int upper) {
+	int center, range;
+	range = upper - lower;
+	if (range < 0) {
+		throw new BSException("Element not in array");
+	}
+	if (array[lower] > array[upper]) {
+		throw new BSException("Array not sorted");
+	}
+	center = (range / 2) + lower;
+	if (target == array[center]) {
+		return center;
+	}
+	else if (target < array[center]) {
+		return binarySearch(array, target, lower, center - 1);
+	}
+	else {
+		return binarySearch(array, target, center + 1, upper);
+	}
+}
+
+//The method that follows is a more efficient, iterative analog of the recursive binary search :
+int iterBinarySearch(int[] array, int target) {
+	int lower = 0, upper = array.length - 1;
+	int center, range;
+	while (true) {
+		range = upper - lower;
+		if (range < 0) {
+			throw new BSException("Element not in array");
+		}
+		if (array[lower] > array[upper]) {
+			throw new BSException("Array not sorted");
+		}
+		center = (range / 2) + lower;
+		if (target == array[center]) {
+			return center;
+		}
+		else if (target < array[center]) {
+			upper = center - 1;
+		}
+		else {
+			lower = center + 1;
+		}
+	}
+}
+
+int main() {
+
+}
+
+#endif // BINARY_SEARCH_TODO

@@ -147,19 +147,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="12_Doubly_Linked_List.cpp" />
     <ClCompile Include="13_Stack.cpp" />
     <ClCompile Include="21_Binary_Tree.cpp" />
     <ClCompile Include="22_Binary_Search_Tree.cpp" />
     <ClCompile Include="23_Heap.cpp" />
-    <ClCompile Include="11_Singly_Linked_List.cpp" />
     <ClCompile Include="31_Graphs.cpp" />
     <ClCompile Include="41_Queue.cpp" />
     <ClCompile Include="42_Circular_Queue.cpp" />
+    <ClCompile Include="Data_Structures.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="11_Singly_Linked_List.txt" />
     <Text Include="12_Doubly_Linked_List.txt" />
+    <Text Include="13_Circular_Linked_List.txt" />
     <Text Include="13_Stack.txt" />
     <Text Include="21_Binary_Tree.txt" />
     <Text Include="22_Binary_Search_Tree.txt" />
@@ -167,6 +167,11 @@
     <Text Include="31_Graphs.txt" />
     <Text Include="41_Queue.txt" />
     <Text Include="Data_Structures.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="11_Singly_Linked_List.h" />
+    <ClInclude Include="12_Doubly_Linked_List.h" />
+    <ClInclude Include="13_Circular_Linked_List.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

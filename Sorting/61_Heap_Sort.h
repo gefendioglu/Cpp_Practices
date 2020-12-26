@@ -1,12 +1,24 @@
-#define _CRT_SECURE_NO_WARNINGS
-#include<iostream> 
+#pragma once
 
 // Heap Sort Algorithm
 // --------------------------------------------
 // --------------------------------------------
 
+#ifdef HEAP_SORT
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
 // To heapify a subtree rooted with node i which is an index in arr[]. 
-// n is size of heap
+// n : the size of heap
+
+/* Function to swap two int elements */
+void swap(int* xp, int* yp) {
+	int temp = *xp;
+	*xp = *yp;
+	*yp = temp;
+}
+
 void heapify(int* arr, int length, int i)
 {
 	int largest = i;   // Initialize largest as root
@@ -67,3 +79,8 @@ int main()
 
 	return 0;
 }
+
+#endif // HEAP_SORT
+
+
+

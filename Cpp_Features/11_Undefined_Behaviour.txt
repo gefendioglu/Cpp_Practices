@@ -82,3 +82,24 @@ int main() {
 
 /----------------------------------------------
 /----------------------------------------------
+
+- **Example**: A sample for undefined behaviour 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+// undefined behaviour --> int x has automatic scope value  
+// return value shall not be L-value ref. in this case
+int& func(int x)
+{
+	return x;
+}
+
+int main()
+{
+	int y = 20;
+	func(y) = 50;
+}
+
+/----------------------------------------------
+/----------------------------------------------

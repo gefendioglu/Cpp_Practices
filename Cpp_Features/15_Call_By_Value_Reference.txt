@@ -194,3 +194,38 @@ int main() {
 
 /----------------------------------------------
 /----------------------------------------------
+
+- **Example**: Call by value, call by reference samples
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+// call by-reference, return value is also ref. 
+int& f2(int& r1, int& r2) 
+{
+	r1 += r2;
+	return r1;
+}
+
+// call by-reference, return value is not ref. 
+void f1(int& r1, int& r2) 
+{
+	r1 *= r2;     // x = x*y; --> x = 2*5 = 10; y = 5
+	++f2(r1, r2); // f2(10,5); --> x = 10+5 = 15; y = 5 --> x=16
+	++f2(r2, r1); // f2(5,15); --> y= 5+16 = 21; x = 16 --> y=22
+}
+
+#include <iostream>
+
+int main()
+{
+	int x = 2, y = 5;
+
+	f1(x, y); // r1 --> x, r2 --> y
+
+	std::cout << "x : "<< x << "\n"; // x : 16
+	std::cout << "y : "<< y << "\n"; // y : 22
+}
+
+/----------------------------------------------
+/----------------------------------------------

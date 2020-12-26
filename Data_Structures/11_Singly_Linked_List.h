@@ -1,89 +1,101 @@
+#pragma once
+
+// Basic Singly Linked List Implementation
+// --------------------------------------------------
+// --------------------------------------------------
+
+#ifdef SINGLY_LINKED_LIST_BASIC
+
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 
-// Basic Singly Linked List 
-// --------------------------------------------------
-// --------------------------------------------------
+class Node {
+public:
+	int data;
+	Node* next;
+};
 
-//class Node {
-//public:
-//	int data;
-//	Node* next;
-//};
-//
-//// Traversal a Linked List
-//void printList(Node* node)
-//{
-//	while (node != nullptr) {
-//		std::cout << node->data << " ";
-//		node = node->next;
-//	}
-//}
-//
-//// Creating a simple linked list with 3 nodes 
-//int main()
-//{
-//	/* Three nodes have been allocated in the heap */
-//	Node* head = nullptr;
-//	Node* second = nullptr;
-//	Node* third = nullptr;
-//
-//	/* Three blocks have been allocated dynamically.*/
-//	head = new Node();
-//	second = new Node();
-//	third = new Node();
-//
-//	// assign data in first node 
-//	head->data = 1;
-//	// Link first node with 
-//	head->next = second;
-//	/*
-//
-//		head		 second		 third
-//			|			 |			 |
-//			|			 |			 |
-//		+---+---+	 +----+----+	 +-----+----+
-//		| 1 | o----->| # | # |	 | # | # |
-//		+---+---+	 +----+----+	 +-----+----+
-//	*/
-//
-//	// assign data to second node 
-//	second->data = 2;
-//	// Link second node with the third node 
-//	second->next = third;
-//
-//	/*
-//		head		 second		 third
-//			|			 |			 |
-//			|			 |			 |
-//		+---+---+	 +---+---+	 +----+----+
-//		| 1 | o----->| 2 | o-----> | # | # |
-//		+---+---+	 +---+---+	 +----+----+
-//	*/
-//	// assign data to third node
-//	third->data = 3;
-//	// No link for the third node 
-//	third->next = nullptr;
-//
-//	/*
-//			head
-//				|
-//				|
-//			+---+---+	 +---+---+	 +----+------+
-//			| 1 | o----->| 2 | o-----> | 3 | NULL |
-//			+---+---+	 +---+---+	 +----+------+
-//
-//	 */
-//	printList(head); // 1 2 3
-//
-//	return 0;
-//}
+// Traversal a Linked List
+void printList(Node* node)
+{
+	while (node != nullptr) {
+		std::cout << node->data << " ";
+		node = node->next;
+	}
+}
+
+// Creating a simple linked list with 3 nodes 
+int main()
+{
+	/* Three nodes have been allocated in the heap */
+	Node* head = nullptr;
+	Node* second = nullptr;
+	Node* third = nullptr;
+
+	/* Three blocks have been allocated dynamically.*/
+	head = new Node();
+	second = new Node();
+	third = new Node();
+
+	// assign data in first node 
+	head->data = 1;
+	// Link first node with 
+	head->next = second;
+	/*
+
+		head		 second		 third
+			|			 |			 |
+			|			 |			 |
+		+---+---+	 +----+----+	 +-----+----+
+		| 1 | o----->| # | # |	 | # | # |
+		+---+---+	 +----+----+	 +-----+----+
+	*/
+
+	// assign data to second node 
+	second->data = 2;
+
+	// Link second node with the third node 
+	second->next = third;
+
+	/*
+		head		 second		 third
+			|			 |			 |
+			|			 |			 |
+		+---+---+	 +---+---+	 +----+----+
+		| 1 | o----->| 2 | o-----> | # | # |
+		+---+---+	 +---+---+	 +----+----+
+	*/
+	// assign data to third node
+	third->data = 3;
+	// No link for the third node 
+	third->next = nullptr;
+
+	/*
+			head
+				|
+				|
+			+---+---+	 +---+---+	 +----+------+
+			| 1 | o----->| 2 | o-----> | 3 | NULL |
+			+---+---+	 +---+---+	 +----+------+
+
+	 */
+	printList(head); // 1 2 3
+
+	return 0;
+}
+
+#endif // SINGLY_LINKED_LIST_BASIC
 
 
 
 // Singly Linked List Implementation 
 // ----------------------------------------------
 // ----------------------------------------------
+
+#ifdef SINGLY_LINKED_LIST
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
 
 class Node {
 public:
@@ -288,135 +300,143 @@ void SinglyLinkedLists::printList() {
 	}
 }
 
+int main() {
 
-/* Driver program to test above functions*/
-int main()
-{
-	/* Start with the empty list */
-	Node* head = nullptr;
+	SinglyLinkedLists s;
+	int option;
+	int k1 = 0;
+	int data1 = 0;
+	do
+	{
+		std::cout << "\n What operation do you want to choose? : \n";
+		std::cout << "1.      appendNode()" << "\n";
+		std::cout << "2.     prependNode()" << "\n";
+		std::cout << "3. insertNodeAfter()" << "\n";
+		std::cout << "4. deleteNodeByKey()" << "\n";
+		std::cout << "5. updateNodeByKey()" << "\n";
+		std::cout << "6.       printList()" << "\n";
+		std::cout << "7.      Clear Screen" << "\n";
 
-	//// Insert 6. So linked list becomes 6->NULL 
-	//appendNode(head);
+		std::cin >> option;
+		// dynamic memory allocation - heap
+		// it provides globally accessing the object
+		// in this case, there is a pointer in stack memory pointing to the object address located in heap memory
+		Node* n1 = new Node();
 
-	//// Insert 7 at the beginning. So 
-	//// linked list becomes 7->6->NULL 
-	//insertNodeAfter(head, 7);
+		// static memory allocation - stack 
+		// Node n2;  
 
-	//// Insert 1 at the beginning. 
-	//// So linked list becomes 1->7->6->NULL 
-	//insertNodeAfter(&head, 1);
+		switch (option)
+		{
+		case 0:
+			break;
+		case 1:
+			std::cout << "Appending a node, enter a key and data of the node to be appended" << "\n";
+			std::cin >> n1->key;
+			std::cin >> n1->data;
+			s.appendNode(n1);
+			break;
+		case 2:
+			std::cout << "Prepending a node,enter a key and data of the node to be prepended " << "\n";
+			std::cin >> n1->key;
+			std::cin >> n1->data;
+			s.prependNode(n1);
+			break;
+		case 3:
+			std::cout << "Inserting a node, enter the key of existing node after which you want to insert this new node " << "\n";
+			std::cin >> k1;
+			std::cin >> n1->key;
+			std::cin >> n1->data;
+			s.insertNodeAfter(k1, n1);
+			break;
+		case 4:
+			std::cout << "Deleting a node, enter a key of the node to be deleted" << "\n";
+			std::cin >> k1;
+			s.deleteNodeByKey(k1);
+			break;
+		case 5:
+			std::cout << "Updating a node, enter key and new data to be updated";
+			std::cout << k1;
+			std::cout << data1;
+			s.updateNodeByKey(k1, data1);
+			break;
+		case 6:
+			s.printList();
+			break;
+		case 7:
+			system("cls");
+			break;
+		default:
+			std::cout << "Enter a proper option number" << "\n";
+		}
 
-	//// Insert 4 at the end. So linked 
-	//// list becomes 1->7->6->4->NULL 
-	//appendNode(head);
+	} while (option != 0);
 
-	//// Insert 8, after 7. So linked 
-	//// list becomes 1->7->8->6->4->NULL 
-	//insertAfter(head->next, 8);
-
-	//std::cout << "Created DLL is: ";
-	//printList();
-
-
-	return 0;
+	return EXIT_SUCCESS;
 }
 
-
+/* Another test code */
 //int main() {
 //
-//	SinglyLinkedLists s;
-//	int option;
-//	int k1 = 0;
-//	int data1 = 0;
-//	do
-//	{
-//		std::cout << "\n What operation do you want to choose? : \n";
-//		std::cout << "1.      appendNode()" << "\n";
-//		std::cout << "2.     prependNode()" << "\n";
-//		std::cout << "3. insertNodeAfter()" << "\n";
-//		std::cout << "4. deleteNodeByKey()" << "\n";
-//		std::cout << "5. updateNodeByKey()" << "\n";
-//		std::cout << "6.       printList()" << "\n";
-//		std::cout << "7.      Clear Screen" << "\n";
+//	// While not using a menu screen
+//	Node node1(1, 10);
+//	Node node2(2, 20);
+//	Node node3(3, 30);
+//	Node node4(4, 40);
 //
-//		std::cin >> option;
-//		// dynamic memory allocation - heap
-//		// it provides globally accessing the object
-//		// in this case, there is a pointer in stack memory pointing to the object address located in heap memory
-//		Node* n1 = new Node();
+//	// Creating a singly linked list with a node (node1)
+//	SinglyLinkedLists s(&node1);
 //
-//		// static memory allocation - stack 
-//		// Node n2;  
+//	// Appending a node (node2) at the end of linked list
+//	s.appendNode(&node2);
 //
-//		switch (option)
-//		{
-//		case 0:
-//			break;
-//		case 1:
-//			std::cout << "Appending a node, enter a key and data of the node to be appended" << "\n";
-//			std::cin >> n1->key;
-//			std::cin >> n1->data;
-//			s.appendNode(n1);
-//			break;
-//		case 2:
-//			std::cout << "Prepending a node,enter a key and data of the node to be prepended " << "\n";
-//			std::cin >> n1->key;
-//			std::cin >> n1->data;
-//			s.prependNode(n1);
-//			break;
-//		case 3:
-//			std::cout << "Inserting a node, enter the key of existing node after which you want to insert this new node " << "\n";
-//			std::cin >> k1;
-//			std::cin >> n1->key;
-//			std::cin >> n1->data;
-//			s.insertNodeAfter(k1, n1);
-//			break;
-//		case 4:
-//			std::cout << "Deleting a node, enter a key of the node to be deleted" << "\n";
-//			std::cin >> k1;
-//			s.deleteNodeByKey(k1);
-//			break;
-//		case 5:
-//			std::cout << "Updating a node, enter key and new data to be updated";
-//			std::cout << k1;
-//			std::cout << data1;
-//			s.updateNodeByKey(k1, data1);
-//			break;
-//		case 6:
-//			s.printList();
-//			break;
-//		case 7:
-//			system("cls");
-//			break;
-//		default:
-//			std::cout << "Enter a proper option number" << "\n";
-//		}
+//	// Prepending a node (node3) at the beginning of linked list
+//	s.prependNode(&node3);
 //
-//	} while (option != 0);
+//	// Inserting a node (node4) after the node which its key is 2. 
+//	s.insertNodeAfter(2, &node4);
 //
-//	//// While not using a menu screen
-//	//Node node1(1, 10);
-//	//Node node2(2, 20);
-//	//Node node3(3, 30);
-//	//Node node4(4, 40);
+//	// Updating the data (55) of an exist node (key = 3) 
+//	s.updateNodeByKey(3, 55);
 //
-//	//// Creating a singly linked list with a node (node1)
-//	//SinglyLinkedLists s(&node1);
-//
-//	//// Appending a node (node2) at the end of linked list
-//	//s.appendNode(&node2);
-//
-//	//// Prepending a node (node3) at the beginning of linked list
-//	//s.prependNode(&node3);
-//
-//	//// Inserting a node (node4) after the node which its key is 2. 
-//	//s.insertNodeAfter(2, &node4);
-//
-//	//// Updating the data (55) of an exist node (key = 3) 
-//	//s.updateNodeByKey(3, 55);
-//
-//	//// Deleting an exist node (key = 3) from the singly linked list 
-//	//s.deleteNodeByKey(3);
+//	// Deleting an exist node (key = 3) from the singly linked list 
+//	s.deleteNodeByKey(3);
 //
 //	return EXIT_SUCCESS;
 //}
+
+
+/* Another test code */
+//int main()
+//{
+//	/* Start with the empty list */
+//	Node* head = nullptr;
+//
+//	// Insert 6. So linked list becomes 6->NULL 
+//	appendNode(head);
+//
+//	// Insert 7 at the beginning. So 
+//	// linked list becomes 7->6->NULL 
+//	insertNodeAfter(head, 7);
+//
+//	// Insert 1 at the beginning. 
+//	// So linked list becomes 1->7->6->NULL 
+//	insertNodeAfter(&head, 1);
+//
+//	// Insert 4 at the end. So linked 
+//	// list becomes 1->7->6->4->NULL 
+//	appendNode(head);
+//
+//	// Insert 8, after 7. So linked 
+//	// list becomes 1->7->8->6->4->NULL 
+//	insertAfter(head->next, 8);
+//
+//	std::cout << "Created DLL is: ";
+//	printList();
+//
+//
+//	return 0;
+//}
+#endif // SINGLY_LINKED_LIST
+
+
