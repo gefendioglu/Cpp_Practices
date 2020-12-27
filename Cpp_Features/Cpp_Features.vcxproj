@@ -21,7 +21,6 @@
   <ItemGroup>
     <ClCompile Include="Cpp_Features.cpp" />
     <ClCompile Include="Forward_Declaration.cpp" />
-    <ClCompile Include="Function_Overloading.cpp" />
     <ClCompile Include="Inheritance.cpp" />
     <ClCompile Include="Operator_Overloading.cpp" />
     <ClCompile Include="Smart_Pointers.cpp" />
@@ -60,7 +59,8 @@
     <Text Include="35_Virtual_Functions.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Function_Overloading.h" />
+    <ClInclude Include="25_Classes.h" />
+    <ClInclude Include="27_Function_Overloading.h" />
     <ClInclude Include="Value_Category.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -1,12 +1,15 @@
-#pragma once
-#include "Function_Overloading.h"
+//#define FUNCTION_OVERLOADING
+#define CLASSES
 
-#if 0
+/* Function Overloading */
+#if defined(FUNCTION_OVERLOADING) 
+	#include "27_Function_Overloading.h"
+#endif
 
-#endif // 0
+/* Classes */
+#if defined(CLASSES) 
+	#include "25_Classes.h"
+#endif
 
-#define Function_Overloading
 
-int main() {
 
-}

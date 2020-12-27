@@ -1,10 +1,331 @@
 
 ## CLASSES
-- 
 
+- Data Abstraction is the most important phenomenon
+- Class Definition & Class Declaration are different mechanism. 
+- Both "struct" and "class", they are assumed as classes in C++ environment. 
+- data members (for the data in a class):
+  - non-static data members
+  - static data members
+- class member functions (for the functions in a class):
+  - non-static member functions
+    - non-const member functions
+    - const member functions
+  - static member functions
+- nested types (member types, type members):
+  
+/----------------------------------------------
+/----------------------------------------------
 
+- **Example** : Data member and class member functions in C++
+
+struct MyClass {
+	int mx, my;         // non-static data member
+	static double dval; // static data member
+	void func(int);     // non-static member function
+	static int foo();   // static member function 
+	typedef int Word;
+	enum class Color{Red, Green};
+};
 
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** :
+## Scope Definition 
+
+- Scope Definitions in C:
+  - file scope
+  - block scope
+  - function prototype scope
+  - function scope
+
+- Scope Definitions in C++:
+  - namespace scope
+  - class scope 
+  - block scope
+  - function prototype scope
+  - function scope
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Scope Definitions in C++
+
+int x = 10; // file scope, global variables
+void func(int x); // function prototype scope
+void func(double dval) { // function scope
+	int y = 20; // block scope, in func() func scope
+}
+class MyClass {
+	int x; // class scope
+};
+
+/----------------------------------------------
+/----------------------------------------------
+
+## Name Lookup
+
+- The results of name lookup in C++:
+  - syntax error
+    - compiler can not find any definitions related to the name
+	- compiler can find more than one definitions related to the name (ambiguity error)
+  - compiler can understand what the name is:
+
+- Name lookup rules in C+:
+  - name lookup is ended after finding the name, not started again
+  - name hiding (name masking, name shadowing)
+  - The order of controls in C++: 
+    - name lookup
+	- context control (R-Value, L-Value expression assignment error)
+	- access control (using access specifiers: public, private, protected)
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Name Lookup Sample (name hiding)
+
+int main() {
+
+	int printf = 0;
+	printf("gamze"); // name lookup error, cause printf name is found in the same function scope
+
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Name Lookup Sample (name hiding)
+
+int func(int);
+
+int main() {
+
+	
+	int func = 0;
+	func(12); // name lookup error, func name is found
+	func++;   // not a syntax error
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+## When is a name searched in Class Scope?
+- The name is in the right operand wrt. dot operator (member selection operator)
+- The name is in the right operand wrt. arrow operator (member selection operator)
+- The name is in the right operand wrt. scope resolution operator (::)
+  - Namespace::right_operand OR ClassName::right_operand
+
+/----------------------------------------------
+/----------------------------------------------
+
+## Access Control
+- Access specifiers : public, private, protected --> keywords
+- default access specifier : private for class, public for struct
+- public --> public interface (this interface is open for client code)
+  - public functions and global functions are in the same scope
+- private --> private interface (is only open for class code)
+- protected --> protected interface (is only used for inheritance, is open for derived class code, not for client code)
+- access specifiers don't specify any scope definition, all data members and class member functions are in the same class scope. The same names can not be used twice or more regardless of its access specifier. 
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : All data members and class member functions are in the same class scope
+
+class MyClass {
+public:
+	int x;
+private:
+	int x();
+};
+
+int main() {
+	MyClass myclass;
+	myclass.x; // syntax error
+} 
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : A class member is the hidden parameter in the class member functions. 
+
+class MyClass {
+public:
+	void func(int); // like as : void func(MyClass *ptr, int);
+};
+
+int main(){
+	MyClass::func(10); // syntax error, it is necessary to have a class object to send as a parameter for this class member function
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Dereferencing a pointer (pointed to nullptr address), it is an undefined behaviour 
+
+class MyClass {
+public:
+	void func();
+private:
+	int mx, my, mz;
+};
+
+int main() {
+
+	MyClass* ptr = nullptr; // if it is dereferenced, ub
+	ptr->func();
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Function overloading with class member functions
+
+class MyClass {
+public:
+	void func();
+	void func(int); // func. overloading, in the same scope
+	void func(int, int, int);  // func. overloading, in the same scope
+	void func(double); // func. overloading, in the same scope
+private:
+	int mx, my, mz;
+}; 
+
+void func(int); // not a function overloading
+                // functions should be in the same scope
+
+int main(){
+
+	MyClass myclass;
+	myclass.func();    // --> calls void func();
+	myclass.func(12);  // --> calls void func(int);
+	myclass.func(1.2); // --> calls void func(double); 
+	myclass.func(1u);  // --> syntax error, ambiguity 
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : A sample for access specifier 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class MyClass {
+public:
+	void func(int);
+private:
+	void func(double); // func. overloading, in the same class scope 
+	int mx, my, mz;
+};
+
+int main() {
+
+	MyClass myclass;
+	myclass.func(12.34); // syntax error, private member func., access control is done after name lookup  
+	myclass.func(12); // not ayntax error
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Function redecleration for class member functions
+
+void func(int);
+void func(int); // func. redecleration is not an error here
+
+class MyClass {
+public:
+	void func(int);
+	void func(int); // syntax error,function redecleration is not allowed for class member function
+private:
+	int mx, my, mz;
+};
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : The size of class member functions
+  - What if they are virtual class member functions?
+    - In that case, virtual function pointer is added for each virtual class member functions ( size of pointer is 8 bytes in this compiler)
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include "myclass.h"
+
+// myclass.h
+class MyClass {
+public:
+	void func1(double); // no effect on the storage
+	void func2(double); // no effect on the storage
+	void func3(double); // no effect on the storage
+private:
+	int mx, my, mz; // sizeof(int) : 4 bytes
+};
+
+// myclass.cpp
+void MyClass::func1(double dval){ //...}
+void MyClass::func2(double dval){ //...}
+void MyClass::func3(double dval){ //...}
+void func4(double dval){//...} // not a member func., it is global func.
+
+// main.cpp
+int main() {
+
+	std::cout << "sizeof(MyClass) : " << sizeof(MyClass);
+	// sizeof(MyClass) : 12 (int + int + int = 12 bytes)
+	func4(14.2); // calling global func. 
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : The class member function definition in .cpp file
+  - In .cpp file, the access specifier type of a class member function is not understood.
+  -  
+
+class MyClass {
+public:
+	void func(int x, int y); 
+private:
+	void foo();
+	int mx, my, mz; // sizeof(int) : 4 bytes
+};
+
+// The access specifiers of member functions are not important for their definitions in .cpp files. 
+void MyClass::func(int x, int y){
+	// ....
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : One of the solution to understand the access specifier type of a class member function, to define its access modifier type as a macro
+
+
+// myclass.h
+class MyClass {
+public:
+	void func(int x, int y); 
+private:
+	void foo();
+	int mx, my, mz; // sizeof(int) : 4 bytes
+};
+
+// myclass.cpp
+#define PUBLIC  // compiler will delete this macro definition
+#define PRIVATE // compiler will delete this macro definition
+
+PUBLIC void MyClass::func(int x, int y){
+	//...
+}
+
+PRIVATE void MyClass::foo() {
+	//...
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+## Name Lookup for Class Member Functions Definitions
+

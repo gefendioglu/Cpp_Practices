@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Function_Overloading.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Operator_Overloading.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -130,10 +127,13 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Function_Overloading.h">
+    <ClInclude Include="Value_Category.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Value_Category.h">
+    <ClInclude Include="27_Function_Overloading.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="25_Classes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
