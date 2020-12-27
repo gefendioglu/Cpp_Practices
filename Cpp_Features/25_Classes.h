@@ -5,30 +5,30 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 
+// myclass.h
 class MyClass {
 public:
-	void func(int x, int y); 
+	void func();
+	void foo()const; 
+	void g()const;
 private:
-	void foo();
-	int mx, my, mz; // sizeof(int) : 4 bytes
+	int mx, my;
 };
 
-
-// myclass.cpp
-#define PUBLIC
-#define PRIVATE
-
-PUBLIC void MyClass::func(int x, int y){
-	//...
+void MyClass::func() {
+	foo(); // OK, not syntax error
+	       // T* --> const T* is allowed !!!
 }
 
-
-PRIVATE void MyClass::foo() {
-	//...
+void MyClass::foo() const {
+	func(); // NOT OK, syntax error
+	        // const T* --> T* is NOT allowed !!!
+	g();  // OK, not syntax error, both are const func. 
 }
-
 
 int main() {
+	MyClass myclass;
+	const MyClass cmyclass;
 
 
 }
