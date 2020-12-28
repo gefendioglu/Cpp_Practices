@@ -8,30 +8,29 @@
 // myclass.h
 class MyClass {
 public:
-	void func();
-	void foo()const; 
-	void g()const;
+	void func();       // --> void func(MyClass* const this);
+	void foo() const; // --> (const MyClass* const this);
 private:
 	int mx, my;
 };
 
+MyClass global;
+
+// myclass.cpp
 void MyClass::func() {
-	foo(); // OK, not syntax error
-	       // T* --> const T* is allowed !!!
+	this = &global; // NOT OK, this pointer is R-Value expression
+	                // this is a const itself
 }
 
-void MyClass::foo() const {
-	func(); // NOT OK, syntax error
-	        // const T* --> T* is NOT allowed !!!
-	g();  // OK, not syntax error, both are const func. 
+int sum_square(int x, int y) {
+	return x * x + y * y;
 }
 
 int main() {
-	MyClass myclass;
-	const MyClass cmyclass;
-
-
+	
+	int number1 = 10, number2 = 20;
+	int result = sum_square(number1, number2);
+	// int result = number1 * number1 + number2 * number2; 
 }
-
 
 #endif // CLASSES
