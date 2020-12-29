@@ -57,6 +57,8 @@
     <Text Include="33_Virtual_Copy_Constructor.txt" />
     <Text Include="34_Virtual_Destructor_Constructor.txt" />
     <Text Include="35_Virtual_Functions.txt" />
+    <Text Include="36_Cpp_Acryonms.txt" />
+    <Text Include="37_Constructors_Destructors.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="25_Classes.h" />

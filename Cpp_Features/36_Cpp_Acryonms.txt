@@ -1,0 +1,4 @@
+
+
+ODR : One Definition Rule 
+RAII: Resource Acquisition In Initialization 

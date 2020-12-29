@@ -5,32 +5,38 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 
-// myclass.h
-class MyClass {
+// data.h
+class Data {
 public:
-	void func();       // --> void func(MyClass* const this);
-	void foo() const; // --> (const MyClass* const this);
+	Data() {
+		std::cout << "Data ctor is called..this : " << this << "\n";
+	}
+	~Data() {
+		std::cout << "Data destructor is called..this : " << this << "\n";
+	}
 private:
 	int mx, my;
 };
 
-MyClass global;
-
-// myclass.cpp
-void MyClass::func() {
-	this = &global; // NOT OK, this pointer is R-Value expression
-	                // this is a const itself
-}
-
-int sum_square(int x, int y) {
-	return x * x + y * y;
-}
+// global class objects
+Data globalData1;
+Data globalData2;
+Data globalData3;
 
 int main() {
+	std::cout << "main() function is called\n";
+	std::cout << "&globalData : " << &globalData1 << "\n";
+	std::cout << "main() function is ended\n";
+
+	/*
+		Data ctor is called..this : 00AEE138
+		main() function is called
+		&globalData : 00AEE138
+		main() function is ended
+		Data destructor is called..this : 00AEE138
+	*/
+
 	
-	int number1 = 10, number2 = 20;
-	int result = sum_square(number1, number2);
-	// int result = number1 * number1 + number2 * number2; 
 }
 
 #endif // CLASSES

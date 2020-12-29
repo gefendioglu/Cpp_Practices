@@ -1,0 +1,173 @@
+
+## CONSTRUCTORS 
+- Constructors have the same name like class name 
+- Constructors dont have any return value mechanism 
+- Constructors can be defined in cpp files.
+- Constructors can not be called by a class instance from client code. 
+- Constructors can be overloaded!!!
+- Constructors must not be : 
+  - static member function 
+  - const member functions 
+  - global functions 
+
+## Special Member Functions
+- Compiler writes these default functions (to default (generate, synthesize) a special member function)
+- The types of special member functions:
+  - default constructor
+  - copy constructor
+  - copy assignment function 
+  - move constructor  (added with C++11)
+  - move assignment function  (added with C++11)
+  - destructor
+
+## Default Constructor 
+- If there is no constructor declaration/edfinition in a class, compiler writes public/non-static/inline/default constructor automatically (implicitly declared constructor). 
+  like --> MyClass(){}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Constructor Overloading 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+// myclass.h
+class MyClass {
+public:
+	MyClass();	
+	MyClass()const; // NOT OK, constructors are not const  
+	static MyClass(); // NOT OK, constructors are not static
+	
+	// Constructor Overloading 
+	MyClass(int);	
+	MyClass(int,int);	
+	MyClass(double);	
+
+	void func();
+private:
+	int mx, my;
+};
+
+int main() {
+	MyClass m;
+	m.func();    // OK
+	m.MyClass(); // NOT OK, constructors can not be called from client code
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Default Constructor and creating a class instance 
+
+// data.h
+class Data {
+public:
+	Data(int); // No defualt ctor for this class
+private:
+	int mx, my;
+};
+
+int main() {
+	Data dt; //  NOT OK, because no default ctor definition
+	         // no appropriate default ctor available error
+	Data data{10}; // OK, because Data(int); ctor 
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+## DESTRUCTORS 
+- While creating an class instance, it is mandatory that its constructor to be finalized. However, while destructing an instance, it is only enough to call its destructor. 
+- Destructors are non-static class member functions
+- Destructors have the same name with class name (with tilde token)
+- Destructors dont have a return value mechanism 
+- Destructors can not be overloaded !!!
+- Destructors can be called by a class instance from a client code, but in one special case. 
+- Destructors dont take any parameters
+- Destructors can not be:
+  - static member functions
+  - const member functions 
+  - global functions
+
+- If there is no destructor declaration/definition in a class, compiler writes public/non-static/inline destructor automatically (implicitly declared destructor)
+- It is mandatory for a class to have a destructor (implicitly declerad or not)
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : The usage of destructors
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+// data.h
+class Data {
+public:
+	Data(int);
+	~Data();
+private:
+	int mx, my;
+};
+
+int main() {
+	Data data{10}; // OK, because Data(int); ctor
+	data.~Data();  // OK, for a special case
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+local static instance definition (OR)
+global instance definition
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Global class objects and ctor/destructors 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+// data.h
+class Data {
+public:
+	Data() {
+		std::cout << "Data ctor is called..this : " << this << "\n";
+	}
+	~Data() {
+		std::cout << "Data destructor is called..this : " << this << "\n";
+	}
+private:
+	int mx, my;
+};
+
+// global class objects
+Data globalData;
+
+int main() {
+	std::cout << "main() function is called\n";
+	std::cout << "&globalData : " << &globalData << "\n";
+	std::cout << "main() function is ended\n";
+
+	/*
+		Data ctor is called..this : 00AEE138
+		main() function is called
+		&globalData : 00AEE138
+		main() function is ended
+		Data destructor is called..this : 00AEE138
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** :
+
+- Farklý dosyalarda bulunan global nesnelerin hayata gelme sýrasý garanti altýna alýnmamýþtýr. (Static Initialization Fiasco)
+  Forward declaration ile hayat gelme sýrasý kontrol edilebilir mi? 
+
+- Normalde ayný dosya altýnda tanýmlanan global sýnýf nesneleri için tanýmlandýklarý sýrayla constructor larý çaðrýlmaktadýr. 
+
+/----------------------------------------------
+/----------------------------------------------

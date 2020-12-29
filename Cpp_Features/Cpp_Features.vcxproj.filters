@@ -125,6 +125,12 @@
     <Text Include="12_Enum_Types_Classes.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="36_Cpp_Acryonms.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="37_Constructors_Destructors.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Value_Category.h">
