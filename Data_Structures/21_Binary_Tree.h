@@ -1,13 +1,10 @@
+#pragma once
 
-## BINARY TREE
+// Binary Search Tree Implementation using Classes
+// --------------------------------------------------
+// --------------------------------------------------
 
-- A tree is made up of nodes (data elements) with zero, one, or several references (or pointers) to other nodes. Each node has only one other node referencing it.
-- In object-oriented languages you usually define a class for the common parts of a node and one or more subclasses for the data held by a node.
-
-/----------------------------------------------
-/----------------------------------------------
-
-- **Example**: Searching an element with class and recursive function
+#ifdef BINARY_SEARCH_TREE
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
@@ -103,5 +100,6 @@ int main() {
 
 }
 
-/----------------------------------------------
-/----------------------------------------------
+#endif // BINARY_SEARCH_TREE
+
+

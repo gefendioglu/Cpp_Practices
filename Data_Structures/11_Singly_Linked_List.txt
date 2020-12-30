@@ -104,6 +104,7 @@ IntElement* IntElement::find(IntElement* head, int data) {
   - Deletion and insertion require a pointer or reference to the element immediately preceding the deletion or insertion location. 
 
 /----------------------------------------------
+/----------------------------------------------
 
 - **Example**: First implementation for deleting elements  from a singly linked list
 
@@ -132,6 +133,7 @@ bool IntElement::deleteElement(IntElement** head, IntElement* deleteMe)
 	return false;
 }
 
+/----------------------------------------------
 /----------------------------------------------
 
 - **Example**: Second implementation for deleting elements from a singly linked list 
@@ -168,6 +170,8 @@ bool IntElement::deleteElement_I(IntElement** npp, IntElement* deleteMe) {
 	- If you free the element first, advancing the pointer is impossible, because it involves reading the next pointer in the element that was just freed.
 	- The solution is to use two pointers !!!
 
+/----------------------------------------------
+/----------------------------------------------
 
 void IntElement::deleteList(IntElement** head)
 {
@@ -287,7 +291,7 @@ int main()
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** : Singly Linked List Example (from video)
+- **Example** : Singly Linked List Example
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
@@ -308,172 +312,192 @@ public:
 	SinglyLinkedLists(Node* head) {
 		this->head = head;
 	}
-	// Checking if node exists using key value
-	Node* nodeExists(const int& key) {
-		Node* temp = nullptr;
-		Node* ptr = head;
-		while (ptr != nullptr) {
-			if (ptr->key == key)
-			{
-				temp = ptr;
-			}
-			ptr = ptr->next;
-		}
-		return temp;
-	}
 
+	// Checking if node exists using key value
+	Node* nodeExists(const int& key);
 
 	// Appending a node to the singly linked list
-	void appendNode(Node* node) {
-		if (nodeExists(node->key) != nullptr) // there exist a node
-		{
-			std::cout << "Node already exists : " << node->key << "\n";
-		}
-		else
-		{
-			// if only one value in the singly linked list
-			if (head == nullptr) {
-				head = node;
-				std::cout << "Node is appended !!!" << "\n";
-			}
-			// if more than one nodes in the singly linked list
-			else
-			{
-				Node* ptr = head;
-				while (ptr->next != nullptr) {
-					ptr = ptr->next;
-				}
-				// when ptr->next = nullptr (it means it is the last node)
-				ptr->next = node;
-				std::cout << "Node is appended !!!" << "\n";
-			}
-		}
-	}
+	void appendNode(Node* node);
 
 	// Prepending a node at the beginning of singly linked list
-	void prependNode(Node* node) {
-		if (nodeExists(node->key) != nullptr) // there exist a node
-		{
-			std::cout << "Node already exists : " << node->key << "\n";
-		}
-		else
-		{
-			//No need to traverse the list
-			node->next = head;
-			head = node;
-			std::cout << "Node is prepended !!!" << "\n";
-		}
-	}
+	void prependNode(Node* node);
 
 	// Inserting a node after a particular node (with the given key value) in the list
-	void insertNodeAfter(const int& key, Node* node) {
-		Node* ptr = nodeExists(key);
-		// key value checking 
-		if (ptr == nullptr)
-		{
-			std::cout << "No node exists with key value : " << key << "\n";
-		}
-		else // if the key value exists, a new node can be inserted 
-		{
-			// node value checking
-			if (nodeExists(node->key) != nullptr) // there exist a node
-			{
-				std::cout << "Node already exists : " << node->key << "\n";
-			}
-			else // if not exist this node, we can insert it
-			{
-				node->next = ptr->next;
-				ptr->next = node; // the previous node shall point the inserted node address
-				std::cout << "Node is inserted !!!" << "\n";
-			}
-
-		}
-
-	}
+	void insertNodeAfter(const int& key, Node* node);
 
 	// Deleting a node by unique key from the singly linked list
-	void deleteNodeByKey(const int& key) {
-		if (head == nullptr) // if the list is empty
-		{
-			std::cout << "Singly Linked List is already empty!!!" << "\n";
-		}
-		else if (head != nullptr)
-		{
-			if (head->key = key) // for the deletion of first node 
-			{
-				head = head->next;
-				std::cout << "Node is UNLINKED with keys value : " << key << "\n";
-			}
-			else // for the deletion of middle nodes
-			{
-				Node* temp = nullptr;
-				Node* prevptr = head;
-				Node* currentptr = head->next;
-				while (currentptr != nullptr) // if there is a node 
-				{
-					// if the deleted key is equal to this one 
-					if (currentptr->key == key)
-					{
-						temp = currentptr;
-						currentptr = nullptr;
-					}
-					else
-					{
-						prevptr = prevptr->next; // head->next
-						currentptr = currentptr->next; //head->next->next
-					}
-				}
-
-				if (temp != nullptr) // temp = currentptr;
-				{
-					prevptr->next = temp->next; // currenptr->next
-					std::cout << "Node is UNLINKED with key values : " << key << "\n";
-				}
-				else // temp == nullptr
-				{
-					std::cout << "Node doesnt exist with the key value: " << key << "\n";
-				}
-			}
-		}
-	}
+	void deleteNodeByKey(const int& key);
 
 	// Updating a node using a unique key value
-	void updateNodeByKey(const int& key, int data) {
-		Node* ptr = nodeExists(key);
-		if (ptr != nullptr)
-		{
-			ptr->data = data;
-			std::cout << "Node is UPDATED !!!" << "\n";
-		}
-		else
-		{
-			std::cout << "Node doesnt exist with this key value : " << key << "\n";
-		}
-	}
+	void updateNodeByKey(const int& key, int data);
 
-	// Printing nodes in a singly linked list
-	void printList() {
-		if (head == nullptr)
-		{
-			std::cout << "No nodes can be printed in singly linked list" << "\n";
-		}
-		else // if there is at least one node in a singly linked list
-		{
-			std::cout << "Singly Linked List Values: ";
-			Node* temp = head;
-
-			// while temp doesnt point the last node
-			while (temp != nullptr) {
-				std::cout << "( " << temp->key << ", " << temp->data << " )--> ";
-				temp = temp->next;
-			}
-		}
-	}
+	void printList();
 
 private:
 	Node* head;
 
 };
+
+Node* SinglyLinkedLists::nodeExists(const int& key) {
+	Node* temp = nullptr;
+	Node* ptr = head;
+	while (ptr != nullptr) {
+		if (ptr->key == key)
+		{
+			temp = ptr;
+		}
+		ptr = ptr->next;
+	}
+	return temp;
+}
+
+
+// Appending a node to the singly linked list
+void SinglyLinkedLists::appendNode(Node* node) {
+	if (nodeExists(node->key) != nullptr) // there exist a node
+	{
+		std::cout << "Node already exists : " << node->key << "\n";
+	}
+	else
+	{
+		// if only one value in the singly linked list
+		if (head == nullptr) {
+			head = node;
+			std::cout << "Node is appended !!!" << "\n";
+		}
+		// if more than one nodes in the singly linked list
+		else
+		{
+			Node* ptr = head;
+			while (ptr->next != nullptr) {
+				ptr = ptr->next;
+			}
+			// when ptr->next = nullptr (it means it is the last node)
+			ptr->next = node;
+			std::cout << "Node is appended !!!" << "\n";
+		}
+	}
+}
+
+// Prepending a node at the beginning of singly linked list
+void SinglyLinkedLists::prependNode(Node* node) {
+	if (nodeExists(node->key) != nullptr) // there exist a node
+	{
+		std::cout << "Node already exists : " << node->key << "\n";
+	}
+	else
+	{
+		//No need to traverse the list
+		node->next = head;
+		head = node;
+		std::cout << "Node is prepended !!!" << "\n";
+	}
+}
+
+// Inserting a node after a particular node (with the given key value) in the list
+void SinglyLinkedLists::insertNodeAfter(const int& key, Node* node) {
+	Node* ptr = nodeExists(key);
+	// key value checking 
+	if (ptr == nullptr)
+	{
+		std::cout << "No node exists with key value : " << key << "\n";
+	}
+	else // if the key value exists, a new node can be inserted 
+	{
+		// node value checking
+		if (nodeExists(node->key) != nullptr) // there exist a node
+		{
+			std::cout << "Node already exists : " << node->key << "\n";
+		}
+		else // if not exist this node, we can insert it
+		{
+			node->next = ptr->next;
+			ptr->next = node; // the previous node shall point the inserted node address
+			std::cout << "Node is inserted !!!" << "\n";
+		}
+
+	}
+
+}
+
+// Deleting a node by unique key from the singly linked list
+void SinglyLinkedLists::deleteNodeByKey(const int& key) {
+	if (head == nullptr) // if the list is empty
+	{
+		std::cout << "Singly Linked List is already empty!!!" << "\n";
+	}
+	else if (head != nullptr)
+	{
+		if (head->key = key) // for the deletion of first node 
+		{
+			head = head->next;
+			std::cout << "Node is UNLINKED with keys value : " << key << "\n";
+		}
+		else // for the deletion of middle nodes
+		{
+			Node* temp = nullptr;
+			Node* prevptr = head;
+			Node* currentptr = head->next;
+			while (currentptr != nullptr) // if there is a node 
+			{
+				// if the deleted key is equal to this one 
+				if (currentptr->key == key)
+				{
+					temp = currentptr;
+					currentptr = nullptr;
+				}
+				else
+				{
+					prevptr = prevptr->next; // head->next
+					currentptr = currentptr->next; //head->next->next
+				}
+			}
+
+			if (temp != nullptr) // temp = currentptr;
+			{
+				prevptr->next = temp->next; // currenptr->next
+				std::cout << "Node is UNLINKED with key values : " << key << "\n";
+			}
+			else // temp == nullptr
+			{
+				std::cout << "Node doesnt exist with the key value: " << key << "\n";
+			}
+		}
+	}
+}
+
+// Updating a node using a unique key value
+void SinglyLinkedLists::updateNodeByKey(const int& key, int data) {
+	Node* ptr = nodeExists(key);
+	if (ptr != nullptr)
+	{
+		ptr->data = data;
+		std::cout << "Node is UPDATED !!!" << "\n";
+	}
+	else
+	{
+		std::cout << "Node doesnt exist with this key value : " << key << "\n";
+	}
+}
+
+// Printing nodes in a singly linked list
+void SinglyLinkedLists::printList() {
+	if (head == nullptr)
+	{
+		std::cout << "No nodes can be printed in singly linked list" << "\n";
+	}
+	else // if there is at least one node in a singly linked list
+	{
+		std::cout << "Singly Linked List Values: ";
+		Node* temp = head;
+
+		// while temp doesnt point the last node
+		while (temp != nullptr) {
+			std::cout << "( " << temp->key << ", " << temp->data << " )--> ";
+			temp = temp->next;
+		}
+	}
+}
 
 int main() {
 
@@ -546,30 +570,6 @@ int main() {
 		}
 
 	} while (option != 0);
-
-	//// While not using a menu screen
-	//Node node1(1, 10);
-	//Node node2(2, 20);
-	//Node node3(3, 30);
-	//Node node4(4, 40);
-
-	//// Creating a singly linked list with a node (node1)
-	//SinglyLinkedLists s(&node1);
-
-	//// Appending a node (node2) at the end of linked list
-	//s.appendNode(&node2);
-
-	//// Prepending a node (node3) at the beginning of linked list
-	//s.prependNode(&node3);
-
-	//// Inserting a node (node4) after the node which its key is 2. 
-	//s.insertNodeAfter(2, &node4);
-
-	//// Updating the data (55) of an exist node (key = 3) 
-	//s.updateNodeByKey(3, 55);
-
-	//// Deleting an exist node (key = 3) from the singly linked list 
-	//s.deleteNodeByKey(3);
 
 	return EXIT_SUCCESS;
 }

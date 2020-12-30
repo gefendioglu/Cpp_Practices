@@ -1,17 +1,19 @@
-#define _CRT_SECURE_NO_WARNINGS
+#pragma once
 
+#ifdef HEAP
+
+#define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
 #include<climits> 
 
 using namespace std;
 
-// Prototype of a utility function to swap two integers 
+// swap two integers 
 void swap(int* x, int* y);
 
 // A class for Min Heap 
 class MinHeap {
 public:
-	// Constructor 
 	MinHeap(int capacity);
 
 	// to heapify a subtree with the root at given index 
@@ -46,7 +48,7 @@ private:
 	int heap_size; // Current number of elements in min heap 
 };
 
-// Constructor: Builds a heap from a given array a[] of given size 
+// Builds a heap from a given array a[] of given size 
 MinHeap::MinHeap(int cap)
 {
 	heap_size = 0;
@@ -142,22 +144,24 @@ void swap(int* x, int* y)
 	*y = temp;
 }
 
-// Driver program to test above functions 
-//int main()
-//{
-//	MinHeap h(11);
-//	h.insertKey(3);
-//	h.insertKey(2);
-//	h.deleteKey(1);
-//	h.insertKey(15);
-//	h.insertKey(5);
-//	h.insertKey(4);
-//	h.insertKey(45);
-//
-//	cout << h.extractMin() << " ";
-//	cout << h.getMin() << " ";
-//	h.decreaseKey(2, 1);
-//	cout << h.getMin();
-//	return 0;
-//}
+// Test Code
 
+int main()
+{
+	MinHeap h(11);
+	h.insertKey(3);
+	h.insertKey(2);
+	h.deleteKey(1);
+	h.insertKey(15);
+	h.insertKey(5);
+	h.insertKey(4);
+	h.insertKey(45);
+
+	cout << h.extractMin() << " ";
+	cout << h.getMin() << " ";
+	h.decreaseKey(2, 1);
+	cout << h.getMin();
+	return 0;
+}
+
+#endif // HEAP
