@@ -1,8 +1,10 @@
+#pragma once
+
+
+#ifdef CREATIONAL_BUILDER
+
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
-
-// ----------------------------------------------------
-// ----------------------------------------------------
 
 class Window {
 public:
@@ -110,12 +112,14 @@ private:
 	bool tomato = false;
 };
 
-//int main()
-//{
-//	Window* w = new Window(false, true, true);
-//	
-//	WindowBuilder* window = new WindowBuilder();
-//	Window wbuilder = window->setVisible(false).setModal(true).setDialog(true).build();
-//
-//	Burger bbuilder = (new BurgerBuilder(14))->addPepperoni(true).addLettuce(false).addTomato(false).build();
-//}
+int main()
+{
+	Window* w = new Window(false, true, true);
+	
+	WindowBuilder* window = new WindowBuilder();
+	Window wbuilder = window->setVisible(false).setModal(true).setDialog(true).build();
+
+	Burger bbuilder = (new BurgerBuilder(14))->addPepperoni(true).addLettuce(false).addTomato(false).build();
+}
+
+#endif // CREATIONAL_BUILDER

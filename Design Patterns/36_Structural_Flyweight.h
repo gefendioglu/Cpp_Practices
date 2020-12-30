@@ -1,3 +1,4 @@
+#pragma once
 //// FlyWeight Pattern with example of Counter Strike Game 
 //// TO BE COMPLETED - CONTROLLED 
 //// https://www.geeksforgeeks.org/flyweight-design-pattern/

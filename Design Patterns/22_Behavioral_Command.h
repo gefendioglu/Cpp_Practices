@@ -1,3 +1,4 @@
+#pragma once
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
 #include<vector> 
@@ -61,11 +62,11 @@ class BankAccount {
 public:
     int32_t m_balance;
 
-    void deposit(int32_t amount) { 
-        m_balance += amount; 
+    void deposit(int32_t amount) {
+        m_balance += amount;
     }
-    void withdraw(int32_t amount) { 
-        m_balance -= amount; 
+    void withdraw(int32_t amount) {
+        m_balance -= amount;
     }
 };
 
@@ -98,9 +99,9 @@ int main() {
     BankAccount ba2{};
 
     std::vector<BankAccountCommand> commands{
-        
+
         BankAccountCommand{ba1,BankAccountCommand::Action::withdraw, 200},
-       
+
         BankAccountCommand{ba2,BankAccountCommand::Action::deposit, 200}
     };
 

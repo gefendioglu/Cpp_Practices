@@ -174,33 +174,35 @@
     <Text Include="34_Structural_Decorator.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="11_Creational_Factory_Method.cpp" />
-    <ClCompile Include="12_Creational_Abstract_Factory.cpp" />
-    <ClCompile Include="14_Creational_Prototype.cpp" />
-    <ClCompile Include="14_Creational_Prototype_Factory.cpp" />
-    <ClCompile Include="21_Behavioral_Chain_of_Responsibility.cpp" />
-    <ClCompile Include="22_Behavioral_Command.cpp" />
-    <ClCompile Include="23_Behavioral_Iterator.cpp" />
-    <ClCompile Include="13_Creational_Builder.cpp" />
-    <ClCompile Include="15_Creational_Singleton.cpp" />
-    <ClCompile Include="24_Behavioral_Interpreter.cpp" />
-    <ClCompile Include="25_Behavioral_Mediator.cpp" />
-    <ClCompile Include="26_Behavioral_Memento.cpp" />
-    <ClCompile Include="27_Behavioral_Observer.cpp" />
-    <ClCompile Include="28_Behavioral_Visitor.cpp" />
-    <ClCompile Include="29_Behavioral_State.cpp" />
-    <ClCompile Include="29_Behavioral_Strategy.cpp" />
-    <ClCompile Include="29_Behavioral_Template_Method.cpp" />
-    <ClCompile Include="30_Behavioral_Visitor.cpp" />
-    <ClCompile Include="31_Structural_Adapter_Classical.cpp" />
-    <ClCompile Include="31_Structural_Adapter_Pluggable.cpp" />
-    <ClCompile Include="32_Structural_Bridge.cpp" />
-    <ClCompile Include="32_Structural_Bridge_PIMPL.cpp" />
-    <ClCompile Include="33_Structural_Composite.cpp" />
-    <ClCompile Include="34_Structural_Decorator.cpp" />
-    <ClCompile Include="35_Structural_Facade.cpp" />
-    <ClCompile Include="36_Structural_Flyweight.cpp" />
-    <ClCompile Include="37_Structural_Proxy.cpp" />
+    <ClInclude Include="11_Creational_Factory.h" />
+    <ClInclude Include="12_Creational_Abstract_Factory.h" />
+    <ClInclude Include="13_Creational_Builder.h" />
+    <ClInclude Include="14_Creational_Prototype.h" />
+    <ClInclude Include="14_Creational_Prototype_Factory.h" />
+    <ClInclude Include="15_Creational_Singleton.h" />
+    <ClInclude Include="21_Behavioral_Chain_of_Responsibility.h" />
+    <ClInclude Include="22_Behavioral_Command.h" />
+    <ClInclude Include="23_Behavioral_Iterator.h" />
+    <ClInclude Include="24_Behavioral_Interpreter.h" />
+    <ClInclude Include="25_Behavioral_Mediator.h" />
+    <ClInclude Include="26_Behavioral_Memento.h" />
+    <ClInclude Include="27_Behavioral_Observer.h" />
+    <ClInclude Include="28_Behavioral_Visitor.h" />
+    <ClInclude Include="29_Behavioral_State.h" />
+    <ClInclude Include="29_Behavioral_Strategy.h" />
+    <ClInclude Include="29_Behavioral_Template.h" />
+    <ClInclude Include="30_Structural_Adapter_Classical.h" />
+    <ClInclude Include="31_Structural_Adapter_Pluggable.h" />
+    <ClInclude Include="32_Structural_Bridge.h" />
+    <ClInclude Include="32_Structural_Bridge_PIMPL.h" />
+    <ClInclude Include="33_Structural_Composite.h" />
+    <ClInclude Include="34_Structural_Decorator.h" />
+    <ClInclude Include="35_Structural_Facade.h" />
+    <ClInclude Include="36_Structural_Flyweight.h" />
+    <ClInclude Include="37_Structural_Proxy.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Design_Patterns.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,3 +1,4 @@
+#pragma once
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
 #include<string> 
@@ -36,7 +37,7 @@ struct Creature {
 
 // Abstract class
 class Image {
-    virtual void draw() = 0; 
+    virtual void draw() = 0;
 };
 
 class Bitmap : public Image {
@@ -47,8 +48,8 @@ public:
     }
 
     // Polymorphic behaviour for draw() function
-    void draw() override { 
-        std::cout << "Drawing image " << m_filename << "\n"; 
+    void draw() override {
+        std::cout << "Drawing image " << m_filename << "\n";
     }
 
 private:
@@ -60,10 +61,10 @@ private:
 class LazyBitmap : public Image {
 public:
     LazyBitmap(const std::string& filename) : m_filename(filename) {}
-    
+
     // Polymorphic behaviour for draw() function
     void draw() override {
-        if (!m_bmp) 
+        if (!m_bmp)
             m_bmp = std::make_unique<Bitmap>(m_filename);
         m_bmp->draw();
     }

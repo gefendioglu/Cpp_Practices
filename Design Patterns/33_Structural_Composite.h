@@ -1,3 +1,5 @@
+#pragma once
+
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <vector>
@@ -150,14 +152,14 @@ std::ostream& operator<<(std::ostream& os, SomeNeurons<Self>& object) {
 // Base Class
 class PageObject {
 public:
-    virtual void Add(PageObject a){}
-    virtual void Remove(){}
-    virtual void Delete(PageObject a){}
+    virtual void Add(PageObject a) {}
+    virtual void Remove() {}
+    virtual void Delete(PageObject a) {}
 };
 
 class Page : public PageObject {
 public:
-    void Add(PageObject a) override   {
+    void Add(PageObject a) override {
         std::cout << "something is added to the page" << "\n";
     }
     void Remove() override {
@@ -170,7 +172,7 @@ public:
 
 class Copy : public PageObject {
 public:
-    void AddElement(PageObject a)  {
+    void AddElement(PageObject a) {
         copyPages.push_back(a);
     }
 
@@ -181,7 +183,7 @@ public:
     void Remove() override {
         std::cout << "something is removed from the copy" << "\n";
     }
-    void Delete(PageObject a) override{
+    void Delete(PageObject a) override {
         std::cout << "something is deleted from the copy";
     }
 
@@ -210,3 +212,4 @@ private:
 
 // ----------------------------------------------------
 // ----------------------------------------------------
+

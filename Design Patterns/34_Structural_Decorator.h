@@ -1,3 +1,4 @@
+#pragma once
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
 #include<string>
@@ -7,35 +8,35 @@ class Coffee {
 
 public:
 	virtual int getCost() = 0;
-	virtual std::string getDescription()=0;
+	virtual std::string getDescription() = 0;
 };
 
 // Concrete Component : SimpleCoffee
 class SimpleCoffee : public Coffee {
 public:
-	int getCost() { return 10;}
-	std::string getDescription() { return "Simple Coffee";}
+	int getCost() { return 10; }
+	std::string getDescription() { return "Simple Coffee"; }
 };
 
 // Decorator : CoffeeDecorator
 class CoffeeDecorator : public Coffee {
 
 public:
-	
-	CoffeeDecorator(Coffee* coffee) : m_coffee{coffee}{}
 
-	int getCost() 
+	CoffeeDecorator(Coffee* coffee) : m_coffee{ coffee } {}
+
+	int getCost()
 	{
 		return this->m_coffee->getCost();
 	}
 
-	std::string getDescription() 
+	std::string getDescription()
 	{
 		return this->m_coffee->getDescription();
 	}
 
 protected:
-	Coffee *m_coffee;
+	Coffee* m_coffee;
 
 };
 
@@ -44,7 +45,7 @@ class MilkCoffee : public CoffeeDecorator {
 
 public:
 	// Delegating Constructor
-	MilkCoffee(Coffee* coffee): CoffeeDecorator(coffee){}
+	MilkCoffee(Coffee* coffee) : CoffeeDecorator(coffee) {}
 
 	int getCost()
 	{
@@ -62,9 +63,9 @@ class WhipCoffee : public CoffeeDecorator {
 
 public:
 	// Delegating Constructor
-	WhipCoffee(Coffee *coffee): CoffeeDecorator(coffee){}
+	WhipCoffee(Coffee* coffee) : CoffeeDecorator(coffee) {}
 
-	int getCost() 
+	int getCost()
 	{
 		return m_coffee->getCost() + 5;
 	}
@@ -79,7 +80,7 @@ public:
 class VanillaCoffee : public CoffeeDecorator {
 public:
 	// Delegating Constructor
-	VanillaCoffee(Coffee *coffee): CoffeeDecorator(coffee){}
+	VanillaCoffee(Coffee* coffee) : CoffeeDecorator(coffee) {}
 
 	int getCost()
 	{
@@ -122,7 +123,7 @@ public:
 
 
 // Abstract Component : MilkShake 
-class MilkShake{
+class MilkShake {
 public:
 	//pure virtual classes
 	virtual std::string getServe() const = 0;
@@ -130,43 +131,43 @@ public:
 };
 
 // Concrete Component : BaseMilkShake
-class BaseMilkShake : public MilkShake{
+class BaseMilkShake : public MilkShake {
 public:
-	std::string getServe()const override{ return "MilkShake";	}
-	float getPrice()const override{ return 30;}
+	std::string getServe()const override { return "MilkShake"; }
+	float getPrice()const override { return 30; }
 };
 
 // Decorator : MilkShakeDecorator
-class MilkShakeDecorator : public MilkShake{
+class MilkShakeDecorator : public MilkShake {
 public:
 
 	MilkShakeDecorator(MilkShake* baseMilkShake) : m_MilkShake(baseMilkShake) {}
 
-	std::string getServe()const override { return m_MilkShake->getServe();}
-	float getPrice()const override { return m_MilkShake->getPrice();}
+	std::string getServe()const override { return m_MilkShake->getServe(); }
+	float getPrice()const override { return m_MilkShake->getPrice(); }
 
 protected:
 	MilkShake* m_MilkShake;
 };
 
 // Concrete Decorator : MangoMilkShake
-class MangoMilkShake : public MilkShakeDecorator{
+class MangoMilkShake : public MilkShakeDecorator {
 public:
 	// Delegating Constructor
 	MangoMilkShake(MilkShake* baseMilkShake) : MilkShakeDecorator(baseMilkShake) {}
 
-	std::string getServe()const override { return m_MilkShake->getServe() + " decorated with Mango ";}
-	float getPrice()const override { return m_MilkShake->getPrice() + 40;}
+	std::string getServe()const override { return m_MilkShake->getServe() + " decorated with Mango "; }
+	float getPrice()const override { return m_MilkShake->getPrice() + 40; }
 };
 
 // Concrete Decorator : VanillaMilkShake
-class VanillaMilkShake : public MilkShakeDecorator{
+class VanillaMilkShake : public MilkShakeDecorator {
 public:
 	// Delegating Constructor
 	VanillaMilkShake(MilkShake* baseMilkShake) : MilkShakeDecorator(baseMilkShake) {}
 
-	std::string getServe()const override { return m_MilkShake->getServe() + " decorated with Vanilla ";}
-	float getPrice()const override { return m_MilkShake->getPrice() + 80;}
+	std::string getServe()const override { return m_MilkShake->getServe() + " decorated with Vanilla "; }
+	float getPrice()const override { return m_MilkShake->getPrice() + 80; }
 };
 
 //int main()

@@ -1,3 +1,4 @@
+#pragma once
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
 #include<functional> 
@@ -5,34 +6,34 @@
 /* Legacy code -------------------------------------------------------------- */
 class Beverage {
 public:
-    virtual void getBeverage() = 0;
+	virtual void getBeverage() = 0;
 };
 
 class CoffeeMaker : public Beverage {
 public:
-    void Brew() { std::cout << "brewing coffee" << "\n"; }
-    void getBeverage() override { Brew(); }
+	void Brew() { std::cout << "brewing coffee" << "\n"; }
+	void getBeverage() override { Brew(); }
 };
 
 void make_drink(Beverage& drink) {
-    drink.getBeverage(); 
+	drink.getBeverage();
 }
 /* --------------------------------------------------------------- */
 
-class JuiceMaker {        
+class JuiceMaker {
 public:
-    void Squeeze() { std::cout << "making Juice" << "\n"; }
+	void Squeeze() { std::cout << "making Juice" << "\n"; }
 };
 
 // Adapter class for "Beverage" base class 
-class Adapter : public Beverage {  
+class Adapter : public Beverage {
 public:
-    Adapter(CoffeeMaker* cm) { m_request = [cm]() { cm->Brew(); }; }
-    Adapter(JuiceMaker* jm) { m_request = [jm]() { jm->Squeeze(); }; }
-    void getBeverage() override { m_request(); }
+	Adapter(CoffeeMaker* cm) { m_request = [cm]() { cm->Brew(); }; }
+	Adapter(JuiceMaker* jm) { m_request = [jm]() { jm->Squeeze(); }; }
+	void getBeverage() override { m_request(); }
 
 private:
-    std::function<void()> m_request;
+	std::function<void()> m_request;
 };
 
 //int main() {
@@ -53,8 +54,8 @@ private:
 class Bird {
 public:
 	// birds implement Bird interface that allows them to fly and make sounds adaptee interface 
-	virtual void fly()=0;
-	virtual void makeSound()=0;
+	virtual void fly() = 0;
+	virtual void makeSound() = 0;
 
 };
 
@@ -66,7 +67,7 @@ public:
 		std::cout << "Flying" << "\n";
 	}
 
-	void makeSound() override{
+	void makeSound() override {
 		std::cout << "Chirp Chirp" << "\n";
 	}
 };
@@ -75,7 +76,7 @@ public:
 class ToyDuck {
 public:
 	// target interface toyducks dont fly they make squeaking sound 
-	virtual void squeak()=0;
+	virtual void squeak() = 0;
 };
 
 // Derived class (PlasticToyDuck) from base class (ToyDuck)
