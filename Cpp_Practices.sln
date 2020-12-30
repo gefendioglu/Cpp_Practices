@@ -35,8 +35,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cpp_Features", "Cpp_Feature
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cpp_Features_Containers", "Cpp_Features_Containers\Cpp_Features_Containers.vcxproj", "{F4DFABC9-4627-4B92-9F13-D226D9761349}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "07_Lesson", "07_Lesson\07_Lesson.vcxproj", "{75EDB42C-1ADA-4671-874B-6947FA10F902}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -173,14 +171,6 @@ Global
 		{F4DFABC9-4627-4B92-9F13-D226D9761349}.Release|x64.Build.0 = Release|x64
 		{F4DFABC9-4627-4B92-9F13-D226D9761349}.Release|x86.ActiveCfg = Release|Win32
 		{F4DFABC9-4627-4B92-9F13-D226D9761349}.Release|x86.Build.0 = Release|Win32
-		{75EDB42C-1ADA-4671-874B-6947FA10F902}.Debug|x64.ActiveCfg = Debug|x64
-		{75EDB42C-1ADA-4671-874B-6947FA10F902}.Debug|x64.Build.0 = Debug|x64
-		{75EDB42C-1ADA-4671-874B-6947FA10F902}.Debug|x86.ActiveCfg = Debug|Win32
-		{75EDB42C-1ADA-4671-874B-6947FA10F902}.Debug|x86.Build.0 = Debug|Win32
-		{75EDB42C-1ADA-4671-874B-6947FA10F902}.Release|x64.ActiveCfg = Release|x64
-		{75EDB42C-1ADA-4671-874B-6947FA10F902}.Release|x64.Build.0 = Release|x64
-		{75EDB42C-1ADA-4671-874B-6947FA10F902}.Release|x86.ActiveCfg = Release|Win32
-		{75EDB42C-1ADA-4671-874B-6947FA10F902}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

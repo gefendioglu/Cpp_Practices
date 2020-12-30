@@ -636,4 +636,543 @@ void MyClass::foo() const {
 /----------------------------------------------
 /----------------------------------------------
 
+- **Example** : Const overloading and class member functions
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+// myclass.h
+class MyClass {
+public:
+	void func();
+	void func()const;
+private:
+	int mx, my;
+};
+
+// myclass.cpp
+void MyClass::func() {
+	std::cout << "Myclass::func()\n";
+}
+
+void MyClass::func() const {
+	std::cout << "Myclass::func() const\n";
+}
+
+int main() {
+	const MyClass cmyclass;
+	cmyclass.func(); // viable function: void func()const; 
+	// Myclass::func() const
+	// const object --> calls const function
+
+	MyClass myclass;
+	myclass.func();
+	// Myclass::func()
+	// non-const object --> calls non-const function
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+## This Pointer
+- this keyword is only used in non-static class member functions
+- this pointer is used as the address of the object for which it is called in C++. 
+- *this represents represents the object itself in C++. 
+- "this" keyword is not a pointer in C# and Java languages. In these languages, "this" keyword represents the object itself.
+- "this" pointer is used to deal with the name shadowing problem caused by local data members which have the same names.
+- *this --> L-Value && this --> R-Value
+
+
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : This pointer 
+
+// myclass.h
+class MyClass {
+public:
+	void func();
+	void foo();
+	void func()const;
+private:
+	int mx, my;
+};
+
+// myclass.cpp
+void MyClass::func() {
+	this->mx = 10; // mx = 10;
+	this->my = 20; // my = 20;
+	this->foo();   // foo();
+	std::cout << "Myclass::func()\n";
+}
+
+void MyClass::foo() {
+	int mx = 10; 
+	mx = 20; // this is local data : mx
+
+	this->mx = 30;    // this is class data member : mx
+	(*this).mx = 40;  // this is class data member : mx
+	MyClass::mx = 30; // this is also class data member : mx
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : The usage of this pointer in class member functions 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+// myclass.h
+class MyClass {
+public:
+	void func();
+	void foo();
+private:
+	int mx, my;
+};
+
+// myclass.cpp
+void MyClass::func() {
+	std::cout << "Myclass::func() is called \n";
+	std::cout << "this : " << this << "\n";
+	foo();
+}
+
+void MyClass::foo() {
+	std::cout << "Myclass::foo() is called \n";
+	std::cout << "this : " << this << "\n";
+}
+
+int main() {
+	
+	MyClass myclass;
+	std::cout << "&myclass : " << &myclass << "\n";
+	myclass.func();
+	
+	// The address values should be the same for the same instance
+	/*
+		The address values should be the same for the same instance
+		&myclass : 00CFFE10
+		Myclass::func() is called
+		this : 00CFFE10
+		Myclass::foo() is called
+		this : 00CFFE10
+	*/	
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : The usage of this pointer (with global functions)
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+// myclass.h
+class MyClass {
+public:
+	void func();
+	void foo();
+private:
+	int mx, my;
+};
+
+void gf1(MyClass* ptr) {
+	std::cout << "Global gf1() function is called \n";
+	std::cout << "ptr : " << ptr << "\n";
+}
+
+void gf2(MyClass& ref) {
+	std::cout << "Global gf2() function is called \n";
+	std::cout << "ref : " << &ref << "\n";
+}
+
+// myclass.cpp
+void MyClass::func() {
+
+	std::cout << "Myclass::func() is called \n";
+	std::cout << "this : " << this << "\n";
+	gf1(this);  // gf1 func. takes this pointer as argument 
+	gf2(*this); // gf2 func. takes the member instance as argument 
+}
+
+int main() {
+	
+	MyClass myclass;
+	std::cout << "&myclass : " << &myclass << "\n";
+	myclass.func();
+	
+	// The address values should be the same for the same instance
+	/*
+		&myclass : 008FFDD8
+		Myclass::func() is called
+		this : 008FFDD8
+		Global gf1() function is called
+		ptr : 008FFDD8
+		Global gf2() function is called
+		ref : 008FFDD8
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : The member functions which have cla
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+// myclass.h
+class MyClass {
+public:
+	void func();
+	MyClass* foo_ptr(); 
+	MyClass& foo_ref();
+private:
+	int mx, my;
+};
+
+
+// myclass.cpp
+MyClass* MyClass::foo_ptr() {
+
+	//...
+	return this; // return the address of object
+}
+
+MyClass& MyClass::foo_ref() {
+	//...
+	return *this; // return the object
+}
+
+int main() {
+	MyClass myclass;
+	myclass.foo_ptr();
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
 - **Example** :
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+// myclass.h
+class MyClass {
+public:
+	MyClass& foo_ref1();
+	MyClass& foo_ref2();
+	MyClass& foo_ref3();
+	MyClass& foo_ref4();
+private:
+	int mx, my;
+};
+
+MyClass& MyClass::foo_ref1() {
+	std::cout << "foo_ref1() is called\n";
+	return *this;
+}
+
+MyClass& MyClass::foo_ref2() {
+	std::cout << "foo_ref2() is called\n";
+	return *this;
+}
+
+MyClass& MyClass::foo_ref3() {
+	std::cout << "foo_ref3() is called\n";
+	return *this;
+}
+
+MyClass& MyClass::foo_ref4() {
+	std::cout << "foo_ref4() is called\n";
+	return *this;
+}
+
+
+int main() {
+	
+	MyClass myclass;
+	
+	// Fluent API for C++
+	myclass.foo_ref1().foo_ref2().foo_ref3().foo_ref4();
+	/*
+		foo_ref1() is called
+		foo_ref2() is called
+		foo_ref3() is called
+		foo_ref4() is called
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : The usage of fluent API with operator overloading 
+  - cout << ival << dval << flag;
+  - cout.operator<<(ival).operator<<(dval).operator<<(flag);
+
+int main() {
+	
+	int ival = 10;
+	double dval = 12.1;
+	bool flag = true; 
+	
+	// The same expressions for fluent API in C++: 
+	std::cout << ival << dval << flag;
+	std::cout.operator<<(ival).operator<<(dval).operator<<(flag);
+
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : The usage of this pointer and constantness
+
+// myclass.h
+class MyClass {
+public:
+	void func();
+	void foo() const;
+private:
+	int mx, my;
+};
+
+MyClass global;
+
+// myclass.cpp
+void MyClass::foo() const {
+	*this = global; // NOT OK, const MyClass object
+	this->mx = 10;  // NOT OK, const MyClass object
+}
+
+void MyClass::func() { 
+	*this = global; // OK, non-const MyClass object
+	this->mx = 10;  // OK, non-const MyClass object
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : The usage of this pointer and const member functions
+
+// myclass.h
+class MyClass {
+public:
+	MyClass* func1();
+	MyClass& func2();
+	
+	MyClass* func3()const;
+	MyClass& func4()const;
+
+	const MyClass* func5()const;
+	const MyClass& func6()const;
+
+private:
+	int mx, my;
+};
+
+// myclass.cpp
+MyClass* MyClass::func1() {
+	//...
+	return this;
+}
+
+MyClass& MyClass::func2() {
+	//...
+	return *this;
+}
+
+MyClass* MyClass::func3()const {
+	//...
+	return this; // NOT OK, T* --> const T* is not allowed!!!
+}
+
+MyClass& MyClass::func4()const {
+	//...
+	return *this; // // NOT OK, T& --> const T& is not allowed!!!
+}
+
+const MyClass* MyClass::func5()const {
+	//...
+	return this; // OK
+}
+
+const MyClass& MyClass::func6()const {
+	//...
+	return *this; // OK
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : This pointer features 
+
+// myclass.h
+class MyClass {
+public:
+	void func();      // --> void func(MyClass* const this);
+	void foo() const; // --> (const MyClass* const this);
+private:
+	int mx, my;
+};
+
+MyClass global;
+
+// myclass.cpp
+void MyClass::func() {
+	this = &global; // NOT OK, this pointer is R-Value expression
+	                // this pointer is a const itself
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : The usage of const parameter and const pointer in a function
+- low level const --> The object pointed by the pointer cannot be changed.
+- top level const --> The pointer itself cannot be changed.
+- TO BO CHECKED !!!
+
+struct Data {
+	int mx, my;
+};
+
+struct Data gstruct;
+
+void func(const struct Data* const ptr) { // both top & low level const
+	*ptr = gstruct; // NOT OK, because of first const
+	ptr = &gstruct; // NOT OK, because of second const (const ptr)
+}
+
+void foo(const struct Data* ptr) { // low level const 
+	*ptr = gstruct; // NOT OK, because of first const
+	ptr = &gstruct; // OK, because of non-const ptr
+}
+
+void goo(struct Data* ptr) {
+	*ptr = gstruct; // OK, because of non-const struct parameter 
+	ptr = &gstruct; // OK, because of non-const ptr
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+## Inline Functions:
+- This functions are used for compiler optimization (as an inline expansion )
+- Some compiler optimization techniques: loop unrolling, dead code elimination 
+- Inline Optimization in terms of compilers: 
+  - It is mandatory to see the inline function definition for inline optimization
+  - It is not guaranteed that each inline functions is used for optimization, it is depend on compiler decision 
+  - Compilers can have some switches to make an optimization 
+  - If user is used "inline" keyword, in that case compiler is forced to make inline expansion. But, the compiler doesnt have to do apply this.  
+- 
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Inline Optimization   
+
+inline int sum_square(int x, int y) {
+	return x * x + y * y;
+}
+
+int main() {
+	
+	int number1 = 10, number2 = 20;
+	int result = sum_square(number1, number2);
+	// int result = number1 * number1 + number2 * number2; 
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+## ODR : One Definition Rule
+- What is ODR Violation? 
+  - If a function definition is made in a header file, then there will be an ODR violation whenever more than one source files including this header file. In this case, this function definition is repeated for each source files.  
+  - If "inline" keyword is used with the function, this prevents to make an ODR violation. 
+- The usage of inline functions can be verified by a profiler or a benchmarking tool.
+- The inline function definitions for class member functions:
+  - "constexpr" functions are implicitly inline functions
+  - both const non-static member functions and non-const non-static member functions can be defined as inlined functions in a class
+  - static member functions can be defined as inlined functions in a class
+  - friend member functions can also be defined as inlined functions 
+- Compiler can optimize much bigger code block at the same time by using inline functions. 
+- The types of inline definitions:  
+  - inline class definitions
+  - inline function definitions
+  - inline variable definition  
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Inline Optimization   
+
+// myclass.h
+class MyClass {
+public:
+	int func(int);
+	// not common to use inline keyword in class. 
+	inline int foo(int x) { 
+		return x + x;
+	}
+private:
+	int mx, my;
+};
+
+// ODR Violation 
+int foo(int x, int y) {
+	return x * y;
+}
+
+// inline keyword prevents ODR violation 
+inline int foo(int x, int y, int z) {
+	return x + y - z;
+}
+
+// myclass.cpp
+inline int MyClass::func(int x){
+	return x * x;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : "constexpr" functions are implicitly inline functions
+
+// myclass.h
+class MyClass {
+public:
+	int func(int);
+	
+	// inline non-static member function with inline keyword
+	inline int foo(int x) { 
+		//...
+		return x + x;
+	}
+
+	// inline static member function 
+	static int foo(int a, int b) {
+		//...
+		return a + b;
+	}
+
+	// inline friend member function 
+	friend int goo(int x) {
+		//...
+		return foo(x,x);
+	}
+private:
+	int mx, my;
+};
+
+// recursive - constexpr functions  
+// Even if there is no inline keyword, this constexpr function is an inline function
+constexpr int factorial(int number) {
+	return number < 2 ? 1 : factorial(number-1)*number;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : 

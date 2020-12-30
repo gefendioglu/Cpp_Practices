@@ -5,33 +5,38 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 
-// myclass.h
-class MyClass {
+// data.h
+class Data {
 public:
-	void func();
-	void foo()const; 
-	void g()const;
+	Data() {
+		std::cout << "Data ctor is called..this : " << this << "\n";
+	}
+	~Data() {
+		std::cout << "Data destructor is called..this : " << this << "\n";
+	}
 private:
 	int mx, my;
 };
 
-void MyClass::func() {
-	foo(); // OK, not syntax error
-	       // T* --> const T* is allowed !!!
-}
-
-void MyClass::foo() const {
-	func(); // NOT OK, syntax error
-	        // const T* --> T* is NOT allowed !!!
-	g();  // OK, not syntax error, both are const func. 
-}
+// global class objects
+Data globalData1;
+Data globalData2;
+Data globalData3;
 
 int main() {
-	MyClass myclass;
-	const MyClass cmyclass;
+	std::cout << "main() function is called\n";
+	std::cout << "&globalData : " << &globalData1 << "\n";
+	std::cout << "main() function is ended\n";
 
+	/*
+		Data ctor is called..this : 00AEE138
+		main() function is called
+		&globalData : 00AEE138
+		main() function is ended
+		Data destructor is called..this : 00AEE138
+	*/
 
+	
 }
-
 
 #endif // CLASSES
