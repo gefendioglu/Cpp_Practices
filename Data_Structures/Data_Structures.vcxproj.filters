@@ -82,5 +82,8 @@
     <ClInclude Include="13_Circular_Linked_List.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="14_Stack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

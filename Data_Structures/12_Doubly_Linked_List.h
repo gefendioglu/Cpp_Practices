@@ -29,51 +29,13 @@ public:
 	}
 
 	// Checking if node exists using key value
-	Node* nodeExists(const int& key) 
-	{
-		Node* temp = nullptr;
-		Node* ptr = head;
-		while (ptr != nullptr) {
-			if (ptr->key == key)
-			{
-				temp = ptr;
-			}
-			ptr = ptr->next;
-		}
-		return temp;
-	}
+	Node* nodeExists(const int& key);
 
 	// Appending a node to the list
-	void appendNode(Node* node) 
-	{
-		if (nodeExists(node->key) != nullptr)
-		{
-			std::cout << "Node is already exist with the key value : " << node->key << "\n";
-			std::cout << "Append another node with differet key value. " << "\n";
-		}
-		else
-		{
-			if (head == nullptr)
-			{
-				head = node;
-				std::cout << "Node is appended as a head node." << "\n";
-			}
-			else
-			{
-				Node* ptr = head;
-				while (ptr->next !=nullptr)
-				{
-					ptr = ptr->next;
-				}
-				ptr->next = node;
-				node->previous = ptr;
-				std::cout << "Node is appended. " << "\n";
-			}
+	void appendNode(Node* node);
 
-		}
-	}
-
-	// Prepending a node to the list (attaching a node at the beginning of list)
+	// Prepending a node to the list 
+	// (attaching a node at the beginning of doubly linked list)
 	void prependNode(Node* node)
 	{
 		if (nodeExists(node->key) != nullptr)
@@ -220,6 +182,74 @@ public:
 private:
 	Node* head;
 };
+
+// Checking if node exists using key value
+Node* DoublyLinkedList::nodeExists(const int& key)
+{
+	Node* temp = nullptr;
+	Node* ptr = head;
+	while (ptr != nullptr) {
+		if (ptr->key == key)
+		{
+			temp = ptr;
+		}
+		ptr = ptr->next;
+	}
+	return temp;
+}
+
+void DoublyLinkedList::appendNode(Node* node)
+{
+	if (nodeExists(node->key) != nullptr)
+	{
+		std::cout << "Node is already exist with the key value : " << node->key << "\n";
+		std::cout << "Append another node with differet key value. " << "\n";
+	}
+	else
+	{
+		if (head == nullptr)
+		{
+			head = node;
+			std::cout << "Node is appended as a head node." << "\n";
+		}
+		else
+		{
+			Node* ptr = head;
+			while (ptr->next != nullptr)
+			{
+				ptr = ptr->next;
+			}
+			ptr->next = node;
+			node->previous = ptr;
+			std::cout << "Node is appended. " << "\n";
+		}
+
+	}
+}
+
+void DoublyLinkedList::prependNode(Node* node)
+{
+	if (nodeExists(node->key) != nullptr)
+	{
+		std::cout << "Node is already exist with the key value : " << node->key << "\n";
+		std::cout << "Prepend another node with differet key value. " << "\n";
+	}
+	else
+	{
+		if (head == nullptr)
+		{
+			head = node;
+			std::cout << "Node is prepended as a head node." << "\n";
+		}
+		else
+		{
+			head->previous = node;
+			node->next = head;
+			head = node;
+			std::cout << "Node is prepended " << "\n";
+		}
+	}
+}
 
 int main() {
 

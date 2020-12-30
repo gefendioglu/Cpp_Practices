@@ -43,33 +43,23 @@ public:
 	}
 
 	// Appending a node 
-	void appendNode(Node* node) {
-
-	}
-
-	void prependNode(Node* node) {
-
-	}
-
-	void insertNodeAfter(const int& key, Node* node) {
-
-	}
-
-	void deleteNodeByKey(const int& key) {
-
-	}
-
-	void updateNodeByKey(const int& key, const int& data) {
-
-	}
-
-	void printList() {
-
-	}
+	void appendNode(Node* node);
+	void prependNode(Node* node);
+	void insertNodeAfter(const int& key, Node* node);
+	void deleteNodeByKey(const int& key);
+	void updateNodeByKey(const int& key, const int& data);
+	void printList();
 
 private:
 	Node* head;
 };
+
+void CircularLinkedList::appendNode(Node* node) {}
+void CircularLinkedList::prependNode(Node* node) {}
+void CircularLinkedList::insertNodeAfter(const int& key, Node* node) {}
+void CircularLinkedList::deleteNodeByKey(const int& key) {}
+void CircularLinkedList::updateNodeByKey(const int& key, const int& data) {}
+void CircularLinkedList::printList() {}
 
 int main() {
 
