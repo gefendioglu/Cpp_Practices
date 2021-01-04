@@ -1,4 +1,10 @@
 #pragma once
+
+// ----------------------------------------------------
+// ----------------------------------------------------
+
+#ifdef STRUCTURAL_FACADE_I
+
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
 
@@ -50,25 +56,25 @@ private:
 	Tv      m_tv;
 };
 
-//int main() {
-//
-//	HouseFacade hf;
-//	// only have 2 functions are called 
-//	// rather than calling several on-off functions
-//	hf.go_to_work();
-//	hf.come_home();
-//
-//	/*
-//		AC is off
-//		TV is off
-//		Alarm is on and house is secured
-//		Alarm is off and you can go into the house
-//		Ac is on
-//		Tv is on
-//	*/
-//	return EXIT_SUCCESS;
-//}
+int main() {
 
+	HouseFacade hf;
+	// only have 2 functions are called 
+	// rather than calling several on-off functions
+	hf.go_to_work();
+	hf.come_home();
+
+	/*
+		AC is off
+		TV is off
+		Alarm is on and house is secured
+		Alarm is off and you can go into the house
+		Ac is on
+		Tv is on
+	*/
+	return EXIT_SUCCESS;
+}
+#endif // STRUCTURAL_FACADE_I
 
 // ----------------------------------------------
 // ----------------------------------------------

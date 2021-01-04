@@ -1,5 +1,7 @@
 #pragma once
 
+#ifdef STRUCTURAL_COMPOSITE_I
+
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <vector>
@@ -51,8 +53,15 @@ public:
 //    */
 //}
 
+#endif // STRUCTURAL_COMPOSITE_I
+
 // ----------------------------------------------------
 // ----------------------------------------------------
+
+#ifdef STRUCTURAL_COMPOSITE_II
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
 
 template <typename Self>
 class SomeNeurons {
@@ -105,49 +114,56 @@ std::ostream& operator<<(std::ostream& os, SomeNeurons<Self>& object) {
     return os;
 }
 
-//int main() {
-//    Neuron n1, n2;
-//    NeuronLayer l1{ 1 }, l2{ 2 };
-//
-//    n1.connect_to(l1); // Scenario 1: Neuron connects to Layer
-//    l2.connect_to(n2); // Scenario 2: Layer connects to Neuron
-//    l1.connect_to(l2); // Scenario 3: Layer connects to Layer
-//    n1.connect_to(n2); // Scenario 4: Neuron connects to Neuron
-//
-//    std::cout << "Neuron " << n1.id << "\n" << n1 << "\n";
-//    std::cout << "Neuron " << n2.id << "\n" << n2 << "\n";
-//
-//    std::cout << "Layer " << "\n" << l1 << "\n";
-//    std::cout << "Layer " << "\n" << l2 << "\n";
-//
-//    return EXIT_SUCCESS;
-//
-//
-//    /* Output
-//        Neuron 1
-//        [1]    -->    3
-//        [1]    -->    2
-//
-//        Neuron 2
-//        4    -->    [2]
-//        5    -->    [2]
-//        1    -->    [2]
-//
-//        Layer
-//        1    -->    [3]
-//        [3]    -->    4
-//        [3]    -->    5
-//
-//        Layer
-//        3    -->    [4]
-//        [4]    -->    2
-//        3    -->    [5]
-//        [5]    -->    2
-//    */
-//}
+int main() {
+    Neuron n1, n2;
+    NeuronLayer l1{ 1 }, l2{ 2 };
+
+    n1.connect_to(l1); // Scenario 1: Neuron connects to Layer
+    l2.connect_to(n2); // Scenario 2: Layer connects to Neuron
+    l1.connect_to(l2); // Scenario 3: Layer connects to Layer
+    n1.connect_to(n2); // Scenario 4: Neuron connects to Neuron
+
+    std::cout << "Neuron " << n1.id << "\n" << n1 << "\n";
+    std::cout << "Neuron " << n2.id << "\n" << n2 << "\n";
+
+    std::cout << "Layer " << "\n" << l1 << "\n";
+    std::cout << "Layer " << "\n" << l2 << "\n";
+
+    return EXIT_SUCCESS;
+
+
+    /* Output
+        Neuron 1
+        [1]    -->    3
+        [1]    -->    2
+
+        Neuron 2
+        4    -->    [2]
+        5    -->    [2]
+        1    -->    [2]
+
+        Layer
+        1    -->    [3]
+        [3]    -->    4
+        [3]    -->    5
+
+        Layer
+        3    -->    [4]
+        [4]    -->    2
+        3    -->    [5]
+        [5]    -->    2
+    */
+}
+
+#endif // STRUCTURAL_COMPOSITE_II
 
 // ----------------------------------------------------
 // ----------------------------------------------------
+
+#ifdef STRUCTURAL_COMPOSITE_III
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
 
 // Base Class
 class PageObject {
@@ -192,23 +208,25 @@ private:
     std::vector<PageObject> copyPages;
 };
 
-//int main()
-//{
-//    Page a;
-//    Page b;
-//    Copy allcopy;
-//
-//    allcopy.AddElement(a);
-//    allcopy.AddElement(b);
-//
-//    allcopy.Add(a);   // something is added to the copy
-//    a.Add(b);         // something is added to the page
-//     
-//    allcopy.Remove(); // something is removed from the copy
-//    b.Remove();       // something is removed from the page
-//
-//    return 0;
-//}
+int main()
+{
+    Page a;
+    Page b;
+    Copy allcopy;
+
+    allcopy.AddElement(a);
+    allcopy.AddElement(b);
+
+    allcopy.Add(a);   // something is added to the copy
+    a.Add(b);         // something is added to the page
+     
+    allcopy.Remove(); // something is removed from the copy
+    b.Remove();       // something is removed from the page
+
+    return 0;
+}
+
+#endif // STRUCTURAL_COMPOSITE_III
 
 // ----------------------------------------------------
 // ----------------------------------------------------

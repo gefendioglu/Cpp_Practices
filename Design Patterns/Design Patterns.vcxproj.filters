@@ -143,31 +143,25 @@
     <ClInclude Include="29_Behavioral_Template.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="30_Structural_Adapter_Classical.h">
+    <ClInclude Include="30_Structural_Adapter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="31_Structural_Adapter_Pluggable.h">
+    <ClInclude Include="31_Structural_Bridge.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="32_Structural_Bridge.h">
+    <ClInclude Include="32_Structural_Composite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="32_Structural_Bridge_PIMPL.h">
+    <ClInclude Include="33_Structural_Decorator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="33_Structural_Composite.h">
+    <ClInclude Include="34_Structural_Facade.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="34_Structural_Decorator.h">
+    <ClInclude Include="35_Structural_Flyweight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="35_Structural_Facade.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="36_Structural_Flyweight.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="37_Structural_Proxy.h">
+    <ClInclude Include="36_Structural_Proxy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

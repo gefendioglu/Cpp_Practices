@@ -1,4 +1,11 @@
 #pragma once
+
+// Creational - Prototype Factory Desing Pattern
+// ----------------------------------------------
+// ----------------------------------------------
+
+#ifdef CREATIONAL_PROTOTYPE_FACTORY
+
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
 
@@ -66,16 +73,18 @@ private:
 Employee EmployeeFactory::main{ "", new Office{"123 East Dr", "London", 123} };
 Employee EmployeeFactory::aux{ "", new Office{"RMZ Ecoworld ORR", "London", 123} };
 
-//int main() {
-//
-//    auto jane = EmployeeFactory::NewMainOfficeEmployee("Jane Doe", 125);
-//    auto jack = EmployeeFactory::NewAuxOfficeEmployee("Jack Doe", 123);
-//    std::cout << *jane << "\n" << *jack << "\n";
-//
-//    return EXIT_SUCCESS;
-//
-//    /*
-//        Jane Doe works at 123 East Dr London seats @125
-//        Jack Doe works at RMZ Ecoworld ORR London seats @123
-//    */
-//}
+int main() {
+
+    auto jane = EmployeeFactory::NewMainOfficeEmployee("Jane Doe", 125);
+    auto jack = EmployeeFactory::NewAuxOfficeEmployee("Jack Doe", 123);
+    std::cout << *jane << "\n" << *jack << "\n";
+
+    return EXIT_SUCCESS;
+
+    /*
+        Jane Doe works at 123 East Dr London seats @125
+        Jack Doe works at RMZ Ecoworld ORR London seats @123
+    */
+}
+
+#endif // CREATIONAL_PROTOTYPE_FACTORY

@@ -191,15 +191,13 @@
     <ClInclude Include="29_Behavioral_State.h" />
     <ClInclude Include="29_Behavioral_Strategy.h" />
     <ClInclude Include="29_Behavioral_Template.h" />
-    <ClInclude Include="30_Structural_Adapter_Classical.h" />
-    <ClInclude Include="31_Structural_Adapter_Pluggable.h" />
-    <ClInclude Include="32_Structural_Bridge.h" />
-    <ClInclude Include="32_Structural_Bridge_PIMPL.h" />
-    <ClInclude Include="33_Structural_Composite.h" />
-    <ClInclude Include="34_Structural_Decorator.h" />
-    <ClInclude Include="35_Structural_Facade.h" />
-    <ClInclude Include="36_Structural_Flyweight.h" />
-    <ClInclude Include="37_Structural_Proxy.h" />
+    <ClInclude Include="30_Structural_Adapter.h" />
+    <ClInclude Include="31_Structural_Bridge.h" />
+    <ClInclude Include="32_Structural_Composite.h" />
+    <ClInclude Include="33_Structural_Decorator.h" />
+    <ClInclude Include="34_Structural_Facade.h" />
+    <ClInclude Include="35_Structural_Flyweight.h" />
+    <ClInclude Include="36_Structural_Proxy.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Design_Patterns.cpp" />

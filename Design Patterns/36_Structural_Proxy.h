@@ -1,9 +1,15 @@
 #pragma once
+
+// Proxy Design Pattern: 
+//----------------------------------------------
+//----------------------------------------------
+
+#ifdef STRUCTURAL_PROXY_I
+
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
 #include<string> 
 
-// Property Proxy
 // There is nothing more than a field plus a getter & setter methods for that field
 template<typename T>
 class Property {
@@ -21,19 +27,25 @@ struct Creature {
     Property<int32_t>   m_agility{ 5 };
 };
 
-//int main() {
-//
-//    Creature creature;
-//    creature.m_agility = 20;
-//    std::cout << creature.m_agility << "\n"; // 20
-//    
-//    return EXIT_SUCCESS;
-//}
+int main() {
 
-//----------------------------------------------
-//----------------------------------------------
+    Creature creature;
+    creature.m_agility = 20;
+    std::cout << creature.m_agility << "\n"; // 20
+    
+    return EXIT_SUCCESS;
+}
+
+#endif // STRUCTURAL_PROXY_I
 
 // Virtual Proxy Design Pattern: 
+//----------------------------------------------
+//----------------------------------------------
+
+#ifdef STRUCTURAL_PROXY_VIRTUAL
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
 
 // Abstract class
 class Image {
@@ -73,36 +85,43 @@ private:
     std::string                  m_filename;
 };
 
-//int main() {
-//
-//    Bitmap img_1{ "image_1.png" };
-//    Bitmap img_2{ "image_2.png" };
-//
-//    (rand() % 2) ? img_1.draw() : img_2.draw();
-//
-//    // If an image is drawn, then to construct the other images are not necessary!!!
-//    LazyBitmap img_3{ "image_3.png" };
-//    LazyBitmap img_4{ "image_4.png" };
-//
-//    (rand() % 2) ? img_3.draw() : img_4.draw();
-//
-//    return EXIT_SUCCESS;
-//
-//    /*
-//        Loading image from image_1.png
-//        Loading image from image_2.png
-//        Drawing image image_1.png
-//
-//        Loading image from image_3.png
-//        Drawing image image_3.png
-//
-//    */
-//}
+int main() {
 
-//----------------------------------------------
-//----------------------------------------------
+    Bitmap img_1{ "image_1.png" };
+    Bitmap img_2{ "image_2.png" };
+
+    (rand() % 2) ? img_1.draw() : img_2.draw();
+
+    // If an image is drawn, then to construct the other images are not necessary!!!
+    LazyBitmap img_3{ "image_3.png" };
+    LazyBitmap img_4{ "image_4.png" };
+
+    (rand() % 2) ? img_3.draw() : img_4.draw();
+
+    return EXIT_SUCCESS;
+
+    /*
+        Loading image from image_1.png
+        Loading image from image_2.png
+        Drawing image image_1.png
+
+        Loading image from image_3.png
+        Drawing image image_3.png
+
+    */
+}
+
+#endif  // STRUCTURAL_PROXY_VIRTUAL
+
 
 // Commnication Proxy Design Pattern: 
+//----------------------------------------------
+//----------------------------------------------
+
+#ifdef STRUCTURAL_PROXY_COMMUNICATION
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
 
 template <typename T>
 class arr2D {
@@ -125,13 +144,15 @@ private:
     T   m_arr_2D[10][10];
 };
 
-//int main() {
-//
-//    arr2D<int32_t> arr;
-//    arr[0][0] = 1;  // Uses the proxy object
-//
-//    return EXIT_SUCCESS;
-//}
+int main() {
+
+    arr2D<int32_t> arr;
+    arr[0][0] = 1;  // Uses the proxy object
+
+    return EXIT_SUCCESS;
+}
+
+#endif // STRUCTURAL_PROXY_COMMUNICATION
 
 //----------------------------------------------
 //----------------------------------------------

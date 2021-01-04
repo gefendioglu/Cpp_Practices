@@ -1,4 +1,7 @@
 #pragma once
+
+#ifdef STRUCTURAL_BRIDGE_I
+
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
 
@@ -51,34 +54,37 @@ public:
 	void draw() override { m_drawingAPI.drawSquare(); }
 };
 
-//int main() {
-//
-//	DrawingAPI_1 API_1;
-//	DrawingAPI_2 API_2;
-//
-//	Circle(API_1).draw();
-//	Circle(API_2).draw();
-//
-//	Square(API_1).draw();
-//	Square(API_2).draw();
-//
-//	return EXIT_SUCCESS;
-//
-//	/*
-//		Circle is drawn by API 1
-//		Circle is drawn by API 2
-//		Square is drawn by API 1
-//		Square is drawn by API 2
-//	*/
-//}
+int main() {
+
+	DrawingAPI_1 API_1;
+	DrawingAPI_2 API_2;
+
+	Circle(API_1).draw();
+	Circle(API_2).draw();
+
+	Square(API_1).draw();
+	Square(API_2).draw();
+
+	return EXIT_SUCCESS;
+
+	/*
+		Circle is drawn by API 1
+		Circle is drawn by API 2
+		Square is drawn by API 1
+		Square is drawn by API 2
+	*/
+}
+
+#endif // STRUCTURAL_BRIDGE_I
 
 
 // ----------------------------------------------------
 // ----------------------------------------------------
 
-// Java code to demonstrate 
-// bridge design pattern 
+#ifdef STRUCTURAL_BRIDGE_II
 
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
 
 // The implementor for bridge pattern 
 class Workshop {
@@ -145,20 +151,21 @@ public:
 	}
 };
 
-// Demonstration of bridge design pattern 
-//int main() {
-//
-//	Vehicle* vehicle1 = new Car(new Produce(), new Assemble());
-//	vehicle1->manufacture();
-//
-//	Vehicle* vehicle2 = new Bike(new Produce(), new Assemble());
-//	vehicle2->manufacture();
-//
-//	return 0;
-//
-//	/*
-//		Car Produced And Assembled.
-//		Bike Produced And Assembled.
-//	*/
-//
-//}
+int main() {
+
+	Vehicle* vehicle1 = new Car(new Produce(), new Assemble());
+	vehicle1->manufacture();
+
+	Vehicle* vehicle2 = new Bike(new Produce(), new Assemble());
+	vehicle2->manufacture();
+
+	return 0;
+
+	/*
+		Car Produced And Assembled.
+		Bike Produced And Assembled.
+	*/
+
+}
+
+#endif // STRUCTURAL_BRIDGE_II

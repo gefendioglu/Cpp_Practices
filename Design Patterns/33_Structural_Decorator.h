@@ -1,4 +1,10 @@
 #pragma once
+
+// ----------------------------------------------------
+// ----------------------------------------------------
+
+#ifdef STRUCTURAL_DECORATOR_I
+
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
 #include<string>
@@ -25,13 +31,11 @@ public:
 
 	CoffeeDecorator(Coffee* coffee) : m_coffee{ coffee } {}
 
-	int getCost()
-	{
+	int getCost() {
 		return this->m_coffee->getCost();
 	}
 
-	std::string getDescription()
-	{
+	std::string getDescription() {
 		return this->m_coffee->getDescription();
 	}
 
@@ -47,13 +51,11 @@ public:
 	// Delegating Constructor
 	MilkCoffee(Coffee* coffee) : CoffeeDecorator(coffee) {}
 
-	int getCost()
-	{
+	int getCost() {
 		return m_coffee->getCost() + 2;
 	}
 
-	std::string getDescription()
-	{
+	std::string getDescription() {
 		return m_coffee->getDescription() + ", milk";
 	}
 };
@@ -65,13 +67,11 @@ public:
 	// Delegating Constructor
 	WhipCoffee(Coffee* coffee) : CoffeeDecorator(coffee) {}
 
-	int getCost()
-	{
+	int getCost() {
 		return m_coffee->getCost() + 5;
 	}
 
-	std::string getDescription()
-	{
+	std::string getDescription() {
 		return m_coffee->getDescription() + ", whip";
 	}
 };
@@ -82,45 +82,48 @@ public:
 	// Delegating Constructor
 	VanillaCoffee(Coffee* coffee) : CoffeeDecorator(coffee) {}
 
-	int getCost()
-	{
+	int getCost() {
 		return m_coffee->getCost() + 3;
 	}
 
-	std::string getDescription()
-	{
+	std::string getDescription() {
 		return m_coffee->getDescription() + ", vanilla";
 	}
 };
 
 
-//int main()
-//{
-//	Coffee* baseCoffee = new SimpleCoffee();
-//	std::cout << "Simple Coffee cost : " << baseCoffee->getCost() << "\n"; // 10
-//	std::cout << "Simple Coffee Description : " << baseCoffee->getDescription() << "\n"; // Simple Coffee
-//	 
-//	baseCoffee = new MilkCoffee(baseCoffee);
-//	std::cout << "Milk Coffee cost : " << baseCoffee->getCost() << "\n"; // 12
-//	std::cout << "Milk Coffee Description : " << baseCoffee->getDescription() << "\n"; // Simple Coffee, milk
-//
-//	baseCoffee = new WhipCoffee(baseCoffee);
-//	std::cout << "Whip Coffee cost : " << baseCoffee->getCost() << "\n"; // 17
-//	std::cout << "Whip Coffee Description : " << baseCoffee->getDescription() << "\n"; // Simple Coffee, milk, whip
-//
-//	baseCoffee = new VanillaCoffee(baseCoffee);
-//	std::cout << "Vanilla Coffee cost : " << baseCoffee->getCost() << "\n"; // 20
-//	std::cout << "Vanilla Coffee Description : " << baseCoffee->getDescription() << "\n"; //  Simple Coffee, milk, whip, vanilla
-//
-//	delete baseCoffee;
-//	return 0;
-//
-//}
+int main()
+{
+	Coffee* baseCoffee = new SimpleCoffee();
+	std::cout << "Simple Coffee cost : " << baseCoffee->getCost() << "\n"; // 10
+	std::cout << "Simple Coffee Description : " << baseCoffee->getDescription() << "\n"; // Simple Coffee
+	 
+	baseCoffee = new MilkCoffee(baseCoffee);
+	std::cout << "Milk Coffee cost : " << baseCoffee->getCost() << "\n"; // 12
+	std::cout << "Milk Coffee Description : " << baseCoffee->getDescription() << "\n"; // Simple Coffee, milk
 
+	baseCoffee = new WhipCoffee(baseCoffee);
+	std::cout << "Whip Coffee cost : " << baseCoffee->getCost() << "\n"; // 17
+	std::cout << "Whip Coffee Description : " << baseCoffee->getDescription() << "\n"; // Simple Coffee, milk, whip
+
+	baseCoffee = new VanillaCoffee(baseCoffee);
+	std::cout << "Vanilla Coffee cost : " << baseCoffee->getCost() << "\n"; // 20
+	std::cout << "Vanilla Coffee Description : " << baseCoffee->getDescription() << "\n"; //  Simple Coffee, milk, whip, vanilla
+
+	delete baseCoffee;
+	return 0;
+
+}
+
+#endif // STRUCTURAL_DECORATOR_I
 
 // ----------------------------------------------------
 // ----------------------------------------------------
 
+#ifdef STRUCTURAL_DECORATOR_II
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
 
 // Abstract Component : MilkShake 
 class MilkShake {
@@ -170,27 +173,28 @@ public:
 	float getPrice()const override { return m_MilkShake->getPrice() + 80; }
 };
 
-//int main()
-//{
-//	MilkShake* baseMilkShake = new BaseMilkShake();
-//	std::cout << "Basic Milk shake \n";
-//	std::cout << baseMilkShake->getServe() << "\n";
-//	std::cout << baseMilkShake->getPrice() << "\n";
-//
-//	MilkShake* decoratedMilkShake = new MangoMilkShake(baseMilkShake);
-//	std::cout << "Mango decorated Milk shake \n";
-//	std::cout << decoratedMilkShake->getServe() << "\n";
-//	std::cout << decoratedMilkShake->getPrice() << "\n";
-//
-//	decoratedMilkShake = new VanillaMilkShake(baseMilkShake);
-//	std::cout << "Vanilla decorated Milk shake \n";
-//	std::cout << decoratedMilkShake->getServe() << "\n";
-//	std::cout << decoratedMilkShake->getPrice() << "\n";
-//
-//	delete decoratedMilkShake;
-//	delete baseMilkShake;
-//	return 0;
-//}
+int main()
+{
+	MilkShake* baseMilkShake = new BaseMilkShake();
+	std::cout << "Basic Milk shake \n";
+	std::cout << baseMilkShake->getServe() << "\n";
+	std::cout << baseMilkShake->getPrice() << "\n";
 
+	MilkShake* decoratedMilkShake = new MangoMilkShake(baseMilkShake);
+	std::cout << "Mango decorated Milk shake \n";
+	std::cout << decoratedMilkShake->getServe() << "\n";
+	std::cout << decoratedMilkShake->getPrice() << "\n";
+
+	decoratedMilkShake = new VanillaMilkShake(baseMilkShake);
+	std::cout << "Vanilla decorated Milk shake \n";
+	std::cout << decoratedMilkShake->getServe() << "\n";
+	std::cout << decoratedMilkShake->getPrice() << "\n";
+
+	delete decoratedMilkShake;
+	delete baseMilkShake;
+	return 0;
+}
+
+#endif // STRUCTURAL_DECORATOR_II
 // ----------------------------------------------------
 // ----------------------------------------------------
