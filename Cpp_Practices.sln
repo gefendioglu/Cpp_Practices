@@ -17,8 +17,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Searching", "Searching\Sear
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Concurrency", "Concurrency\Concurrency.vcxproj", "{8EDF7D8A-2A87-44E7-ADD7-FA094A067F80}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Object_Oriented_Programming", "Object_Oriented_Programming\Object_Oriented_Programming.vcxproj", "{41C9D24F-4AA5-424D-AB39-A0A9A7C8DB55}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SOLID", "SOLID\SOLID.vcxproj", "{2FA564C1-19C8-45B7-B363-F2EC34113F5D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Containers", "Containers\Containers.vcxproj", "{0CDE8C40-F73D-4104-AF53-A79737B3A41D}"
@@ -97,14 +95,6 @@ Global
 		{8EDF7D8A-2A87-44E7-ADD7-FA094A067F80}.Release|x64.Build.0 = Release|x64
 		{8EDF7D8A-2A87-44E7-ADD7-FA094A067F80}.Release|x86.ActiveCfg = Release|Win32
 		{8EDF7D8A-2A87-44E7-ADD7-FA094A067F80}.Release|x86.Build.0 = Release|Win32
-		{41C9D24F-4AA5-424D-AB39-A0A9A7C8DB55}.Debug|x64.ActiveCfg = Debug|x64
-		{41C9D24F-4AA5-424D-AB39-A0A9A7C8DB55}.Debug|x64.Build.0 = Debug|x64
-		{41C9D24F-4AA5-424D-AB39-A0A9A7C8DB55}.Debug|x86.ActiveCfg = Debug|Win32
-		{41C9D24F-4AA5-424D-AB39-A0A9A7C8DB55}.Debug|x86.Build.0 = Debug|Win32
-		{41C9D24F-4AA5-424D-AB39-A0A9A7C8DB55}.Release|x64.ActiveCfg = Release|x64
-		{41C9D24F-4AA5-424D-AB39-A0A9A7C8DB55}.Release|x64.Build.0 = Release|x64
-		{41C9D24F-4AA5-424D-AB39-A0A9A7C8DB55}.Release|x86.ActiveCfg = Release|Win32
-		{41C9D24F-4AA5-424D-AB39-A0A9A7C8DB55}.Release|x86.Build.0 = Release|Win32
 		{2FA564C1-19C8-45B7-B363-F2EC34113F5D}.Debug|x64.ActiveCfg = Debug|x64
 		{2FA564C1-19C8-45B7-B363-F2EC34113F5D}.Debug|x64.Build.0 = Debug|x64
 		{2FA564C1-19C8-45B7-B363-F2EC34113F5D}.Debug|x86.ActiveCfg = Debug|Win32

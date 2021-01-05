@@ -15,21 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="1_Single_Responsibility.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="2_Open_Closed.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="3_Liskov_Substitution.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="4_Interface_Segregation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="5_Dependency_Inversion.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SOLID.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -50,5 +35,22 @@
     <Text Include="5_Dependency_Inversion.txt">
       <Filter>Resource Files</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="1_Single_Responsibility.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="2_Open_Closed.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="3_Liskov_Substitution.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="4_Interface_Segregation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="5_Dependency_Inversion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

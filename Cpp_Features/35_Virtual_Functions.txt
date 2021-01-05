@@ -1,4 +1,104 @@
 
+## VIRTUAL FUNCTIONS
+
+/----------------------------------------------
+/----------------------------------------------
+
+- In OOP, child classes can override (redefine) methods defined by base classes. 
+
+- Functions declared final cannot be overridden.
+
+- In C++, functions are only virtual when declared with the virtual keyword—nonvirtual methods are the default.
+
+- If the functon is not virtual, the function definition invoked is determined at compile time based on the type of the reference (or pointer).
+
+- Virtual functions are used for polymorphism.
+
+- One special type of virtual function in C++ is a pure virtual method: a function declared but explicitly not defined.
+
+- Any class that contains a pure virtual function or inherits one without redefining it is an abstract class.
+
+- It almost always takes longer to invoke a virtual function because the address of the appropriate function definition must be looked up in a table before it is invoked. This table also requires a small amount of extra memory. In most applications, the overhead associated with virtual functions is so small as to be negligible. 
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : In the case of using non-virtual member functions 
+
+#include <iostream>
+#include <string>
+
+class A {
+public:
+	void print() { std::cout << "A"; }
+};
+
+class B : A {
+public:
+	void print() { std::cout << "B"; }
+};
+
+class C : B {
+public:
+	void print() { std::cout << "C"; }
+};
+
+int main()
+{
+	A* aptr = new A();
+	B* bptr = new B();
+	C* cptr = new C();
+
+	aptr->print(); // A
+	bptr->print(); // B
+	cptr->print(); // c
+
+	// Because print is not virtual, the method invoked depends on the type used at compile time :
+	((B*)cptr)->print(); // B
+	((A*)cptr)->print(); // A
+	((A*)bptr)->print(); // A
+
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : In the case of using virtual member functions 
+
+#include <iostream>
+#include <string>
+
+class A {
+public:
+	virtual void print() { std::cout << "A"; }
+};
+
+class B : A {
+public:
+	virtual void print() { std::cout << "B"; }
+};
+
+class C : B {
+public:
+	virtual void print() { std::cout << "C"; }
+};
+
+int main()
+{
+	A* aptr = new A();
+	B* bptr = new B();
+	C* cptr = new C();
+
+	aptr->print(); // A
+	bptr->print(); // B
+	cptr->print(); // c
+
+	// The runtime type of the object determines which function definition is invoked : 
+	((B*)cptr)->print(); // C
+	((A*)cptr)->print(); // C
+	((A*)bptr)->print(); // B
+
+}
+
 /----------------------------------------------
 /----------------------------------------------
 
@@ -41,8 +141,6 @@ int main()
 /----------------------------------------------
 
 - **Example**: What happens when a virtual function is called inside a non-virtual function in C++?
-
-
 
 
 /----------------------------------------------
@@ -149,7 +247,6 @@ int main()
 
 /----------------------------------------------
 /----------------------------------------------
-
 
 - **Example**: Default Arguments and Virtual Function
 
@@ -367,5 +464,3 @@ int main()
 
 /----------------------------------------------
 /----------------------------------------------
-
-- **Example**:

@@ -1,3 +1,7 @@
+#pragma once
+
+#ifdef SINGLE_RESPONSIBILITY_I
+
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
 #include<string>
@@ -18,14 +22,14 @@ public:
     //        ofs << s << "\n";
     //}
 
-private: 
+private:
     std::string m_title;
     std::vector<std::string>  m_entries;
 };
 
- //Instead of using a "save" function in Journal class :
- //As your SavingManager grows, you have all the saving related code will be at one place.
- //You can also templatize it to accept more domain objects.
+//Instead of using a "save" function in Journal class :
+//As your SavingManager grows, you have all the saving related code will be at one place.
+//You can also templatize it to accept more domain objects.
 struct SavingManager {
     static void save(const Journal& j, const std::string& filename) {
         std::ofstream ofs(filename);
@@ -42,3 +46,5 @@ int  main() {
 
     return EXIT_SUCCESS;
 }
+
+#endif // SINGLE_RESPONSIBILITY_I

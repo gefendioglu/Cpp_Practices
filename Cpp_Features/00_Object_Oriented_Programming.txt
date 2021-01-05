@@ -1,0 +1,87 @@
+
+## OBJECT ORIENTED PROGRAMMING (OOP)
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Class** : A class is an abstract definition of something that has data members and member class functions. 
+
+- **Interface** : The public class member functions provide an interface that is the only access to the data structures contained in the class.
+
+- **Constructor** : Creating an object is called constructing the object. Part of the process involves invoking a "constructor" in the class. The constructor initializes the state of the object. 
+
+- **Destructor** :  In C++ a member function called the destructor is invoked to clean up an object’s state.
+
+- **Inheritance** : It allows a class to be defined as a modified or more specialized version of another class.
+
+- **Polymorphism** : A core concept of OOP, enabled by overriding, is runtime selection of which definition of a class member function should be executed based on the class of the object.
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Class Implementation 
+  - A class definition for Point, which is a pair of integers that represents the x and y values of a point in a Cartesian coordinate plane:
+
+#include <iostream>
+#include <string>
+
+class Point {
+public:
+	Point() = default;
+	Point(int x, int y) :mx{ x }, my{ y } {}
+	Point(const Point& other) {
+		std::cout << "Copy constructor called " << "\n";
+		mx = other.getX();
+		my = other.getY();
+	}
+
+	Point& operator= (const Point& point) {
+		std::cout << "Assignment operator called " << "\n";
+		return *this;
+	}
+	
+	// getter functions
+	int getX() const { return mx; }
+	int getY() const { return my; }
+
+	//setter functions
+	void setX(const int& x) { this->mx = x; }
+	void setY(const int& y) { this->my = y; }
+
+	// other functions
+	Point* relativeTo(int dx, int dy) {
+		return new Point(mx + dx, my + dy);
+	}
+
+	std::string toString() {
+		std::string str;
+		str.push_back('(');
+		str.push_back(mx);
+		str.push_back(',');
+		str.push_back((char)my);
+		str.push_back(')');
+		return str;
+	}
+
+private:
+	int mx, my;
+
+};
+
+int main()
+{
+	Point cartesian(10, 20);
+	std::cout << "mx : " << cartesian.getX() << "\n"; // mx : 10
+	std::cout << "my : " << cartesian.getY() << "\n"; // my : 20
+
+	Point* ptr = new Point(30, 40);
+	std::cout << "mx : " << ptr->getX() << "\n"; // mx : 30
+	std::cout << "my : " << ptr->getY() << "\n"; // my : 40
+
+	Point* p1 = cartesian.relativeTo(5, -5);
+	std::cout << "p1 : " << p1->toString() << "\n"; // NOT OK !!! To Be Controlled !!!
+}
+
+/----------------------------------------------
+/----------------------------------------------
+

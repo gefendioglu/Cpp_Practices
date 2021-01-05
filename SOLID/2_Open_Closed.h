@@ -1,3 +1,11 @@
+#pragma once
+
+// Before applying Open/Closed Principle
+// ----------------------------------------------
+// ----------------------------------------------
+
+#ifdef BEFORE_OPEN_CLOSED_I
+
 #define _CRT_SECURE_NO_WARNINGS
 #define ALL(C)  begin(C), end(C)
 
@@ -5,67 +13,75 @@
 #include<string>
 #include<vector>
 
-// Before applying Open/Closed Principle
-// ----------------------------------------------
-// ----------------------------------------------
+enum class COLOR { RED, GREEN, BLUE };
+enum class SIZE { SMALL, MEDIUM, LARGE };
 
-//enum class COLOR { RED, GREEN, BLUE };
-//enum class SIZE { SMALL, MEDIUM, LARGE };
-//
-//struct Product {
-//    std::string  m_name;
-//    COLOR   m_color;
-//    SIZE    m_size;
-//};
-//
-//using Items = std::vector<Product*>;
-//
-//class ProductFilter {
-//public:
-//    static Items by_color(Items items, const COLOR e_color) {
-//        Items result;
-//        for (auto& i : items)
-//            if (i->m_color == e_color)
-//                result.push_back(i);
-//        return result;
-//    }
-//    static Items by_size(Items items, const SIZE e_size) {
-//        Items result;
-//        for (auto& i : items)
-//            if (i->m_size == e_size)
-//                result.push_back(i);
-//        return result;
-//    }
-//    static Items by_size_and_color(Items items, const SIZE e_size, const COLOR e_color) {
-//        Items result;
-//        for (auto& i : items)
-//            if (i->m_size == e_size && i->m_color == e_color)
-//                result.push_back(i);
-//        return result;
-//    }
-//};
-//
-//int main() {
-//
-//    const Items all{
-//        new Product{"Apple", COLOR::GREEN, SIZE::SMALL},
-//        new Product{"Tree", COLOR::GREEN, SIZE::LARGE},
-//        new Product{"House", COLOR::BLUE, SIZE::LARGE},
-//    };
-//
-//    for (auto& p : ProductFilter::by_color(all, COLOR::GREEN))
-//        std::cout << p->m_name << " is green\n";
-//
-//    for (auto& p : ProductFilter::by_size_and_color(all, SIZE::LARGE, COLOR::GREEN))
-//        std::cout << p->m_name << " is green & large\n";
-//
-//    return EXIT_SUCCESS;
-//}
+struct Product {
+    std::string  m_name;
+    COLOR   m_color;
+    SIZE    m_size;
+};
+
+using Items = std::vector<Product*>;
+
+class ProductFilter {
+public:
+    static Items by_color(Items items, const COLOR e_color) {
+        Items result;
+        for (auto& i : items)
+            if (i->m_color == e_color)
+                result.push_back(i);
+        return result;
+    }
+    static Items by_size(Items items, const SIZE e_size) {
+        Items result;
+        for (auto& i : items)
+            if (i->m_size == e_size)
+                result.push_back(i);
+        return result;
+    }
+    static Items by_size_and_color(Items items, const SIZE e_size, const COLOR e_color) {
+        Items result;
+        for (auto& i : items)
+            if (i->m_size == e_size && i->m_color == e_color)
+                result.push_back(i);
+        return result;
+    }
+};
+
+int main() {
+
+    const Items all{
+        new Product{"Apple", COLOR::GREEN, SIZE::SMALL},
+        new Product{"Tree", COLOR::GREEN, SIZE::LARGE},
+        new Product{"House", COLOR::BLUE, SIZE::LARGE},
+    };
+
+    for (auto& p : ProductFilter::by_color(all, COLOR::GREEN))
+        std::cout << p->m_name << " is green\n";
+
+    for (auto& p : ProductFilter::by_size_and_color(all, SIZE::LARGE, COLOR::GREEN))
+        std::cout << p->m_name << " is green & large\n";
+
+    return EXIT_SUCCESS;
+}
+
+#endif // BEFORE_OPEN_CLOSED_I
+
 
 // After applying Open/Closed Principle
 // Adding the level of abstraction for extensibility
 // ----------------------------------------------
 // ----------------------------------------------
+
+#ifdef AFTER_OPEN_CLOSED_I
+
+#define _CRT_SECURE_NO_WARNINGS
+#define ALL(C)  begin(C), end(C)
+
+#include<iostream> 
+#include<string>
+#include<vector>
 
 enum class COLOR { RED, GREEN, BLUE };
 enum class SIZE { SMALL, MEDIUM, LARGE };
@@ -183,4 +199,4 @@ int main() {
 	*/
 }
 
-
+#endif // AFTER_OPEN_CLOSED_I 

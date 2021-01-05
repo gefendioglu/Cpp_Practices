@@ -32,6 +32,7 @@
     <ClCompile Include="Virtual_Functions.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="00_Object_Oriented_Programming.txt" />
     <Text Include="11_Undefined_Behaviour.txt" />
     <Text Include="12_Enum_Types_Classes.txt" />
     <Text Include="13_RValue_LValue_References.txt" />

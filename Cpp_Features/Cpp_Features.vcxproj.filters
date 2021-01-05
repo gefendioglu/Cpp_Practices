@@ -131,6 +131,9 @@
     <Text Include="37_Constructors_Destructors.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="00_Object_Oriented_Programming.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Value_Category.h">
