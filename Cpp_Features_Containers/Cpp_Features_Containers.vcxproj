@@ -19,27 +19,29 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="11_Sequence_Array.cpp" />
-    <ClCompile Include="12_Sequence_Vector.cpp" />
-    <ClCompile Include="13_Sequence_Deque.cpp" />
-    <ClCompile Include="14_Sequence_Forward_List.cpp" />
-    <ClCompile Include="15_Sequence_List.cpp" />
-    <ClCompile Include="21_Associative_Set.cpp" />
-    <ClCompile Include="22_Associative_Map.cpp" />
-    <ClCompile Include="23_Associative_MultiSet.cpp" />
-    <ClCompile Include="24_Associative_Multimap.cpp" />
-    <ClCompile Include="31_Unordered_Set.cpp" />
-    <ClCompile Include="32_Unordered_Map.cpp" />
-    <ClCompile Include="33_Undordered_Multiset.cpp" />
-    <ClCompile Include="34_Unordered_Multimap.cpp" />
-    <ClCompile Include="41_Tuple.cpp" />
-    <ClCompile Include="51_Pair.cpp" />
+    <ClCompile Include="Cpp_Features_Containers.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="11_Arrays.txt" />
     <Text Include="12_Vectors.txt" />
     <Text Include="13_Deque.txt" />
     <Text Include="22_Map.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="11_Sequence_Array.h" />
+    <ClInclude Include="12_Sequence_Vector.h" />
+    <ClInclude Include="13_Sequence_Deque.h" />
+    <ClInclude Include="14_Sequence_Forward_List.h" />
+    <ClInclude Include="15_Sequence_List.h" />
+    <ClInclude Include="21_Associative_Set.h" />
+    <ClInclude Include="22_Associative_Map.h" />
+    <ClInclude Include="23_Associative_MultiSet.h" />
+    <ClInclude Include="24_Associative_Multimap.h" />
+    <ClInclude Include="31_Unordered_Set.h" />
+    <ClInclude Include="32_Unordered_Map.h" />
+    <ClInclude Include="33_Undordered_Multiset.h" />
+    <ClInclude Include="34_Unordered_Multimap.h" />
+    <ClInclude Include="41_Tuple.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

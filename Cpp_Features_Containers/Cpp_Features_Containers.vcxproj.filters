@@ -15,49 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="12_Sequence_Vector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="13_Sequence_Deque.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="14_Sequence_Forward_List.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="15_Sequence_List.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="21_Associative_Set.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="22_Associative_Map.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="23_Associative_MultiSet.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="24_Associative_Multimap.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="32_Unordered_Map.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="31_Unordered_Set.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="34_Unordered_Multimap.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="33_Undordered_Multiset.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="11_Sequence_Array.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="41_Tuple.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="51_Pair.cpp">
+    <ClCompile Include="Cpp_Features_Containers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -74,5 +32,49 @@
     <Text Include="22_Map.txt">
       <Filter>Resource Files</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="11_Sequence_Array.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="12_Sequence_Vector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="13_Sequence_Deque.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="14_Sequence_Forward_List.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="15_Sequence_List.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="21_Associative_Set.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="22_Associative_Map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="23_Associative_MultiSet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="24_Associative_Multimap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="31_Unordered_Set.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="32_Unordered_Map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="33_Undordered_Multiset.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="34_Unordered_Multimap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="41_Tuple.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
