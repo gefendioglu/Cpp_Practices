@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Operator_Overloading.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Virtual_Functions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -25,15 +22,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Virtual_Copy_Constructor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Inheritance.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Smart_Pointers.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Templates.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Forward_Declaration.cpp">
@@ -46,6 +34,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Cpp_Features.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="General.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -62,12 +53,6 @@
     <Text Include="15_Call_By_Value_Reference.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="16_Null_Pointers.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="17_Initialization.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="18_Return_Value.txt">
       <Filter>Resource Files</Filter>
     </Text>
@@ -75,9 +60,6 @@
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="20_Pointers.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="21_Assignment.txt">
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="22_References.txt">
@@ -125,13 +107,19 @@
     <Text Include="12_Enum_Types_Classes.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="36_Cpp_Acryonms.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="37_Constructors_Destructors.txt">
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="00_Object_Oriented_Programming.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="17_Initialization_Assignment.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="General_Features.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="36_Cpp_Acryonms.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
@@ -143,6 +131,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="25_Classes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="28_Inheritance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="29_Operator_Overloading.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="General_Features.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="30_Smart_Pointers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="31_Templates.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

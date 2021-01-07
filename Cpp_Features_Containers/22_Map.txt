@@ -195,6 +195,50 @@ int main()
 // --------------------------------------------
 // --------------------------------------------
 
+-**Example**: std::map::contains(C++20) 
+
+std::map<uint32_t, uint32_t> freq{{3, 1}, {1, 1}, {2, 1}}; 
+if (auto search = freq.find(2); search != freq.end()) {
+    std::cout << "Found" << "\n";
+}
+
+- Instead of using the previous type: 
+
+std::map<uint32_t, uint32_t> freq{{3, 1}, {1, 1}, {2, 1}}; 
+if (freq.contains(2)) {
+    std::cout << "Found" << "\n";
+}
+
+// --------------------------------------------
+// --------------------------------------------
+
+-**Example**: std::map::try_emplace(C++17) - this example will be controlled
+  - Inserting an element in std::map is done by using operator[ ], "std::map::insert" or "std::map::emplace" are costly in terms of calling default/specialized constructor or assignment. 
+  - This method creates items only if the key doesn’t exist yet. This boosts the performance in case objects of that type are expensive to create.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <map> 
+#include <vector> 
+#include <cassert> 
+
+int main() {
+	
+	std::vector<int> ivec{ 3, 4, 5, 8, 7, 3, 5, 2, 4 };
+	std::map<uint32_t, uint32_t> imap;
+	for (const auto& n : ivec) {
+		if (const auto& [it, inserted] = imap.try_emplace(n, 1); !inserted) { // instead of imap.emplace(n,1)
+			it->second++;
+		}
+		
+	}
+	assert(imap[3] == 2);
+
+	return EXIT_SUCCESS;
+}
+
+
+
 - **Example**: std::map::lower_bound()
 - **Example**: std::map::upper_bound()
 - **Example**: std::map::equal-range()

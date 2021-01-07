@@ -1,19 +1,125 @@
 
-## Pointer Types
+## POINTER TYPES 
 
 /----------------------------------------------
 /----------------------------------------------
 
 * Pointer Types: Valid / Invalid Pointer
-	- Invalid pointer: otomatik ömürlü tanýmlanan pointer için ilk deðer verilmezse
+  - **Invalid pointer**: bir pointer a dinamik ömürlü nesnenin adresi atandýysa/ilk deðer verilirse ve pointer deðiþkenin hayatý devam ederken onun gösterdiði nesnenin hayatý biterse. otomatik ömürlü tanýmlanan pointer için ilk deðer verilmezse
 
-	- invalid pointer: bir pointer a dinamik ömürlü nesnenin adresi atandýysa/ilk deðer verilirse ve pointer deðiþkenin hayatý devam ederken onun gösterdiði nesnenin hayatý biterse
+  - **Valid pointer**: Bir pointer bir dizinin son elemanýnýn adresini tutarken, deðeri bir arttýrýlýrsa dizinin bittiði yerin adresini tutuyor olacaktýr 
+
+  - Deðeri nullptr olan bir pointer deðiþken hiçbir nesneyi göstermemektedir. Asla derefere edilmemelidir. 
+
+  - **Null pointer**: kavramý mevcut; ancak "null reference" kavramý bulunmaz!
+
+  - **Dangling pointer**: Gösterdiði nesnenin ömrünün bitmesi ile geçerliliðini kaybeden pointerlardýr.
+
+/----------------------------------------------
+/----------------------------------------------
+
+### Null Pointer :
+
+* nullptr was added to the language with C++11:
+	- What is null pointer?
+	- When we need to use null pointers?
+	- NULL is a macro defined in the libraries like as <stdlib>, <stdio>, <time>, <string> 
+	- In our system   --> #define NULL 0 
+	  In some systems --> #define NULL ((void*) 0) 
+
+* What is null pointer conversion in C?
+	- int *ptr = NULL;
+	  int *ptr = 0; 
+
+* The type of implicit pointer conversion:
+	- array to pointer conversion (array decay) --> the address of first element 
+	  function to pointer conversion --> func() --> &func()
+	  NULL pointer conversion --> int *ptr = 0; --> int *ptr = NULL;
+
+* nullptr --> is an address constant to eliminate the disadvantages of using 0 to represent null 
+		  --> data type is nullptr_t (in <cstddef> lib)
+			  void func(nullptr_t) --> especially used for function overloading 
+		  --> nullptr is only assigned to pointers (not taking consideration of data types)
+		  --> nullptr doesnt point any objects, and it can not be dereferenced. 
+
+- The following if conditions are same: 
+	- if (iptr == nullptr) {} 
+	- if (!iptr) {}
+
+- The following if conditions are same: 
+	- if (iptr != nullptr) {} 
+	- if (iptr) {}
+
+- It is not suggested to use NULL macro in cpp 
+
+/----------------------------------------------	
+/----------------------------------------------
+-**Example**:
+
+#include <stdlib.h>
+#include <cstddef>
+
+struct Data {};
+
+int main() {
 	
-	- Valid pointer: Bir pointer bir dizinin son elemanýnýn adresini tutarken, deðeri bir arttýrýlýrsa dizinin bittiði yerin adresini tutuyor olacaktýr 
+	// int x = nullptr; --> NOT OK in main.cpp 
+	// Error : C++ a value of type "std::nullptr_t" cannot be used to initialize an entity of type "int"
+	
+	int* iptr = nullptr;
+	double* dptr = nullptr;
+	Data* sptr = nullptr; 
 
-	- Deðeri nullptr olan bir pointer deðiþken hiçbir nesneyi göstermemektedir. Asla derefere edilmemelidir. 
+	bool flag;
+	flag = 0;
+	flag = NULL;
+	flag = nullptr;
+}
 
-	- "Null pointer" kavramý mevcut; ancak "null reference" kavramý bulunmaz!
+/----------------------------------------------	
+/----------------------------------------------
+
+- The usage of null pointer: 
+  - Adres döndüren fonksiyonlarda, baþarýsýzlýk deðeri olarak --> return nullptr; 
+	  T* func(){...}
+
+  - Bazý fonksiyonlarda arama iþlemi için kullanýlabilir.
+	  Aranan deðer bulunursa   --> bulunan deðerin adresi
+	  Aranan deðer bulunamazsa --> nullptr deðeri döndürülür.
+	
+  - Parametresi pointer olan fonksiyonlarda yaygýn olarak kullanýlmaktadýr. Ya nesne adresi ya da nullptr argüman olarak bu fonksiyonlara gönderilebilmektedir. Bu durumda fonksiyon nesne adresi ile çaðrýldýðýnda farklý, nullptr ile çaðrýldýðýnda farklý bir iþ yapacak þekilde tasarlanabilir.
+	- void func(T *ptr){...} --> func(nullptr); 
+	- fflush(nullptr); --> from standard lib. 
+
+/----------------------------------------------
+/----------------------------------------------
+
+-**Example**: Pointer deðiþkenlerin flag olarak kullanýlmasý yaygýndýr. 
+
+	int *ptr = nullptr;
+	if(expr){
+		ptr = nesne adresi; 
+	}
+	if(ptr == nullptr) {...}
+
+/----------------------------------------------
+/----------------------------------------------
+
+-**Example**: Dangling pointer: Gösterdiði nesnenin ömrünün bitmesi ile geçerliliðini kaybeden pointerlardýr.
+
+
+#include <iostream>
+#include <cstdlib>
+
+int main() {
+
+	size_t n = 10;
+	int* ptr = (int*)malloc(n* sizeof(int));
+	// malloc() --> its return value can be nullptr 
+
+	free(ptr);     // ptr --> a dangling pointer --> invalid pointer
+	ptr = nullptr; // ptr --> is not a dangling pointer
+}
 
 /----------------------------------------------
 /----------------------------------------------
@@ -30,11 +136,11 @@ int main() {
 /----------------------------------------------	
 /----------------------------------------------
 
-* Referans ve pointerlarýn karþýlaþtýrýlmasý:
+- The differences between references and pointers:
+  - Referanslara ilk deðer vermek zorunlu, ilk deðer vermeden referans oluþturulamaz ! 
+  - Pointer deðiþkenlere ilk deðer vermek zorunlu deðildir. 
+  - "Reference to reference" kavramý yoktur; ancak "pointer to pointer" kavramý mecvuttur. 
 
-	- Referanslara ilk deðer vermek zorunlu, ilk deðer vermeden referans oluþturulamaz ! 
-	- Pointer deðiþkenlere ilk deðer vermek zorunlu deðildir. 
-	- "Reference to reference" kavramý yoktur; ancak "pointer to pointer" kavramý mecvuttur. 
 /----------------------------------------------
 /----------------------------------------------
 
@@ -75,7 +181,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-* Initialization of pointer and reference arrays:
+- **Example**: Initialization of pointer and reference arrays:
 
 #include <iostream>
 
@@ -85,6 +191,27 @@ int main() {
 	int(*ptrArray)[10] = &a;
 	int(&refArray)[10] = a;
 
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Pointers can be referenced for other pointers
+
+#include <iostream>
+
+int main() {
+
+	int number = 10;
+	int* ptr = &number;   // (*ptr) --> number = 10
+	int** ptrptr = &ptr;  // ptrptr --> &ptr
+	int**& ref = ptrptr;  // ref --> ptrptr 
+	
+	std::cout << "(*ptr) : " << *ptr << "\n";     // *ptr  = 10
+	std::cout << "(ptrptr) : " << ptrptr << "\n"; // ptrptr = 005BFB4C
+	std::cout << "(**ref) : " << **ref << "\n";   // **ref = 10
+	std::cout << "(++**ref) : " << ++**ref << "\n";   // ++**ref = 11
+	std::cout << "(&ref) : " << &ref << "\n";     // &ref = 005BFB40
 }
 
 /----------------------------------------------

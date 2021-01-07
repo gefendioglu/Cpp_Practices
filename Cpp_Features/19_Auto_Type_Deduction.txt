@@ -11,13 +11,18 @@
 
 /----------------------------------------------
 - auto specifier : 
-	- the meaning of auto specifier is different in C and C++
+	- The meaning of auto specifier is different in C and C++
 	- AAA : Almost Always Auto
-	- the advantages of using auto specifier:
-		- to force all variables to be initialized
-		- the common usage of auto:  
-			generic programming
-			while assigning a function result/address to a variable/pointer
+	- The advantages of using auto specifier:
+	  - to force all variables to be initialized
+	  - the common usage of auto:  
+		- generic programming
+		- while assigning a function result/address to a variable/pointer
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: "auto" specifier
 
 #include <iostream>
 #include <cstring>
@@ -43,17 +48,19 @@ int main() {
 	auto fptr = &funct; // the data type of fptr --> int(*fptr)(int, int)
 }
 
+/----------------------------------------------
+/----------------------------------------------
 
- * auto type deduction with reference semantics: 
-	-  Aþaðýdakiler auto tanýmlamalarý için uygulanan kurallar farklýdýr: 
-	   auto x = expr;
-	   auto &ref = expr; 
-	   auto &&refref = expr; 
+- auto type deduction with reference semantics: 
+  - Aþaðýdakiler auto tanýmlamalarý için uygulanan kurallar farklýdýr:
+    - auto x = expr;
+	- auto &ref = expr; 
+	- auto &&refref = expr; 
 
 /----------------------------------------------
 /----------------------------------------------
 
-* Rules for "auto x = expr;" 
+- **Example**: Rules for "auto x = expr;" 
 
 #include <iostream>
 
@@ -96,7 +103,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-* Rules for "auto &ref = expr;" 
+- **Example**: Rules for "auto &ref = expr;" 
 
 #include <iostream>
 
@@ -145,12 +152,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-* Rules for "auto &&ref = expr;"  --> LATER !!!!
-
-/----------------------------------------------
-/----------------------------------------------
-
-* auto with const keyword: 
+- **Example**: "auto" with const keyword
 
 #include <iostream>
 

@@ -12,7 +12,7 @@
 //#define MAP_FIND
 //#define MAP_LOWER_BOUND
 //#define MAP_UPPER_BOUND
-//#define MAP_EQUAL_RANGE
+#define MAP_TRY_EMPLACE
 //#define MULTISET
 //#define MULTIMAP
 //#define UNORDERED_SET
@@ -22,8 +22,10 @@
 //#define UNORDERED_MULTISET_I
 //#define UNORDERED_MULTIMAP_I
 //#define TUPLE 
-#define STRING_REVERSE_WORDS_I
-#define STRING_REVERSE_WORDS_II
+//#define STRING_REVERSE_WORDS_I
+//#define STRING_REVERSE_WORDS_II
+
+
 
 /* Array */
 #if defined(ARRAY) 
@@ -56,7 +58,7 @@
 #endif
 
 /* Map */
-#if defined(MAP) || defined(MAP_FIND) || defined(MAP_LOWER_BOUND) || defined(MAP_UPPER_BOUND) || defined(MAP_EQUAL_RANGE)
+#if defined(MAP) || defined(MAP_FIND) || defined(MAP_LOWER_BOUND) || defined(MAP_UPPER_BOUND) || defined(MAP_TRY_EMPLACE)
 	#include "22_Map.h"
 #endif
 

@@ -1,31 +1,31 @@
 
+## CALL BY VALUE - CALL BY REFERENCE : 
+
 /----------------------------------------------
 /----------------------------------------------
 
-* CALL BY VALUE - CALL BY REFERENCE : 
-
-* C   --> always call-by-value
-  C++ --> depends on function definition
+- C   --> always call-by-value
+- C++ --> depends on function definition
 		  func(int);   --> call-by-value OR 
 		  func(int &); --> call-by-reference
 
-* C --> setfunc(T *ptr); --> set function, setter, mutator
+- C --> setfunc(T *ptr); --> set function, setter, mutator
 		getfunc(const T *ptr);  --> get function, getter, accessor
 							    --> copy only pointer size, not all data
 								--> applicable especially for arrays
 		func(T value);		    --> copy all amount of data
 
-* C --> setfunc(T *ptr);        --> output parameters
+- C --> setfunc(T *ptr);        --> output parameters
 		getfunc(const T *ptr);  --> input parameters
 
-* C++ --> class Data{};
+- C++ --> class Data{};
 		  void setter(Data &ref);       --> the parameter will be changed
 		  void getter(const Data& ref); --> the parameter will only be read
 
 /----------------------------------------------
 /----------------------------------------------
 
-* Swap Function with pointers - call by value
+-**Example**: Swap Function with pointers - call by value
 
 #include <iostream>
 
@@ -48,7 +48,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-* Example: Swap Function with references - call by reference 
+-**Example**: Swap Function with references - call by reference 
 
 #include <iostream>
 
@@ -71,6 +71,8 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
+-**Example**: 
+
 #include <iostream>
 
 int main() {
@@ -86,7 +88,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-* Example: getter function 
+-**Example**: getter function 
 
 #include <iostream>
 
@@ -105,7 +107,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-* Example: setter function, no conversion from const --> non-const
+-**Example**: setter function, no conversion from const --> non-const
 
 #include <iostream>
 
@@ -130,6 +132,8 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
+-**Example**: 
+
 #include <iostream>
 
 int main() {
@@ -146,7 +150,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-* Example: no conversion from const ref --> non-const ref
+-**Example**: No conversion from const ref --> non-const ref
 
 #include <iostream>
 
@@ -166,7 +170,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-* Example: no reference to reference definition
+-**Example**: No reference to reference definition
 
 #include <iostream>
 

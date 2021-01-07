@@ -192,15 +192,31 @@ int mani() {
 //  std::map::equal - range()
 // --------------------------------------------
 // --------------------------------------------
-#ifdef MAP_EQUAL_RANGE
+#ifdef MAP_TRY_EMPLACE
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
-#include <iterator> 
 #include <map> 
+#include <vector> 
+#include <cassert> 
 
-int mani() {
+int main() {
+	
+	std::vector<int> ivec{ 3, 4, 5, 8, 7, 3, 5, 2, 4 };
+	std::map<uint32_t, uint32_t> imap;
+	for (const auto& n : ivec) {
+		if (const auto& [it, inserted] = imap.emplace(n, 1); !inserted) {
+			it->second++;  // Exists already
+		}
+		/*
+		if (const auto& [it, inserted] = imap.try_emplace(n, 1); !inserted) {
+			it->second++;
+		}
+		*/
+	}
+	assert(imap[3] == 2);
 
+	return EXIT_SUCCESS;
 }
 
-#endif // MAP_EQUAL_RANGE
+#endif // MAP_TRY_EMPLACE

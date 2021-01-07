@@ -3,8 +3,15 @@
    - Fonksiyonlarýn Varsayýlan Argüman Almasý
    - Programda ayný argüman deðerlerini alan fonksiyon çaðrýlarý için default tanýmlamalarýn yapýlmasý, hataya karþý koruma saðlar.
    - Run-time maliyeti bulunmaz. Tamamen compile-time'a yönelik bir mekanizmadýr. 
-	
+   - Default argümanlarýn fonksiyon bildiriminde (function definition) yapýlmasý yaygýndýr. Ancak özel durumlarda fonksiyon tanýmlarýnda (function declaration) da uygulanmaktadýr. Ancak hem bildirimde hem de tanýmda yapýlmasý hatadýr.
+   - Default Argument
+     - int func(int x, int y);
+     - int foo(int = func(12, 64));
+     - foo();   --> foo(func(12,64));
+     - foo(45); --> foo(func(45, 64));
 
+- Global variables and functions are run before main() function !!! 
+	
 /----------------------------------------------
 /----------------------------------------------
 
@@ -40,8 +47,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-* Default Argument : 
-	- Default argümanlarýn fonksiyon bildiriminde (function definition) yapýlmasý yaygýndýr. Ancak özel durumlarda fonksiyon tanýmlarýnda (function declaration) da uygulanmaktadýr. Ancak hem bildirimde hem de tanýmda yapýlmasý hatadýr.
+- **Example**: 
 
 #include <iostream>
 
@@ -69,6 +75,8 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
+- **Example**: 
+
 #include <iostream>
 
 int g = 45;
@@ -84,6 +92,8 @@ int main() {
 
 /----------------------------------------------
 /----------------------------------------------
+
+- **Example**: 
 
 #include <iostream>
 
@@ -165,7 +175,7 @@ void foo(int x, int y, int z) {
 /----------------------------------------------
 /----------------------------------------------
 
-*  Default arguments for references 
+- **Example**: Default arguments for references 
 
 #include <iostream>
 
@@ -186,8 +196,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-*  Default arguments for functions with pointer parameters  
-
+- **Example**: Default arguments for functions with pointer parameters  
 #include <iostream>
 
 int globalVal = 25;
@@ -206,7 +215,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-*  Default arguments for functions with string parameters (const char*) 
+- **Example**: Default arguments for functions with string parameters (const char*) 
 
 #include <iostream>
 
@@ -229,7 +238,7 @@ void func(int& ref = *ptr);
 /----------------------------------------------
 /----------------------------------------------
 
-*  Default arguments for functions defined in a header file
+- **Example**: Default arguments for functions defined in a header file
 
 
 #include <iostream>
@@ -248,7 +257,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-* Calling default arguments with wrapper functions
+- **Example**: Calling default arguments with wrapper functions
 
 #include <iostream>
 
@@ -271,6 +280,8 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
+- **Example**: 
+
 #include <iostream>
 
 void processDate(int day, int month, int year = -1);
@@ -287,17 +298,6 @@ int main() {
 	time();
 	func();
 }
-
-/----------------------------------------------
-/----------------------------------------------
-
-- Default Argument
-  - int func(int x, int y);
-    int foo(int = func(12, 64));
-    foo();   --> foo(func(12,64));
-    foo(45); --> foo(func(45, 64));
-
-- Global variables and functions are run before main() function !!! 
 
 /----------------------------------------------
 /----------------------------------------------
@@ -397,8 +397,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** : 
-  - If there is no default arguments in function decleration, it can be added with redecleration 
+- **Example** : If there is no default arguments in function decleration, it can be added with redecleration 
 
 #include <iostream>
 

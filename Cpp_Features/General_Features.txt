@@ -1,0 +1,19 @@
+
+
+/----------------------------------------------
+/----------------------------------------------
+
+-**Example**: Type Aliases
+ - type aliases are easier to read 
+ - type aliase are compatible with C++ templates types
+
+template <typename T>
+using dyn_arr = std::vector<T>;
+dyn_arr<int> nums; // equivalent to std::vector<int>
+
+using func_ptr = int (*)(int);
+
+/----------------------------------------------
+/----------------------------------------------
+
+-**Example**: User Defined Literals

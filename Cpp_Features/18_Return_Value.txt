@@ -1,9 +1,10 @@
 
+## RETURN VALUE 
+
 /----------------------------------------------
 /----------------------------------------------
 
-* RETURN VALUE 
-* return value is pointer 
+-**Example**: return value is pointer 
 
 int* ptrFunc() {
 	static int number = 10;
@@ -22,7 +23,7 @@ int& refFunc() {
 /----------------------------------------------
 /----------------------------------------------
 
-* Example: When function return value is reference, then the function is a L-Value (1)
+-**Example**: When function return value is reference, then the function is a L-Value (1)
 
 #include <iostream>
 
@@ -41,7 +42,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-* Example: When function return value is reference, then the function is a L-Value (2)
+-**Example**: When function return value is reference, then the function is a L-Value (2)
 
 #include <iostream>
 
@@ -63,7 +64,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-* Example: When function return value is reference or address --> undefined behaviour
+-**Example**: When function return value is reference or address --> undefined behaviour
 
 #include <iostream>
 
@@ -89,6 +90,7 @@ int main() {
 }
 
 /----------------------------------------------
+/----------------------------------------------
 
 * Hangi nesne parametre olarak alýndýysa onun adresi ile geri dönülebilir. 
 
@@ -102,6 +104,7 @@ struct Data *func(struct Data *ptr){
 	return ptr;
 }
 
+/----------------------------------------------
 /----------------------------------------------
 
 * Nesnenin kendisi parametre olarak alýnýr ve geri dönüþ deðeri de kendisi olur
