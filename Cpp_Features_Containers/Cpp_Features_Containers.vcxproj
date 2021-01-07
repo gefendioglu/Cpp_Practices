@@ -28,20 +28,21 @@
     <Text Include="22_Map.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="11_Sequence_Array.h" />
-    <ClInclude Include="12_Sequence_Vector.h" />
-    <ClInclude Include="13_Sequence_Deque.h" />
-    <ClInclude Include="14_Sequence_Forward_List.h" />
-    <ClInclude Include="15_Sequence_List.h" />
-    <ClInclude Include="21_Associative_Set.h" />
-    <ClInclude Include="22_Associative_Map.h" />
-    <ClInclude Include="23_Associative_MultiSet.h" />
-    <ClInclude Include="24_Associative_Multimap.h" />
+    <ClInclude Include="11_Array.h" />
+    <ClInclude Include="12_Vector.h" />
+    <ClInclude Include="13_Deque.h" />
+    <ClInclude Include="14_Forward_List.h" />
+    <ClInclude Include="15_List.h" />
+    <ClInclude Include="21_Set.h" />
+    <ClInclude Include="22_Map.h" />
+    <ClInclude Include="23_MultiSet.h" />
+    <ClInclude Include="24_Multimap.h" />
     <ClInclude Include="31_Unordered_Set.h" />
     <ClInclude Include="32_Unordered_Map.h" />
     <ClInclude Include="33_Undordered_Multiset.h" />
     <ClInclude Include="34_Unordered_Multimap.h" />
     <ClInclude Include="41_Tuple.h" />
+    <ClInclude Include="51_String.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

@@ -1,6 +1,7 @@
 #pragma once
 
-#ifdef UNORDERED_SET
+
+#ifdef LIST
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
@@ -9,5 +10,4 @@ int main() {
 
 }
 
-#endif // UNORDERED_SET
-
+#endif // LIST

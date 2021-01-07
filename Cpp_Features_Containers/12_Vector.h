@@ -4,7 +4,7 @@
 // --------------------------------------------
 // --------------------------------------------
 
-#ifdef SEQUENCE_VECTOR_ITERATORS
+#ifdef VECTOR_ITERATORS
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
@@ -40,13 +40,13 @@ int main(){
 	return 0;
 }
 
-#endif // SEQUENCE_VECTOR_ITERATORS
+#endif // VECTOR_ITERATORS
 
 // Vector Capacity
 // --------------------------------------------
 // --------------------------------------------
 
-#ifdef SEQUENCE_VECTOR_CAPACITY
+#ifdef VECTOR_CAPACITY
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
@@ -86,14 +86,14 @@ int main()
 	return 0;
 }
 
-#endif // SEQUENCE_VECTOR_CAPACITY
+#endif // VECTOR_CAPACITY
 
 
 // Vector Element Access
 // --------------------------------------------
 // --------------------------------------------
 
-#ifdef SEQUENCE_VECTOR_ACCESS
+#ifdef VECTOR_ACCESS
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
@@ -126,13 +126,13 @@ int main()
 	return 0;
 }
 
-#endif // SEQUENCE_VECTOR_ACCESS
+#endif // VECTOR_ACCESS
 
 // Vector Modifiers
 // --------------------------------------------
 // --------------------------------------------
 
-#ifdef SEQUENCE_VECTOR_MODIFIERS
+#ifdef VECTOR_MODIFIERS
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
@@ -223,5 +223,5 @@ int main()
 	return 0;
 }
 
-#endif // SEQUENCE_VECTOR_MODIFIERS
+#endif // VECTOR_MODIFIERS
 

@@ -34,33 +34,6 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="11_Sequence_Array.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="12_Sequence_Vector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="13_Sequence_Deque.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="14_Sequence_Forward_List.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="15_Sequence_List.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="21_Associative_Set.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="22_Associative_Map.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="23_Associative_MultiSet.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="24_Associative_Multimap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="31_Unordered_Set.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -74,6 +47,36 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="41_Tuple.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="51_String.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="11_Array.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="12_Vector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="13_Deque.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="14_Forward_List.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="15_List.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="21_Set.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="22_Map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="23_MultiSet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="24_Multimap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

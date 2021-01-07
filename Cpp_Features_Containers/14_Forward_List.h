@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef UNORDERED_SET
+#ifdef FORWARD_LIST
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
@@ -9,5 +9,4 @@ int main() {
 
 }
 
-#endif // UNORDERED_SET
-
+#endif // FORWARD_LIST

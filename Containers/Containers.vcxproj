@@ -147,11 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Arrays.cpp" />
     <ClCompile Include="Strings.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Arrays.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
