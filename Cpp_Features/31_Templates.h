@@ -406,9 +406,10 @@ int Test<T>::count = 0;
 
 int main()
 {
-	Test<int> a; // value of count for Test<int> is 1 now 
-	Test<int> b; // value of count for Test<int> is 2 now 
-	Test<double> c; // value of count for Test<double> is 1 now 
+	Test<int> a; // value of count for Test<int> is 1  
+	Test<int> b; // value of count for Test<int> is 2  
+	Test<double> c; // value of count for Test<double> is 1 
+
 	std::cout << Test<int>::count << "\n";    // prints 2 
 	std::cout << Test<double>::count << "\n"; // prints 1 
 
@@ -421,107 +422,110 @@ int main()
 // --------------------------------------------
 // --------------------------------------------
 
-//template <class T>
-//void fun(T a){
-//	std::cout << "The main template fun(): "
-//		<< a << "\n";
-//}
-//
-//template<>
-//void fun(int a){
-//	std::cout << "Specialized Template for int type: "
-//		<< a << "\n";
-//}
-//
-//int main()
-//{
-//	fun<char>('a');
-//	fun<int>(10);
-//	fun<float>((float)10.14);
-//
-//	/*
-//		The main template fun(): a
-//		Specialized Template for int type: 10
-//		The main template fun(): 10.14
-//	*/
-//}
+#ifdef CLASS_TEMPLATES_STATIC_VARIABLES
 
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+template <class T>
+void fun(T a){
+	std::cout << "The main template fun(): "
+		<< a << "\n";
+}
+
+template<>
+void fun(int a){
+	std::cout << "Specialized Template for int type: "
+		<< a << "\n";
+}
+
+int main()
+{
+	fun<char>('a');
+	fun<int>(10);
+	fun<float>((float)10.14);
+
+	/*
+		The main template fun(): a
+		Specialized Template for int type: 10
+		The main template fun(): 10.14
+	*/
+}
+ #endif // CLASS_TEMPLATES_STATIC_VARIABLES
 
 
 // Class Template Specialization
 // --------------------------------------------
 // --------------------------------------------
 
-//template <class T>
-//class Test{
-//public:
-//	Test()	{
-//		// Initialization of data members 
-//		std::cout << "General template object \n";
-//	}
-//};
-//
-//template <>
-//class Test <int>{
-//public:
-//	Test()	{
-//		// Initialization of data members 
-//		std::cout << "Specialized template object\n";
-//	}
-//};
-//
-//int main()
-//{
-//	Test<int> a;
-//	Test<char> b;
-//	Test<float> c;
-//
-//	return 0;
-//
-//	/*
-//		Specialized template object
-//		General template object
-//		General template object
-//	*/
-//}
+#ifdef CLASS_TEMPLATES_SPECIALIZATION
 
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+template <class T>
+class Test{
+public:
+	Test() {
+		std::cout << "General template object \n";
+	}
+};
+
+template <>
+class Test <int> {
+public:
+	Test(){
+		std::cout << "Specialized template object\n";
+	}
+};
+
+int main(){
+
+	Test<int> a;   // Specialized template object
+	Test<char> b;  // General template object
+	Test<float> c; // General template object
+
+	return EXIT_SUCCESS;
+}
+
+#endif // CLASS_TEMPLATES_SPECIALIZATION
 
 
 // Variadic Function Templates
 // --------------------------------------------
 // --------------------------------------------
 
-//// Recursive variadic function template 
-//void print(){
-//	std::cout << "I am empty function and "
-//		"I am called at last.\n";
-//}
-//
-//// Variadic function Template 
-//template <typename T, typename... Types>
-//void print(T var1, Types... var2){
-//	std::cout << var1 << "\n";
-//	print(var2...);
-//}
-//
-//int main()
-//{
-//	print(1, 2, 3.14, "Pass any "
-//		"number of arguments",
-//		"I will print\n");
-//
-//	return 0;
-//
-//	/*
-//		1
-//		2
-//		3.14
-//		Pass any number of arguments
-//		I will print
-//
-//		I am empty function and I am called at last.
-//	*/
-//}
+#ifdef VARIADIC_FUNCTION_TEMPLATES
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+void print(){
+	std::cout << "print() is called.\n";
+}
+
+// Recursive Variadic Function Template 
+template <typename T, typename... Types>
+void print(T var1, Types... var2){
+	std::cout << var1 << "\n";
+	print(var2...);
+}
+
+int main() {
+	print(1, 3.14, "Pass any number of arguments");
+
+	return 0;
+
+	/*
+		1
+		3.14
+		Pass any number of arguments
+		print() is called.
+	*/
+}
+
+#endif VARIADIC_FUNCTION_TEMPLATES
 
 
-
+// --------------------------------------------
+// --------------------------------------------

@@ -20,13 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cpp_Features.cpp" />
-    <ClCompile Include="Forward_Declaration.cpp" />
-    <ClCompile Include="General.cpp" />
-    <ClCompile Include="String_Implementation.cpp" />
-    <ClCompile Include="Vector_Implementation.cpp" />
-    <ClCompile Include="Virtual_Copy_Constructor.cpp" />
-    <ClCompile Include="Virtual_Destructor_Constructor.cpp" />
-    <ClCompile Include="Virtual_Functions.cpp" />
+    <ClCompile Include="General_Features.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="00_Object_Oriented_Programming.txt" />
@@ -65,7 +59,12 @@
     <ClInclude Include="30_Smart_Pointers.h" />
     <ClInclude Include="General_Features.h" />
     <ClInclude Include="31_Templates.h" />
+    <ClInclude Include="String_Implementation.h" />
     <ClInclude Include="Value_Category.h" />
+    <ClInclude Include="Vector_Implementation.h" />
+    <ClInclude Include="Virtual_Copy_Ctor.h" />
+    <ClInclude Include="Virtual_Dtor_Ctor.h" />
+    <ClInclude Include="Virtual_Functions.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

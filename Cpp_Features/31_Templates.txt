@@ -394,35 +394,27 @@ int main()
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 
-// Recursive variadic function template 
 void print(){
-	std::cout << "I am empty function and "
-		"I am called at last.\n";
+	std::cout << "print() is called.\n";
 }
 
-// Variadic function Template 
+// Recursive Variadic Function Template 
 template <typename T, typename... Types>
 void print(T var1, Types... var2){
 	std::cout << var1 << "\n";
 	print(var2...);
 }
 
-int main()
-{
-	print(1, 2, 3.14, "Pass any "
-		"number of arguments",
-		"I will print\n");
+int main() {
+	print(1, 3.14, "Pass any number of arguments");
 
 	return 0;
 
 	/*
 		1
-		2
 		3.14
 		Pass any number of arguments
-		I will print
-
-		I am empty function and I am called at last.
+		print() is called.
 	*/
 }
 
