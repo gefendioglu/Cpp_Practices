@@ -45,12 +45,23 @@
 //#define CLASS_TEMPLATES_SPECIALIZATION
 //#define VARIADIC_FUNCTION_TEMPLATES
 
-/* VIRTUAL FUNCTIONS */
+/* VIRTUAL CTOR && DTOR */
 // --------------------------------------------
 //#define VIRTUAL_COPY_CTOR
 //#define VIRTUAL_DESTRUCTOR
 //#define VIRTUAL_CONSTRUCTOR
-#define PURE_VIRTUAL_DESTRUCTOR
+//#define PURE_VIRTUAL_DESTRUCTOR
+
+/* VIRTUAL FUNCTIONS */
+// --------------------------------------------
+//#define VIRTUAL_FUNCTIONS_DERIVED_CLASSES
+//#define PRIVATE_VIRTUAL_FUNCTIONS
+//#define VIRTUAL_FUNCTIONS_CONSTRUCTORS
+//#define VIRTUAL_FUNCTIONS_DEFAULT_ARG
+//#define VIRTUAL_POINTERS
+//#define VIRTUAL_FUNCTIONS
+//#define VIRTUAL_NONVIRTUAL_FUNCTIONS
+#define VIRTUAL_INLINE_FUNCTIONS
 
 
 /* Function Overloading */
@@ -88,13 +99,31 @@
 
 // --------------------------------------------
 
-/* Virtual Functions */
+/* Virtual Copy Constructors */
 #if defined(VIRTUAL_COPY_CTOR) 
 	#include "Virtual_Copy_Ctor.h"
 #endif
 
+// --------------------------------------------
+
+/* Virtual Constructors && Destructors */
 #if defined(VIRTUAL_DESTRUCTOR)  || defined(VIRTUAL_CONSTRUCTOR) || defined(PURE_VIRTUAL_DESTRUCTOR)
 	#include "Virtual_Dtor_Ctor.h"
 #endif
 
 // --------------------------------------------
+
+/* Virtual Functions */
+#if defined(VIRTUAL_FUNCTIONS_DERIVED_CLASSES)  || defined(PRIVATE_VIRTUAL_FUNCTIONS) || defined(VIRTUAL_FUNCTIONS_CONSTRUCTORS) || defined(VIRTUAL_FUNCTIONS_DEFAULT_ARG) || defined(VIRTUAL_POINTERS) || defined(VIRTUAL_FUNCTIONS) || defined(VIRTUAL_NONVIRTUAL_FUNCTIONS) || defined(VIRTUAL_INLINE_FUNCTIONS)
+	#include "Virtual_Functions.h"
+#endif
+
+// --------------------------------------------
+
+
+
+
+
+
+
+
