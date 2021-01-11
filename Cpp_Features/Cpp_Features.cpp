@@ -47,8 +47,10 @@
 
 /* VIRTUAL FUNCTIONS */
 // --------------------------------------------
-//#define FUNCTION_TEMPLATES
-
+//#define VIRTUAL_COPY_CTOR
+//#define VIRTUAL_DESTRUCTOR
+//#define VIRTUAL_CONSTRUCTOR
+#define PURE_VIRTUAL_DESTRUCTOR
 
 
 /* Function Overloading */
@@ -86,3 +88,13 @@
 
 // --------------------------------------------
 
+/* Virtual Functions */
+#if defined(VIRTUAL_COPY_CTOR) 
+	#include "Virtual_Copy_Ctor.h"
+#endif
+
+#if defined(VIRTUAL_DESTRUCTOR)  || defined(VIRTUAL_CONSTRUCTOR) || defined(PURE_VIRTUAL_DESTRUCTOR)
+	#include "Virtual_Dtor_Ctor.h"
+#endif
+
+// --------------------------------------------

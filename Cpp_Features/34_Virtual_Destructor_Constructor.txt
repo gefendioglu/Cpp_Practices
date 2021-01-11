@@ -14,7 +14,7 @@ public:
 		std::cout << "Constructing base \n";
 	}
 
-	// without virtual destructor causing undefined behavior
+	// without vi  rtual destructor causing undefined behavior
 	// if this class is used for inheritance
 	~base()	{
 		std::cout << "Destructing base \n";

@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef STRING_IMPLEMENTATION
+#ifdef VIRTUAL_COPY_CTOR
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream> 
@@ -8,7 +8,6 @@
  //--------------------------------------------
  //--------------------------------------------
 
- //Starting a Library
 class Base{
 public:
 	Base() { }
@@ -103,9 +102,7 @@ Base* Base::Create(int id){
 	else
 		return new Derived3;
 }
- //Ending a Library 
 
-//Utiliy Class
 class User{
 public:
 	User() : pBase(0)	{
@@ -183,4 +180,4 @@ int main()
 	*/
 }
 
-#endif //STRING_IMPLEMENTATION
+#endif // VIRTUAL_COPY_CTOR

@@ -3,7 +3,7 @@
 //#define NON_STATIC_MEMBER_INIT
 //#define FORWARD_DECLARATION
 //#define VECTOR_CLASS_TEMPLATE
-#define STRING_IMPLEMENTATION
+//#define STRING_IMPLEMENTATION
 
 // --------------------------------------------
 

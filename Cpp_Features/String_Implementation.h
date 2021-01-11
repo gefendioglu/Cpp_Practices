@@ -95,12 +95,12 @@ Mystring& Mystring::operator=(const Mystring& rhs){
 	return *this;
 }
 
-Mystring& Mystring::operator=(const char* str) {
-	delete[] str;
-	length= strlen(str);
-	new_str = new char[len + 1];
-
-}
+//Mystring& Mystring::operator=(const char* str) {
+//	delete[] str;
+//	length= strlen(str);
+//	str = new char[length + 1];
+//
+//}
 
 
 // Overloading the plus operator 
@@ -144,7 +144,7 @@ Mystring operator+(const char* s, String& st)
 	return temp + st;
 }
 
-// Overloading the stream  extraction operator 
+// Overloading the stream extraction operator 
 std::istream& operator>>(std::istream& is, Mystring& obj){
 
 	char* buff = new char[1000];
