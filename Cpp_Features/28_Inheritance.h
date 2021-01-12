@@ -192,6 +192,36 @@ int main() {
 
 #endif // DIAMOND_PROBLEM
 
+// TODO: Devam edilecek !!!
+// http://www.vishalchovatiya.com/part-2-all-about-virtual-keyword-in-cpp-how-virtual-class-works-internally/
+
+#ifdef DIAMOND_PROBLEM_II
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Top { public: int t; };
+class Left : public Top { public: int l; };
+class Right : public Top { public: int r; };
+class Bottom : public Left, public Right { public: int b; };
+
+int main() {
+
+	Top* t_ptr1 = new Left;
+	Top* t_ptr2 = new Right;
+	
+	Left* left = new Bottom;
+	Right* right = new Bottom;
+	
+	Top* Top = new Bottom; // NOT OK !
+	
+	/*
+		Top* topL = (Left*)Bottom;
+		Top* topR = (Right*)Bottom;
+	*/
+}
+
+#endif // DIAMOND_PROBLEM_II
 
 // Multilevel Inheritance 
 // --------------------------------------------

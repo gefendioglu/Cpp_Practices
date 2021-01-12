@@ -85,3 +85,199 @@ int main()
 /----------------------------------------------
 /----------------------------------------------
 
+- **Example** : C++ Object Model
+
+class Thing {}; 
+
+class Thing {
+public:
+    Thing();                        // default constructor
+    Thing(const Thing&);            // copy ctor
+    Thing& operator=(const Thing&); // copy-assignment
+    Thing(Thing&&);                 // move ctor
+    Thing& operator=(Thing&&);      // move-assignment
+	~Thing();                       // dtor
+};  
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : C++ Object Model 
+  - All the functions in class/struct contain implicit this pointer as the first argument using to access all non-static data members
+  - Static data members are not part of class/struct. Because it usually resides in a data segment of memory layout.
+  - The size of the following struct is 4 (because of int type non-static data member). Because of using implicit this pointer as function parameter.
+
+struct foo{
+	int m_var;
+public:
+	void print(){
+		std::cout << m_var << "\n";
+	}
+};
+
+Interpreted as the following: 
+struct foo{
+    int m_var;
+};
+
+void foo::print(foo *this){
+    std::cout.operator<<(this->m_var).operator<<(std::endl);
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Memory Layout of an Object With Virtual Function & Static Data Member
+  - all non-static data members got the space into the stack with the same order of their declaration
+  - static data member got the space into the data segment of memory.
+  - static functions go into the text segment
+  - For virtual keyword, the compiler automatically inserts pointer(vptr) to a virtual table into the object memory representation.
+
+class MyClass {
+public:
+    MyClass() {}
+    virtual ~MyClass() {}
+    virtual void printAll() {}
+    void printInt() {}
+    void printFloat() {}
+    static void printCount() {}
+private:
+	int         ival;
+    float       fval;
+    static int  count;
+};
+
+
+Memory Layout: 
+stack :
+/----------------------------------------------
+int MyClass::ival 
+float MyClass::fval 
+MyClass::_vptr    
+
+data segment:
+/----------------------------------------------
+static int MyClass::count 
+
+text segment:
+/----------------------------------------------
+MyClass::MyClass()     
+MyClass::~MyClass()
+MyClass::printAll()
+MyClass::printInt()
+MyClass::printFloat()
+static MyClass::printCount()
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Memory Layout of C++ Object With Inheritance
+
+class Base {
+public:
+	Base() {}
+	virtual ~Base() {}
+	virtual void printAll() {}
+private:
+	int x;
+	std::string str;
+};
+
+class Derived : public Base {
+public:
+	Derived() {}
+	~Derived() {}
+	void printAll() {}
+private:
+	int y;
+};
+
+
+Memory Layout: 
+stack :
+/----------------------------------------------
+int Base::x  
+string Base::str (? --> const char*)
+Base::_vptr  --> points type_info Derived, the address of Derived::~Derived(), the address of Derived::printAll()
+int Derived::y
+
+text segment:
+/----------------------------------------------
+Base::Base()  
+Base::~Base() 
+Base::printAll()
+Derived::Derived()  
+Derived::~Derived()
+Derived::printAll() 
+string::string()
+string::~string() 
+string::length()
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Memory Layout of an Object With Multiple Inheritances & Virtual Function
+
+class BaseX {
+public:
+	virtual ~BaseX() {}
+	virtual void printX() {}
+private: 
+	int x;
+};
+
+class BaseY {
+public:
+	virtual ~BaseY() {}
+	virtual void printY() {}
+private:
+	int y;
+};
+
+class Derived : public BaseX, public BaseY {
+public:
+	~Derived() {}
+	void printX() {}
+	void printY() {}
+	void printZ() {}
+private:
+	int z;
+};
+
+
+Memory Layout: 
+stack :
+/----------------------------------------------
+int BaseX::x 
+BaseX::_vptr --> points type_info Derived, the address of Derived::~Derived(), Derived::printX()
+int BaseY::y
+BaseY:: _vptr --> points type_info Derived, the address of Derived::~Derived(), Derived::printY()
+int Derived::z
+
+text segment:
+/----------------------------------------------
+BaseX::~BaseX()
+BaseX::printX()
+BaseY::~BaseY() 
+BaseY::printY()
+Derived::~Derived()
+Derived::printX()
+Derived::printY()
+Derived::printZ()
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Memory Layout of Object Having Virtual Inheritance ???
+  - In this case, memory is divided into two regions:
+    - an invariant region
+    - a shared region
+
+class X { int x; };
+class Y : virtual public X { int y; };
+class Z : virtual public X { int z; };
+class A : public Y, public Z { int a; };
+
+
+/----------------------------------------------
+/----------------------------------------------

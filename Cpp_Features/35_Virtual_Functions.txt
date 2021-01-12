@@ -6,19 +6,36 @@
 
 - In OOP, child classes can override (redefine) methods defined by base classes. 
 
-- Functions declared final cannot be overridden.
+- The advantages of using virtual functions: 
+  - Run time polymorphism
+  - Reusability of code
 
-- In C++, functions are only virtual when declared with the virtual keyword—nonvirtual methods are the default.
+- Virtual function is a kind of dynamic dispatching and the implementation of this mechanism is completely compiler dependent. 
+
+- The implementation of a virtual mechanism is purely compiler dependent. There is no C++ standard is defined for such dynamic dispatch.
+
+- Functions declared "final" cannot be overridden.
+
+- In C++, functions are only virtual when declared with the virtual keyword—nonvirtual are the default.
 
 - If the functon is not virtual, the function definition invoked is determined at compile time based on the type of the reference (or pointer).
 
-- Virtual functions are used for polymorphism.
+- Virtual functions are used for run time polymorphism (late binding).
 
 - One special type of virtual function in C++ is a pure virtual method: a function declared but explicitly not defined.
 
 - Any class that contains a pure virtual function or inherits one without redefining it is an abstract class.
 
 - It almost always takes longer to invoke a virtual function because the address of the appropriate function definition must be looked up in a table before it is invoked. This table also requires a small amount of extra memory. In most applications, the overhead associated with virtual functions is so small as to be negligible. 
+
+- Virtual Pointer/ Virtual Table:
+  - A virtual table is per class and the virtual table pointers(_vptr) is to object (depends on compiler implementation).
+  - Virtual table is generated statically at the compile time by the compiler.
+  - The code to override virtual pointer is generated at the time of object construction by the compiler ( Virtual functions should not be called in constructor).
+  - Calling virtual functions from a constructor or destructor is dangerous and should be avoided whenever possible. All C++ implementations should call the version of the function defined at the level of the hierarchy in the current constructor and no further.
+    - In a constructor, the virtual call mechanism is disabled because overriding from derived classes hasn’t yet happened. Objects are constructed from the base up, “base before derived”.
+	- Destruction is done “derived class before base class”, so virtual functions behave as in constructors: Only the local definitions are used – and no calls are made to overriding functions to avoid touching the (now destroyed) derived class part of the object
+
 /----------------------------------------------
 /----------------------------------------------
 
@@ -52,7 +69,7 @@ int main()
 	bptr->print(); // B
 	cptr->print(); // c
 
-	// Because print is not virtual, the method invoked depends on the type used at compile time :
+	// Because print() is not virtual, the method invoked depends on the type used at compile time :
 	((B*)cptr)->print(); // B
 	((A*)cptr)->print(); // A
 	((A*)bptr)->print(); // A
@@ -105,42 +122,84 @@ int main()
 - **Example**: Virtual Functions & Inline Functions
 
 #define _CRT_SECURE_NO_WARNINGS
-#include <iostream>
+#include<iostream> 
 
 class Base{
 public:
 	virtual void who()	{
-		std::cout << "I am Base" <<"\n";
+		std::cout << "Base::who() function is called" <<"\n";
 	}
 };
 
 class Derived : public Base{
 public:
 	void who() override	{
-		std::cout << "I am Derived" << "\n";
+		std::cout << "Derived::who() function is called" << "\n";
 	}
 };
 
 int main()
 {
-	// virtual function who() is called through object of the class
-	// it will be resolved at compile time
-	// so it can be inlined
+	// Base::who() is called through object of the class, it will be resolved at compile time, so it can be inlined
 	Base base;
-	base.who();
+	base.who(); 
 
-	// Virtual function is called through pointer, 
-	// so it cannot be inlined 
+	// Virtual function who() is called through pointer, it will be resolved at run rime (dynamic memory allocation), so it can not be inlined 
 	Base* ptr = new Derived();
 	ptr->who();
 
-	return 0;
+	return EXIT_SUCCESS;
+	
+	/*
+	Base::who() function is called
+	Derived::who() function is called
+	*/
 }
 
 /----------------------------------------------
 /----------------------------------------------
 
 - **Example**: What happens when a virtual function is called inside a non-virtual function in C++?
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
+class Base{
+public:
+	virtual void print() {
+		std::cout << "virtual Base::print() is called" << "\n";
+	}
+
+	void invoke(){
+		std::cout << "non-virtual Base::invoke() is called" << "\n";
+		// calling a virtual func. from a non-virtual func. in Base class
+		this->print(); 
+	}
+};
+
+class Derived : public Base {
+public:
+	void print() override {
+		std::cout << "overrided Derived::print() is called" << "\n";
+	}
+	void invoke() {
+		std::cout << "Derived::invoke() is called" << "\n";
+		// calling a virtual func. from a non-virtual func. in Derived class
+		this->print();  
+	}
+}; 
+
+int main(){
+
+	Base* base = new Derived; //Derived -> Base (upcasting)
+	base->invoke();
+	return EXIT_SUCCESS;
+	
+	/*
+		non-virtual Base::invoke() is called
+		overrided Derived::print() is called
+	*/
+}
 
 
 /----------------------------------------------
@@ -149,45 +208,45 @@ int main()
 - **Example**: Concept of Virtual Functions 
 
 #define _CRT_SECURE_NO_WARNINGS
-#include <iostream>
+#include<iostream> 
 
 class base {
 public:
 	virtual void print()	{
-		std::cout << "print base class" << "\n";
+		std::cout << "virtual Base::print() is called" << "\n";
 	}
 
 	void show(){
-		std::cout << "show base class" << "\n";
+		std::cout << "non-virtual Base::show() is called" << "\n";
 	}
 };
 
 class derived : public base {
 public:
-	void print()	{
-		std::cout << "print derived class" << "\n";
+	void print() override {
+		std::cout << "overrided derived::print() is called" << "\n";
 	}
 
 	void show()	{
-		std::cout << "show derived class" << "\n";
+		std::cout << "derived::show() is called" << "\n";
 	}
 };
 
-int main()
-{
-	base* bptr;
-	derived d;
-	bptr = &d;
+int main() {
 
-	// virtual function, binded at runtime 
+	base* bptr;
+	derived derived;
+	bptr = &derived;
+
+	// Virtual function, binded at runtime 
 	bptr->print();
 
 	// Non-virtual function, binded at compile time 
 	bptr->show();
 
 	/*
-		print derived class
-		show base class
+		overrided derived::print() is called		
+		non-virtual Base::show() is called
 	*/
 	
 }
@@ -198,50 +257,50 @@ int main()
 - **Example**: Virtual Pointers (VPTR) - Virtual Table (VTABLE) 
 
 #define _CRT_SECURE_NO_WARNINGS
-#include <iostream>
+#include<iostream> 
 
 class base {
 public:
-	void fun_1() { std::cout << "base-1\n"; }
-	virtual void fun_2() { std::cout << "base-2\n"; }
-	virtual void fun_3() { std::cout << "base-3\n"; }
-	virtual void fun_4() { std::cout << "base-4\n"; }
+	void fun_1() { std::cout << "base::fun_1()" << "\n"; }
+	virtual void fun_2() { std::cout << "base::fun_2()" << "\n";}
+	virtual void fun_3() { std::cout << "base::fun_3()" << "\n";}
+	virtual void fun_4() { std::cout << "base::fun_4()" << "\n";}
 };
 
 class derived : public base {
 public:
-	void fun_1() { std::cout << "derived-1\n"; }
-	void fun_2() { std::cout << "derived-2\n"; }
-	void fun_4(int x) { std::cout << "derived-4\n"; }
+	void fun_1() { std::cout << "derived::fun_1()" << "\n";}
+	void fun_2() override { std::cout << "overrided derived::fun_2()" << "\n";}
+	void fun_4(int x) { std::cout << "derived::fun_4(int x)" << "\n";}
 };
 
-int main()
-{
-	base* p;
-	derived obj1;
-	p = &obj1;
+int main() {
 
-	// Early binding because fun1() is non-virtual in base 
-	p->fun_1();
+	base* bptr;
+	derived derived; // derived -> bptr (upcasting)
+	bptr = &derived;
 
-	// Late binding (RTP) 
-	p->fun_2();
+	// Early binding, fun_1() is non-virtual in base 
+	bptr->fun_1();
 
-	// Late binding (RTP) 
-	p->fun_3();
+	// Late binding (Run Time Polymorphism - RTP) 
+	bptr->fun_2();
 
-	// Late binding (RTP) 
-	p->fun_4();
+	// Late binding (RTP)
+	bptr->fun_3();
 
-	// Early binding but this function call is illegal(produces error)
-	// becasue pointer is of base type and function is of derived class 
-	// p->fun_4(5); // NOT OK! - too many arguments error
+	// Late binding (RTP)
+	bptr->fun_4();
+
+	// Early binding, but this fun_4() function call is illegal
+	// because pointer is of base type and fun_4() function is of derived class 
+	// bptr->fun_4(5); // NOT OK! - too many arguments error
 
 	/*
-		base-1
-		derived-2
-		base-3
-		base-4
+		base::fun_1()
+		overrided derived::fun_2()
+		base::fun_3()
+		base::fun_4()
 	*/
 }
 
@@ -251,54 +310,53 @@ int main()
 - **Example**: Default Arguments and Virtual Function
 
 #define _CRT_SECURE_NO_WARNINGS
-#include <iostream>
+#include<iostream> 
 
 class Base{
 public:
 	virtual void fun(int x = 0)	{
-		std::cout << "Base::fun(), x = " << x << "\n";
+		std::cout << "Base::fun(int x = 0), x = " << x << "\n";
 	}
 };
-
 class Derived : public Base{
 public:
-	virtual void fun(int x)	{
-		std::cout << "Derived::fun(), x = " << x << "\n";
+	virtual void fun(int x = 10) {
+		std::cout << "Derived::fun(int x = 10), x = " << x << "\n";
 	}
 };
 
-int main()
-{
+int main() {
+
 	Derived d1;
 	Base* bp = &d1;
 	bp->fun();
 
-	return 0;
-	
-	// Derived::fun(), x = 0
+	return EXIT_SUCCESS;
+
+	/* Derived::fun(int x = 10), x = 0 */
 }
 
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: Calling virtual methods in Constructor/Destructor 
+- **Example**: Calling Virtual Functions in Constructor/Destructor
 
 #define _CRT_SECURE_NO_WARNINGS
-#include <iostream>
+#include<iostream> 
 
-class dog{
+class Dog{
 public:
-	dog()	{
-		std::cout << "Constructor called" << "\n";
+	Dog() {
+		std::cout << "Dog() Constructor" << "\n";
 		bark();
 	}
 
-	~dog(){
+	~Dog() {
 		bark();
 	}
 
 	virtual void bark(){
-		std::cout << "Virtual method called" << "\n";
+		std::cout << "virtual Dog::bark()" << "\n";
 	}
 
 	void seeCat(){
@@ -306,161 +364,322 @@ public:
 	}
 };
 
-class Yellowdog : public dog{
+class YellowDog : public Dog {
 public:
-	Yellowdog(){
-		std::cout << "Derived class Constructor called" << "\n";
+	YellowDog(){
+		std::cout << "YellowDog() Constructor" << "\n";
 	}
 
-	void bark()	{
-		std::cout << "Derived class Virtual method called" << "\n";
+	void bark()	override{
+		std::cout << "YellowDog::bark()" << "\n";
 	}
 };
 
 int main()
 {
-	Yellowdog d;
-	d.seeCat();
+	YellowDog dog;
+	dog.seeCat();
 
 	/*
-		Constructor called
-		Virtual method called
-		Derived class Constructor called
-		Derived class Virtual method called
-		Virtual method called
+		Dog() Constructor
+		virtual Dog::bark()
+		YellowDog() Constructor
+		YellowDog::bark()
+		virtual Dog::bark()
 	*/
 }
 
-
 // --------------------------------------------
 // --------------------------------------------
 
-- **Example**:Can virtual functions be private in C++ ?
+- **Example**: Can virtual functions be private in C++ ?
 
 #define _CRT_SECURE_NO_WARNINGS
-#include <iostream>
+#include<iostream> 
 
+// Base Class
 class base{
 public:
-
-	// default base constructor
-	base() { std::cout << "base class constructor\n"; }
-
-	// virtual base destructor
-	// always use virtual base destructors when you know you will inherit this class
+	base() { std::cout << "base::base() constructor" << "\n"; }
+    
 	virtual ~base()	{
-		std::cout << "base class destructor\n";
+		std::cout << "base::~base() destructor"<< "\n";
 	}
 
-	// public method in base class
 	void show()	{
-		std::cout << "show() called on base class\n";
+		std::cout << "base::show()" << "\n";
 	}
 
-	// public virtual function in base class,
-	// contents of this function are printed when called
-	// with base class object when called with base class
-	// pointer contents of derived class are printed on
-	// screen
 	virtual void print(){
-		std::cout << "print() called on base class\n";
+		std::cout << "virtual base::print()" << "\n";
 	}
 };
 
+// Derived Class from Base Class
 class derived : public base {
 public:
-
-	// default derived constructor
-	derived(): base()	{
-		std::cout << "derived class constructor\n";
+	derived(): base() {
+		std::cout << "derived::derived() constructor" << "\n";
 	}
 
-	// virtual derived destructor
-	// always use virtual destructors when inheriting from a base class
+	 /* if this class inherits from a base class --> always use virtual destructors */
 	virtual ~derived()	{
-		std::cout << "derived class destructor\n";
+		std::cout << "derived::~derived() destructor" << "\n";
 	}
 
 private:
-	// private virtual function in derived class overwrites
-	// base class virtual method contents of this function
-	// are printed when called with base class pointer or
-	// when called with derived class object
+	 /* private virtual function in derived class overwrites base class virtual function, function is called with base class pointer or derived class object */
 	virtual void print(){
-		std::cout << "print() called on derived class\n";
+		std::cout << "private derived::print()" << "\n";
 	}
 };
 
-int main()
-{
-	std::cout << "printing with base class pointer\n";
+int main() {
 
 	// construct base class pointer with derived class memory
 	base* b_ptr = new derived();
-
-	// call base class show()
 	b_ptr->show();
 
-	// call virtual print in base class but it is overridden
-	// in derived class also note that print() is private
-	// member in derived class, still the contents of derived
-	// class are printed this code works because base class
-	// defines a public interface and drived class overrides
-	// it in its implementation
+	/* print() is private member in derived class, still the contents of derived class are printed. because base class defines a public interface and drived class overrides it in its implementation*/
 	b_ptr->print();
 
 	delete b_ptr;
 
 	/*
-		printing with base class pointer
-		base class constructor
-		derived class constructor
-		show() called on base class
-		print() called on derived class
-		derived class destructor
-		base class destructor
+		base::base() constructor
+		derived::derived() constructor
+		base::show()
+		private derived::print()
+		derived::~derived() destructor
+		base::~base() destructor
 	*/
 }
 
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: Virtual functions in derived classes
+- **Example**: Virtual Functions in Derived Classes
 
 #define _CRT_SECURE_NO_WARNINGS
-#include <iostream>
+#include<iostream> 
 
 class A {
 public:
 	virtual void fun()	{
-		std::cout << "\n A::fun() called ";
+		std::cout << "A::fun() called" << "\n";
 	}
 };
 
 class B : public A {
 public:
 	void fun() override	{
-		std::cout << "\n B::fun() called ";
+		std::cout << "B::fun() called" << "\n";
 	}
 };
 
 class C : public B {
 public:
 	void fun()	override {
-		std::cout << "\n C::fun() called ";
+		std::cout << "C::fun() called" << "\n";
 	}
 };
 
-int main()
-{
-	C c; // An object of class C 
-	B* b = &c; // A pointer of type B* pointing to c 
-	b->fun(); 
-	getchar();
+int main() {
 
-	return 0;
-	// C::fun() called
+	C c; 
+	B* b = &c; // Derived --> Base (upcasting)
+	b->fun(); 
+
+	return EXIT_SUCCESS;
+	/* C::fun() called */
+}
+
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Virtual Functions with Composition
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
+class Foo{
+public:
+	Foo() { std::cout << "Foo ctor" << "\n"; }
+	~Foo() { std::cout << "~Foo dtor" << "\n"; }
+};
+
+class base {
+public:
+	base() { std::cout << "base ctor" << "\n";}
+	~base() { std::cout << "~base dtor" << "\n";}
+};
+
+class Bar : public base{
+public:
+	Bar(){
+		std::cout << "Bar ctor" << "\n";
+		str = 0;
+	}
+
+	~Bar() { std::cout << "~Bar dtor" << "\n";}
+
+private:
+	Foo foo;
+	char* str;
+};
+
+int main() {
+
+	base* bptr;
+	Bar bar;
+	bptr = &bar;
+
+	return EXIT_SUCCESS;
+	/*
+		base ctor
+		Foo ctor
+		Bar ctor
+		~Bar dtor
+		~Foo dtor
+		~base dtor
+	*/
 }
 
 /----------------------------------------------
 /----------------------------------------------
+
+- **Example**: Before Using Virtual Functions && Run Time Polymorphism (Late Binding)
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
+#define BLUETOOTH 0
+#define WIFI 1
+
+class wifi_t {
+public:
+	void authenticate() {
+		std::cout << "wifi_t::authenticate()" << "\n";
+	}
+
+	void connect() {
+		std::cout << "wifi_t::connect()" << "\n";
+	}
+private:
+	char pass[15];
+};
+
+class bluetooth_t {
+public:
+	void authenticate() {
+		std::cout << "bluetooth_t::authenticate()" << "\n";
+	}
+	void connect() {
+		std::cout << "bluetooth_t::connect()" << "\n";
+	}
+private:
+	char pass[15];
+};
+
+
+int main()
+{
+	wifi_t* wifi = new wifi_t();
+	bluetooth_t* bluetooth = new bluetooth_t();
+
+	int pt = BLUETOOTH;
+
+	if (pt == BLUETOOTH) {
+		bluetooth->authenticate();
+		bluetooth->connect();
+	}
+	else if (pt == WIFI) {
+		wifi->authenticate();
+		wifi->connect();
+	}
+
+	return EXIT_SUCCESS;
+
+	/*
+		bluetooth_t::authenticate()
+		bluetooth_t::connect()
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Using with Virtual Functions && Run Time Polymorphism for the previous example 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
+class protocol_t {
+public:
+	virtual void authenticate() {
+		std::cout << "protocol_t::authenticate()" << "\n";
+	}
+	virtual void connect() {
+		std::cout << "protocol_t::connect()" << "\n";
+	}
+private:
+	uint8_t type;
+};
+
+class wifi_t : public protocol_t {
+public:
+	void authenticate() {
+		std::cout << "wifi_t::authenticate()" << "\n";
+	}
+
+	void connect() {
+		std::cout << "wifi_t::connect()" << "\n";
+	}
+private:
+	char pass[15];
+};
+
+class bluetooth_t : public protocol_t {
+public:
+	void authenticate() {
+		std::cout << "bluetooth_t::authenticate()" << "\n";
+	}
+	void connect() {
+		std::cout << "bluetooth_t::connect()" << "\n";
+	}
+private:
+	char pass[15];
+};
+
+void makeConnection(protocol_t* protocol) {
+	protocol->authenticate();
+	protocol->connect();
+}
+
+int main() {
+
+	protocol_t *pt = new wifi_t();
+	makeConnection(pt);
+	
+	std::cout << "\n";
+
+	bluetooth_t bluetooth;
+	pt = &bluetooth;
+	makeConnection(pt);
+
+	return EXIT_SUCCESS;
+
+	/*
+		wifi_t::authenticate()
+		wifi_t::connect()
+		
+		bluetooth_t::authenticate()
+		bluetooth_t::connect()
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+
