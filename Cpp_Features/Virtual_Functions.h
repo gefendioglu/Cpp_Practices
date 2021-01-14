@@ -417,8 +417,15 @@ int main() {
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
 
-class protocol_t {
+class protocol {
 public:
+	protocol() { 
+		type = new uint8_t; 
+	}
+	virtual ~protocol() { 
+		std::cout << "protocol::~protocol()" << "\n";
+		delete type; 
+	}
 	virtual void authenticate() {
 		std::cout << "protocol_t::authenticate()" << "\n";
 	}
@@ -426,60 +433,79 @@ public:
 		std::cout << "protocol_t::connect()" << "\n";
 	}
 private:
-	uint8_t type;
+	uint8_t* type;
 };
 
 /* When wifi_t class is inherited from protocol_t class, a new virtual table will be created by the compiler.*/
-class wifi_t : public protocol_t {
+class wifi : public protocol {
 public:
-	void authenticate() {
-		std::cout << "wifi_t::authenticate()" << "\n";
+	wifi() {
+		pass = new char[15]; 
 	}
-
+	~wifi() { 
+		std::cout << "wifi::~wifi()" << "\n";
+		delete pass; 
+	}
+	void authenticate() {
+		std::cout << "wifi::authenticate()" << "\n";
+	}
 	void connect() {
-		std::cout << "wifi_t::connect()" << "\n";
+		std::cout << "wifi::connect()" << "\n";
 	}
 private:
-	char pass[15];
+	char* pass;
 };
 
 /* When bluetooth_t class is inherited from protocol_t class, a new virtual table will be created by the compiler.*/
-class bluetooth_t : public protocol_t {
+class bluetooth : public protocol {
 public:
+	bluetooth() { 
+		pass = new char[15]; 
+	}
+	~bluetooth() { 
+		std::cout << "bluetooth_t::~bluetooth_t()" << "\n";
+		delete pass; 
+	}
+
 	void authenticate() {
-		std::cout << "bluetooth_t::authenticate()" << "\n";
+		std::cout << "bluetooth::authenticate()" << "\n";
 	}
 	void connect() {
-		std::cout << "bluetooth_t::connect()" << "\n";
+		std::cout << "bluetooth::connect()" << "\n";
 	}
 private:
-	char pass[15];
+	char* pass;
 };
 
-void makeConnection(protocol_t* protocol) {
+void makeConnection(protocol* protocol) {
 	protocol->authenticate();
 	protocol->connect();
+	delete protocol;
 }
 
 int main() {
 
-	protocol_t *pt = new wifi_t();
+	protocol* pt = new wifi();
 	makeConnection(pt);
 	
 	std::cout << "\n";
 
-	bluetooth_t bluetooth;
+	bluetooth bluetooth;
 	pt = &bluetooth;
 	makeConnection(pt);
 
 	return EXIT_SUCCESS;
 
 	/*
-		wifi_t::authenticate()
-		wifi_t::connect()
-		
+		wifi::authenticate()
+		wifi::connect()
+		wifi::~wifi()
+		protocol::~protocol()
+
 		bluetooth_t::authenticate()
 		bluetooth_t::connect()
+		bluetooth_t::~bluetooth_t()
+		protocol::~protocol()
 	*/
 }
 

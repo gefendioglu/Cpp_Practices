@@ -28,6 +28,10 @@
 
 - It almost always takes longer to invoke a virtual function because the address of the appropriate function definition must be looked up in a table before it is invoked. This table also requires a small amount of extra memory. In most applications, the overhead associated with virtual functions is so small as to be negligible. 
 
+- The object having virtual base class has memory layout divided in two regions:
+  - Invariant region: non-virtual classes
+  - Shared region: virtual classes 
+
 - Virtual Pointer/ Virtual Table:
   - A virtual table is per class and the virtual table pointers(_vptr) is to object (depends on compiler implementation).
   - Virtual table is generated statically at the compile time by the compiler.
@@ -611,12 +615,20 @@ int main()
 /----------------------------------------------
 
 - **Example**: Using with Virtual Functions && Run Time Polymorphism for the previous example 
+  - 
 
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
 
-class protocol_t {
+class protocol {
 public:
+	protocol() { 
+		type = new uint8_t; 
+	}
+	virtual ~protocol() { 
+		std::cout << "protocol::~protocol()" << "\n";
+		delete type; 
+	}
 	virtual void authenticate() {
 		std::cout << "protocol_t::authenticate()" << "\n";
 	}
@@ -624,58 +636,79 @@ public:
 		std::cout << "protocol_t::connect()" << "\n";
 	}
 private:
-	uint8_t type;
+	uint8_t* type;
 };
 
-class wifi_t : public protocol_t {
+/* When wifi_t class is inherited from protocol_t class, a new virtual table will be created by the compiler.*/
+class wifi : public protocol {
 public:
-	void authenticate() {
-		std::cout << "wifi_t::authenticate()" << "\n";
+	wifi() {
+		pass = new char[15]; 
 	}
-
-	void connect() {
-		std::cout << "wifi_t::connect()" << "\n";
+	~wifi() { 
+		std::cout << "wifi::~wifi()" << "\n";
+		delete pass; 
 	}
-private:
-	char pass[15];
-};
-
-class bluetooth_t : public protocol_t {
-public:
 	void authenticate() {
-		std::cout << "bluetooth_t::authenticate()" << "\n";
+		std::cout << "wifi::authenticate()" << "\n";
 	}
 	void connect() {
-		std::cout << "bluetooth_t::connect()" << "\n";
+		std::cout << "wifi::connect()" << "\n";
 	}
 private:
-	char pass[15];
+	char* pass;
 };
 
-void makeConnection(protocol_t* protocol) {
+/* When bluetooth_t class is inherited from protocol_t class, a new virtual table will be created by the compiler.*/
+class bluetooth : public protocol {
+public:
+	bluetooth() { 
+		pass = new char[15]; 
+	}
+	~bluetooth() { 
+		std::cout << "bluetooth_t::~bluetooth_t()" << "\n";
+		delete pass; 
+	}
+
+	void authenticate() {
+		std::cout << "bluetooth::authenticate()" << "\n";
+	}
+	void connect() {
+		std::cout << "bluetooth::connect()" << "\n";
+	}
+private:
+	char* pass;
+};
+
+void makeConnection(protocol* protocol) {
 	protocol->authenticate();
 	protocol->connect();
+	delete protocol;
 }
 
 int main() {
 
-	protocol_t *pt = new wifi_t();
+	protocol* pt = new wifi();
 	makeConnection(pt);
 	
 	std::cout << "\n";
 
-	bluetooth_t bluetooth;
+	bluetooth bluetooth;
 	pt = &bluetooth;
 	makeConnection(pt);
 
 	return EXIT_SUCCESS;
 
 	/*
-		wifi_t::authenticate()
-		wifi_t::connect()
-		
+		wifi::authenticate()
+		wifi::connect()
+		wifi::~wifi()
+		protocol::~protocol()
+
 		bluetooth_t::authenticate()
 		bluetooth_t::connect()
+		bluetooth_t::~bluetooth_t()
+		protocol::~protocol()
 	*/
 }
 

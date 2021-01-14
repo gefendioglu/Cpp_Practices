@@ -526,11 +526,75 @@ int main() {
 // --------------------------------------------
 // --------------------------------------------
 
-- **Example**: 
+- **Example**: The diamond problem sample 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Top { public: int t; };
+class Left : public Top { public: int l; };
+class Right : public Top { public: int r; };
+class Bottom : public Left, public Right { public: int b; };
+
+int main() {
+
+	Top* t_ptr1 = new Left;
+	Top* t_ptr2 = new Right;
+	
+	Left* left = new Bottom;
+	Right* right = new Bottom;
+	
+	Top* Top = new Bottom; // NOT OK !
+
+	 /*
+		Top* topL = (Left*)Bottom;
+		Top* topR = (Right*)Bottom;
+	*/
+}
 
 
+// --------------------------------------------
+// --------------------------------------------
 
+- **Example**: The solution for the previous diamond problem
 
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Top { 
+public: 
+	int t; 
+};
+
+class Left : virtual public Top { 
+public: 
+	int l; 
+};
+
+class Right : virtual public Top { 
+public: 
+	int r; 
+};
+
+class Bottom : public Left, public Right { 
+public: 
+	int b; 
+};
+
+int main() {
+
+	Top* t_ptr1 = new Left;
+	Top* t_ptr2 = new Right;
+	
+	Left* left = new Bottom;
+	Right* right = new Bottom;
+	
+	// There is only one Top instance included in the hierarchy
+	Top* Top = new Bottom; // OK !
+	
+	Bottom* bot = new Bottom;
+	bot->t; // OK !
+}
 
 // --------------------------------------------
 // --------------------------------------------

@@ -200,10 +200,25 @@ int main() {
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 
-class Top { public: int t; };
-class Left : public Top { public: int l; };
-class Right : public Top { public: int r; };
-class Bottom : public Left, public Right { public: int b; };
+class Top { 
+public: 
+	int t; 
+};
+
+class Left : virtual public Top { 
+public: 
+	int l; 
+};
+
+class Right : virtual public Top { 
+public: 
+	int r; 
+};
+
+class Bottom : public Left, public Right { 
+public: 
+	int b; 
+};
 
 int main() {
 
@@ -213,14 +228,12 @@ int main() {
 	Left* left = new Bottom;
 	Right* right = new Bottom;
 	
-	Top* Top = new Bottom; // NOT OK !
+	// There is only one Top instance included in the hierarchy
+	Top* Top = new Bottom; // OK !
 	
-	/*
-		Top* topL = (Left*)Bottom;
-		Top* topR = (Right*)Bottom;
-	*/
+	Bottom* bot = new Bottom;
+	bot->t; // OK !
 }
-
 #endif // DIAMOND_PROBLEM_II
 
 // Multilevel Inheritance 
