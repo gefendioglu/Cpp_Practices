@@ -214,7 +214,7 @@ int main()
 
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
-
+ 
 class Base{
 public:
 	// Pure virtual destructor 
@@ -245,3 +245,87 @@ int main(){
 }
 
 #endif // PURE_VIRTUAL_DESTRUCTOR
+
+
+
+/* Constructors of Virtual Bases */
+// --------------------------------------------
+// --------------------------------------------
+
+#ifdef CONSTRUCTORS_VIRTUAL_BASES
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
+class Top{
+public:
+	Top() { 
+		top_val = -1; 
+		std::cout << "Top::Top()\n";
+	}
+	Top(int top_val) { 
+		this->top_val = top_val; 
+		std::cout << "Top::Top(int)\n";
+	}
+	int top_val;
+};
+
+class Left : virtual public Top{
+public:
+	Left() { 
+		left_val = -2;
+		std::cout << "Left::Left()\n";
+	}
+	Left(int top_val, int left_val) : Top(top_val) { 
+		this->left_val = left_val;
+		std::cout << "Left::Left(int, int)\n";
+	}
+	int left_val;
+};
+
+class Right : virtual public Top {
+public:
+	Right() { 
+		right_val = -3; 
+		std::cout << "Right::Right()\n";
+	}
+	Right(int top_val, int right_val) : Top(top_val) {
+		this->right_val = right_val; 
+		std::cout << "Right::Right(int, int)\n";
+	}
+	int right_val;
+};
+
+class Bottom : public Left, public Right{
+public:
+	Bottom() { 
+		bottom_val = -4;
+		std::cout << "Bottom::Bottom()\n";
+	}
+	Bottom(int top_val, int left_val, int right_val, int bottom_val) :  Top(top_val), Left(top_val, left_val), Right(top_val, right_val)	{
+		this->bottom_val = bottom_val;
+		std::cout << "Bottom::Bottom(int, int, int, int)\n";
+	}
+
+	int bottom_val;
+};
+
+int main() {
+
+	Bottom* bptr = new Bottom();
+	Right* rptr = bptr;
+	if (rptr == bptr)
+		printf("Equal!\n");
+
+	return 0;
+
+	/*
+		Top::Top()
+		Left::Left()
+		Right::Right()
+		Bottom::Bottom()
+		Equal!
+	*/
+}
+
+#endif // COMSTRUCTORS_VIRTUAL_BASES

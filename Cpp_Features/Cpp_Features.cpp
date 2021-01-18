@@ -21,7 +21,6 @@
 //#define INHERITANCE_EXAMPLE_I
 //#define INHERITANCE_EXAMPLE_II
 
-
 /* SMART POINTERS */
 // --------------------------------------------
 //#define SMART_POINTERS
@@ -52,6 +51,7 @@
 //#define VIRTUAL_DESTRUCTOR
 //#define VIRTUAL_CONSTRUCTOR
 //#define PURE_VIRTUAL_DESTRUCTOR
+//#define CONSTRUCTORS_VIRTUAL_BASES
 
 /* VIRTUAL FUNCTIONS */
 // --------------------------------------------
@@ -61,10 +61,12 @@
 //#define VIRTUAL_FUNCTIONS_DEFAULT_ARG
 //#define VIRTUAL_POINTERS
 //#define VIRTUAL_FUNCTIONS_I
-#define VIRTUAL_FUNCTIONS_II
+//#define VIRTUAL_FUNCTIONS_II
 //#define VIRTUAL_NONVIRTUAL_FUNCTIONS
 //#define VIRTUAL_INLINE_FUNCTIONS
 //#define VIRTUAL_FUNCTIONS_COMPOSITION
+//#define VIRTUAL_FUNCTIONS_MULTIPLE_INHERITANCE
+
 
 /* Function Overloading */
 #if defined(FUNCTION_OVERLOADING) 
@@ -109,14 +111,15 @@
 // --------------------------------------------
 
 /* Virtual Constructors && Destructors */
-#if defined(VIRTUAL_DESTRUCTOR)  || defined(VIRTUAL_CONSTRUCTOR) || defined(PURE_VIRTUAL_DESTRUCTOR)
+#if defined(VIRTUAL_DESTRUCTOR)  || defined(VIRTUAL_CONSTRUCTOR) || defined(PURE_VIRTUAL_DESTRUCTOR) || defined(CONSTRUCTORS_VIRTUAL_BASES)
 	#include "Virtual_Dtor_Ctor.h"
 #endif
+
 
 // --------------------------------------------
 
 /* Virtual Functions */
-#if defined(VIRTUAL_FUNCTIONS_DERIVED_CLASSES)  || defined(PRIVATE_VIRTUAL_FUNCTIONS) || defined(VIRTUAL_FUNCTIONS_CONSTRUCTORS) || defined(VIRTUAL_FUNCTIONS_DEFAULT_ARG) || defined(VIRTUAL_POINTERS) || defined(VIRTUAL_FUNCTIONS) || defined(VIRTUAL_NONVIRTUAL_FUNCTIONS) || defined(VIRTUAL_INLINE_FUNCTIONS) || defined(VIRTUAL_FUNCTIONS_II) || defined(VIRTUAL_FUNCTIONS_COMPOSITION)
+#if defined(VIRTUAL_FUNCTIONS_DERIVED_CLASSES)  || defined(PRIVATE_VIRTUAL_FUNCTIONS) || defined(VIRTUAL_FUNCTIONS_CONSTRUCTORS) || defined(VIRTUAL_FUNCTIONS_DEFAULT_ARG) || defined(VIRTUAL_POINTERS) || defined(VIRTUAL_FUNCTIONS) || defined(VIRTUAL_NONVIRTUAL_FUNCTIONS) || defined(VIRTUAL_INLINE_FUNCTIONS) || defined(VIRTUAL_FUNCTIONS_II) || defined(VIRTUAL_FUNCTIONS_COMPOSITION) || defined(VIRTUAL_FUNCTIONS_MULTIPLE_INHERITANCE)
 	#include "Virtual_Functions.h"
 #endif
 

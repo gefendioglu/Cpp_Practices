@@ -564,4 +564,57 @@ int main() {
 
 #endif // VIRTUAL_FUNCTIONS_COMPOSITION
 
+// Virtual Function Support Under Multiple Inheritances
+
+
+// Virtual Function & Multiple Inheritance in C++
+// --------------------------------------------
+// --------------------------------------------
+
+#ifdef VIRTUAL_FUNCTIONS_MULTIPLE_INHERITANCE
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class base1 {
+public:
+	virtual void print() {
+		std::cout << "base1::print() is called" << "\n";
+	}
+private:
+	int base1_var;
+};
+
+class base2 {
+public:
+	virtual void print() {
+		std::cout << "base2::print() is called" << "\n";
+	}
+private:
+	int base2_var;
+};
+
+class derived : public base1, public base2 {
+public:
+	void print() override {
+		std::cout << "derived::print() is called" << "\n";
+	}
+
+private:
+	int derived_var;
+};
+
+int main() {
+
+	base1* ptr_base1 = new derived;
+	ptr_base1->print();
+	base2* ptr_base2 = new derived;
+	ptr_base2->print();
+
+	/*
+		derived::print() is called
+		derived::print() is called
+	*/
+}
+#endif // VIRTUAL_FUNCTIONS_MULTIPLE_INHERITANCE
 

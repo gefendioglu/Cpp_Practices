@@ -92,6 +92,34 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
+### Trailing Return Type (-> return-type)
+
+-**Example**: Trailing Return Type (with auto and decltype keywords)
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
+template <typename X, typename Y>
+auto add(X x, Y y) -> decltype(x + y){
+	return x + y;
+}
+
+int main() {
+
+	std::cout << "add(1, 2)     : " << add(1, 2)     << "\n";  // 
+	std::cout << "add(1, 2.0)   : " << add(1, 2.0)   << "\n";  // 
+	std::cout << "add(1.5, 1.5) : " << add(1.5, 1.5) << "\n";  // 
+
+	/*
+		add(1, 2)     : 3
+		add(1, 2.0)   : 3
+		add(1.5, 1.5) : 3
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
 * Hangi nesne parametre olarak alýndýysa onun adresi ile geri dönülebilir. 
 
 struct Data {

@@ -108,3 +108,56 @@ int main(){
 }
 
 #endif // FORWARD_DECLARATION
+
+// std::initializer_list
+// --------------------------------------------
+// --------------------------------------------
+
+#ifdef INITIALIZER_LIST
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+#include<vector>
+#include<tuple> 
+#include<set> 
+#include<list> 
+#include<deque> 
+#include<array> 
+#include<stack> 
+#include<queue> 
+
+int main() {
+
+	std::pair<int, int> ipair = { 1, 2 };
+	std::tuple<int, int> ituple = { 1, 2 };
+	std::vector<int> ivec = { 1, 2, 3, 4, 5 };
+	std::set<int> iset = { 1, 2, 3, 4, 5 };
+	std::list<int> ilist = { 1, 2, 3, 4, 5 };
+	std::deque<int> ideque = { 1, 2, 3, 4, 5 };
+	std::array<int, 5> iarray = { 1, 2, 3, 4, 5 };
+
+	// Initializer list is not available for adapters
+	std::stack<int> istack = {1, 2, 3, 4, 5}; // NOT OK
+	std::queue<int> iqueue = {1, 2, 3, 4, 5}; // NOT OK
+	std::priority_queue<int> ipq = {1, 2, 3, 4, 5}; // NOT OK
+}
+
+#endif // INITIALIZER_LIST
+
+
+// This section is to test dummy features
+// --------------------------------------------
+// --------------------------------------------
+
+#ifdef FEATURE
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
+
+int main() {
+
+
+}
+
+#endif // FEATURE

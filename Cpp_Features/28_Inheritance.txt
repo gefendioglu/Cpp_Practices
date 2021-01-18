@@ -207,6 +207,14 @@ public:
 
 // --------------------------------------------
 // --------------------------------------------
+- **Example**:
+When a derived object is declared, two virtual table pointers are created in the derived class object.
+
+
+
+
+// --------------------------------------------
+// --------------------------------------------
 
 - **Example**:  Public Inheritance
 

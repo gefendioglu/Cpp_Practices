@@ -2,13 +2,17 @@
 //#define USER_DEFINED_LITERALS
 //#define NON_STATIC_MEMBER_INIT
 //#define FORWARD_DECLARATION
+//#define INITIALIZER_LIST
+#define FEATURE
 //#define VECTOR_CLASS_TEMPLATE
 //#define STRING_IMPLEMENTATION
+
+
 
 // --------------------------------------------
 
 /* General C++ Features */
-#if defined(USER_DEFINED_LITERALS) || defined(NON_STATIC_MEMBER_INIT) || defined(FORWARD_DECLARATION) 
+#if defined(USER_DEFINED_LITERALS) || defined(NON_STATIC_MEMBER_INIT) || defined(FORWARD_DECLARATION) || defined(INITIALIZER_LIST) || defined(FEATURE) 
 	#include "General_Features.h"
 #endif
 

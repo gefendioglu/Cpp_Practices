@@ -385,3 +385,160 @@ int main()
 
 /----------------------------------------------
 /----------------------------------------------
+
+- **Example**: Constructors of Virtual Bases (with calling virtual base class constructor implicitly)
+  - If the constructors of virtual base class is not called explicitly, the compiler will automatically insert a call to their default constructors.This situation can lead to some unexpected results.
+ 
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
+class Top{
+public:
+	Top() { 
+		top_val = -1; 
+		std::cout << "Top::Top()\n";
+	}
+	Top(int top_val) { 
+		this->top_val = top_val; 
+		std::cout << "Top::Top(int)\n";
+	}
+	int top_val;
+};
+
+class Left : virtual public Top{
+public:
+	Left() { 
+		left_val = -2;
+		std::cout << "Left::Left()\n";
+	}
+	Left(int top_val, int left_val) : Top(top_val) { 
+		this->left_val = left_val;
+		std::cout << "Left::Left(int, int)\n";
+	}
+	int left_val;
+};
+
+class Right : virtual public Top {
+public:
+	Right() { 
+		right_val = -3; 
+		std::cout << "Right::Right()\n";
+	}
+	Right(int top_val, int right_val) : Top(top_val) {
+		this->right_val = right_val; 
+		std::cout << "Right::Right(int, int)\n";
+	}
+	int right_val;
+};
+
+class Bottom : public Left, public Right{
+public:
+	Bottom() { 
+		bottom_val = -4;
+		std::cout << "Bottom::Bottom()\n";
+	}
+	Bottom(int top_val, int left_val, int right_val, int bottom_val) : Left(top_val, left_val), Right(top_val, right_val)	{
+		this->bottom_val = bottom_val;
+		std::cout << "Bottom::Bottom(int, int, int, int)\n";
+	}
+
+	int bottom_val;
+};
+
+int main() {
+
+	Bottom bottom(1, 2, 3, 4);
+
+	std::cout << "bottom.Left::top_val = " << bottom.Left::top_val << "\n";
+	std::cout << "bottom.Right::top_val = " << bottom.Right::top_val << "\n";
+	std::cout << "bottom.top_val = " << bottom.top_val << "\n";
+	std::cout << "bottom.left_val = " << bottom.left_val << "\n";
+	std::cout << "bottom.right_val = " << bottom.right_val << "\n";
+
+	return 0;
+
+	/*
+		Top::Top()
+		Left::Left(int, int)
+		Right::Right(int, int)
+		Bottom::Bottom(int, int, int, int)
+		bottom.Left::top_val = -1
+		bottom.Right::top_val = -1
+		bottom.top_val = -1
+		bottom.left_val = 2
+		bottom.right_val = 3
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Constructors of Virtual Bases (changing the constructor of "Bottom" derived class)
+
+class Bottom : public Left, public Right{
+public:
+	Bottom() { 
+		bottom_val = -4;
+		std::cout << "Bottom::Bottom()\n";
+	}
+	Bottom(int top_val, int left_val, int right_val, int bottom_val) :  Top(top_val), Left(top_val, left_val), Right(top_val, right_val)	{
+		this->bottom_val = bottom_val;
+		std::cout << "Bottom::Bottom(int, int, int, int)\n";
+	}
+
+	int bottom_val;
+};
+
+int main() {
+
+	Bottom bottom(1, 2, 3, 4);
+
+	std::cout << "bottom.Left::top_val = " << bottom.Left::top_val << "\n";
+	std::cout << "bottom.Right::top_val = " << bottom.Right::top_val << "\n";
+	std::cout << "bottom.top_val = " << bottom.top_val << "\n";
+	std::cout << "bottom.left_val = " << bottom.left_val << "\n";
+	std::cout << "bottom.right_val = " << bottom.right_val << "\n";
+
+	return 0;
+
+	/*
+		Top::Top(int)
+		Left::Left(int, int)
+		Right::Right(int, int)
+		Bottom::Bottom(int, int, int, int)
+		bottom.Left::top_val = 1
+		bottom.Right::top_val = 1
+		bottom.top_val = 1
+		bottom.left_val = 2
+		bottom.right_val = 3
+	*/
+}
+
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Pointer Equivalence Example (with the same class hierarchy and run-time polymorphism)
+
+int main() {
+
+	Bottom* bptr = new Bottom();
+	Right* rptr = bptr;
+	if (rptr == bptr)
+		printf("Equal!\n");
+
+	return 0;
+
+	/*
+		Top::Top()
+		Left::Left()
+		Right::Right()
+		Bottom::Bottom()
+		Equal!
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: 

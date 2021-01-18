@@ -1,14 +1,15 @@
 
-## C++ Default Arguments
-   - Fonksiyonlarýn Varsayýlan Argüman Almasý
-   - Programda ayný argüman deðerlerini alan fonksiyon çaðrýlarý için default tanýmlamalarýn yapýlmasý, hataya karþý koruma saðlar.
-   - Run-time maliyeti bulunmaz. Tamamen compile-time'a yönelik bir mekanizmadýr. 
-   - Default argümanlarýn fonksiyon bildiriminde (function definition) yapýlmasý yaygýndýr. Ancak özel durumlarda fonksiyon tanýmlarýnda (function declaration) da uygulanmaktadýr. Ancak hem bildirimde hem de tanýmda yapýlmasý hatadýr.
-   - Default Argument
-     - int func(int x, int y);
-     - int foo(int = func(12, 64));
-     - foo();   --> foo(func(12,64));
-     - foo(45); --> foo(func(45, 64));
+## C++ Default Arguments:
+
+ - Fonksiyonlarýn Varsayýlan Argüman Almasý
+ - Programda ayný argüman deðerlerini alan fonksiyon çaðrýlarý için default tanýmlamalarýn yapýlmasý, hataya karþý koruma saðlar.
+ - Run-time maliyeti bulunmaz. Tamamen compile-time'a yönelik bir mekanizmadýr. 
+- Default argümanlarýn fonksiyon bildiriminde (function definition) yapýlmasý yaygýndýr. Ancak özel durumlarda fonksiyon tanýmlarýnda (function declaration) da uygulanmaktadýr. Ancak hem bildirimde hem de tanýmda yapýlmasý hatadýr.
+- Default Argument
+  - int func(int x, int y);
+  - int foo(int = func(12, 64));
+  - foo();   --> foo(func(12,64));
+  - foo(45); --> foo(func(45, 64));
 
 - Global variables and functions are run before main() function !!! 
 	
