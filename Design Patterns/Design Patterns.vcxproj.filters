@@ -72,9 +72,6 @@
     <Text Include="1_DesignPatterns.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="11_Creational_Factory_Method.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="12_Creational_Abstract_Factory.txt">
       <Filter>Resource Files</Filter>
     </Text>
@@ -88,6 +85,9 @@
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="30_Behavioral_Visitor.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="11_Creational_Factory.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

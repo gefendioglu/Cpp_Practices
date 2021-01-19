@@ -1,45 +1,68 @@
 
 ## Abstract Factory Design Pattern 
 
+- Why Abstract Factory Design Pattern is needed to use?
+  - C++ has the support of polymorphic object destruction using it’s base class’s virtual destructor. However, equivalent support for creation & copying of objects does not exist in C++ virtual constructor & virtual copy constructors.
+
+- This design pattern is applied by delegating the act of creation & copying the object to the derived class through the use of pure virtual functions (polymorphic functions).
+
+- Liskov’s Substitution Principle(LSP) is applied with the use of Abstract Factory design pattern.
+
 /----------------------------------------------
 /----------------------------------------------
 
 - **Example**: The Problem
-  - C++ has the support of polymorphic object destruction using it’s base class’s virtual destructor. 
-  - However, equivalent support for creation & copying of objects does not exist in C++ virtual constructor & virtual copy constructors.
-
+  
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
 
-struct Point {
-    virtual ~Point() { std::cout << "~Point\n"; }
+class Point {
+public:
+    virtual ~Point() {
+        std::cout << "Point::~Point()\n";
+    }
 };
 
-struct Point2D : Point {
-    ~Point2D() { std::cout << "~Point2D\n"; }
+class Point2D :public Point {
+public:
+    ~Point2D() {
+        std::cout << "Point::~Point2D()\n";
+    }
 };
 
-struct Point3D : Point {
-    ~Point3D() { std::cout << "~Point3D\n"; }
+class Point3D : public Point {
+public:
+    ~Point3D() {
+        std::cout << "Point::~Point3D()\n";
+    }
 };
 
-void who_am_i(Point* who) { 
-    // Not sure whether "Point2D" would be passed here or "Point3D"
-    // How to `create` the object of same type i.e. pointed by who ?
-    // How to `copy` object of same type i.e. pointed by who ?
-    // you can delete object pointed by who, thanks to virtual destructor
-    delete who; 
+void create_point() {
+    // Not sure which object class would be passed here ("Point2D" or "Point3D")
+    // Point3D* ptr3d = new Point3D();
+    // Point2D* ptr2d = new Point2D();
+    Point* point = new Point();
+    delete point;
+}
+
+int main() {
+
+    create_point();
+
+    return EXIT_SUCCESS;
+    /*
+        Point::~Point()
+    */
 }
 
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: Abstract Factory Pattern
+- **Example**: Abstract Factory Design Pattern (CREATIONAL_ABSTRACT_FACTORY)
 
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
 #include<memory>
-
 
 class Point {
 public:
@@ -106,11 +129,15 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: Functional Approach to Factory Design Pattern using Modern C++
-  - Let’s build a similar kind of Factory without relying on polymorphic functionality as it might not suit some time-constrained application like an embedded system.
-  -	Because the virtual table & dynamic dispatch mechanism may troll system during critical functionality.
-  -	In this case, it uses functional & lambda functions.
 
+## Functional Factory Design Pattern 
+
+- If it is not necessary to use polymorphic functionality for example in a time-constrained application like an embedded system, functional & lambda functions can be used together to apply factory design pattern.
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Functional Approach to Factory Design Pattern using Modern C++ (CREATIONAL_FUNCTIONAL_FACTORY)
 
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
@@ -118,21 +145,20 @@ int main() {
 #include<map>
 #include<functional>
 
-enum class PointType{ Point2D, Point3D };
+enum class PointType { Point2D, Point3D };
 
 class Point {
 public:
-    Point(int x, int y) : m_x(x), m_y(y) {}
     Point() = default;
+    Point(int x, int y) : m_x{ x }, m_y{ y } {}
     virtual ~Point() = default;
 
     friend std::ostream& operator<<(std::ostream& os, const Point& obj) {
         return os << "x: " << obj.m_x << " y: " << obj.m_y;
     }
 private:
-    int   m_x;
-    int   m_y;
-    
+    int m_x;
+    int m_y;
 };
 
 class Point2D : public Point {/* . . . */ };
@@ -141,10 +167,16 @@ class Point3D : public Point {/* . . . */ };
 class PointFunctionalFactory {
 public:
     PointFunctionalFactory() {
-        m_factories[PointType::Point2D] = [] { return std::make_unique<Point2D>(); };
-        m_factories[PointType::Point3D] = [] { return std::make_unique<Point3D>(); };
+        m_factories[PointType::Point2D] = [] { 
+            return std::make_unique<Point2D>(); 
+        };
+        m_factories[PointType::Point3D] = [] { 
+            return std::make_unique<Point3D>(); 
+        };
     }
-    std::unique_ptr<Point> create(PointType type) { return m_factories[type](); }
+    std::unique_ptr<Point> create(PointType type) { 
+        return m_factories[type](); 
+    }
 private:
     std::map<PointType, std::function<std::unique_ptr<Point>() >> m_factories;
 };
@@ -152,8 +184,9 @@ private:
 int main() {
 
     PointFunctionalFactory pf;
-    auto p2D = pf.create(PointType::Point2D);
-    std::cout << p2D << "\n"; // The address of object will print
+    auto point2D = pf.create(PointType::Point2D);
+    std::cout << point2D << "\n"; // The address of point2D
+    
     return EXIT_SUCCESS;
 }
 

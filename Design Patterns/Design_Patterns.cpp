@@ -1,9 +1,15 @@
 //#define CREATIONAL_FACTORY
+//#define CREATIONAL_FACTORY_I
+//#define CREATIONAL_FACTORY_II
+//#define CREATIONAL_ABSTRACT_FACTORY_PROBLEM
 //#define CREATIONAL_ABSTRACT_FACTORY
-//#define CREATIONAL_BUILDER
+//#define CREATIONAL_FUNCTIONAL_FACTORY
+#define CREATIONAL_BUILDER
 //#define CREATIONAL_PROTOTYPE_EXAMPLE_I
 //#define CREATIONAL_PROTOTYPE_EXAMPLE_II
 //#define CREATIONAL_SINGLETON
+// ----------------------------------------------
+// ----------------------------------------------
 //#define BEHAVIORAL_CHAIN_OF_RESPONSIBILIY
 //#define BEHAVIORAL_COMMAND_EXAMPLE_I
 //#define BEHAVIORAL_COMMAND_EXAMPLE_II
@@ -17,6 +23,8 @@
 //#define BEHAVIORAL_STRATEGY_EXAMPLE_I
 //#define BEHAVIORAL_STRATEGY_EXAMPLE_II
 //#define BEHAVIORAL_TEMPLATE
+// ----------------------------------------------
+// ----------------------------------------------
 //#define STRUCTURAL_ADAPTER_CLASSICAL
 //#define STRUCTURAL_ADAPTER_PLUGGIN_I
 //#define STRUCTURAL_ADAPTER_PLUGGIN_II
@@ -31,36 +39,53 @@
 //#define STRUCTURAL_FLIGHTWEIGHT_I
 //#define STRUCTURAL_PROXY_I
 //#define STRUCTURAL_PROXY_VIRTUAL
-#define STRUCTURAL_PROXY_COMMUNICATION
+//#define STRUCTURAL_PROXY_COMMUNICATION
+
+
 
 /* CREATIONAL TYPE DESIGN PATTERNS */
 // ----------------------------------------------
 // ----------------------------------------------
 
 /* Creational Factory Design Pattern */
-#if defined(CREATIONAL_FACTORY) 
+#if defined(CREATIONAL_FACTORY) || defined(CREATIONAL_FACTORY_I) || defined(CREATIONAL_FACTORY_II)
 	#include "11_Creational_Factory.h"
 #endif
 
+// ----------------------------------------------
+// ----------------------------------------------
+
 /* Creational Abstract Factory Design Pattern */
-#if defined(CREATIONAL_ABSTRACT_FACTORY) 
+#if defined(CREATIONAL_ABSTRACT_FACTORY_PROBLEM) || defined(CREATIONAL_ABSTRACT_FACTORY) || defined(CREATIONAL_FUNCTIONAL_FACTORY)
 	#include "12_Creational_Abstract_Factory.h"
 #endif
+
+// ----------------------------------------------
+// ----------------------------------------------
 
 /* Creational Builder Desing Pattern */
 #if defined(CREATIONAL_BUILDER) 
 	#include "13_Creational_Builder.h"
 #endif
 
+// ----------------------------------------------
+// ----------------------------------------------
+
 /* Creational Prototype Design Pattern */
 #if defined(CREATIONAL_PROTOTYPE_EXAMPLE_I) || defined(CREATIONAL_PROTOTYPE_EXAMPLE_II)
 	#include "14_Creational_Prototype.h"
 #endif
 
+// ----------------------------------------------
+// ----------------------------------------------
+
 /* Creational Prototype Factory Desing Pattern */
 #if defined(CREATIONAL_PROTOTYPE_FACTORY) 
 	#include "14_Creational_Prototype_Factory.h"
 #endif
+
+// ----------------------------------------------
+// ----------------------------------------------
 
 /* Creational Singleton Design Pattern */
 #if defined(CREATIONAL_SINGLETON) 

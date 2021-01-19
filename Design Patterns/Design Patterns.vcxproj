@@ -154,7 +154,7 @@
     <Text Include="23_Behavioral_Iterator.txt" />
     <Text Include="12_Creational_Abstract_Factory.txt" />
     <Text Include="13_Creational_Builder.txt" />
-    <Text Include="11_Creational_Factory_Method.txt" />
+    <Text Include="11_Creational_Factory.txt" />
     <Text Include="25_Behavioral_Mediator.txt" />
     <Text Include="14_Creational_Prototype.txt" />
     <Text Include="26_Behavioral_Memento.txt" />

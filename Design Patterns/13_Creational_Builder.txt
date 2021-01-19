@@ -1,16 +1,24 @@
 
 ## Builder Desing Patterns:
 
-  - The Builder pattern creates objects in a stepwise manner without knowing or caring how those objects are constructed. 
+  - The Builder pattern creates objects in a stepwise manner without knowing or caring how those objects are constructed.
+  
   -	Instead of constructing an object directly, you instantiate a builder and let it create the object on your behalf.
+
   -	Builders are particularly useful for initializing objects that require multiple constructor parameters, especially parameters of the same or similar types.
+
   -	Specific parameters can be made mandatory, in which case an error or exception would occur if they were missing and others can be made optional with default values
+
   -	Use builders when objects are complex to construct and/or are constructed in several steps. 
+
   - Instead of constructing an object directly, you instantiate a builder and let it create the object on your behalf.
   -	Builders are particularly useful for initializing objects that require multiple constructor parameters, especially parameters of the same or similar types.
+
   - Allows you to create different flavors of an object while avoiding constructor pollution. Useful when there could be several flavors of an object. Or when there are a lot of steps involved in creation of an object.
+
   - Allows you to aviod telescoping constructor anti-pattern:
 	Window(int size, bool cheese = true, bool pepperoni = true, bool tomato = false, bool lettuce = true){}
+
   - What is its difference from factory design pattern?
 	- The key difference from the factory pattern is that; factory pattern is to be used when the creation is a one step process while builder pattern is to be used when the creation is a multi step process.
 
@@ -36,11 +44,10 @@ private:
 	// rest of class omitted
 };
 
-int main()
-{
+int main(){
+
 	Window* w = new Window(false, true, true);
 }
-
 
 /----------------------------------------------
 /----------------------------------------------
@@ -93,8 +100,8 @@ private:
 	bool visible;
 };
 
-int main()
-{
+int main(){
+
 	Window* w = new Window(false, true, true);   // without builder
 	WindowBuilder* window = new WindowBuilder(); // with builder
 	Window wbuilder = window->setVisible(false).setModal(true).setDialog(true).build();

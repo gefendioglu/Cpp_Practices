@@ -1,6 +1,57 @@
-#pragma once
 
-#ifdef CREATIONAL_FACTORY
+## Factory Design Pattern 
+
+
+- A factory design pattern is an object for creating other objects without having to specify the exact class of the object that will be created.
+
+- It provides single class for different object creation.
+
+- The essence of Factory Design Pattern : private constructor & static class member function.
+
+- temel kural private access specifier alanýnda constructor kullanýmý ve parametreli constructor ile nesne üretiminin çeþitlendirilmesi
+
+- This design pattern can be combined with an XML description, and then  this mechanism can be used to create new levels without having to recompile their program.
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: The Problem
+  - It is not possible to create two constructors with the same type of arguments.
+
+#define _CRT_SECURE_NO_WARNINGS
+#define _USE_MATH_DEFINES
+#include<iostream> 
+
+enum class PointType { cartesian, polar };
+
+class Point {
+public:
+    // Polar coordinates
+    Point(double x, double y, PointType type = PointType::cartesian)
+    {
+        if (type == PointType::cartesian) {
+            Point(x, y);
+        }
+        else {
+            Point(x * cos(y), x * sin(y));
+        }
+    }
+
+private:
+    double   m_x;
+    double   m_y;
+};
+
+int main() {
+
+    Point *ptr = new Point(1,2,PointType::cartesian );  // Not Work!!!
+    return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Inner Factory Design Pattern using structures (CREATIONAL_FACTORY)
 
 #define _CRT_SECURE_NO_WARNINGS
 #define _USE_MATH_DEFINES
@@ -9,11 +60,9 @@
 class Point {
 public:
     struct Factory {
-
         static Point NewCartesian(double x, double y) {
             return { x,y }; 
         }
-
         static Point NewPolar(double r, double theta) {
             return{ r * cos(theta), r * sin(theta) };
         }
@@ -41,13 +90,14 @@ int main() {
     return EXIT_SUCCESS;
 }
 
-#endif // CREATIONAL_FACTORY
+/----------------------------------------------
+/----------------------------------------------
 
-
-#ifdef CREATIONAL_FACTORY_I
+- **Example**: Factory Design Pattern using enum Class to define object types (CREATIONAL_FACTORY_I) 
 
 #define _CRT_SECURE_NO_WARNINGS
 #define _USE_MATH_DEFINES
+
 #include<iostream> 
 
 enum class PointType { cartesian, polar };
@@ -87,9 +137,11 @@ int main() {
     return EXIT_SUCCESS;
 }
 
-#endif // CREATIONAL_FACTORY_I
+/----------------------------------------------
+/----------------------------------------------
 
-#ifdef CREATIONAL_FACTORY_II
+- **Example**: Classical Factory Design Pattern using a concrete class 
+(CREATIONAL_FACTORY_II)
 
 #define _CRT_SECURE_NO_WARNINGS
 #define _USE_MATH_DEFINES
@@ -135,5 +187,5 @@ int main() {
     return EXIT_SUCCESS;
 }
 
-#endif // CREATIONAL_FACTORY_II
-
+/----------------------------------------------
+/----------------------------------------------
