@@ -17,14 +17,14 @@ struct Office {
 
 class Employee {
 public:
-
     // Copy constructor
     Employee(const Employee& employee) : m_name{ employee.m_name }, m_office{ new Office{*employee.m_office} }
     { }
 
     // Copy assignment
     Employee& operator=(const Employee& rhs) {
-        if (this == &rhs) return *this;
+        if (this == &rhs) 
+            return *this;
         m_name = rhs.m_name;
         m_office = new Office{ *rhs.m_office };
         return *this;
@@ -36,6 +36,7 @@ public:
             << " " << employee.m_office->m_city
             << " seats @" << employee.m_office->m_cubical;
     }
+    friend class EmployeeFactory;
 
 private:
     std::string m_name;
@@ -43,13 +44,12 @@ private:
 
     // Private constructor
     // Direct instance can not be created except for "class EmployeeFactory"
-    Employee(std::string name, Office* office) : m_name(name), m_office(office) {}
-    friend class EmployeeFactory;
+    Employee(std::string name, Office* office) : m_name{ name }, m_office{ office } {}
 };
 
+// Implementation of Factory Design Pattern
 class EmployeeFactory {
 public:
-
     static std::unique_ptr<Employee> NewMainOfficeEmployee(std::string name, int32_t cubical) {
         return NewEmployee(name, cubical, main);
     }
@@ -58,9 +58,9 @@ public:
     }
 
 private:
-
     static Employee main;
     static Employee aux;
+
     static std::unique_ptr<Employee> NewEmployee(std::string name, int32_t cubical, Employee& proto) {
         auto employee = std::make_unique<Employee>(proto);
         employee->m_name = name;
@@ -76,7 +76,7 @@ Employee EmployeeFactory::aux{ "", new Office{"RMZ Ecoworld ORR", "London", 123}
 int main() {
 
     auto jane = EmployeeFactory::NewMainOfficeEmployee("Jane Doe", 125);
-    auto jack = EmployeeFactory::NewAuxOfficeEmployee("Jack Doe", 123);
+    auto jack = EmployeeFactory::NewAuxOfficeEmployee("Jack Doe", 123);   
     std::cout << *jane << "\n" << *jack << "\n";
 
     return EXIT_SUCCESS;

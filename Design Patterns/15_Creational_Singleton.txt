@@ -1,52 +1,34 @@
 
 ## Singleton Design Pattern
 
-- The singleton pattern is a software design pattern that restricts the instantiation of a class to one object.
-
 - The Singleton pattern ensures that at most one instance of a class exists at any given time.
 
 - An application cannot create new instances—all methods are accessed through the singleton. The application obtains the singleton by invoking a “static function” exposed by the class.
 
 - Singletons are also sometimes used as a substitute for global variables. Many people consider using singletons to store global data as an anti-pattern.
 
-- Why is a singleton better than a set of static methods?
-  - Inheritance and interfaces. Singletons are objects. They can inherit from base classes and implement interfaces.
-  - Possible multiplicity. You can change your mind and create multiple objects (for example, one per thread) without changing a lot of code.
-  - Dynamic binding. The actual class used to create the singleton can be determined at run time, not at compile time.
+- Why is a singleton better than a set of static funcions?
+  - Inheritance and interfaces: Singletons are objects. They can inherit from base classes and implement interfaces.
+  - Possible multiplicity: You can change your mind and create multiple objects (especially for multi-threading applications) without changing a lot of code.
+  - Dynamic binding: The actual class used to create the singleton can be determined at run time, not at compile time.
 
 - The disadvantages of implementing singleton design pattern? 
   - A singleton may slow the application’s startup time as it initializes
   - It may hold onto resources longer than necessary, because normally a singleton isn’t destroyed until the application ends.
-  - It introduces a global state in your application and change to it in one place could affect in the other areas and it could become pretty difficult to debug.
-  - The other bad thing about them is it makes your code tightly coupled plus mocking the singleton could be difficult.
-
-- How to create the best singleton ?
-  - The smaller, the better. I am a minimalist
-  - Make sure it is thread safe
-  - Make sure it is never null
-  - Make sure it is created only once
-  - Lazy or system initialization? Up to your requirements!!!
+  - It introduces a global state in your application and change it in one place could affect in other areas and it could become difficult to debug.
+  - The other bad thing is it makes your code tightly coupled plus mocking the singleton could be difficult.
 
 - How to implement singleton design pattern? 
-  - The easiest way to do this is to make the constructor private and initialize the single instance within the class.
+  - The easiest way to do this is to **make the constructor private** and **initialize the single instance within the class**.
  
 - To create a singleton:
   - make the constructor private
-  - disable cloning
-  - disable extension 
-  - create a static variable to house the instance
+  - disable cloning (deleting copy ctor & copy assignment)
+  - create a static instance 
  
-- The Singleton pattern doesn’t specify when an instance is created, just that there can be at most one instance of the class created.
 - It’s not necessary for the instance to be created when the class is loaded, it just needs to be created before it’s needed.
-  - getInstance() should initialize the instance before returning it, if it hasn’t yet been initialized
+  - In that case, getInstance() member function should initialize the instance before returning it, if it hasn’t yet been initialized
   - This technique is known as deferred initialization (lazy initialization or lazy loading).
-
-/----------------------------------------------
-/----------------------------------------------
-
-- **Example** : Singleton Pattern 
-  - Using a logging class to write debugging messages to the console. 
-  - How would you implement this logging facility using the Singleton pattern?
 
 // ----------------------------------------------------
 // ----------------------------------------------------
@@ -57,24 +39,24 @@
 #include<iostream> 
 #include<chrono> 
 
+// Return a singleton as a pointer
+// ----------------------------------------------------
 // ----------------------------------------------------
 
-// Return a singleton as a pointer
-// This guarantees that it is created and destroyed only once. 
-// Stop the compiler generating methods of copy the object with copy constructor
 class President {
 public:
-	static President* getInstance()
-	{
+
+	static President* getInstance()	{
 		if (!instance)
 			instance = new President();
 		return instance;
 	}
+
 	// deleted copy constructor
-	President(President const& pre) = delete;
+	President(President const& president) = delete;
 
 	// deleted copy assignment
-	President& operator=(President const& pre) = delete;
+	President& operator=(President const& president) = delete;
 
 	// getter - setter functions
 	int getData()const { return this->data; }
@@ -83,23 +65,19 @@ public:
 private:
 	static President* instance;
 	int data;
-
-	// private constructor
-	President() : data{ 0 } {	}
+	President() : data{ 0 } {	} // private ctor
 };
 
 //Initialize pointer to zero so that it can be initialized in first call to getInstance
 President* President::instance = 0;
 
+// Return a singleton as a reference (lazy initialization)
+// ----------------------------------------------------
 // ----------------------------------------------------
 
-// Return a singleton as a reference
-// Use the static in a function method.
-// It also gives you "lazy initialization". 
 class Ceo {
 public:
-	static Ceo& getInstance()
-	{
+	static Ceo& getInstance() {
 		static Ceo instance;
 		return instance;
 	}
@@ -109,13 +87,14 @@ public:
 
 private:
 	int data;
-	Ceo() {}						// private constructor 
+	Ceo() {}						// private ctor 
 	Ceo(Ceo const& ceo);			// copy constructor
 	Ceo& operator=(Ceo const& ceo); // copy assignment
 
 };
 
 int main() {
+
 	President* president = president->getInstance();
 	std::cout << president->getData() << "\n"; // 0 
 	president->setData(100);
@@ -130,7 +109,10 @@ int main() {
 	return 0;
 }
 
+
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** :
+- **Example** : Singleton Pattern 
+  - Using a logging class to write debugging messages to the console. 
+  - How would you implement this logging facility using the Singleton pattern?

@@ -4,10 +4,13 @@
 //#define CREATIONAL_ABSTRACT_FACTORY_PROBLEM
 //#define CREATIONAL_ABSTRACT_FACTORY
 //#define CREATIONAL_FUNCTIONAL_FACTORY
-#define CREATIONAL_BUILDER
-//#define CREATIONAL_PROTOTYPE_EXAMPLE_I
-//#define CREATIONAL_PROTOTYPE_EXAMPLE_II
-//#define CREATIONAL_SINGLETON
+//#define CREATIONAL_BUILDER
+//#define CREATIONAL_BUILDER_I
+//#define CREATIONAL_PROTOTYPE_I
+//#define CREATIONAL_PROTOTYPE_II
+//#define CREATIONAL_PROTOTYPE_III
+//#define CREATIONAL_PROTOTYPE_FACTORY
+#define CREATIONAL_SINGLETON
 // ----------------------------------------------
 // ----------------------------------------------
 //#define BEHAVIORAL_CHAIN_OF_RESPONSIBILIY
@@ -64,7 +67,7 @@
 // ----------------------------------------------
 
 /* Creational Builder Desing Pattern */
-#if defined(CREATIONAL_BUILDER) 
+#if defined(CREATIONAL_BUILDER) || defined(CREATIONAL_BUILDER_I)
 	#include "13_Creational_Builder.h"
 #endif
 
@@ -72,7 +75,7 @@
 // ----------------------------------------------
 
 /* Creational Prototype Design Pattern */
-#if defined(CREATIONAL_PROTOTYPE_EXAMPLE_I) || defined(CREATIONAL_PROTOTYPE_EXAMPLE_II)
+#if defined(CREATIONAL_PROTOTYPE_I) || defined(CREATIONAL_PROTOTYPE_II) || defined(CREATIONAL_PROTOTYPE_III)
 	#include "14_Creational_Prototype.h"
 #endif
 

@@ -25,7 +25,7 @@
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: Before applying Builder Desing Pattern
+- **Example**: Before applying Builder Design Pattern
 
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
@@ -41,18 +41,18 @@ private:
 	bool visible;
 	bool modal;
 	bool dialog;
-	// rest of class omitted
 };
 
 int main(){
-
+ 
+	// creating object in a classic way (not clear)
 	Window* w = new Window(false, true, true);
 }
 
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: After applying Builder Desing Pattern
+- **Example**: After applying Builder Design Pattern
 
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
@@ -68,12 +68,11 @@ private:
 	bool visible;
 	bool modal;
 	bool dialog;
-	// rest of class omitted
 };
 
 class WindowBuilder {
 public:
-	WindowBuilder() {}
+	WindowBuilder() :visible{ false },modal{ false }, dialog{ false } {}
 
 	WindowBuilder setDialog(bool flag) {
 		dialog = flag;
@@ -95,17 +94,18 @@ public:
 	}
 
 private:
-	bool dialog;
 	bool modal;
 	bool visible;
+	bool dialog;
 };
 
-int main(){
+int main() {
 
-	Window* w = new Window(false, true, true);   // without builder
-	WindowBuilder* window = new WindowBuilder(); // with builder
+	// creating object using builder class (WindowBuilder)
+	WindowBuilder* window = new WindowBuilder();
 	Window wbuilder = window->setVisible(false).setModal(true).setDialog(true).build();
-		
+
+	return 0;
 }
 
 /----------------------------------------------
@@ -113,7 +113,10 @@ int main(){
 
 - **Example**: Burger Example with builder design pattern
 
-class Burger{
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
+class Burger {
 public:
 	Burger(bool cheese, bool pepperoni, bool lettuce, bool tomato) {
 		this->cheese = cheese;
@@ -121,7 +124,6 @@ public:
 		this->lettuce = lettuce;
 		this->tomato = tomato;
 	}
-
 private:
 	bool cheese = false;
 	bool pepperoni = false;
@@ -129,42 +131,35 @@ private:
 	bool tomato = false;
 };
 
-class BurgerBuilder{
+class BurgerBuilder {
 public:
-	BurgerBuilder(int size)
-	{
+	BurgerBuilder(int size)	{
 		this->size = size;
 	}
 
-	BurgerBuilder addPepperoni(bool flag)
-	{
+	BurgerBuilder addPepperoni(bool flag) {
 		this->pepperoni = flag;
 		return *this;
 	}
 
-	BurgerBuilder addLettuce(bool flag)
-	{
+	BurgerBuilder addLettuce(bool flag)	{
 		this->lettuce = flag;
 		return *this;
 	}
 
-	BurgerBuilder addCheese(bool flag)
-	{
+	BurgerBuilder addCheese(bool flag) {
 		this->cheese = flag;
 		return *this;
 	}
 
-	BurgerBuilder addTomato(bool flag)
-	{
+	BurgerBuilder addTomato(bool flag) {
 		this->tomato = flag;
 		return *this;
 	}
 
-	Burger build()
-	{
+	Burger build() {
 		return *new Burger(cheese, pepperoni, lettuce, tomato);
 	}
-
 private:
 	int size;
 	bool cheese = false;
@@ -173,14 +168,15 @@ private:
 	bool tomato = false;
 };
 
+int main() {
 
-int main()
-{
-	/*BurgerBuilder* burger = new BurgerBuilder(14);
-	Burger bbuilder = burger->addPepperoni(true).addLettuce(false).addTomato(false).build();*/
+	// creating object using builder class (BurgerBuilder)
+	BurgerBuilder *burger = new BurgerBuilder(14);
+	Burger bbuilder = burger->addPepperoni(true).addLettuce(false).addTomato(false).build();
 
-	Burger bbuilder = (new BurgerBuilder(14))->addPepperoni(true).addLettuce(false).addTomato(false).build();
+	return 0;
 }
+
 
 /----------------------------------------------
 /----------------------------------------------

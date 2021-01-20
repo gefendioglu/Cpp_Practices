@@ -1,10 +1,20 @@
 ﻿
 ## Prototype Desing Patterns (Clone Pattern)
 
+- Creating object based on an existing object through cloning.
+
+- Adding and removing products at run-time and specifying new objects by varying values 
+
+- It allows you to create a copy of an existing object and modify it to your needs. 
+
+- The prototype is quite simply a partially or fully initialized object that you make a copy of. 
+
+- Prototype Design Pattern is an obvious choice while you are working with the Command Design Pattern. For example, in HTTP request most of the time header & footer content remains the same, what changes are data. In such a scenario, you should not create an object from scratch.
+
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: The problem to use Prototype Design Pattern
+- **Example**: Before applying Prototype Design Pattern Solution
 
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
@@ -12,8 +22,7 @@
 class Office {
 public:
     Office(std::string street, std::string city, int32_t cubical)
-        :m_street(street), m_city(city), m_cubical(cubical) {}
-
+        :m_street{ street }, m_city{ city }, m_cubical{ cubical } {}
 private:
     std::string m_street;
     std::string m_city;
@@ -22,8 +31,7 @@ private:
 
 class Employee {
 public:
-    Employee(std::string name, Office office) :m_name(name), m_office(office) {}
-
+    Employee(std::string name, Office office) :m_name{ name }, m_office{ office } {}
 private:
     std::string m_name;
     Office m_office;
@@ -38,12 +46,10 @@ int main() {
     return EXIT_SUCCESS;
 }
 
-
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: Prototype Design Pattern Solution
-
+- **Example**: After applying Prototype Design Pattern Solution
 
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
@@ -80,10 +86,13 @@ int main() {
     return EXIT_SUCCESS;
 }
 
+
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: Prototype Factory Design Pattern Solution
+### Prototype - Factory Design Pattern
+
+- **Example**: Prototype Factory Design Pattern Solution for the same problem 
 
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
@@ -96,25 +105,26 @@ struct Office {
 
 class Employee {
 public:
-
     // Copy constructor
     Employee(const Employee& employee) : m_name{ employee.m_name }, m_office{ new Office{*employee.m_office} }
     { }
 
     // Copy assignment
     Employee& operator=(const Employee& rhs) {
-        if (this == &rhs) return *this;
+        if (this == &rhs) 
+            return *this;
         m_name = rhs.m_name;
         m_office = new Office{ *rhs.m_office };
         return *this;
     }
 
     friend std::ostream& operator<<(std::ostream& os, const Employee& employee) {
-        return os << employee.m_name 
-            << " works at " << employee.m_office->m_street 
-            << " " << employee.m_office->m_city 
+        return os << employee.m_name
+            << " works at " << employee.m_office->m_street
+            << " " << employee.m_office->m_city
             << " seats @" << employee.m_office->m_cubical;
     }
+    friend class EmployeeFactory;
 
 private:
     std::string m_name;
@@ -122,13 +132,12 @@ private:
 
     // Private constructor
     // Direct instance can not be created except for "class EmployeeFactory"
-    Employee(std::string name, Office* office) : m_name(name), m_office(office) {}
-    friend class EmployeeFactory;
+    Employee(std::string name, Office* office) : m_name{ name }, m_office{ office } {}
 };
 
+// Implementation of Factory Design Pattern
 class EmployeeFactory {
 public:
-
     static std::unique_ptr<Employee> NewMainOfficeEmployee(std::string name, int32_t cubical) {
         return NewEmployee(name, cubical, main);
     }
@@ -137,9 +146,9 @@ public:
     }
 
 private:
-
     static Employee main;
     static Employee aux;
+
     static std::unique_ptr<Employee> NewEmployee(std::string name, int32_t cubical, Employee& proto) {
         auto employee = std::make_unique<Employee>(proto);
         employee->m_name = name;
@@ -155,7 +164,7 @@ Employee EmployeeFactory::aux{ "", new Office{"RMZ Ecoworld ORR", "London", 123}
 int main() {
 
     auto jane = EmployeeFactory::NewMainOfficeEmployee("Jane Doe", 125);
-    auto jack = EmployeeFactory::NewAuxOfficeEmployee("Jack Doe", 123);
+    auto jack = EmployeeFactory::NewAuxOfficeEmployee("Jack Doe", 123);   
     std::cout << *jane << "\n" << *jack << "\n";
 
     return EXIT_SUCCESS;
@@ -166,60 +175,77 @@ int main() {
     */
 }
 
-
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: The problem about not have virtual constructor 
-  -	C++ has the support of polymorphic object destruction using it’s base class’s virtual destructor. 
-  -	Equivalent support for creation and copying of objects is missing as С++ doesn’t support virtual constructor & virtual copy constructors.
+### Prototype Design Pattern to Implement Virtual Copy Constructor
+
+- The problem about not have virtual ctor in C++.
+- С++ doesn’t support virtual ctor & virtual copy ctor.
+- C++ has the support of polymorphic object destruction using it’s base class’s virtual destruction.
+
+- **Example**: The problem about that there is no virtual ctor & virtual copy definitions in C++
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
 
 class animal {
 public:
-    virtual ~animal() { std::cout << "~animal\n"; }
+    // virtual destructor
+    virtual ~animal() { 
+        std::cout << "animal::~animal()\n"; 
+    }
 };
 
 class dog : public animal {
 public:
-    ~dog() { std::cout << "~dog\n"; }
+    ~dog() { 
+        std::cout << "dog::~dog()\n"; 
+    }
 };
 
 class cat : public animal {
 public:
-    ~cat() { std::cout << "~cat\n"; }
+    ~cat() { 
+        std::cout << "cat::~cat()\n"; 
+    }
 };
 
-// Not sure whether dog would be passed here or cat
-void who_am_i(animal* who) { 
-    // How to `create` the object of same type i.e. pointed by who ?
-    // How to `copy` object of same type i.e. pointed by who ?
-    delete who; // you can delete appropriate object pointed by who, thanks to virtual destructor
+void create_animal(animal* animal) {
+    // How to create the object of same type pointed by animal ?
+    // How to copy the object of same type pointed by animal?
+    // the created object pointed by animal class is deleted by using virtual destructor
+    delete animal; 
 }
 
 int main() {
-    
+
     animal* animal_dog = new dog();
     animal* animal_cat = new cat();
-    
-    who_am_i(animal_dog); 
-    who_am_i(animal_cat); 
+
+    create_animal(animal_dog);
+    create_animal(animal_cat);
 
     /*
-        ~dog
-        ~animal
-        ~cat
-        ~animal
+        dog::~dog()
+        animal::~animal()
+        cat::~cat()
+        animal::~animal()
     */
 
     return 0;
 }
 
-
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: Leveraging Prototype Design Pattern to Implement Virtual Copy Constructor (through create() and clone() functions)
+- **Example**: Prototype Design Pattern Sample
 
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+#include<memory> 
+
+// pure virtual functions - abstract class
 class animal {
 public:
     virtual ~animal() = default;
@@ -229,14 +255,12 @@ public:
 
 class dog :public animal {
 public:
-    // Derived (dog) --> Base (animal) - upcasting
-    std::unique_ptr<animal> create() { 
+    std::unique_ptr<animal> create() override { 
         std::cout << "creating dog object" << "\n";
         return std::make_unique<dog>(); 
-        
     }
 
-    std::unique_ptr<animal> clone() { 
+    std::unique_ptr<animal> clone() override {
         std::cout << "cloning dog object" << "\n";
         return std::make_unique<dog>(*this); 
     }
@@ -244,7 +268,6 @@ public:
 
 class cat : public animal {
 public:
-    // Derived (cat) --> Base (animal) - upcasting
     std::unique_ptr<animal> create() {
         std::cout << "creating cat object" << "\n";
         return std::make_unique<cat>(); 
@@ -256,19 +279,22 @@ public:
     }
 };
 
-void who_am_i(animal* who) { 
-    auto new_who = who->create(); 
-    auto duplicate_who = who->clone(); 
-    delete who; 
+void create_animal(animal* animal) { 
+    auto new_animal = animal->create();
+    auto clone_animal = animal->clone();
+    delete animal;
 }
 
 int main() {
-    
+
+    // Derived (dog) --> Base (animal) - upcasting
     animal* animal_dog = new dog();
+
+    // Derived (cat) --> Base (animal) - upcasting
     animal* animal_cat = new cat();
     
-    who_am_i(animal_dog); 
-    who_am_i(animal_cat); 
+    create_animal(animal_dog);
+    create_animal(animal_cat);
 
     /*
         creating dog object
@@ -279,3 +305,9 @@ int main() {
 
     return 0;
 }
+
+/----------------------------------------------
+/----------------------------------------------
+
+
+
