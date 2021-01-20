@@ -1,6 +1,25 @@
 
 ## Adapter Design Pattern
 
+- Adapter pattern lets you wrap an incompatible object in an adapter to make it compatible with another class.
+
+- Adapter pattern is commonly used with an existing application to make some incompatible classes work together nicely.
+
+- Adapter pattern converts one interface to another, without adding additional functionalities.
+
+- It allows the interface of an existing class to be used as another interface.
+
+- When working on compatibility between libraries, modules, plugins, etc., adapter design pattern is probably used. In order to create a generic adapter, C++ templates are used. 
+
+- Use the Adapter class when you want to use some existing class, but its interface isn’t compatible with the rest of your code.
+
+- Adapter Design pattern is also used in STL. **Stack** is an adaptor from **vector**; **queue & priority_queue** are adaptors from **deque**.
+  - Whenever executing **stack::push()**, the underlying vector does **vector::push_back()**.
+
+- The advantages of Adapter Design Pattern:
+  - Open-Closed Principle: One advantage of the Adapter Pattern is that you don’t need to change the existing class or interface. 
+  - Dependency Inversion Principle: binary compatibility between multiple releases can be preserved.
+
 // ----------------------------------------------------
 // ----------------------------------------------------
 

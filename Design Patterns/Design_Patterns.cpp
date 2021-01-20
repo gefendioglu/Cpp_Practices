@@ -10,7 +10,7 @@
 //#define CREATIONAL_PROTOTYPE_II
 //#define CREATIONAL_PROTOTYPE_III
 //#define CREATIONAL_PROTOTYPE_FACTORY
-#define CREATIONAL_SINGLETON
+//#define CREATIONAL_SINGLETON
 // ----------------------------------------------
 // ----------------------------------------------
 //#define BEHAVIORAL_CHAIN_OF_RESPONSIBILIY
@@ -28,7 +28,7 @@
 //#define BEHAVIORAL_TEMPLATE
 // ----------------------------------------------
 // ----------------------------------------------
-//#define STRUCTURAL_ADAPTER_CLASSICAL
+#define STRUCTURAL_ADAPTER_CLASSICAL
 //#define STRUCTURAL_ADAPTER_PLUGGIN_I
 //#define STRUCTURAL_ADAPTER_PLUGGIN_II
 //#define STRUCTURAL_BRIDGE_I

@@ -21,8 +21,11 @@
 ## Creational Design Patterns
 
   -	Creational patterns are focused towards how to instantiate an object or group of related objects.
+
   -	Creational design patterns are design patterns that deal with object creation mechanisms. 
+
   -	The basic form of object creation could result in design problems or added complexity to the design. Creational design patterns solve this problem by somehow controlling this object creation.
+
   - Types of Creational Design Patterns: 
 	- Factory Design Pattern
 	- Builder Design Pattern
@@ -35,8 +38,10 @@
 
 ## Structural Design Patterns
 
-  -	Structural patterns are mostly concerned with object composition or in other words how the entities can use each other.
-  -	structural design patterns are design patterns that ease the design by identifying a simple way to realize relationships between entities.
+  -	Structural patterns are mostly concerned with **object composition**.
+
+  -	Structural design patterns ease the design by identifying a simple way to realize relationships between entities.
+
   - Types of Structural Design Patterns: 
     - Adapter Design Pattern
 	- Bridge Design Pattern 
@@ -51,8 +56,9 @@
 
 ## Behavioral Design Patterns
 
-  - Behavioral design patterns are design patterns that identify common communication patterns between objects and realize these patterns. By doing so, these patterns increase flexibility in carrying out this communication.
-  - Types of Structural Design Patterns: 
+  - Behavioral design patterns identify common communication patterns between objects. These patterns increase flexibility.
+
+  - Types of Behavioral Design Patterns: 
     - Chain of Responsibility Design Pattern
 	- Command Design Pattern
 	- Interpreter Design Pattern

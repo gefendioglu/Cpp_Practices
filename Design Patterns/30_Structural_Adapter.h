@@ -8,8 +8,9 @@
 // Base Class
 class Point {
 public:
-    virtual void draw() { std::cout << "Point\n"; }
-
+    virtual void draw() { 
+		std::cout << "Point\n";
+	}
 private:
     int32_t m_x;
 };
@@ -18,9 +19,8 @@ private:
 template<class T>
 class GenericLineAdapter : public Point {
 public:
-    GenericLineAdapter(T& line) : m_line(line) {}
+	GenericLineAdapter(T& line) : m_line{ line } {}
     void draw() { m_line.draw(); }
-
 private:
     T& m_line;
 };
@@ -28,9 +28,11 @@ private:
 // Derived Class (from Point base class)
 class Point2D : public Point {
 public:
-    void draw() override { std::cout << "Point2D\n"; }
+    void draw() override { 
+		std::cout << "Point2D\n"; 
+	}
 private:
-    int32_t m_y;
+    int32_t m_point2d;
 };
 
 // Global Function Definition
@@ -41,8 +43,9 @@ void draw_point(Point& p) {
 // "Line" class is composed of "Point2D" derived class
 class Line {
 public:
-    void draw() { std::cout << "Line\n"; }
-
+    void draw() {
+		std::cout << "Line\n"; 
+	}
 private:
     Point2D m_start;
     Point2D m_end;
@@ -51,9 +54,10 @@ private:
 // Adapter class for "Line" class
 class LineAdapter : public Point {
 public:
-    LineAdapter(Line& line) : m_line(line) {}
-    void draw() override { m_line.draw(); }
-
+	LineAdapter(Line& line) : m_line{ line } {}
+    void draw() override { 
+		m_line.draw(); 
+	}
 private:
     Line& m_line;
 };
