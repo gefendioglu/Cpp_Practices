@@ -23,8 +23,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Containers", "Containers\Co
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "STL", "STL\STL.vcxproj", "{4802A810-0BEE-45D5-9019-CFC814132E87}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Design_Patterns_Builder", "Design_Patterns_Builder\Design_Patterns_Builder.vcxproj", "{536604C5-669B-4D7B-80C4-95EC68F4AC5E}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "System_Design", "System_Design\System_Design.vcxproj", "{237FCEEE-579C-421B-9DE2-EEA88EE56AA0}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cpp_Features", "Cpp_Features\Cpp_Features.vcxproj", "{40E7F295-48DD-4BC2-8C88-247D8A3FC9B5}"
@@ -119,14 +117,6 @@ Global
 		{4802A810-0BEE-45D5-9019-CFC814132E87}.Release|x64.Build.0 = Release|x64
 		{4802A810-0BEE-45D5-9019-CFC814132E87}.Release|x86.ActiveCfg = Release|Win32
 		{4802A810-0BEE-45D5-9019-CFC814132E87}.Release|x86.Build.0 = Release|Win32
-		{536604C5-669B-4D7B-80C4-95EC68F4AC5E}.Debug|x64.ActiveCfg = Debug|x64
-		{536604C5-669B-4D7B-80C4-95EC68F4AC5E}.Debug|x64.Build.0 = Debug|x64
-		{536604C5-669B-4D7B-80C4-95EC68F4AC5E}.Debug|x86.ActiveCfg = Debug|Win32
-		{536604C5-669B-4D7B-80C4-95EC68F4AC5E}.Debug|x86.Build.0 = Debug|Win32
-		{536604C5-669B-4D7B-80C4-95EC68F4AC5E}.Release|x64.ActiveCfg = Release|x64
-		{536604C5-669B-4D7B-80C4-95EC68F4AC5E}.Release|x64.Build.0 = Release|x64
-		{536604C5-669B-4D7B-80C4-95EC68F4AC5E}.Release|x86.ActiveCfg = Release|Win32
-		{536604C5-669B-4D7B-80C4-95EC68F4AC5E}.Release|x86.Build.0 = Release|Win32
 		{237FCEEE-579C-421B-9DE2-EEA88EE56AA0}.Debug|x64.ActiveCfg = Debug|x64
 		{237FCEEE-579C-421B-9DE2-EEA88EE56AA0}.Debug|x64.Build.0 = Debug|x64
 		{237FCEEE-579C-421B-9DE2-EEA88EE56AA0}.Debug|x86.ActiveCfg = Debug|Win32

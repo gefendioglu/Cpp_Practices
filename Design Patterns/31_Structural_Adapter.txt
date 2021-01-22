@@ -90,6 +90,63 @@ int main() {
     return EXIT_SUCCESS;
 }
 
+// ----------------------------------------------------
+// ----------------------------------------------------
+
+- **Example** : Pluggin Adapter Design Pattern using with legacy code
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+#include<functional> 
+
+/* Legacy code */
+/* ---------------------------------------------- */
+class Beverage {
+public:
+	virtual void getBeverage() = 0;
+};
+
+class CoffeeMaker : public Beverage {
+public:
+	void Brew() { 
+		std::cout << "brewing coffee" << "\n"; 
+	}
+	void getBeverage() override { Brew(); }
+};
+
+void make_drink(Beverage& drink) {
+	drink.getBeverage();
+}
+/* ---------------------------------------------- */
+
+class JuiceMaker {
+public:
+	void Squeeze() { 
+		std::cout << "making Juice" << "\n"; 
+	}
+};
+
+// Adapter class for "Beverage" base class 
+class Adapter : public Beverage {
+public:
+	Adapter(CoffeeMaker* cm) { m_request = [cm]() { cm->Brew(); }; }
+	Adapter(JuiceMaker* jm) { m_request = [jm]() { jm->Squeeze(); }; }
+	void getBeverage() override { m_request(); }
+
+private:
+	std::function<void()> m_request;
+};
+
+int main() {
+	 
+	Adapter adp1 = new CoffeeMaker();
+	make_drink(adp1); // brewing coffee 
+
+	Adapter adp2 = new JuiceMaker();
+	make_drink(adp2); // making Juice
+
+	return EXIT_SUCCESS;
+}
 
 // ----------------------------------------------------
 // ----------------------------------------------------

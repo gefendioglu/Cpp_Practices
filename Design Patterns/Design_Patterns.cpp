@@ -28,9 +28,9 @@
 //#define BEHAVIORAL_TEMPLATE
 // ----------------------------------------------
 // ----------------------------------------------
-#define STRUCTURAL_ADAPTER_CLASSICAL
+//#define STRUCTURAL_ADAPTER_CLASSICAL
 //#define STRUCTURAL_ADAPTER_PLUGGIN_I
-//#define STRUCTURAL_ADAPTER_PLUGGIN_II
+#define STRUCTURAL_ADAPTER_PLUGGIN_II
 //#define STRUCTURAL_BRIDGE_I
 //#define STRUCTURAL_BRIDGE_II
 //#define STRUCTURAL_COMPOSITE_I

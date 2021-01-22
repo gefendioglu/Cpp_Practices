@@ -9,7 +9,7 @@
 class Point {
 public:
     virtual void draw() { 
-		std::cout << "Point\n";
+		std::cout << "Point::draw()\n";
 	}
 private:
     int32_t m_x;
@@ -29,7 +29,7 @@ private:
 class Point2D : public Point {
 public:
     void draw() override { 
-		std::cout << "Point2D\n"; 
+		std::cout << "Point2D::draw()\n"; 
 	}
 private:
     int32_t m_point2d;
@@ -44,7 +44,7 @@ void draw_point(Point& p) {
 class Line {
 public:
     void draw() {
-		std::cout << "Line\n"; 
+		std::cout << "Line::draw()\n"; 
 	}
 private:
     Point2D m_start;
@@ -92,7 +92,9 @@ public:
 
 class CoffeeMaker : public Beverage {
 public:
-	void Brew() { std::cout << "brewing coffee" << "\n"; }
+	void Brew() { 
+		std::cout << "brewing coffee" << "\n"; 
+	}
 	void getBeverage() override { Brew(); }
 };
 
@@ -103,7 +105,9 @@ void make_drink(Beverage& drink) {
 
 class JuiceMaker {
 public:
-	void Squeeze() { std::cout << "making Juice" << "\n"; }
+	void Squeeze() { 
+		std::cout << "making Juice" << "\n"; 
+	}
 };
 
 // Adapter class for "Beverage" base class 
@@ -118,7 +122,7 @@ private:
 };
 
 int main() {
-
+	 
 	Adapter adp1 = new CoffeeMaker();
 	make_drink(adp1); // brewing coffee 
 
@@ -139,32 +143,29 @@ int main() {
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
 
-// Virtual Base Class 
+// Pure Virtual Base Class 
 class Bird {
 public:
-	// birds implement Bird interface that allows them to fly and make sounds adaptee interface 
 	virtual void fly() = 0;
 	virtual void makeSound() = 0;
-
 };
 
 // Derived class (Sparrow) from virtual base class (Bird)
 class Sparrow : public Bird {
 public:
-	// overriding fly() virtual class 
 	void fly() override {
-		std::cout << "Flying" << "\n";
+		std::cout << "Sparrow::fly()" << "\n";
 	}
 
 	void makeSound() override {
-		std::cout << "Chirp Chirp" << "\n";
+		std::cout << "Sparrow::makeSound() - Chirp Chirp" << "\n";
 	}
 };
 
-// Virtual Base Class 
+// Pure Virtual Base Class 
 class ToyDuck {
 public:
-	// target interface toyducks dont fly they make squeaking sound 
+	//toyducks don't fly, they only make squeaking sound 
 	virtual void squeak() = 0;
 };
 
@@ -172,23 +173,20 @@ public:
 class PlasticToyDuck : public ToyDuck {
 public:
 	void squeak() override {
-		std::cout << "Squeak" << "\n";
+		std::cout << "PlasticToyDuck::squeak()" << "\n";
 	}
 };
 
 // Adapter class (inherited from base class)
 class BirdAdapter : public ToyDuck {
 public:
-	BirdAdapter(Bird* b) {
-		// Referencing to the object we are adapting 
-		bird = b;
+	BirdAdapter(Bird* bird) {
+		this->bird = bird;
 	}
 
 	void squeak() override {
-		// translate the methods appropriately 
 		bird->makeSound();
 	}
-
 private:
 	Bird* bird;
 };
@@ -219,6 +217,8 @@ int main() {
 		Chirp Chirp
 		ToyDuck...Squeak
 		BirdAdapter...Chirp Chirp
+
+
 	*/
 }
 
