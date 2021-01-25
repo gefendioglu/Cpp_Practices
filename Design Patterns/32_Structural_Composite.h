@@ -15,7 +15,9 @@ public:
 // Derived - Concrete Class (from base class)
 class Circle : public Shape {
 public:
-    void draw() override { std::cout << "Circle" << "\n"; }
+    void draw() override { 
+        std::cout << "Circle" << "\n"; 
+    }
 };
 
 // Derived - Concrete Class (from base class)
@@ -24,34 +26,34 @@ public:
     std::string m_name;
     std::vector<Shape*> m_objects;
     Group(const std::string& name) : m_name{ name } {}
-
+    
     void draw() override {
         std::cout << "Group " << m_name.c_str() << " contains:" << "\n";
         for (auto&& objects : m_objects)
             objects->draw();
     }
 };
-//
-//int main() {
-//
-//    Group root("root");
-//    root.m_objects.push_back(new Circle);
-//
-//    Group subgroup("sub");
-//    subgroup.m_objects.push_back(new Circle);
-//
-//    root.m_objects.push_back(&subgroup);
-//    root.draw();
-//
-//    return EXIT_SUCCESS;
-//
-//    /*
-//        Group root contains:
-//        Circle
-//        Group sub contains:
-//        Circle
-//    */
-//}
+
+int main() {
+
+    Group root("root");
+    root.m_objects.push_back(new Circle);
+
+    Group subgroup("sub");
+    subgroup.m_objects.push_back(new Circle);
+
+    root.m_objects.push_back(&subgroup);
+    root.draw();
+
+    return EXIT_SUCCESS;
+
+    /*
+        Group root contains:
+        Circle
+        Group sub contains:
+        Circle
+    */
+}
 
 #endif // STRUCTURAL_COMPOSITE_I
 

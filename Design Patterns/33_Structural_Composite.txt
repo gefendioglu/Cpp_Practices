@@ -1,6 +1,14 @@
 
 ## Composite Design Pattern
 
+- All about treating the group of objects in the same manner as a single object.
+
+- The intent of a composite is to “compose” objects into tree structures 
+
+- Composing objects into tree structures to represent part-whole hierarchies.
+
+- Client use the "component class interface" to interact with objects in the composition structure.
+
 // ----------------------------------------------------
 // ----------------------------------------------------
 

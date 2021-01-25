@@ -5,6 +5,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
 
+// Pure virtual class (abstract or interface class)
 class DrawingAPI {
 public:
 	virtual void drawCircle() = 0;
@@ -33,25 +34,31 @@ public:
 	}
 };
 
+// Shape class is an interface between DrawAPI and the shape types (Circle, Square)
 class Shape {
 public:
 	Shape(DrawingAPI& drawingAPI) : m_drawingAPI{ drawingAPI } {}
 	virtual void draw() = 0;
-
 protected:
 	DrawingAPI& m_drawingAPI;
 };
 
 class Circle : public Shape {
 public:
+	// Delegating base class constructor
 	Circle(DrawingAPI& drawingAPI) : Shape{ drawingAPI } {}
-	void draw() override { m_drawingAPI.drawCircle(); }
+	void draw() override { 
+		m_drawingAPI.drawCircle(); 
+	}
 };
 
 class Square : public Shape {
 public:
+	// Delegating base class constructor
 	Square(DrawingAPI& drawingAPI) : Shape{ drawingAPI } {}
-	void draw() override { m_drawingAPI.drawSquare(); }
+	void draw() override { 
+		m_drawingAPI.drawSquare(); 
+	}
 };
 
 int main() {
@@ -86,29 +93,41 @@ int main() {
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
 
-// The implementor for bridge pattern 
+// The implementor class in bridge pattern 
 class Workshop {
 public:
 	virtual void work() = 0;
 };
 
-// The abstraction in bridge pattern 
-class Vehicle {
+// Concrete implementation 
+class Produce : public Workshop {
 public:
-	virtual void manufacture() = 0;
-
-protected:
-	Workshop* workShop1;
-	Workshop* workShop2;
-
-	Vehicle(Workshop* wrkShp1, Workshop* wrkShp2)
-	{
-		workShop1 = wrkShp1;
-		workShop2 = wrkShp2;
+	void work() override {
+		std::cout << "Produced ";
 	}
 };
 
-// Refine abstraction 1 in bridge pattern 
+// Concrete implementation 
+class Assemble :public Workshop {
+public:
+	void work()override {
+		std::cout << "Assembled." << "\n";
+	}
+};
+
+// The abstraction class in bridge pattern 
+class Vehicle {
+public:
+	Vehicle(Workshop* wrkShp1, Workshop* wrkShp2){
+		workShop1 = wrkShp1;
+		workShop2 = wrkShp2;
+	}
+	virtual void manufacture() = 0;
+protected:
+	Workshop* workShop1;
+	Workshop* workShop2;
+};
+
 class Car : public Vehicle {
 public:
 	// Delegating base class constructor
@@ -121,7 +140,6 @@ public:
 	}
 };
 
-// Refine abstraction 2 in bridge pattern 
 class Bike : public Vehicle {
 public:
 	// Delegating base class constructor
@@ -131,23 +149,6 @@ public:
 		std::cout << "Bike ";
 		workShop1->work();
 		workShop2->work();
-	}
-};
-
-// Concrete implementation 1 for bridge pattern 
-class Produce : public Workshop {
-public:
-	void work() override {
-		std::cout << "Produced";
-	}
-};
-
-// Concrete implementation 2 for bridge pattern 
-class Assemble :public Workshop {
-public:
-	void work()override {
-		std::cout << " And";
-		std::cout << " Assembled." << "\n";
 	}
 };
 
@@ -162,10 +163,9 @@ int main() {
 	return 0;
 
 	/*
-		Car Produced And Assembled.
-		Bike Produced And Assembled.
+		Car Produced Assembled.
+		Bike Produced Assembled.
 	*/
-
 }
 
 #endif // STRUCTURAL_BRIDGE_II

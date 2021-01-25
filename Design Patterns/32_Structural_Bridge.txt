@@ -1,6 +1,18 @@
 
 ## Bridge Design Pattern
 
+-	To separate the interface (abstraction) from its implementation.
+
+- It’s about connecting components through abstractions using aggregation/composition rather than inheritance/generalization.
+
+- This pattern involves an interface class which acts as a bridge.
+
+- This pattern provides flexibility to develop abstraction and the implementation independently.  
+
+- With the usage of PIMPL idiom (a form of Bridge Pattern), the implementation details can be hiden from the client.
+  - All about hiding the implementation details of a particular class by sticking it into separate implementation pointed by pointer.
+  - TO BE COMPLETED and EXAMPLE is added !!!
+
 // ----------------------------------------------------
 // ----------------------------------------------------
 
@@ -65,27 +77,28 @@ int main() {
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
 
-class DrawingAPI { 
-public: 
+// Pure virtual class (abstract or interface class)
+class DrawingAPI {
+public:
 	virtual void drawCircle() = 0;
 	virtual void drawSquare() = 0;
-	
+
 };
 
 class DrawingAPI_1 : public DrawingAPI {
 public:
-	void drawCircle() { 
-		std::cout << "Circle is drawn by API 1" << "\n"; 
+	void drawCircle() {
+		std::cout << "Circle is drawn by API 1" << "\n";
 	}
-	void drawSquare() { 
-		std::cout << "Square is drawn by API 1" << "\n"; 
+	void drawSquare() {
+		std::cout << "Square is drawn by API 1" << "\n";
 	}
 };
 
 class DrawingAPI_2 : public DrawingAPI {
 public:
-	void drawCircle() { 
-		std::cout << "Circle is drawn by API 2" << "\n"; 
+	void drawCircle() {
+		std::cout << "Circle is drawn by API 2" << "\n";
 	}
 
 	void drawSquare() {
@@ -93,25 +106,31 @@ public:
 	}
 };
 
+// Shape class is an interface between DrawAPI and the shape types (Circle, Square)
 class Shape {
 public:
 	Shape(DrawingAPI& drawingAPI) : m_drawingAPI{ drawingAPI } {}
 	virtual void draw() = 0;
-
 protected:
-	DrawingAPI& m_drawingAPI;   
+	DrawingAPI& m_drawingAPI;
 };
 
 class Circle : public Shape {
 public:
+	// Delegating base class constructor
 	Circle(DrawingAPI& drawingAPI) : Shape{ drawingAPI } {}
-	void draw() override { m_drawingAPI.drawCircle(); }
+	void draw() override { 
+		m_drawingAPI.drawCircle(); 
+	}
 };
 
 class Square : public Shape {
 public:
+	// Delegating base class constructor
 	Square(DrawingAPI& drawingAPI) : Shape{ drawingAPI } {}
-	void draw() override { m_drawingAPI.drawSquare(); }
+	void draw() override { 
+		m_drawingAPI.drawSquare(); 
+	}
 };
 
 int main() {
@@ -132,6 +151,89 @@ int main() {
 		Circle is drawn by API 2
 		Square is drawn by API 1
 		Square is drawn by API 2
+	*/
+}
+
+// ----------------------------------------------------
+// ----------------------------------------------------
+
+- **Example** : Another Example of Bridge Design Pattern
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
+// The implementor class in bridge pattern 
+class Workshop {
+public:
+	virtual void work() = 0;
+};
+
+// Concrete implementation 
+class Produce : public Workshop {
+public:
+	void work() override {
+		std::cout << "Produced ";
+	}
+};
+
+// Concrete implementation 
+class Assemble :public Workshop {
+public:
+	void work()override {
+		std::cout << "Assembled." << "\n";
+	}
+};
+
+// The abstraction class in bridge pattern 
+class Vehicle {
+public:
+	Vehicle(Workshop* wrkShp1, Workshop* wrkShp2){
+		workShop1 = wrkShp1;
+		workShop2 = wrkShp2;
+	}
+	virtual void manufacture() = 0;
+protected:
+	Workshop* workShop1;
+	Workshop* workShop2;
+};
+
+class Car : public Vehicle {
+public:
+	// Delegating base class constructor
+	Car(Workshop* workShop1, Workshop* workShop2) : Vehicle(workShop1, workShop2) {}
+
+	void manufacture() override {
+		std::cout << "Car ";
+		workShop1->work();
+		workShop2->work();
+	}
+};
+
+class Bike : public Vehicle {
+public:
+	// Delegating base class constructor
+	Bike(Workshop* workShop1, Workshop* workShop2) : Vehicle(workShop1, workShop2) {}
+
+	void manufacture() override {
+		std::cout << "Bike ";
+		workShop1->work();
+		workShop2->work();
+	}
+};
+
+int main() {
+
+	Vehicle* vehicle1 = new Car(new Produce(), new Assemble());
+	vehicle1->manufacture();
+
+	Vehicle* vehicle2 = new Bike(new Produce(), new Assemble());
+	vehicle2->manufacture();
+
+	return 0;
+
+	/*
+		Car Produced Assembled.
+		Bike Produced Assembled.
 	*/
 }
 
