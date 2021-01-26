@@ -68,7 +68,9 @@ int main() {
 // ----------------------------------------------------
 // ----------------------------------------------------
 
-- **Example** : Composite Design Pattern using Curiously Recurring Template Pattern(CRTP) - ?
+- **Example** : Composite Design Pattern using Curiously Recurring Template Pattern(CRTP) 
+  - A neuron structure which has connections to other neurons that modelled as vectors of pointers (std::vector<Neuron*>) for input-output neuron connection.
+  -	It separates out the type-dependent & independent functionality and bind type independent functionality with the base class using self-referencing template.
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
@@ -154,14 +156,14 @@ int main() {
         1    -->    [2]
 
         Layer
-        1    -->    [3]
+        1      -->    [3]
         [3]    -->    4
         [3]    -->    5
 
         Layer
-        3    -->    [4]
+        3      -->    [4]
         [4]    -->    2
-        3    -->    [5]
+        3      -->    [5]
         [5]    -->    2
     */
 }
@@ -171,8 +173,6 @@ int main() {
 
 - **Example** : Composite Design Pattern (GeeksForGeeks)
   - Creating a page which has operations like "add", "delete", "remove" and also a copy which will have the same operations as the individual pages.
-  - Same operations that can be applied to an individual object and can also be applied to the collection of those individual object makes it very easy to work with a larger object which is made of the smaller independent objects.
-
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
@@ -217,7 +217,7 @@ public:
     }
 
 private:
-    // Both has-a (collection type) and is-a relationships
+    // Both has-a and is-a relationships
     std::vector<PageObject> copyPages;
 };
 

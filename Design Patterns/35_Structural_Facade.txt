@@ -1,6 +1,20 @@
 
 ## FACADE DESIGN PATTERN
 
+- Facade Pattern is used to provide a unified interface to a complex system. This pattern defines a higher-level interface that makes the subsystem easier to use by wrapping a complicated subsystem.
+
+- Facade Pattern improves the readability & usability of a software library. 
+
+- A typical application of Facade Pattern is console / terminal / command-prompt you find in Linux or Windows is a unified way to access machine functionality provided by OS.
+
+- Adapter pattern wraps one class, while Facade pattern may represent many classes. 
+
+- **Has-a relationship** is used instead of using is-a relationship
+
+- Facade pattern is appropriate:
+  - when you have a complex system that you want to expose to clients in a simplified way, 
+  - when you want to make an external communication layer over an existing system which is incompatible with the system.
+
 /----------------------------------------------
 /----------------------------------------------
 
@@ -75,3 +89,6 @@ int main() {
 	*/
 	return EXIT_SUCCESS;
 }
+
+/----------------------------------------------
+/----------------------------------------------

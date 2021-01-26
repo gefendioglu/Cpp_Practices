@@ -1,8 +1,18 @@
 
 ## FLIGHTWEIGHT DESIGN PATTERN
 
+- Flyweight pattern concerns with space optimization. It is a technique to minimizes memory footprint by sharing or avoiding redundancy as much as possible with other similar objects.
+
+- Flyweight Pattern is often used in a situation where object count is higher and repetitive creation of heavy objects. Often some parts of these objects can be shared in common data structures that can be used by multiple objects.
+
+- One important feature of flyweight objects is that they are **immutable**. This means that they cannot be modified once they have been constructed.
+
+- In Flyweight Pattern HashMap is used to store object references which have already been created, every object is associated with a key.
+
+- When a client wants to create an object, he simply has to pass a key associated with it and if the object has already been created we simply get the reference to that object.
+
+
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: 
-
+- **Example**:  Flyweight Design Pattern

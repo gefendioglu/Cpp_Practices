@@ -1,18 +1,24 @@
 
-Decorator Design Pattern (Wrapper Pattern)
--	The Decorator pattern modifies the behavior of an object by “wrapping” it with another object that is derived from the same base class and thus has the same set of methods as the original object.
--	The decorator modifies the behavior of the underlying object by performing some additional processing before and/or after calling some of the methods of the underlying object.
--	Decorators provide an alternative to subclassing.
--	Decorator pattern involves four kinds of classes: 
-o	Component: 
-Component is an abstract class or interface that defines all the public methods needed for the underlying object and the decorators that wrap it. 
-o	Concrete Component:
-Component serves as the base class for both Concrete Components and Decorators.
-o	Decorator:
-Decorator is a (typically abstract) class that provides the functionality shared by all decorators: it wraps a Concrete Component and forwards all method calls to the Component.
-o	Concrete Decorator
-Concrete Decorators modify the behavior of the wrapped Concrete Component by overriding one or more methods of their parent Decorator class.
+## Decorator Design Pattern (Wrapper Pattern)
 
+- Decorator pattern modifies the behavior of an object by “wrapping” it with another object that is derived from the same base class and make it possible to extend (decorate) the functionality of a certain object at runtime.
+
+- Decorator pattern can provide new behavior at runtime for individual objects.
+
+- Decorator pattern is used to facilitates the additional functionality to objects.
+
+- Decorator pattern involves four kinds of classes: 
+  - **Component**: Component is an abstract class or interface that defines all the public methods needed for the underlying object and the decorators that wrap it.
+
+  - **Concrete Component**: Component serves as the base class for both Concrete Components and Decorators.
+
+  - **Decorator**: Decorator is a (typically abstract) class that provides the functionality shared by all decorators: it wraps a Concrete Component and forwards all method calls to the Component. Decorators provide an alternative to subclassing.
+  
+  - **Concrete Decorator**: Concrete Decorators modify the behavior of the wrapped Concrete Component by overriding one or more methods of their parent Decorator class.
+
+- Important points about implementing Decorator Pattern:
+  - use inheritance and abstract class for the common functionality 
+  - use delegation instead of inheritance 
 
 /----------------------------------------------
 /----------------------------------------------
@@ -25,46 +31,38 @@ Concrete Decorators modify the behavior of the wrapped Concrete Component by ove
 
 // Abstract Component : Coffee
 class Coffee {
-
 public:
-	virtual int getCost() = 0;
-	virtual std::string getDescription()=0;
+	virtual int getCost() const = 0;
+	virtual std::string getDescription() const = 0;
 };
 
 // Concrete Component : SimpleCoffee
 class SimpleCoffee : public Coffee {
 public:
-	int getCost()
-	{
-		return 10;
+	int getCost() const override {
+		return 10; 
 	}
-
-	std::string getDescription()
-	{
-		return "Simple Coffee";
+	std::string getDescription() const override {
+		return "Simple Coffee"; 
 	}
 };
 
-// Decorator : CoffeeDecorator
+// Decorator : CoffeeDecorator 
 class CoffeeDecorator : public Coffee {
-
 public:
+	CoffeeDecorator(Coffee* coffee) : m_coffee{ coffee } {}
 	
-	CoffeeDecorator(Coffee* coffee) : m_coffee{coffee}{}
-
-	int getCost() 
-	{
+	// Wrapping the getCost() function with the same name
+	int getCost() const override {
 		return this->m_coffee->getCost();
 	}
 
-	std::string getDescription() 
-	{
+	// Wrapping the getDescription() function 
+	std::string getDescription() const override {
 		return this->m_coffee->getDescription();
 	}
-
 protected:
-	Coffee *m_coffee;
-
+	Coffee* m_coffee;
 };
 
 // Concrete Decorator : MilkCoffee
@@ -72,15 +70,13 @@ class MilkCoffee : public CoffeeDecorator {
 
 public:
 	// Delegating Constructor
-	MilkCoffee(Coffee* coffee): CoffeeDecorator(coffee){}
+	MilkCoffee(Coffee* coffee) : CoffeeDecorator(coffee) {}
 
-	int getCost()
-	{
+	int getCost() const override {
 		return m_coffee->getCost() + 2;
 	}
 
-	std::string getDescription()
-	{
+	std::string getDescription() const override {
 		return m_coffee->getDescription() + ", milk";
 	}
 };
@@ -90,15 +86,12 @@ class WhipCoffee : public CoffeeDecorator {
 
 public:
 	// Delegating Constructor
-	WhipCoffee(Coffee *coffee): CoffeeDecorator(coffee){}
+	WhipCoffee(Coffee* coffee) : CoffeeDecorator(coffee) {}
 
-	int getCost() 
-	{
+	int getCost() const override {
 		return m_coffee->getCost() + 5;
 	}
-
-	std::string getDescription()
-	{
+	std::string getDescription() const override {
 		return m_coffee->getDescription() + ", whip";
 	}
 };
@@ -107,15 +100,12 @@ public:
 class VanillaCoffee : public CoffeeDecorator {
 public:
 	// Delegating Constructor
-	VanillaCoffee(Coffee *coffee): CoffeeDecorator(coffee){}
+	VanillaCoffee(Coffee* coffee) : CoffeeDecorator(coffee) {}
 
-	int getCost()
-	{
+	int getCost() const override {
 		return m_coffee->getCost() + 3;
 	}
-
-	std::string getDescription()
-	{
+	std::string getDescription() const override {
 		return m_coffee->getDescription() + ", vanilla";
 	}
 };
@@ -123,7 +113,7 @@ public:
 
 int main()
 {
-	// Lets make a coffee now
+	// Derived (SimpleCoffee) --> Base (Coffee)
 	Coffee* baseCoffee = new SimpleCoffee();
 	std::cout << "Simple Coffee cost : " << baseCoffee->getCost() << "\n"; // 10
 	std::cout << "Simple Coffee Description : " << baseCoffee->getDescription() << "\n"; // Simple Coffee
@@ -142,9 +132,7 @@ int main()
 
 	delete baseCoffee;
 	return 0;
-
 }
-
 
 /----------------------------------------------
 /----------------------------------------------
@@ -154,76 +142,100 @@ int main()
 
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
-#include<string>
 
 // Abstract Component : MilkShake 
-class MilkShake{
+class MilkShake {
 public:
-	//pure virtual classes
-	virtual std::string Serve() = 0;
-	virtual float price() = 0;
+	virtual std::string getServe() const = 0;
+	virtual double getPrice() const = 0;
 };
 
 // Concrete Component : BaseMilkShake
-class BaseMilkShake : public MilkShake{
+class BaseMilkShake : public MilkShake {
 public:
-	std::string Serve(){	return "MilkShake";	}
-	float price(){ return 30;}
+	std::string getServe()const override { 
+		return "MilkShake"; 
+	}
+	double getPrice()const override { 
+		return 30; 
+	}
 };
 
 // Decorator : MilkShakeDecorator
-class MilkShakeDecorator : public MilkShake{
+class MilkShakeDecorator : public MilkShake {
 public:
+	MilkShakeDecorator(MilkShake* baseMilkShake) : m_MilkShake{ baseMilkShake } {}
 
-	MilkShakeDecorator(MilkShake* baseMilkShake) : m_MilkShake(baseMilkShake) {}
-
-	std::string Serve(){	return m_MilkShake->Serve();}
-	float price(){	return m_MilkShake->price();}
-
+	std::string getServe()const override { 
+		return m_MilkShake->getServe(); 
+	}
+	double getPrice()const override { 
+		return m_MilkShake->getPrice(); 
+	}
 protected:
 	MilkShake* m_MilkShake;
 };
 
 // Concrete Decorator : MangoMilkShake
-class MangoMilkShake : public MilkShakeDecorator{
+class MangoMilkShake : public MilkShakeDecorator {
 public:
 	// Delegating Constructor
 	MangoMilkShake(MilkShake* baseMilkShake) : MilkShakeDecorator(baseMilkShake) {}
 
-	std::string Serve(){ return m_MilkShake->Serve() + " decorated with Mango ";}
-	float price(){ return m_MilkShake->price() + 40;}
+	std::string getServe()const override { 
+		return m_MilkShake->getServe() + " decorated with Mango "; 
+	}
+	double getPrice()const override { 
+		return m_MilkShake->getPrice() + 40; 
+	}
 };
 
 // Concrete Decorator : VanillaMilkShake
-class VanillaMilkShake : public MilkShakeDecorator{
+class VanillaMilkShake : public MilkShakeDecorator {
 public:
 	// Delegating Constructor
-	VanillaMilkShake(MilkShake* baseMilkShake) : MilkShakeDecorator(baseMilkShake) {}
+	VanillaMilkShake(MilkShake* baseMilkShake) : MilkShakeDecorator{ baseMilkShake } {}
 
-	std::string Serve(){ return m_MilkShake->Serve() + " decorated with Vanilla ";}
-	float price(){ return m_MilkShake->price() + 80;}
+	std::string getServe()const override { 
+		return m_MilkShake->getServe() + " decorated with Vanilla "; 
+	}
+	double getPrice()const override { 
+		return m_MilkShake->getPrice() + 80; 
+	}
 };
 
 int main()
 {
 	MilkShake* baseMilkShake = new BaseMilkShake();
 	std::cout << "Basic Milk shake \n";
-	std::cout << baseMilkShake->Serve() << "\n";
-	std::cout << baseMilkShake->price() << "\n";
+	std::cout << baseMilkShake->getServe() << "\n";
+	std::cout << baseMilkShake->getPrice() << "\n";
 
 	MilkShake* decoratedMilkShake = new MangoMilkShake(baseMilkShake);
 	std::cout << "Mango decorated Milk shake \n";
-	std::cout << decoratedMilkShake->Serve() << "\n";
-	std::cout << decoratedMilkShake->price() << "\n";
+	std::cout << decoratedMilkShake->getServe() << "\n";
+	std::cout << decoratedMilkShake->getPrice() << "\n";
 
 	decoratedMilkShake = new VanillaMilkShake(baseMilkShake);
 	std::cout << "Vanilla decorated Milk shake \n";
-	std::cout << decoratedMilkShake->Serve() << "\n";
-	std::cout << decoratedMilkShake->price() << "\n";
+	std::cout << decoratedMilkShake->getServe() << "\n";
+	std::cout << decoratedMilkShake->getPrice() << "\n";
 
 	delete decoratedMilkShake;
 	delete baseMilkShake;
 	return 0;
+
+	/*
+		Basic Milk shake
+		MilkShake
+		30
+		Mango decorated Milk shake
+		MilkShake decorated with Mango
+		70
+		Vanilla decorated Milk shake
+		MilkShake decorated with Vanilla
+		110
+	*/
 }
 
 /----------------------------------------------

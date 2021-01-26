@@ -64,6 +64,7 @@ int main() {
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
+#include <vector>
 
 template <typename Self>
 class SomeNeurons {
@@ -71,6 +72,17 @@ public:
     template <typename T>
     void connect_to(T& other);
 };
+
+template <typename Self>
+template <typename T>
+void SomeNeurons<Self>::connect_to(T& other) {
+    for (Neuron& from : *static_cast<Self*>(this)) {
+        for (Neuron& to : other) {
+            from.out.push_back(&to);
+            to.in.push_back(&from);
+        }
+    }
+}
 
 class Neuron : public SomeNeurons<Neuron> {
 public:
@@ -94,17 +106,6 @@ public:
 };
 
 template <typename Self>
-template <typename T>
-void SomeNeurons<Self>::connect_to(T& other) {
-    for (Neuron& from : *static_cast<Self*>(this)) {
-        for (Neuron& to : other) {
-            from.out.push_back(&to);
-            to.in.push_back(&from);
-        }
-    }
-}
-
-template <typename Self>
 std::ostream& operator<<(std::ostream& os, SomeNeurons<Self>& object) {
     for (Neuron& obj : *static_cast<Self*>(&object)) {
         for (Neuron* n : obj.in)
@@ -117,6 +118,7 @@ std::ostream& operator<<(std::ostream& os, SomeNeurons<Self>& object) {
 }
 
 int main() {
+
     Neuron n1, n2;
     NeuronLayer l1{ 1 }, l2{ 2 };
 
@@ -133,7 +135,6 @@ int main() {
 
     return EXIT_SUCCESS;
 
-
     /* Output
         Neuron 1
         [1]    -->    3
@@ -145,14 +146,14 @@ int main() {
         1    -->    [2]
 
         Layer
-        1    -->    [3]
+        1      -->    [3]
         [3]    -->    4
         [3]    -->    5
 
         Layer
-        3    -->    [4]
+        3      -->    [4]
         [4]    -->    2
-        3    -->    [5]
+        3      -->    [5]
         [5]    -->    2
     */
 }
@@ -166,8 +167,9 @@ int main() {
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
+#include <vector>
 
-// Base Class
+// Abstract Base Class
 class PageObject {
 public:
     virtual void Add(PageObject a) {}
@@ -204,9 +206,8 @@ public:
     void Delete(PageObject a) override {
         std::cout << "something is deleted from the copy";
     }
-
 private:
-    // Both has-a (collection type) and is-a relationships
+    // Both has-a and is-a relationships
     std::vector<PageObject> copyPages;
 };
 

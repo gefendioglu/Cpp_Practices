@@ -10,14 +10,12 @@
 #include<iostream> 
 #include<string> 
 
-// There is nothing more than a field plus a getter & setter methods for that field
 template<typename T>
 class Property {
 public:
     Property(const T initialValue) { *this = initialValue; }
     operator T() { return m_value; }
     T operator = (T newValue) { return m_value = newValue; }
-
 private:
     T   m_value;
 };
@@ -59,7 +57,6 @@ public:
         // Steps to load the image ...
     }
 
-    // Polymorphic behaviour for draw() function
     void draw() override {
         std::cout << "Drawing image " << m_filename << "\n";
     }
@@ -69,19 +66,17 @@ private:
 };
 
 //This kind of technique is quite useful when you are working with a third-party library & wants to write a wrapper around it for some performance improvements.
-
 class LazyBitmap : public Image {
 public:
     LazyBitmap(const std::string& filename) : m_filename(filename) {}
 
-    // Polymorphic behaviour for draw() function
     void draw() override {
         if (!m_bmp)
             m_bmp = std::make_unique<Bitmap>(m_filename);
         m_bmp->draw();
     }
 private:
-    std::unique_ptr<Bitmap>      m_bmp{ nullptr };
+    std::unique_ptr<Bitmap>      m_bmp;
     std::string                  m_filename;
 };
 

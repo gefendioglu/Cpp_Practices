@@ -38,6 +38,7 @@ public:
 	}
 };
 
+// Has-a relationship 
 class HouseFacade {
 public:
 	void go_to_work() {

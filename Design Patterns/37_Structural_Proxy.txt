@@ -1,6 +1,23 @@
 
 ## PROXY DESIGN PATTERN
 
+- Proxy Design Pattern in C++ dictates the way you access the object and it provides an interface for accessing a particular resource.
+
+- This interface could be a function, overloaded operator or another object of different/local class.
+
+- The proxy acts as an interface to a particular resource which may be remote, expensive to construct or require some additional functionality like logging.
+
+- An example of the Proxy Design Pattern in C++ is a smart pointer (like std::unique_ptr, std::shared_ptr, etc.) from the standard library
+
+- The use cases of Proxy Design Pattern.
+  - When your objects are resource consuming 
+  - When you want to add access restrictions 
+
+- Difference between Adapter, Decorator & Proxy Design Pattern?
+  - Adapter provides a different/compatible interface to the wrapped object.
+  - Decorator provides a wrapper of the original object having more functionality.
+  - Proxy manages the life cycle & access to objects.
+
 //----------------------------------------------
 //----------------------------------------------
 
@@ -40,7 +57,7 @@ int main() {
 //----------------------------------------------
 
 
-- **Example**: Virtual Proxy
+- **Example**: Virtual Proxy Design Pattern
 
 // Abstract class
 class Image {
@@ -54,7 +71,6 @@ public:
         // Steps to load the image ...
     }
 
-    // Polymorphic behaviour for draw() function
     void draw() override { 
         std::cout << "Drawing image " << m_filename << "\n"; 
     }
@@ -68,8 +84,6 @@ private:
 class LazyBitmap : public Image {
 public:
     LazyBitmap(const std::string& filename) : m_filename(filename) {}
-    
-    // Polymorphic behaviour for draw() function
     void draw() override {
         if (!m_bmp) 
             m_bmp = std::make_unique<Bitmap>(m_filename);

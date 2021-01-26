@@ -5,7 +5,7 @@
 // ----------------------------------------------------
 // ----------------------------------------------------
 
-#ifdef STRUCTURAL_FLIGHTWEIGHT_I
+#ifdef STRUCTURAL_FLYWEIGHT_I
 
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
@@ -14,7 +14,7 @@
 #include<random> 
 #include<iterator> 
 
-// A common interface for all players 
+// A common interface (abstract class) for all players 
 class Player {
 public:
 	virtual void assignWeapon(std::string weapon) = 0;
@@ -22,9 +22,9 @@ public:
 };
 
 // Derived class (a player) must have weapon and mission 
-class Terrorist : public Player {
+class Foe : public Player {
 public:
-	Terrorist()	{
+	Foe()	{
 		TASK = "PLANT A BOMB";
 	}
 	void assignWeapon(std::string weapon) override
@@ -35,7 +35,7 @@ public:
 	void mission() override
 	{
 		//Work on the Mission 
-		std::cout << "Terrorist with weapon " <<  weapon + "|" << " Task is " <<  TASK <<"\n";
+		std::cout << "Foe with weapon " <<  weapon + "|" << " Task is " <<  TASK <<"\n";
 	}
 private:
 	// Intrinsic Attribute 
@@ -46,9 +46,9 @@ private:
 };
 
 // Derived class (another player) must have weapon and mission 
-class CounterTerrorist : public Player {
+class CounterFoe : public Player {
 public: 
-	CounterTerrorist()	{
+	CounterFoe()	{
 		TASK = "DIFFUSE BOMB";
 	}
 	void assignWeapon(std::string weapon) override{
@@ -109,8 +109,6 @@ public:
 		}
 		return p;
 	}
-
-
 
 };
 
@@ -173,7 +171,7 @@ int main() {
 	}
 }
 
-#endif // STRUCTURAL_FLIGHTWEIGHT_I
+#endif // STRUCTURAL_FLYWEIGHT_I
 
 // ----------------------------------------------------
 // ----------------------------------------------------

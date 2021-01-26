@@ -11,37 +11,38 @@
 
 // Abstract Component : Coffee
 class Coffee {
-
 public:
-	virtual int getCost() = 0;
-	virtual std::string getDescription() = 0;
+	virtual int getCost() const = 0;
+	virtual std::string getDescription() const = 0;
 };
 
 // Concrete Component : SimpleCoffee
 class SimpleCoffee : public Coffee {
 public:
-	int getCost() { return 10; }
-	std::string getDescription() { return "Simple Coffee"; }
+	int getCost() const override {
+		return 10; 
+	}
+	std::string getDescription() const override {
+		return "Simple Coffee"; 
+	}
 };
 
-// Decorator : CoffeeDecorator
+// Decorator : CoffeeDecorator 
 class CoffeeDecorator : public Coffee {
-
 public:
-
 	CoffeeDecorator(Coffee* coffee) : m_coffee{ coffee } {}
-
-	int getCost() {
+	
+	// Wrapping the getCost() function with the same name
+	int getCost() const override {
 		return this->m_coffee->getCost();
 	}
 
-	std::string getDescription() {
+	// Wrapping the getDescription() function 
+	std::string getDescription() const override {
 		return this->m_coffee->getDescription();
 	}
-
 protected:
 	Coffee* m_coffee;
-
 };
 
 // Concrete Decorator : MilkCoffee
@@ -51,11 +52,11 @@ public:
 	// Delegating Constructor
 	MilkCoffee(Coffee* coffee) : CoffeeDecorator(coffee) {}
 
-	int getCost() {
+	int getCost() const override {
 		return m_coffee->getCost() + 2;
 	}
 
-	std::string getDescription() {
+	std::string getDescription() const override {
 		return m_coffee->getDescription() + ", milk";
 	}
 };
@@ -67,11 +68,10 @@ public:
 	// Delegating Constructor
 	WhipCoffee(Coffee* coffee) : CoffeeDecorator(coffee) {}
 
-	int getCost() {
+	int getCost() const override {
 		return m_coffee->getCost() + 5;
 	}
-
-	std::string getDescription() {
+	std::string getDescription() const override {
 		return m_coffee->getDescription() + ", whip";
 	}
 };
@@ -82,11 +82,10 @@ public:
 	// Delegating Constructor
 	VanillaCoffee(Coffee* coffee) : CoffeeDecorator(coffee) {}
 
-	int getCost() {
+	int getCost() const override {
 		return m_coffee->getCost() + 3;
 	}
-
-	std::string getDescription() {
+	std::string getDescription() const override {
 		return m_coffee->getDescription() + ", vanilla";
 	}
 };
@@ -94,6 +93,7 @@ public:
 
 int main()
 {
+	// Derived (SimpleCoffee) --> Base (Coffee)
 	Coffee* baseCoffee = new SimpleCoffee();
 	std::cout << "Simple Coffee cost : " << baseCoffee->getCost() << "\n"; // 10
 	std::cout << "Simple Coffee Description : " << baseCoffee->getDescription() << "\n"; // Simple Coffee
@@ -112,7 +112,6 @@ int main()
 
 	delete baseCoffee;
 	return 0;
-
 }
 
 #endif // STRUCTURAL_DECORATOR_I
@@ -128,27 +127,32 @@ int main()
 // Abstract Component : MilkShake 
 class MilkShake {
 public:
-	//pure virtual classes
 	virtual std::string getServe() const = 0;
-	virtual float getPrice() const = 0;
+	virtual double getPrice() const = 0;
 };
 
 // Concrete Component : BaseMilkShake
 class BaseMilkShake : public MilkShake {
 public:
-	std::string getServe()const override { return "MilkShake"; }
-	float getPrice()const override { return 30; }
+	std::string getServe()const override { 
+		return "MilkShake"; 
+	}
+	double getPrice()const override { 
+		return 30; 
+	}
 };
 
 // Decorator : MilkShakeDecorator
 class MilkShakeDecorator : public MilkShake {
 public:
+	MilkShakeDecorator(MilkShake* baseMilkShake) : m_MilkShake{ baseMilkShake } {}
 
-	MilkShakeDecorator(MilkShake* baseMilkShake) : m_MilkShake(baseMilkShake) {}
-
-	std::string getServe()const override { return m_MilkShake->getServe(); }
-	float getPrice()const override { return m_MilkShake->getPrice(); }
-
+	std::string getServe()const override { 
+		return m_MilkShake->getServe(); 
+	}
+	double getPrice()const override { 
+		return m_MilkShake->getPrice(); 
+	}
 protected:
 	MilkShake* m_MilkShake;
 };
@@ -159,18 +163,26 @@ public:
 	// Delegating Constructor
 	MangoMilkShake(MilkShake* baseMilkShake) : MilkShakeDecorator(baseMilkShake) {}
 
-	std::string getServe()const override { return m_MilkShake->getServe() + " decorated with Mango "; }
-	float getPrice()const override { return m_MilkShake->getPrice() + 40; }
+	std::string getServe()const override { 
+		return m_MilkShake->getServe() + " decorated with Mango "; 
+	}
+	double getPrice()const override { 
+		return m_MilkShake->getPrice() + 40; 
+	}
 };
 
 // Concrete Decorator : VanillaMilkShake
 class VanillaMilkShake : public MilkShakeDecorator {
 public:
 	// Delegating Constructor
-	VanillaMilkShake(MilkShake* baseMilkShake) : MilkShakeDecorator(baseMilkShake) {}
+	VanillaMilkShake(MilkShake* baseMilkShake) : MilkShakeDecorator{ baseMilkShake } {}
 
-	std::string getServe()const override { return m_MilkShake->getServe() + " decorated with Vanilla "; }
-	float getPrice()const override { return m_MilkShake->getPrice() + 80; }
+	std::string getServe()const override { 
+		return m_MilkShake->getServe() + " decorated with Vanilla "; 
+	}
+	double getPrice()const override { 
+		return m_MilkShake->getPrice() + 80; 
+	}
 };
 
 int main()
@@ -193,6 +205,18 @@ int main()
 	delete decoratedMilkShake;
 	delete baseMilkShake;
 	return 0;
+
+	/*
+		Basic Milk shake
+		MilkShake
+		30
+		Mango decorated Milk shake
+		MilkShake decorated with Mango
+		70
+		Vanilla decorated Milk shake
+		MilkShake decorated with Vanilla
+		110
+	*/
 }
 
 #endif // STRUCTURAL_DECORATOR_II
