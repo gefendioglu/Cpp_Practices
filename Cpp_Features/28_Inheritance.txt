@@ -258,6 +258,9 @@ int main(){
 
 - **Example**: Modes of Inheritance
 
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
 // A derived class doesn’t inherit access to private data members. 
 class A{
 public:
@@ -289,6 +292,43 @@ class D : private A {
 
 // --------------------------------------------
 // --------------------------------------------
+
+- **Example**: Modes of Inheritance (private class inheritance)
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Base {
+public:
+    void pub_func();
+protected:
+    void pro_func();
+private:
+    void pri_func();
+};
+
+class Der : private Base {
+public:
+    void derfunc()
+    {
+        pub_func(); // OK
+        pro_func(); // OK
+        pri_func(); // NOT OK
+    }
+};
+
+int main()
+{
+    Der myder;
+
+    myder.pri_func();  // NOT OK
+    myder.pro_func();  // NOT OK
+    myder.pub_func();  // NOT OK
+}
+
+// --------------------------------------------
+// --------------------------------------------
+
 
 - **Example**: Types of Inheritance in C++
 

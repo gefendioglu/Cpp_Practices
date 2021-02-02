@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cpp_Features.cpp" />
+    <ClCompile Include="Cpp_Idioms.cpp" />
     <ClCompile Include="General_Features.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -49,6 +50,7 @@
     <Text Include="35_Virtual_Functions.txt" />
     <Text Include="36_Cpp_Acryonms.txt" />
     <Text Include="37_Constructors_Destructors.txt" />
+    <Text Include="Cpp_Idioms.txt" />
     <Text Include="General_Features.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -57,6 +59,7 @@
     <ClInclude Include="28_Inheritance.h" />
     <ClInclude Include="29_Operator_Overloading.h" />
     <ClInclude Include="30_Smart_Pointers.h" />
+    <ClInclude Include="Cpp_Idioms.h" />
     <ClInclude Include="General_Features.h" />
     <ClInclude Include="31_Templates.h" />
     <ClInclude Include="String_Implementation.h" />

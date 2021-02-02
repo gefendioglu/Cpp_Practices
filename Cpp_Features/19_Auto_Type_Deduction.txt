@@ -35,11 +35,10 @@ int main() {
 	// auto x; --> auto variable must be initialized !!!
 
     // the data type of strcmp --> int *(fp)(const char *, const char *)
-	auto functionPointer = strcmp;
+	auto functionPointer = strcmp; // function to pointer conversion
 
 	int foo();
 	auto x = foo(); // --> instead of int x = foo();
-	// If the return type of foo(), then it is necessary to change the assigned variable
 
 	int func(int);
 	auto y = func(10); // the data type of y --> int 
@@ -52,7 +51,7 @@ int main() {
 /----------------------------------------------
 
 - auto type deduction with reference semantics: 
-  - Aþaðýdakiler auto tanýmlamalarý için uygulanan kurallar farklýdýr:
+  - The rules are different for the following statements suing with auto specifier:
     - auto x = expr;
 	- auto &ref = expr; 
 	- auto &&refref = expr; 
@@ -66,39 +65,41 @@ int main() {
 
 int main() {
 
-	auto x = 10; // x --> int
+    auto x = 10; // x --> int
 
-	const int firstNumber = 10;
-	auto y = firstNumber; // y --> int / not const int 
+    const int firstNumber = 10;
+    auto y = firstNumber; // y --> int / not const int 
 
-	// Reference / Const Reference :
-	// ----------------------------------------------
-	int secondNumber = 20;
-	int& firstRef = secondNumber;
-	auto z = firstRef; // z --> int
+    // Reference / Const Reference :
+    // ----------------------------------------------
+    int secondNumber = 20;
+    int& firstRef = secondNumber;
+    auto z = firstRef; // z --> int
 
-	const int& secondRef = secondNumber;
-	auto k = secondRef; // k --> int / not const int&
+    const int& secondRef = secondNumber;
+    auto k = secondRef; // k --> int / not const int&
 
-	// Arrays / Const Arrays : 
-	// ----------------------------------------------
-	int a[10] = {};
-	auto firstArray = a; // firstArray --> int*, like as --> auto firstArray = &a[0]
+    // Arrays / Const Arrays : 
+    // ----------------------------------------------
+    int a[10] = {};
+    // firstArray --> int*, auto firstArray = &a[0];
+    auto firstArray = a; 
 
-	int const array[10] = {0};
-	auto secondArray = a; // secondArray --> int*
+    int const array[10] = { 0 };
+    // secondArray --> int*, auto secondArray = &array[0];
+    auto secondArray = array; 
 
-	// String Literals :
-	// ----------------------------------------------
-	auto name = "gamze"; // name --> const char* (array to pointer conversion)
+    // String Literals :
+    // ----------------------------------------------
+    auto name = "gamze"; // name --> const char* (array to pointer conversion)
 
 
-	// Function Pointers :
-	// ----------------------------------------------
-	int func(int);
-	auto function = func; // function --> int(*)(int)
+    // Function Pointers :
+    // ----------------------------------------------
+    int func(int);
+    // function --> int(*)(int), function to pointer conversion, auto function = &func(10);
+    auto function = func; 
 }
-
 
 /----------------------------------------------
 /----------------------------------------------
@@ -189,7 +190,6 @@ int main() {
 /----------------------------------------------
 
 - **Example**: A sample for the usage of auto keyword with a const value 
-
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 
@@ -205,7 +205,7 @@ int main()
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: A sample for the usage of auto keyword with a const value 
+- **Example**: A sample for the usage of auto type specifier with a const value 
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
@@ -246,7 +246,7 @@ int main()
 /----------------------------------------------
 
 ## Forwarding Reference: 
-- Related to perfect forwarding mechanism 
+- Related to perfect forwarding mechanism (auto &&refref = expr;)
 
 /----------------------------------------------
 /----------------------------------------------

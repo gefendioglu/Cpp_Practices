@@ -364,6 +364,9 @@ int main()
 
 - C# and Java provides try/finally functionality for resource management, but lacks the ability to do true RAII because it does not have deterministic destruction of automatic objects. (Java 1.7 added try-with-resources that is more limited than RAII in C++)
 
+/----------------------------------------------
+/----------------------------------------------
+
 - **Example** : Resource Management (Pseudo Code)
   - Suppose you have a function that needs to access a limited system resource. 
   - The code must call an API function openResource to obtain a handle to the resource, and must pass this handle to a function closeResource when it’s done. 

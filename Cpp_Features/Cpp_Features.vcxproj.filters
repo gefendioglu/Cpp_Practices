@@ -21,6 +21,9 @@
     <ClCompile Include="General_Features.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Cpp_Idioms.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="11_Undefined_Behaviour.txt">
@@ -104,6 +107,9 @@
     <Text Include="36_Cpp_Acryonms.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="Cpp_Idioms.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Value_Category.h">
@@ -143,6 +149,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Vector_Implementation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Cpp_Idioms.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
