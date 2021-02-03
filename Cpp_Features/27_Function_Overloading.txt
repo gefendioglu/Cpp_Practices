@@ -1,5 +1,6 @@
 
 ## Function Re-Declaration
+
    - If you add function scope for each of these function declarations, you receive a syntax error.
    - function declaration without parameter name --> error in C
    - function declaration without parameter name --> not error in C++
@@ -43,10 +44,11 @@ int foo(int x, int y = 10);
 /----------------------------------------------
 
 ## Function Overloading
+
    - It is much more applicable for client code in terms of function usage
    - It is in compiler time (early binding)
    - Early Binding (Static Binding) : Compiler can understand which function is called. 
-   -  Dynamic Binding (Late Binding) : Compiler does know which function is called in run-time (for ex. if you are calling a function pointer in run-time)
+   -  Dynamic Binding (Late Binding) : Compiler does know which function is called in run-time (for ex. if you are calling a function pointer in run-time, or virtual functions are resolved in run time too)
    - The Rules About Function Overloading:  
      - Function should have the same function name and they should be defined/declared in the same scope
 	 - Functions with the same name must have different signatures.
@@ -82,25 +84,26 @@ void func(int32_t);
 /----------------------------------------------
 
 void foo(int x, int y, int z = 10);
-void foo(int x, int y);
+void foo(int x, int y); // function overloading
 
 /----------------------------------------------
 /----------------------------------------------
 
 void foo(int);
-void foo(int&);
+void foo(int&); // function overloading
 
 /----------------------------------------------
 /----------------------------------------------
 
 void foo(int&&);
-void foo(int&);
+void foo(int&); // function overloading
 
 /----------------------------------------------
 /----------------------------------------------
 
 ## Const Overloading 
    - Because, T* and const T* are different types. The signature of the following function declarations are totally different.  
+
 int func(int*);
 int func(const int* );
 
@@ -369,8 +372,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** : En Exception on Function Overloading  - Standard Conversion
-
+- **Example** : Exception on Function Overloading  - Standard Conversion
 
 void func(bool);
 void func(void *);
@@ -384,7 +386,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** : En Exception on Function Overloading  - Standard Conversion
+- **Example** : Exception on Function Overloading  - Standard Conversion
 
 void func(int);
 void func(int *ptr);

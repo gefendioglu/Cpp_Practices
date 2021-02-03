@@ -48,9 +48,8 @@
     <Text Include="33_Virtual_Copy_Constructor.txt" />
     <Text Include="34_Virtual_Destructor_Constructor.txt" />
     <Text Include="35_Virtual_Functions.txt" />
-    <Text Include="36_Cpp_Acryonms.txt" />
     <Text Include="37_Constructors_Destructors.txt" />
-    <Text Include="Cpp_Idioms.txt" />
+    <Text Include="36_Cpp_Idioms.txt" />
     <Text Include="General_Features.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -59,7 +58,7 @@
     <ClInclude Include="28_Inheritance.h" />
     <ClInclude Include="29_Operator_Overloading.h" />
     <ClInclude Include="30_Smart_Pointers.h" />
-    <ClInclude Include="Cpp_Idioms.h" />
+    <ClInclude Include="36_Cpp_Idioms.h" />
     <ClInclude Include="General_Features.h" />
     <ClInclude Include="31_Templates.h" />
     <ClInclude Include="String_Implementation.h" />

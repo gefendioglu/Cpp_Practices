@@ -23,12 +23,12 @@ private:
 	int real, imag;
 };
 
-//int main()
-//{
-//	Complex c1(10, 5), c2(2, 4);
-//	Complex c3 = c1 + c2; // An example call to "operator+" 
-//	c3.print();
-//}
+int main()
+{
+	Complex c1(10, 5), c2(2, 4);
+	Complex c3 = c1 + c2; // An example call to "operator+" 
+	c3.print();
+}
 
 
 

@@ -1,44 +1,38 @@
 
 ## VIRTUAL FUNCTIONS
 
-/----------------------------------------------
-/----------------------------------------------
+- In OOP, child classes can override (redefine) virtual member functions defined by base classes. 
 
-- In OOP, child classes can override (redefine) methods defined by base classes. 
-
-- The advantages of using virtual functions: 
-  - Run time polymorphism
+- The advantages of virtual functions: 
+  - Dynamic polymorphism (Run-time polymorphism or late binding )
   - Reusability of code
 
-- Virtual function is a kind of dynamic dispatching and the implementation of this mechanism is completely compiler dependent. 
+- Virtual function is a kind of dynamic dispatching and the implementation of this mechanism is **completely compiler dependent**. There is no C++ standard defining such dynamic dispatching mechanism.
 
-- The implementation of a virtual mechanism is purely compiler dependent. There is no C++ standard is defined for such dynamic dispatch.
+- Virtual member functions declared as "final" can not be overridden.
 
-- Functions declared "final" cannot be overridden.
+- In C++, functions are only virtual when declared with the virtual keyword, they are non-virtual as the default.
 
-- In C++, functions are only virtual when declared with the virtual keyword—nonvirtual are the default.
+- If the function is not virtual, invoking the function is determined at compile time based on the type of the reference (or pointer). That's why, virtual functions are used for run time polymorphism (late binding).
 
-- If the functon is not virtual, the function definition invoked is determined at compile time based on the type of the reference (or pointer).
+- One special type of virtual function in C++ is a pure virtual function: a function declared but explicitly not defined.
 
-- Virtual functions are used for run time polymorphism (late binding).
+- Any class that contains a pure virtual function or inherits one without redefining it is an **abstract class**.
 
-- One special type of virtual function in C++ is a pure virtual method: a function declared but explicitly not defined.
+- It almost always takes longer to invoke a virtual function because the address of the appropriate function definition must be looked up in a **virtual function table** before it is invoked. This table also requires a small amount of extra memory. 
 
-- Any class that contains a pure virtual function or inherits one without redefining it is an abstract class.
-
-- It almost always takes longer to invoke a virtual function because the address of the appropriate function definition must be looked up in a table before it is invoked. This table also requires a small amount of extra memory. In most applications, the overhead associated with virtual functions is so small as to be negligible. 
-
-- The object having virtual base class has memory layout divided in two regions:
-  - Invariant region: non-virtual classes
-  - Shared region: virtual classes 
+- The object (having virtual base class) has memory layout divided in two regions:
+  - **Invariant region**: non-virtual classes
+  - **Shared region**: virtual classes 
 
 - Virtual Pointer/ Virtual Table:
-  - A virtual table is per class and the virtual table pointers(_vptr) is to object (depends on compiler implementation).
-  - Virtual table is generated statically at the compile time by the compiler.
-  - The code to override virtual pointer is generated at the time of object construction by the compiler ( Virtual functions should not be called in constructor).
-  - Calling virtual functions from a constructor or destructor is dangerous and should be avoided whenever possible. All C++ implementations should call the version of the function defined at the level of the hierarchy in the current constructor and no further.
-    - In a constructor, the virtual call mechanism is disabled because overriding from derived classes hasn’t yet happened. Objects are constructed from the base up, “base before derived”.
-	- Destruction is done “derived class before base class”, so virtual functions behave as in constructors: Only the local definitions are used – and no calls are made to overriding functions to avoid touching the (now destroyed) derived class part of the object
+  - A virtual table is generated per class statically at the compile time by the compiler.
+
+  - The code to override virtual function, virtual pointer is generated at the time of object construction by the compiler.
+
+  - Calling virtual functions from a constructor or destructor is dangerous and should be avoided whenever possible. All C++ implementations should call the version of the function defined at the level of hierarchy in the current constructor and no further.
+    - In a constructor, the virtual function call mechanism is disabled because overriding from derived classes hasn’t yet happened. Objects are constructed from the base up, “base before derived”.
+	- Destruction is done “derived class before base class”, so virtual functions behave as in constructors: Only the local definitions are used and no calls are made to override functions to avoid touching the (now destroyed) derived class part of the object.
 
 /----------------------------------------------
 /----------------------------------------------
@@ -73,7 +67,7 @@ int main()
 	bptr->print(); // B
 	cptr->print(); // c
 
-	// Because print() is not virtual, the method invoked depends on the type used at compile time :
+	// Because print() is not virtual, the print() function invoked depends on the type used at compile time (early binding):
 	((B*)cptr)->print(); // B
 	((A*)cptr)->print(); // A
 	((A*)bptr)->print(); // A
@@ -113,7 +107,7 @@ int main()
 	bptr->print(); // B
 	cptr->print(); // c
 
-	// The runtime type of the object determines which function definition is invoked : 
+	// The run-time type of the object determines which function definition is invoked (late binding): 
 	((B*)cptr)->print(); // C
 	((A*)cptr)->print(); // C
 	((A*)bptr)->print(); // B
@@ -144,19 +138,19 @@ public:
 
 int main()
 {
-	// Base::who() is called through object of the class, it will be resolved at compile time, so it can be inlined
-	Base base;
+	// Base::who() is called through object of the class, it will be resolved at compile time, so it can be inlined !!!
+	Base base; 
 	base.who(); 
 
-	// Virtual function who() is called through pointer, it will be resolved at run rime (dynamic memory allocation), so it can not be inlined 
+	// Virtual function who() is called through pointer, it will be resolved at run rime (dynamic memory allocation), so it can not be inlined !!!
 	Base* ptr = new Derived();
 	ptr->who();
 
 	return EXIT_SUCCESS;
 	
 	/*
-	Base::who() function is called
-	Derived::who() function is called
+		Base::who() function is called
+		Derived::who() function is called
 	*/
 }
 
@@ -195,8 +189,9 @@ public:
 
 int main(){
 
-	Base* base = new Derived; //Derived -> Base (upcasting)
+	Base* base = new Derived; // Derived -> Base (upcasting), dynamic
 	base->invoke();
+
 	return EXIT_SUCCESS;
 	
 	/*
@@ -204,7 +199,6 @@ int main(){
 		overrided Derived::print() is called
 	*/
 }
-
 
 /----------------------------------------------
 /----------------------------------------------
@@ -240,7 +234,7 @@ int main() {
 
 	base* bptr;
 	derived derived;
-	bptr = &derived;
+	bptr = &derived; // binded at runtime 
 
 	// Virtual function, binded at runtime 
 	bptr->print();
@@ -273,16 +267,22 @@ public:
 
 class derived : public base {
 public:
-	void fun_1() { std::cout << "derived::fun_1()" << "\n";}
-	void fun_2() override { std::cout << "overrided derived::fun_2()" << "\n";}
-	void fun_4(int x) { std::cout << "derived::fun_4(int x)" << "\n";}
+	void fun_1() { 
+		std::cout << "derived::fun_1()" << "\n";
+	}
+	void fun_2() override { 
+		std::cout << "overrided derived::fun_2()" << "\n";
+	}
+	void fun_4(int x) override { 
+		std::cout << "derived::fun_4(int x)" << "\n";
+	}
 };
 
 int main() {
 
 	base* bptr;
 	derived derived; // derived -> bptr (upcasting)
-	bptr = &derived;
+	bptr = &derived; // run-time binded for virtual funcs.
 
 	// Early binding, fun_1() is non-virtual in base 
 	bptr->fun_1();
@@ -311,7 +311,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: Default Arguments and Virtual Function
+- **Example**: Default Arguments && Virtual Function
 
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
@@ -322,7 +322,8 @@ public:
 		std::cout << "Base::fun(int x = 0), x = " << x << "\n";
 	}
 };
-class Derived : public Base{
+
+class Derived : public Base {
 public:
 	virtual void fun(int x = 10) {
 		std::cout << "Derived::fun(int x = 10), x = " << x << "\n";
@@ -615,7 +616,6 @@ int main()
 /----------------------------------------------
 
 - **Example**: Using with Virtual Functions && Run Time Polymorphism for the previous example 
-  - 
 
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
@@ -715,4 +715,5 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
+- **Example**: 
 

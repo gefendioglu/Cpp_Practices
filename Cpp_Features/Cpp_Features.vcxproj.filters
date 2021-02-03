@@ -104,10 +104,7 @@
     <Text Include="General_Features.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="36_Cpp_Acryonms.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="Cpp_Idioms.txt">
+    <Text Include="36_Cpp_Idioms.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
@@ -151,7 +148,7 @@
     <ClInclude Include="Vector_Implementation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Cpp_Idioms.h">
+    <ClInclude Include="36_Cpp_Idioms.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

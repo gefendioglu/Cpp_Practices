@@ -1,5 +1,6 @@
 
 ## TEMPLATES
+- Bir fonksiyon çaðrýsý yapýlmadýðý sürece derleyici bir fonksiyon þablonundan (function template) ya da sýnýf þablonunun üye fonksiyonundan (class template - class member function) bir kod üretmeyecek. 
 
 // --------------------------------------------
 // --------------------------------------------
