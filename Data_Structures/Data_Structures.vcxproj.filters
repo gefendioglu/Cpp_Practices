@@ -73,5 +73,8 @@
     <ClInclude Include="32_Circular_Queue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="00_Strings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

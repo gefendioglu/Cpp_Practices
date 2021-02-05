@@ -167,7 +167,7 @@ int main()
 #include <iterator> 
 #include <map> 
 
-int mani() {
+int main() {
 
 }
 
@@ -183,7 +183,7 @@ int mani() {
 #include <iterator> 
 #include <map> 
 
-int mani() {
+int main() {
 
 }
 

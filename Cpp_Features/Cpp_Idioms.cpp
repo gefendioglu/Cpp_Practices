@@ -2,7 +2,7 @@
 //#define RAII
 //#define CRTP
 //#define CRTP_II
-#define CRTP_III
+//#define CRTP_III
 
 // --------------------------------------------
 // --------------------------------------------

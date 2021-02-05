@@ -161,6 +161,7 @@
     <Text Include="Data_Structures.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="00_Strings.h" />
     <ClInclude Include="11_Singly_Linked_List.h" />
     <ClInclude Include="12_Doubly_Linked_List.h" />
     <ClInclude Include="13_Circular_Linked_List.h" />

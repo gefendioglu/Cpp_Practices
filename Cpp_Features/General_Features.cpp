@@ -7,8 +7,6 @@
 //#define VECTOR_CLASS_TEMPLATE
 //#define STRING_IMPLEMENTATION
 
-
-
 // --------------------------------------------
 
 /* General C++ Features */

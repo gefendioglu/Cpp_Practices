@@ -1,3 +1,5 @@
+
+#define REVERSE_STRING
 //#define SINGLY_LINKED_LIST_BASIC
 //#define SINGLY_LINKED_LIST
 //#define DOUBLY_LINKED_LIST
@@ -11,8 +13,14 @@
 //#define QUEUE
 //#define QUEUE_ARRAYS
 //#define QUEUE_LINKED_LIST
-//#define QUEUE_LINKED_LIST
-#define CIRCULAR_QUEUE
+//#define CIRCULAR_QUEUE
+
+
+/* Strings*/
+#if defined(REVERSE_STRING)
+	#include "00_Strings.h"
+#endif
+
 
 /* Singly Linked List */
 #if defined(SINGLY_LINKED_LIST_BASIC) || defined(SINGLY_LINKED_LIST)
