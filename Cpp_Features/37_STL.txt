@@ -1,0 +1,291 @@
+
+## std::optional:
+- optional<T> sýnýfý türünden bir nesne aslýnda sizeof(T) + sizeof(bool) bir bellek alanýna sahip. 
+
+- Bir koþul saðlandýðýnda bir nesne oluþturup o nesneyi kullanýlýr. Bu koþul saðlanmadýðýnda ise bu nesneye ihtiyaç kalmamaktadýr. Dolayýsýyla bir nesne oluþturmaya ihtiyaç kalmaz. std::optional sýnýfý böyle durumlarda kullanýlýyor.
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : std::optional data type size
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <optional>
+#include <iostream>
+
+template<size_t n>
+class A {
+    unsigned char buffer[n];
+};
+
+template<size_t n>
+using optype = std::optional<A<n>>;
+
+int main()
+{
+    std::cout << sizeof(optype<128>) << "\n";  //129
+    std::cout << sizeof(optype<256>) << "\n";  //257
+    std::cout << sizeof(optype<512>) << "\n";  //513
+    std::cout << sizeof(optype<1024>) << "\n"; //1025
+    std::cout << sizeof(optype<2048>) << "\n"; //2049
+
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : nullopt_t type and std::optional class
+
+- <optional> baþlýk dosyasýnda nullopt_t isimli bir boþ sýnýf (empty class) tanýmlanmýþ. nullopt bu boþ sýnýf türünden oluþturulan ve sabit ifadesi olarak kullanýlabilen bir constexpr sýnýf nesnesi. 
+- optional sýnýfýnýn nullopt_t türünden parametreye sahip kurucu iþlevi, nullopt sabiti ile çaðrýldýðýnda bu kurucu iþlev boþ bir optional nesnesini hayata getiriyor. 
+- Bir optional deðiþkenine bu sabitin atanmasý optional nesnesinin sarmaladýðý deðiþkenin hayatýný sonlandýrýyor, böylece optional nesnesi boþaltýlmýþ oluyor.
+
+#include <optional>
+
+int main()
+{
+    std::optional<int> op{ 12 }; //op is not empty
+    op = std::nullopt;  //op is empty now
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** :
+-  CTAD (class template argument deduction) ile derleyici sýnýfýn kurucu iþlevine gönderilen argümanýn türünden, template tür argümanýnýn çýkarýmý yapýlýyor. 
+
+#include <optional>
+#include <string>
+#include <complex>
+#include <vector>
+
+int main()
+{
+    using namespace std::literals;
+
+    std::optional op1{ 34.5 };     // optional<double>
+    std::optional op2{"gamze"};    // optional<const char *>
+    std::optional op3{ "gamze"s }; // optional<string>
+
+    std::optional<int> op1{ 12 };
+    std::optional<std::string> op2{"irfan"};
+    std::optional<std::complex<double>> op3{ std::complex{1., 2.} };
+    std::optional<std::vector<int>> ivec{ {1, 3, 5, 7, 9} };
+    //...
+}
+
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : std::optional using with std::in_place  
+
+- optional sýnýfýnýn kurucu iþlevine birden fazla argümanýn gönderilmesi durumunda, tür çýkarýmýnýn yapýlabilmesi için ilk argüman olarak **in_place** ifadesinin gönderilmesi gerekiyor. 
+- **std::in_place** standart <utility> baþlýk dosyasýnda tanýmlanmýþ olan **in_place_t** isimli bir empty class türünden constexpr bir nesnenin ismi. 
+- boþ sýnýflarýn ve boþ sýnýf nesnelerinin varlýk nedeni derleyicinin çýkarým yapmasýna olanak saðlamak
+
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <optional>
+#include <complex>
+#include <set>
+#include <cctype>
+#include <utility>
+
+int main()
+{
+    //std::optional<std::complex<double>> op1{1, 2}; // NOT OK!
+    std::optional<std::complex<double>> op2{ std::in_place, 1, 2 };
+
+    auto f = [](char x, char y) {
+        return std::toupper(x) > std::toupper(y);
+    };
+
+    std::optional<std::set<char, decltype(f)>> op3{ std::in_place, {'c', 'T', 'a', 'B'}, f };
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** :
+
+- optional nesnelerini oluþturmanýn bir yolu da make_optional isimli global  fonksiyonu çaðýrmak. Bu iþleve birden fazla argüman geçsek de artýk **in_place** nesnesinin fonksiyona gönderilmesine gerek yoktur. 
+
+#include <optional>
+#include <complex>
+
+int main()
+{
+    auto op1 = std::make_optional(12); //optional<int>
+    auto op2 = std::make_optional("gamze"); //optional<const char *>
+    auto op3 = std::make_optional<std::complex<double>>(1.2, 5.6); 
+    //op3 object type : optional<complex<double>>
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Checking optional object is empty or not
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <optional>
+
+std::optional<int> func();
+
+int main()
+{
+    auto op = func();
+
+    /*If op is not empty*/
+    if (op) {/**/ } 
+    if (op.has_value()) {/**/ } 
+    if (op != std::nullopt) {/**/ }
+
+    /*If op is empty*/
+    if (!op) {/**/ } 
+    if (!op.has_value()) {/**/ } 
+    if (op == std::nullopt) {/**/ } 
+    //...
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Accessing the optional objects value
+- optional nesnesinin boþ olmasý durumunda --> undefined behavior 
+- böyle bir eriþimde bir hata nesnesi gönderilmiyor (no exception throwing).
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <optional>
+#include <string>
+#include <iostream>
+
+int main()
+{
+    std::optional<std::string> op{ "gamze" };
+    std::cout << *op << "\n";
+    
+    *op += " efendioglu";
+    std::cout << *op << "\n";
+    std::cout << "size : " << op->size() << "\n";
+    
+    op = std::nullopt;
+    std::cout << *op << "\n"; // ub
+
+    /*
+        gamze
+        gamze efendioglu
+        size : 16
+    */
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Before accessing any optional object type, optional nesnesinin boþ olmadýðýndan emin olunmalýdýr. 
+
+#include <optional>
+#include <iostream>
+
+std::optional<int> func();
+
+int main()
+{
+    if (auto op = func())
+        std::cout << *op << "\n";
+    //...
+    
+    if (auto op = func(); op)
+        std::cout << *op << "\n";
+    //...
+    
+    if (auto op = func(); op.has_value())
+        std::cout << *op << "\n";
+    //...
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : optional sýnýfý ve taþýma semantiði
+
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : optional nesneleri ve karþýlaþtýrma iþlemleri
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : optional nesneleri tarafýndan kontrol edilen nesnelerin ömürleri
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : emplace iþlevi
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : optional nesnelerinin deðerlerini deðiþtirmek
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : value_or iþlevi
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : value iþlevi
+
+-- Ters sýrada incelenecek !!!
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : std::optional type as function parameter and class data member. 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <optional>
+#include <iostream>
+#include <string>
+
+class Name{
+public:
+    Name(std::string first, std::optional<std::string> middle,
+        std::string last) : m_first{ std::move(first) }, m_middle{ std::move(middle) }, m_last{ std::move(last) } {
+    }
+
+    friend std::ostream& operator << (std::ostream& os, const Name& name)
+    {
+        os << name.m_first << ' ';
+
+        if (name.m_middle) {
+            os << *name.m_middle << ' ';
+        }
+
+        return os << name.m_last;
+    }
+
+private:
+    std::string m_first;
+    std::optional<std::string> m_middle;
+    std::string m_last;
+};
+
+
+int main()
+{
+    Name myName{ "Gamze", std::nullopt, "Efendioglu" };
+    std::cout << myName << "\n"; // Gamze Efendioglu
+
+    Name hisName{ "Mehmet", "Kaan", "Efendioglu" };
+    std::cout << hisName << "\n"; // Mehmet Kaan Efendioglu
+
+}
+
+/----------------------------------------------
+/----------------------------------------------
+

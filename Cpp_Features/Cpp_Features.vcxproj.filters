@@ -107,6 +107,9 @@
     <Text Include="36_Cpp_Idioms.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="37_STL.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Value_Category.h">
@@ -149,6 +152,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="36_Cpp_Idioms.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="STL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

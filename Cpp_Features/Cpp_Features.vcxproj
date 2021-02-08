@@ -50,6 +50,7 @@
     <Text Include="35_Virtual_Functions.txt" />
     <Text Include="37_Constructors_Destructors.txt" />
     <Text Include="36_Cpp_Idioms.txt" />
+    <Text Include="37_STL.txt" />
     <Text Include="General_Features.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +62,7 @@
     <ClInclude Include="36_Cpp_Idioms.h" />
     <ClInclude Include="General_Features.h" />
     <ClInclude Include="31_Templates.h" />
+    <ClInclude Include="STL.h" />
     <ClInclude Include="String_Implementation.h" />
     <ClInclude Include="Value_Category.h" />
     <ClInclude Include="Vector_Implementation.h" />
@@ -136,10 +138,11 @@
     <ClCompile>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
