@@ -10,7 +10,9 @@
 //#define STL_OPTIONAL
 //#define STL_OPTIONAL_I
 //#define STL_OPTIONAL_II
-#define STL_OPTIONAL_III
+//#define STL_OPTIONAL_III
+#define STL_OPTIONAL_Example
+
 
 /* General C++ Features */
 // --------------------------------------------
@@ -38,7 +40,7 @@
 /* STL Operations */
 // --------------------------------------------
 
-#if defined(STL_OPTIONAL) || defined(STL_OPTIONAL_I)  || defined(STL_OPTIONAL_II) || defined(STL_OPTIONAL_III) 
+#if defined(STL_OPTIONAL) || defined(STL_OPTIONAL_I)  || defined(STL_OPTIONAL_II) || defined(STL_OPTIONAL_III) || defined(STL_OPTIONAL_Example) 
 	#include "STL.h"
 #endif
 

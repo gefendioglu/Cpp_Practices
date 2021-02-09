@@ -125,3 +125,47 @@ int main()
 
 
 #endif // STL_OPTIONAL_III
+
+
+#ifdef STL_OPTIONAL_Example
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+
+class Base {
+public:
+    Base() { 
+        std::cout << "Base::Base() is called" << "\n";
+        test_func(); 
+    }
+    virtual void test_func() { 
+        std::cout << "BASE" << "\n";
+    }
+};
+
+class Derived : public Base {
+public:
+    Derived() { 
+        std::cout << "Derived::Derived() is called" << "\n";
+        test_func(); 
+    };
+
+    void test_func() override { 
+        std::cout << "DERIVED" << "\n";
+    }
+};
+
+int main() {
+
+    Derived* b = new Derived(); 
+    return 0;
+    /*
+        Base::Base() is called
+        BASE
+        Derived::Derived() is called
+        DERIVED
+    */
+}
+
+
+#endif // STL_OPTIONAL_Example

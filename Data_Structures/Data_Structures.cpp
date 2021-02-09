@@ -11,7 +11,7 @@
 //#define BINARY_SEARCH_TREE
 //#define HEAP
 //#define QUEUE
-//#define QUEUE_ARRAYS
+#define QUEUE_ARRAYS
 //#define QUEUE_LINKED_LIST
 //#define CIRCULAR_QUEUE
 

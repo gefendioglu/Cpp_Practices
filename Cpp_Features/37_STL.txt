@@ -1,5 +1,8 @@
 
 ## std::optional:
+
+https://necatiergin2019.medium.com/std-optional-7b3ab31da3a6
+
 - optional<T> sýnýfý türünden bir nesne aslýnda sizeof(T) + sizeof(bool) bir bellek alanýna sahip. 
 
 - Bir koþul saðlandýðýnda bir nesne oluþturup o nesneyi kullanýlýr. Bu koþul saðlanmadýðýnda ise bu nesneye ihtiyaç kalmamaktadýr. Dolayýsýyla bir nesne oluþturmaya ihtiyaç kalmaz. std::optional sýnýfý böyle durumlarda kullanýlýyor.

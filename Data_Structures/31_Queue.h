@@ -43,19 +43,19 @@ private:
 
 // --------------------------------------------------
 
-void Queue::getData()const {
-	for (int i = 0; i <  length; i++)
+void Queue::getData() const {
+	for (int i = 0; i <  length; ++i)
 		std::cout << arr[i] << "\n";
 }
 // --------------------------------------------------
 
-int Queue::getFront()const {
+int Queue::getFront() const {
 	return arr[front];
 }
 
 // --------------------------------------------------
 
-int Queue::getRear()const {
+int Queue::getRear() const {
 	return arr[rear];
 }
 
@@ -235,19 +235,14 @@ int main() {
 // --------------------------------------------------
 class Queue {
 public:
-	Queue(){
-		front = -1;
-		rear = -1; 
-		size = 0;
-		capacity = 0;
-		array = nullptr;
+	Queue() :front{ -1 }, rear{ -1 }, size{ 0 }, capacity{ 0 }, array{ nullptr } {
 	}
 
 	~Queue(){}
 	
 	// getter functions
-	int getFront(Queue* queue);
-	int getRear(Queue* queue);
+	int getFront(Queue* queue) ;
+	int getRear(Queue* queue) ;
 	
 	// queue functions
 	Queue* createQueue(unsigned capacity);
@@ -285,7 +280,7 @@ bool Queue::isEmpty(Queue* queue) {
 	return (queue->size == 0);
 }
 
-// Function to add an item to the queue, changes rear and size 
+// Function to add an item to the queue, changes rear and size
 // --------------------------------------------------
 void Queue::enqueue(Queue* queue, int item) {
 	
@@ -312,7 +307,7 @@ int Queue::dequeue(Queue* queue) {
 
 // Function to get front of queue 
 // --------------------------------------------------
-int Queue::getFront(Queue* queue) {
+int Queue::getFront(Queue* queue)  {
 	
 	if (isEmpty(queue))
 		return INT_MIN;
@@ -323,7 +318,7 @@ int Queue::getFront(Queue* queue) {
 // Function to get rear of queue 
 // --------------------------------------------------
 
-int Queue::getRear(Queue* queue) {
+int Queue::getRear(Queue* queue)  {
 	
 	if (isEmpty(queue))
 		return INT_MIN;
