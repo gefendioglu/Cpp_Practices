@@ -21,7 +21,9 @@
 //#define BEHAVIORAL_MEDIATOR
 //#define BEHAVIORAL_MEMENTO
 //#define BEHAVIORAL_OBSERVER
+//#define BEHAVIORAL_OBSERVER_BOOST
 //#define BEHAVIORAL_VISITOR
+#define BEHAVIORAL_VISITOR_I
 //#define BEHAVIORAL_STATE
 //#define BEHAVIORAL_STRATEGY_EXAMPLE_I
 //#define BEHAVIORAL_STRATEGY_EXAMPLE_II
@@ -42,7 +44,7 @@
 //#define STRUCTURAL_FLYWEIGHT_I
 //#define STRUCTURAL_PROXY_I
 //#define STRUCTURAL_PROXY_VIRTUAL
-#define STRUCTURAL_PROXY_COMMUNICATION
+//#define STRUCTURAL_PROXY_COMMUNICATION
 
 
 
@@ -130,12 +132,12 @@
 #endif
 
 /* Behavioral Observer Design Pattern */
-#if defined(BEHAVIORAL_OBSERVER) 
+#if defined(BEHAVIORAL_OBSERVER) || defined(BEHAVIORAL_OBSERVER_BOOST)
 	#include "27_Behavioral_Observer.h"
 #endif
 
 /* Behavioral Visitor Design Pattern */
-#if defined(BEHAVIORAL_VISITOR) 
+#if defined(BEHAVIORAL_VISITOR)  || defined(BEHAVIORAL_VISITOR_I)
 	#include "28_Behavioral_Visitor.h"
 #endif
 

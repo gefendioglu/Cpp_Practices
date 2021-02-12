@@ -74,3 +74,26 @@
 /----------------------------------------------
 /----------------------------------------------
 
+## Important Design Patterns
+
+  - From Creational Design Patterns: 
+   - Factory method 
+   - Singleton 
+
+  - From Structural Design Patterns: 
+   - Adapter
+   - Bridge 
+   - Decorator
+   - Facade 
+   - Composite 
+   - Proxy 
+
+  - From Behavioral Design Patterns: 
+    - Observer 
+    - Visitor 
+    - Template method
+    - Strategy 
+      
+
+/----------------------------------------------
+/----------------------------------------------

@@ -49,13 +49,13 @@ public:
     }
 
     // Dereferencing operator overloading 
-    // Because of unary operator, there is no parameters when doing in class definition
+    // Because of unary operator, there is no parameters when doing it in class definition
     T& operator*() const { 
         return *m_ptr; 
     }
 
     // Arrow operator overloading 
-    // Because of unary operator, there is no parameters when doing in class definition
+    // Because of unary operator, there is no parameters when doing it in class definition
     T* operator->() const { 
         return m_ptr; 
     }

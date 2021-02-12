@@ -1,0 +1,184 @@
+
+## Observer Design Pattern
+
+- It is used to define a new operation on a group of similar kind of objects or hierarchy.
+
+- The classical Visitor Design Pattern has some component which we call a visitor. That is allowed to traverse the entire inheritance hierarchy.
+
+- What you have to do is you have to implement a single method called visit() in the entire hierarchy once. You don’t have to touch the hierarchy anymore. 
+
+- You can create extra visitors on the side which is consistent with both the Open-Closed Principle and Single Responsibility Principle.
+
+- This pattern is useful when your requirement keeps changing which also affects multiple classes in the inheritance hierarchy.
+
+- This pattern works **on a hierarchy of classes** where you want to run different functions based on concrete type but avoiding **dynamic_cast<>()** or **typeof()** operators. 
+
+- What is the typical use case of the Visitor Design Pattern?
+  – In replacement of dynamic_cast<>, typeid()
+  – To process the collection of different types of objects
+  – Filtering different type of objects from collections
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Reflective Visitor
+  - It is mandatory to identify types for a particular class(using dynamic_cast<>()) as we have to work on individual object of hierarchy independently.
+
+  #define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+#include<list> 
+
+class Document {
+public:
+    virtual void add_to_list(const std::string& line) = 0;
+};
+
+class Markdown : public Document {
+public:
+    void add_to_list(const std::string& line) override { 
+        m_content.push_back(line); 
+    }
+
+    std::string m_start = "* ";
+    std::list<std::string> m_content;
+};
+
+class HTML : public Document {
+public:
+    void add_to_list(const std::string& line) override {
+        m_content.push_back(line); 
+    }
+
+    std::string m_start = "<li>";
+    std::string m_end = "</li>";
+    std::list<std::string> m_content;
+};
+
+
+class DocumentPrinter {
+public:
+    static void print(Document* e) {
+
+        if (auto md = dynamic_cast<Markdown*>(e)) {
+            for (auto&& item : md->m_content)
+                std::cout << md->m_start << item << std::endl;
+        }
+        else if (auto hd = dynamic_cast<HTML*>(e)) {
+            std::cout << "<ul>" << std::endl;
+            for (auto&& item : hd->m_content) {
+                std::cout << "\t" << hd->m_start << item << hd->m_end << std::endl;
+            }
+            std::cout << "</ul>" << std::endl;
+        }
+    }
+};
+
+int main() {
+
+    // Derived --> Base (upcasting)
+    Document* d = new HTML;
+    d->add_to_list("This is line");
+    DocumentPrinter::print(d);
+
+    return EXIT_SUCCESS;
+    /*
+        <ul>
+            <li>This is line</li>
+        <ul>
+    */
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**:  Classic Visitor
+  - Finding a mechanism is used to extend the entire hierarchies functionality in various different ways without being intrusive and without having massive if/else-if statements full of dynamic_cast<>() in them.
+  - Addeding two-layer of indirection
+  - If you want to add scan() method for each different Document, you can create DocumentScanner & rest of the edit goes as same DocumentPrinter.
+  - Performance over dynamic_cast, typeid() and check for enum/string comparison.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+#include<list> 
+
+/* Visitor Classes */
+// ----------------------------------------------
+class DocumentVisitor {
+public:
+    virtual void visit(class Markdown*) = 0;
+    virtual void visit(class HTML*) = 0;
+};
+
+class DocumentPrinter : public DocumentVisitor {
+public:
+    void visit(Markdown* md) override;
+    void visit(HTML* hd) override;
+};
+
+// ----------------------------------------------
+
+class Document {
+public:
+    virtual void add_to_list(const std::string& line) = 0;
+    virtual void visit(DocumentVisitor*) = 0; 
+};
+
+class Markdown : public Document {
+public:
+    void add_to_list(const std::string& line) override { 
+        m_content.push_back(line); 
+    }
+    void visit(DocumentVisitor* dv) override {
+        dv->visit(this); 
+    }
+    std::string m_start = "* ";
+    std::list<std::string> m_content;
+};
+
+class HTML : public Document {
+public:
+    void add_to_list(const std::string& line) override {
+        m_content.push_back(line); 
+    }
+    void visit(DocumentVisitor* dv) override {
+        dv->visit(this);
+    }
+    std::string m_start = "<li>";
+    std::string m_end = "</li>";
+    std::list<std::string> m_content;
+};
+
+// ----------------------------------------------
+void DocumentPrinter::visit(Markdown* md) {
+    for (auto&& item : md->m_content)
+        std::cout << md->m_start << item << "\n";
+}
+
+void DocumentPrinter::visit(HTML* hd) {
+    std::cout << "<ul>" << "\n";
+    for (auto&& item : hd->m_content)
+        std::cout << "\t" << hd->m_start << item << hd->m_end << "\n";
+    std::cout << "</ul>" << "\n";
+}
+
+// ----------------------------------------------
+
+int main() {
+
+    // Derived --> Base (upcasting)
+    Document* d = new HTML;
+    d->add_to_list("This is line");
+    d->visit(new DocumentPrinter);
+
+    return EXIT_SUCCESS;
+    /*
+        <ul>
+            <li>This is line</li>
+        <ul>
+    */
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Visitor Design Pattern in Modern C++
