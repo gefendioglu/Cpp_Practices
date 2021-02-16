@@ -1,0 +1,16 @@
+
+## Strategy Design Pattern
+
+- It allows to specify the behaviour of the class partially and to choose particular algorithm from a family of algorithms. 
+
+- Strategy Design Pattern enables the exact behaviour of a system to become selective either at compile time or run time.
+
+- It’s easy to switch between different algorithms(strategies) in runtime.
+
+- Separate the concerns into classes --> a class to each strategy (Single Responsibility & Open-Closed Principle)
+
+- When should we use Strategy Design Pattern?
+  - to use several algorithms with different variations
+  – When there are conditional statements around several related algorithms.
+
+

@@ -7,6 +7,8 @@
 
 - Singletons are also sometimes used as a substitute for global variables. Many people consider using singletons to store global data as an anti-pattern.
 
+- Examples of where only a single instance of a class should exist, including caches, thread pools, and registries.
+
 - Why is a singleton better than a set of static funcions?
   - Inheritance and interfaces: Singletons are objects. They can inherit from base classes and implement interfaces.
   - Possible multiplicity: You can change your mind and create multiple objects (especially for multi-threading applications) without changing a lot of code.
@@ -20,6 +22,9 @@
 
 - How to implement singleton design pattern? 
   - The easiest way to do this is to **make the constructor private** and **initialize the single instance within the class**.
+  - Making the constructor **private** to the class, we intend to define as a singleton. In this case, only the members of the class can access the private constructor.
+  - It’s possible to subclass a singleton by making the constructor **protected** instead of **private**. This might be suitable under some circumstances.
+    - One approach is to create a **register of singletons** of the subclasses and the **getInstance** function can take in a parameter or use an environment variable to return the desired singleton. The registry can maintain a mapping of string names to singleton objects, which can be accessed as needed.
  
 - To create a singleton:
   - make the constructor private

@@ -1,6 +1,6 @@
 #pragma once
 
-// Dynamic Strategy - TO BE COMPLETED
+// Dynamic Strategy - TO BE CONTROLLED - NOT COMPILED
 // ----------------------------------------------
 // ----------------------------------------------
 
@@ -17,48 +17,50 @@ enum class Format { Markdown, Html };
 class ListStrategy {
 public:
     virtual ~ListStrategy() = default;
-    virtual void add_list_item(std::ostream& oss, std::string& item) {};
-    virtual void start(std::ostream& oss) {};
-    virtual void end(std::ostream& oss) {};
+    virtual void add_list_item(std::ostringstream& oss, std::string& item) {};
+    virtual void start(std::ostringstream& oss) {};
+    virtual void end(std::ostringstream& oss) {};
 };
 
 // Derived Class
 class MarkdownListStrategy : public ListStrategy {
 public:
-    void add_list_item(std::ostream& oss, std::string& item) override { oss << " - " << item << "\n"; }
+    void add_list_item(std::ostringstream& oss, std::string& item) override { 
+		oss << " - " << item << "\n"; 
+	}
 };
 
 // Derived Class
 class HtmlListStrategy : public ListStrategy {
-    void start(std::ostream& oss) override { 
+    void start(std::ostringstream& oss) override {
         oss << "<ul>" << "\n"; 
     }
 
-    void end(std::ostream& oss) override { 
+    void end(std::ostringstream& oss) override {
         oss << "</ul>" << "\n";
     }
 
-    void add_list_item(std::ostream& oss, std::string& item) override{
+    void add_list_item(std::ostringstream& oss, std::string& item) override{
         oss << "\t<li>" << item << "</li>" << "\n";
     }
 };
 
 class TextProcessor {
 public:
-
-    void clear() {
-        //m_oss.str("");
+    
+	void clear() {
+        m_oss.str("");
         m_oss.clear();
     }
 
     void append_list(std::vector<std::string>& items) {
         
-        m_list_strategy->start(m_oss);
+		m_list_strategy->start(m_oss);
         
-        for (auto& item : items)
+		for (auto& item : items)
             m_list_strategy->add_list_item(m_oss, item);
        
-        m_list_strategy->end(m_oss);
+		m_list_strategy->end(m_oss);
     }
 
     void set_output_format(Format& format) {
@@ -68,26 +70,41 @@ public:
         }
     }
 
-    //std::string str() { return m_oss.str(); }
+    std::string str() { return m_oss.str(); }
 
 private:
-    std::ostream m_oss;
-    std::unique_ptr<ListStrategy> m_list_strategy;
+	std::ostringstream m_oss;
+	std::unique_ptr<ListStrategy> m_list_strategy;
 };
 
 int main() {
-
-    // markdown
+	std::vector<std::string> text = { "foo", "bar", "baz" };
+	Format mdFormat = Format::Markdown;
+	Format htmlFormat = Format::Html;
+	
+	// markdown
     TextProcessor tp;
-    tp.set_output_format(Format::Markdown);
-    tp.append_list({ "foo", "bar", "baz" });
+    tp.set_output_format(mdFormat);
+    tp.append_list(text);
     std::cout << tp.str() << "\n";
+
+	// dynamic type definition for markdown generation
+	/*TextProcessor<MarkdownListStrategy> tp1;
+	tp1.append_list({ "foo", "bar", "baz" });
+	std::cout << tp1.str() << std::endl;*/
 
     // html
     tp.clear();
-    tp.set_output_format(Format::Html);
-    tp.append_list({ "foo", "bar", "baz" });
+    tp.set_output_format(htmlFormat);
+    tp.append_list(text);
     std::cout << tp.str() << "\n";
+
+	// static type definition for html generation
+	/*TextProcessor<HtmlListStrategy> tp2;
+	tp2.append_list({ "foo", "bar", "baz" });
+	std::cout << tp2.str() << std::endl;*/
+
+	/* For static type definition template template<typename LS> to represent std::unique_ptr<ListStrategy> type */
 
     return EXIT_SUCCESS;
     
@@ -235,7 +252,7 @@ int main() {
 
 	// let us make some behaviors first 
 	JumpBehavior *shortJump = new ShortJump();
-	JumpBehavior *LongJump = new LongJump();
+	JumpBehavior *longJump = new LongJump();
 	KickBehavior *tornadoKick = new TornadoKick();
 
 	// Make a fighter with desired behaviors 
@@ -248,7 +265,7 @@ int main() {
 	ken->jump();
 
 	// Change behavior dynamically (algorithms are interchangeable) 
-	ken->setJumpBehavior(LongJump);
+	ken->setJumpBehavior(longJump);
 	ken->jump();
 
 	return EXIT_SUCCESS;
