@@ -125,7 +125,7 @@ int main() {
 
 
 
-// Strategy Pattern - GeeksForGeeks - TO BE CONTROLLED !!!
+// Strategy Pattern - GeeksForGeeks 
 // ----------------------------------------------
 // ----------------------------------------------
 

@@ -152,12 +152,39 @@ int main() {
 #ifdef FEATURE
 
 #define _CRT_SECURE_NO_WARNINGS
-#include<iostream> 
+#include <iostream>
 
+class Data {
+public:
+	Data() {
+		std::cout << "Data ctor is called..this : " << this << "\n";
+	}
+	~Data() {
+		std::cout << "Data destructor is called..this : " << this << "\n";
+	}
+
+private:
+	int mx, my;
+};
 
 int main() {
+	
+	Data firstData;
+	// Default ctor shall be called here for firstData object.
+	std::cout << "main() function is called\n";
+	{
+		Data secondData;
+		// Default ctor shall be called here for secondData object.
+		std::cout << "main() function is still going on...\n";
+		// Destructor shall be called here for secondData object.
+	}
 
-
+	std::cout << "main() function is ended\n";
+	// Destructor shall be called here for firstData object.
+		
+	/*
+		To be executed again...
+	*/
 }
 
 #endif // FEATURE

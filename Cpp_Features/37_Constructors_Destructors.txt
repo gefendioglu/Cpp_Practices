@@ -1,18 +1,23 @@
 
 ## CONSTRUCTORS 
 
+## Constructors: 
+
 - Constructors have the same name like class name 
 - Constructors dont have any return value mechanism 
 - Constructors can be defined in cpp files.
 - Constructors can not be called by a class instance from client code. 
 - Constructors can be overloaded!!!
+- Constructors can be public, private or protected.
 - Constructors must not be : 
   - static member function 
   - const member functions 
   - global functions 
 
-## Special Member Functions
+## Special Member Functions: 
+
 - Compiler writes these default functions (to default (generate, synthesize) a special member function)
+
 - The types of special member functions:
   - default constructor
   - copy constructor
@@ -21,9 +26,14 @@
   - move assignment function  (added with C++11)
   - destructor
 
-## Default Constructor 
-- If there is no constructor declaration/edfinition in a class, compiler writes public/non-static/inline/default constructor automatically (implicitly declared constructor). 
-  like --> MyClass(){}
+## Default Constructor: 
+
+- If there is no constructor declaration/definition in a class, compiler writes public/non-static/inline/default constructor automatically (implicitly declared constructor). 
+  For ex: MyClass(){} // with no parameters 
+
+- Default constructors are the contructors with no parameters or with parameters taken default arguments for all. 
+
+- 
 
 /----------------------------------------------
 /----------------------------------------------
@@ -37,8 +47,9 @@
 class MyClass {
 public:
 	MyClass();	
-	MyClass()const; // NOT OK, constructors are not const  
+	MyClass() const; // NOT OK, constructors are not const  
 	static MyClass(); // NOT OK, constructors are not static
+					  // static ctor is valid for some other languages
 	
 	// Constructor Overloading 
 	MyClass(int);	
@@ -72,27 +83,28 @@ private:
 int main() {
 	Data dt; //  NOT OK, because no default ctor definition
 	         // no appropriate default ctor available error
-	Data data{10}; // OK, because Data(int); ctor 
+	Data data{10}; // OK, because Data(int) ctor 
 }
 
 /----------------------------------------------
 /----------------------------------------------
 
 ## DESTRUCTORS 
-- While creating an class instance, it is mandatory that its constructor to be finalized. However, while destructing an instance, it is only enough to call its destructor. 
+
+- While creating an class instance, it is mandatory that its constructor to be finalized (to be executed till the end of constructor scope). However, while destructing an instance, it is only enough to call its destructor in run time. 
 - Destructors are non-static class member functions
 - Destructors have the same name with class name (with tilde token)
 - Destructors dont have a return value mechanism 
 - Destructors can not be overloaded !!!
 - Destructors can be called by a class instance from a client code, but in one special case. 
-- Destructors dont take any parameters
+- Destructors dont take any parameters !!!
 - Destructors can not be:
   - static member functions
   - const member functions 
   - global functions
-
+  like as constructors. 
 - If there is no destructor declaration/definition in a class, compiler writes public/non-static/inline destructor automatically (implicitly declared destructor)
-- It is mandatory for a class to have a destructor (implicitly declerad or not)
+- It is mandatory for a class to have a destructor (implicitly declared or not). Not possible the otherwise. 
 
 /----------------------------------------------
 /----------------------------------------------
@@ -113,14 +125,26 @@ private:
 
 int main() {
 	Data data{10}; // OK, because Data(int); ctor
-	data.~Data();  // OK, for a special case
+	data.~Data();  // OK, for a special case, not common usage
+
+	Data *ptr = new Data(10);
+	ptr->~Data();  // OK, for a special case, not common usage
 }
 
 /----------------------------------------------
 /----------------------------------------------
 
-local static instance definition (OR)
-global instance definition
+General Notes related to class objects with constructors & destructors:
+
+- Class objects can be static, automatic, dynamic.  
+
+- Static local variables (local static instance definition) is equal to global variables (global instance definition). 
+
+- The usage of global class objects are very common in the embedded programming area (like as std::cout, std::cin)
+
+- The order of starting to life for the global objects (or static local objects) in different files is not guaranteed. (Static Initialization Fiasco). Forward declaration ile hayat gelme sýrasý kontrol edilebilir mi? 
+
+- Normally, constructors are called in the order that they are defined for global class objects defined under the same file.
 
 /----------------------------------------------
 /----------------------------------------------
@@ -139,6 +163,7 @@ public:
 	~Data() {
 		std::cout << "Data destructor is called..this : " << this << "\n";
 	}
+
 private:
 	int mx, my;
 };
@@ -146,12 +171,25 @@ private:
 // global class objects
 Data globalData;
 
+void func() {
+	static int cnt = 0;
+	std::cout << "func is called with "<< ++cnt << " times" "\n";
+	// static local objects 
+	// this object will be destructed after main() func is completed.
+	static Data sData;
+}
+
 int main() {
+	
 	std::cout << "main() function is called\n";
 	std::cout << "&globalData : " << &globalData << "\n";
+	
+	for (int i = 0; i < 10; ++i)
+		func();
+
 	std::cout << "main() function is ended\n";
 
-	/*
+	/*  TO BE EXECUTED AGAIN
 		Data ctor is called..this : 00AEE138
 		main() function is called
 		&globalData : 00AEE138
@@ -163,12 +201,45 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** :
+- **Example** : Class objects and their life (with the relations of constructors & destructors)
 
-- Farklý dosyalarda bulunan global nesnelerin hayata gelme sýrasý garanti altýna alýnmamýþtýr. (Static Initialization Fiasco)
-  Forward declaration ile hayat gelme sýrasý kontrol edilebilir mi? 
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
 
-- Normalde ayný dosya altýnda tanýmlanan global sýnýf nesneleri için tanýmlandýklarý sýrayla constructor larý çaðrýlmaktadýr. 
+class Data {
+public:
+	Data() {
+		std::cout << "Data ctor is called..this : " << this << "\n";
+	}
+	~Data() {
+		std::cout << "Data destructor is called..this : " << this << "\n";
+	}
+
+private:
+	int mx, my;
+};
+
+int main() {
+	
+	Data firstData;
+	// Default ctor shall be called here for firstData object.
+	std::cout << "main() function is called\n";
+	{
+		Data secondData;
+		// Default ctor shall be called here for secondData object.
+		std::cout << "main() function is still going on...\n";
+		// Destructor shall be called here for secondData object.
+	}
+
+	std::cout << "main() function is ended\n";
+	// Destructor shall be called here for firstData object.
+		
+	/*
+		To be executed again...
+	*/
+}
 
 /----------------------------------------------
 /----------------------------------------------
+
+

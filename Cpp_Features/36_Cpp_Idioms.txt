@@ -138,6 +138,11 @@ int main(){
 
 ## ODR (One Definition Rule) Idiom: 
 
+- There must be a single definition of functions, classes, enums, etc.
+- Undefined Behaviour --> in the case of ODR violation 
+  - class definition
+  - inline function definition
+
 /----------------------------------------------
 /----------------------------------------------
 

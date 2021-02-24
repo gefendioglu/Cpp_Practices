@@ -3,7 +3,7 @@
 //#define NON_STATIC_MEMBER_INIT
 //#define FORWARD_DECLARATION
 //#define INITIALIZER_LIST
-//#define FEATURE
+#define FEATURE
 //#define VECTOR_CLASS_TEMPLATE
 //#define STRING_IMPLEMENTATION
 
@@ -11,7 +11,7 @@
 //#define STL_OPTIONAL_I
 //#define STL_OPTIONAL_II
 //#define STL_OPTIONAL_III
-#define STL_OPTIONAL_Example
+//#define STL_OPTIONAL_Example
 
 
 /* General C++ Features */

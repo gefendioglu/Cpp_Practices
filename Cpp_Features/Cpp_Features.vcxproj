@@ -51,6 +51,7 @@
     <Text Include="37_Constructors_Destructors.txt" />
     <Text Include="36_Cpp_Idioms.txt" />
     <Text Include="37_STL.txt" />
+    <Text Include="9_Cpp_Lesson.txt" />
     <Text Include="General_Features.txt" />
   </ItemGroup>
   <ItemGroup>
