@@ -156,3 +156,92 @@ int main() {
 
 /----------------------------------------------
 /----------------------------------------------
+
+## Inline Functions
+
+- Inline functions and inlined functions are different terms
+- Implicitly inline functions can be defined in class definition directly. If the function is defined in source file as always, then it is not an inline function. 
+- ODR idiom is not violated by the use of inline specifier 
+- Constexpr functions are implicitly inlined functions. 
+- Both non-static const member functions and non-static non-const member functions can be defined as inlined functions.
+- Static member functions can also be defined as inlined function
+- Inline functions should be preferred to use for the small and frequently called functions.
+- Inline functions are very useful in terms of code optimization. The settings shall be use to set the using level of inline functions.  
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Inline functions in class definition
+
+class MyClass {
+public:
+	//Inline function without "inline" specifier
+	int func(int val) {
+		return val * val;
+	}
+
+	int foo(int val);
+
+	//Inline static member function
+	static int sfunc(int num1, int num2) {
+		return num1 + num2;
+	}
+
+	//Inline friend function
+	friend int ffunc(int x) {
+		//...
+		return 1;
+	}
+}
+
+//Implicitly inlined function 
+constexpr int factorial(int n) {
+	return n < 2 ? 1 : factorial(n - 1) * n;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+## Delete Functions 
+
+- The following function types can be deleted using "delete" keyword:
+  - global functions
+  - class member functions
+  - special member functions
+    - default constructor
+    - copy constructor
+    - copy assignment function 
+    - move constructor  (added with C++11)
+    - move assignment function  (added with C++11)
+    - destructor
+
+- Calling a deleted function results in a syntax error.
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** :
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+// all the following functions are overloaded
+void func(int x, int y);
+void func(int);
+void func(double) = delete; // func(double) is still exist
+void func(int*);
+void func(long double);
+
+
+int main() {
+
+	func(12, 24); // OK, func(int x, int y) is called
+	func(2.43);   // NOT OK, func(double) is a deleted function
+				  // attempting to reference a deleted func. error
+				  /*
+		To be executed to add here !!!
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------

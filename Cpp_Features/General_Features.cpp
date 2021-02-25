@@ -3,7 +3,7 @@
 //#define NON_STATIC_MEMBER_INIT
 //#define FORWARD_DECLARATION
 //#define INITIALIZER_LIST
-#define FEATURE
+//#define CONSTRUCTOR_INIT_LIST
 //#define VECTOR_CLASS_TEMPLATE
 //#define STRING_IMPLEMENTATION
 
@@ -13,11 +13,12 @@
 //#define STL_OPTIONAL_III
 //#define STL_OPTIONAL_Example
 
+#define FEATURE
 
 /* General C++ Features */
 // --------------------------------------------
 
-#if defined(USER_DEFINED_LITERALS) || defined(NON_STATIC_MEMBER_INIT) || defined(FORWARD_DECLARATION) || defined(INITIALIZER_LIST) || defined(FEATURE) 
+#if defined(USER_DEFINED_LITERALS) || defined(NON_STATIC_MEMBER_INIT) || defined(FORWARD_DECLARATION) || defined(INITIALIZER_LIST) || defined(CONSTRUCTOR_INIT_LIST) || defined(FEATURE) 
 	#include "General_Features.h"
 #endif
 

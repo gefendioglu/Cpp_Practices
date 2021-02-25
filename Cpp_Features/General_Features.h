@@ -149,41 +149,86 @@ int main() {
 // --------------------------------------------
 // --------------------------------------------
 
+#ifdef CONSTRUCTOR_INIT_LIST
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+int func(){ 
+	//...
+	return 1;
+}
+
+class Data {
+public:
+	// constructor initializer list
+	Data(int x, int y, int z, const int cm, double ref) :mx{ x }, my{ y }, mz{ z }, ptr{nullptr}, cm{ cm }, ref{ ref }{
+		std::cout << "Data ctor is called...\n";
+	}
+
+	Data(const int cm, double ref) : mz{ func() }, vptr{std::malloc(1000)}, cm{ cm }, ref{ ref }{
+		std::cout << "Data(const int cm, double ref) ctor is called...\n";
+	}
+
+	~Data() {
+		std::cout << "Data destructor is called...\n";
+	}
+
+	void print()const {
+
+		std::cout << " mx : " << mx << "\n";
+		std::cout << " my : " << my << "\n"; 
+		std::cout << " mz : " << mz << "\n"; 
+		std::cout << " ptr : " << ptr << "\n"; 
+		std::cout << " vptr : " << vptr << "\n"; 
+		std::cout << " cm : " << cm << "\n"; 
+		std::cout << " ref : " << ref << "\n";
+	}
+
+private: 
+	int mx, my, mz;
+	int* ptr;
+	void* vptr;
+	const int cm; // const data members must be initilalized
+	double& ref;  // references must be initilalized
+};
+
+int main() {
+
+	Data data{ 1,2,3,4,5 };
+	data.print();
+
+	Data mdata{3,4};
+	mdata.print();
+
+	/*
+		To be executed to add here !!!
+	*/
+}
+
+#endif // CONSTRUCTOR_INIT_LIST
+
+
 #ifdef FEATURE
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 
-class Data {
-public:
-	Data() {
-		std::cout << "Data ctor is called..this : " << this << "\n";
-	}
-	~Data() {
-		std::cout << "Data destructor is called..this : " << this << "\n";
-	}
+// all the following functions are overloaded
+void func(int x, int y);
+void func(int);
+void func(double) = delete; // func(double) is still exist
+void func(int*);
+void func(long double);
 
-private:
-	int mx, my;
-};
 
 int main() {
-	
-	Data firstData;
-	// Default ctor shall be called here for firstData object.
-	std::cout << "main() function is called\n";
-	{
-		Data secondData;
-		// Default ctor shall be called here for secondData object.
-		std::cout << "main() function is still going on...\n";
-		// Destructor shall be called here for secondData object.
-	}
 
-	std::cout << "main() function is ended\n";
-	// Destructor shall be called here for firstData object.
-		
-	/*
-		To be executed again...
+	func(12, 24); // OK, func(int x, int y) is called
+	func(2.43);   // NOT OK, func(double) is a deleted function
+				  // attempting to reference a deleted func. error
+				  /*
+		To be executed to add here !!!
 	*/
 }
 

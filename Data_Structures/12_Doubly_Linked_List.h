@@ -36,74 +36,7 @@ public:
 
 	// Prepending a node to the list 
 	// (attaching a node at the beginning of doubly linked list)
-	void prependNode(Node* node)
-	{
-		if (nodeExists(node->key) != nullptr)
-		{
-			std::cout << "Node is already exist with the key value : " << node->key << "\n";
-			std::cout << "Prepend another node with differet key value. " << "\n";
-		}
-		else
-		{
-			if (head == nullptr)
-			{
-				head = node;
-				std::cout << "Node is prepended as a head node." << "\n";
-			}
-			else
-			{
-				head->previous = node;
-				node->next = head;
-				head = node;
-				std::cout << "Node is prepended " << "\n";
-			}
-		}
-	}
-
-	// Inserting a node after a particular node in the list
-	void insertNodeAfter(const int& key, Node* node) 
-	{
-		Node* ptr = nodeExists(key);
-		if (ptr == nullptr)
-		{
-			std::cout << "No node exist with this key : " << node->key << "\n";
-		}
-		else
-		{
-			if (nodeExists(node->key) != nullptr)
-			{
-				std::cout << "Node is already exist with the key value : " << node->key << "\n";
-				std::cout << "Insert another node with differet key value. " << "\n";
-			}
-			else
-			{
-
-				Node* nextNode = ptr->next;
-				
-				// Inserting at the end of a list
-				if (nextNode == nullptr)
-				{
-					ptr->next = node;
-					node->previous = ptr;
-					std::cout << "Node is inserted at the end of the list. " << "\n";
-				}
-
-				// Inserting in between the nodes in the list
-				else
-				{
-					// For the previous node with respect to the new node 
-					node->next = nextNode;
-					nextNode->previous = node;
-					
-					// For the next node with respect to the new node
-					node->previous = ptr;
-					ptr->next = node;
-
-					std::cout << "Node is inserted between two different node in the list." << "\n";
-				}
-			}
-		}
-	}
+	
 
 	// Deleting a node by an unique key value from a list
 	void deleteNodeByKey(const int& key) 
@@ -247,6 +180,75 @@ void DoublyLinkedList::prependNode(Node* node)
 			node->next = head;
 			head = node;
 			std::cout << "Node is prepended " << "\n";
+		}
+	}
+}
+
+void prependNode(Node* node)
+{
+	if (nodeExists(node->key) != nullptr)
+	{
+		std::cout << "Node is already exist with the key value : " << node->key << "\n";
+		std::cout << "Prepend another node with differet key value. " << "\n";
+	}
+	else
+	{
+		if (head == nullptr)
+		{
+			head = node;
+			std::cout << "Node is prepended as a head node." << "\n";
+		}
+		else
+		{
+			head->previous = node;
+			node->next = head;
+			head = node;
+			std::cout << "Node is prepended " << "\n";
+		}
+	}
+}
+
+// Inserting a node after a particular node in the list
+void insertNodeAfter(const int& key, Node* node)
+{
+	Node* ptr = nodeExists(key);
+	if (ptr == nullptr)
+	{
+		std::cout << "No node exist with this key : " << node->key << "\n";
+	}
+	else
+	{
+		if (nodeExists(node->key) != nullptr)
+		{
+			std::cout << "Node is already exist with the key value : " << node->key << "\n";
+			std::cout << "Insert another node with differet key value. " << "\n";
+		}
+		else
+		{
+
+			Node* nextNode = ptr->next;
+
+			// Inserting at the end of a list
+			if (nextNode == nullptr)
+			{
+				ptr->next = node;
+				node->previous = ptr;
+				std::cout << "Node is inserted at the end of the list. " << "\n";
+			}
+
+			// Inserting in between the nodes in the list
+			else
+			{
+				// For the previous node with respect to the new node 
+				node->next = nextNode;
+				nextNode->previous = node;
+
+				// For the next node with respect to the new node
+				node->previous = ptr;
+				ptr->next = node;
+
+				std::cout << "Node is inserted between two different node in the list." << "\n";
+			}
 		}
 	}
 }

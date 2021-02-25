@@ -70,6 +70,38 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
+- **Example** : Constructor Overloading
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data {
+public:
+	Data(int x) {
+		std::cout << "Data(int x)\n";
+	}
+	Data(double x) {
+		std::cout << "Data(double x)\n";
+	}
+	Data(int x, int y) {
+		std::cout << "Data(int x, int y)\n";
+	}
+private: 
+	int mx, my, mz;
+};
+
+int main() {
+
+	Data data1{1.2};   // Data(double x)
+	Data data2{20};    // Data(int x)
+	Data data3{2.0f};  // float --> double (promotion)
+					   // Data(double x) is called !!!
+	Data data4{ 65u }; // NOT OK, ambiquity
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
 - **Example** : Default Constructor and creating a class instance 
 
 // data.h
@@ -242,4 +274,335 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
+- **Example** : Printing the numbers from 0 to 100 on the console using with constructors & destructors
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data {
+public:
+	Data() {
+		static int ival = 0;
+		std::cout << ival++ << " ";
+	}
+	~Data() {}
+};
+
+int main() {
+	
+	Data arrayData[100];
+	/*
+		To be executed to add here. 
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Dynamic Memory Allocation by calling constructors & destructors
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data {
+public:
+	Data() {
+		std::cout << "Data ctor is called..this : " << this << "\n";
+	}
+	~Data() {
+		std::cout << "Data destructor is called..this : " << this << "\n";
+	}
+};
+
+int main() {
+	
+	// Default ctor shall be called here for firstData object.
+	std::cout << "main() function is called\n";
+	auto data = new Data;
+	std::cout << "main() function is still going on [1]...\n";
+	std::cout << "main() function is still going on [2]...\n";
+	delete data;
+	std::cout << "main() function is still going on [3]...\n";
+	std::cout << "main() function is still going on [4]...\n";
+	std::cout << "main() function is still going on [5]...\n";
+	std::cout << "main() function is ended\n";
+
+	/*
+		To be executed to add here. 
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Calling destructors
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data {
+public:
+	Data() {
+		std::cout << "Data ctor is called..this : " << this << "\n";
+	}
+	~Data() {
+		std::cout << "Data destructor is called..this : " << this << "\n";
+	}
+};
+
+int main() {
+	
+	Data data;
+	Data* ptr = &data; 
+	// not a dynamic memory allocation 
+	// the destructor will be called when main() function is ended
+
+
+	/*
+		To be executed to add here. 
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : 
+  - Calling ctor and destructor only once with call by ref
+  - Calling ctor and destructor more than once with call by value
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data {
+public:
+	Data() {
+		std::cout << "Data ctor is called..this : " << this << "\n";
+	}
+	~Data() {
+		std::cout << "Data destructor is called..this : " << this << "\n";
+	}
+};
+
+void func(Data& data) {	/*...*/ }
+void foo(Data data) {	/*...*/ }
+
+int main() {
+	
+	Data data;
+	for (int i = 0; i < 10; ++i)
+		func(data); 
+	    // because the parameter is call by ref
+	    // ctor & destructor are called only once !!!
+	
+	Data mData;
+	for (int i = 0; i < 10; ++i)
+		foo(mData);
+		// because the parameter is call by value
+	    // copy ctor is also called in this case
+	    // destructor is called ten times.
+	
+	/*
+		To be executed to add here. 
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : How can we create an object by calling default ctor? 
+  - If the constructor is written with parameters, then default ctor is not implicitly created by compiler. User has the responsibility to write default ctor as needed. 
+
+class Data {
+public:
+	Data() {
+		std::cout << "Data() default ctor is called..this : " << this << "\n";
+	}
+	~Data() {
+		std::cout << "~Data() destructor is called..this : " << this << "\n";
+	}
+private: 
+	int mx, my, mz;
+};
+
+int main() {
+	
+	// calling default ctor for all the following cases
+	Data data;      // default init.
+	Data data{};    // value init. 
+	Data data();    // function declaration 
+	                // prototyped function not called warning 
+
+	Data arr[10];   // default init. for class arrays
+	Data arr[10]{}; // value init. for class arrays
+
+	/*
+		To be executed to add here. 
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Calling ctor with parameters 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data {
+public:
+	Data(int x) {
+		std::cout << "Data(int x) ctor is called... x: "<< x << " this: " << this << "\n";
+	}
+	~Data() {
+		std::cout << "~Data() destructor is called... this : " << this << "\n";
+	}
+private: 
+	int mx, my, mz;
+};
+
+int main() {
+	
+	// calling ctor with parameters 
+	Data data1(10);    // direct init.
+	Data data2{ 20 };  // direct list init., uniform init.
+	Data data3{ 2.5 }; // narrowing conversion is an error 
+	Data data4 = 30;   // copy init.
+
+	/*
+		To be executed to add here. 
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Explicit ctor 
+  - explicit type specifier are generally used with one-parameter ctors
+  - copy initialization is an error, while using expplicit ctor
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data {
+public:
+	explicit Data(int x) {
+		std::cout << "Data(int x) ctor is called... x: "<< x << " this: " << this << "\n";
+	}
+	~Data() {
+		std::cout << "~Data() destructor is called... this : " << this << "\n";
+	}
+private: 
+	int mx, my, mz;
+};
+
+int main() {
+
+	Data data4 = 30;   
+	// NOT OK, not allowed copy init. with explicit ctor
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** :
+  - Constructor Initializer List / Member Initalizer List (MIL syntax)
+  - initializer_list is a kind of class type, not a constructor initializer list
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data {
+public:
+	// constructor initializer list
+	Data(int x, int y, int z, const int cm, double ref) :mx{ x }, my{ y }, mz{ z }, cm{cm}, ref{ ref }{
+		std::cout << "Data ctor is called...\n";
+		
+		//Assignment, not initialization 
+		//this->mx = 0; 
+		//this->my = 0;
+		//this->mz = 0;
+		//this->ref = 0;
+		//this->cm = 0; can not be assigned any values
+	}
+	~Data() {
+		std::cout << "Data destructor is called...\n";
+	}
+private: 
+	int mx, my, mz;
+	const int cm; // const data members must be initilalized
+	double& ref;  // references must be initilalized
+};
+
+int main() {
+
+	Data data{ 1,2,3,4,5 }; // memory deallocation automatically
+	Data* dataPtr = new Data(1,2,3,4,5);
+	delete dataPtr; // memory deallocation manually
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Constructor Initializer List 
+  - The order of constructor initializer list is not related to specify which object is created first which is not. Instead, the member declaration order does that. 
+  - It should be prefered that all data members are initialized.
+  - Using a pointer as a data member in a class is generally not a good idea.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+int func(){ 
+	//...
+	return 1;
+}
+
+class Data {
+public:
+	// constructor initializer list
+	Data(int x, int y, int z, const int cm, double ref) :mx{ x }, my{ y }, mz{ z }, ptr{nullptr}, cm{ cm }, ref{ ref }{
+		std::cout << "Data ctor is called...\n";
+	}
+
+	Data(const int cm, double ref) : mz{ func() }, vptr{std::malloc(1000)}, cm{ cm }, ref{ ref }{
+		std::cout << "Data(const int cm, double ref) ctor is called...\n";
+	}
+
+	~Data() {
+		std::cout << "Data destructor is called...\n";
+	}
+
+	void print()const {
+
+		std::cout << " mx : " << mx << "\n";
+		std::cout << " my : " << my << "\n"; 
+		std::cout << " mz : " << mz << "\n"; 
+		std::cout << " ptr : " << ptr << "\n"; 
+		std::cout << " vptr : " << vptr << "\n"; 
+		std::cout << " cm : " << cm << "\n"; 
+		std::cout << " ref : " << ref << "\n";
+	}
+
+private: 
+	int mx, my, mz;
+	int* ptr;
+	void* vptr;
+	const int cm; // const data members must be initilalized
+	double& ref;  // references must be initilalized
+};
+
+int main() {
+
+	Data data{ 1,2,3,4,5 };
+	data.print();
+
+	Data mdata{3,4};
+	mdata.print();
+
+	/*
+		To be executed to add here !!!
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
 
