@@ -208,27 +208,32 @@ int main() {
 
 #endif // CONSTRUCTOR_INIT_LIST
 
-
 #ifdef FEATURE
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 
-// all the following functions are overloaded
-void func(int x, int y);
-void func(int);
-void func(double) = delete; // func(double) is still exist
-void func(int*);
-void func(long double);
+class Data {
+public:
+	Data() = default;
+	~Data() = default; 
+	
+	void func()const {
+		++counter; // SYNTAX ERROR
+	}
+	void foo() {
+		++counter;
+	}
 
+private:
+	mutable int counter = 0; // 
+};
 
 int main() {
+	Data data;
 
-	func(12, 24); // OK, func(int x, int y) is called
-	func(2.43);   // NOT OK, func(double) is a deleted function
-				  // attempting to reference a deleted func. error
-				  /*
-		To be executed to add here !!!
+	/*
+		
 	*/
 }
 

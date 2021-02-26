@@ -71,6 +71,7 @@ int main() {
 
 /----------------------------------------------
 /----------------------------------------------
+
 * What are the reasons of using uniform initialization?
 	- narrowing conversion
 	- most vexing parse : 
@@ -151,7 +152,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** Assigning references 
+- **Example** : Assigning references 
 
 #include <iostream>
 
@@ -171,3 +172,52 @@ int main() {
 
 /----------------------------------------------
 /----------------------------------------------
+
+- **Example** : Default member initialization / in-class initialization
+  - Class data members can be initialized constant or non-constant values.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+int globalVal;
+int func(int x) {
+	return x * x - 1;
+}
+
+class Data {
+public:
+	Data() = default;
+	~Data() = default; 
+	void print() const {
+		std::cout << "mCopy : " << mCopy << "\n";
+	}
+	void func() const{
+		mx = 20; // NOT OK, this->mx = 20; 
+				 // this->mx --> const Data *const this
+	}
+private:
+	std::string ms;
+	int marray1[5] = { 1,2,3,4,5 }; // OK, in-class init.
+	int marray2[5] { 1,2,3,4,5 };   // OK, in-class init.
+	//int marray3[] = { 1,2,3,4,5 };  // NOT OK, array size shall be specified
+	int mx = 10;  // OK, in-class init.
+	int my{ 20 }; // OK, in-class init.
+	int* ptr = &globalVal; // OK, in-class init.
+	int& ref{ globalVal }; // OK, in-class init.
+	int mCopy;			   // OK, non-initialized data members
+	int mFunc = func(10);  // OK, in-class init.			  
+};
+
+int main() {
+	Data data;
+	data.print(); // undefined behaviour for non-initialized data members
+	/*
+		mCopy : 0
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** :
+

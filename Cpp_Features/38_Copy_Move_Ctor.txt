@@ -1,11 +1,14 @@
 
 ## COPY & MOVE CONSTRUCTORS 
 
-## Copy Constructors: 
+- Only special member functions can be defaulted using "default" keyword
 
 
 
-## Move Constructors: 
+## Copy Constructors & Assignment : 
+
+## Move Constructors & Assignment: 
+
 
 /----------------------------------------------
 /----------------------------------------------

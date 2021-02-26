@@ -220,7 +220,7 @@ constexpr int factorial(int n) {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** :
+- **Example** : Delete Functions & Function Overloading
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
@@ -228,20 +228,76 @@ constexpr int factorial(int n) {
 // all the following functions are overloaded
 void func(int x, int y);
 void func(int);
-void func(double) = delete; // func(double) is still exist
+void func(double) = delete; // func(double) still exists
 void func(int*);
 void func(long double);
-
 
 int main() {
 
 	func(12, 24); // OK, func(int x, int y) is called
 	func(2.43);   // NOT OK, func(double) is a deleted function
 				  // attempting to reference a deleted func. error
-				  /*
+	
+	/*
 		To be executed to add here !!!
 	*/
 }
 
 /----------------------------------------------
 /----------------------------------------------
+
+- **Example** : How can we provide to call func() function with only int parameter? 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+void func(int);
+
+template<typename T>
+void func(T x) = delete;
+
+int main() {
+	func(12);	// OK, func(int x) is not deleted
+	func(2.43); // NOT OK, for the other types, is deleted 
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : "default" keyword
+
+class Data {
+public:
+	// compiler writes the default constructor
+	Data() = default; 
+	Data(const Data &) = default; 
+	~Data() = default; 
+	Data(int x) {std::cout << "Data(int x)\n";}
+private:
+	std::string ms;
+};
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : "mutable" keyword
+
+class Data {
+public:
+	Data() = default;
+	~Data() = default; 
+	
+	void func()const {
+		++counter; // OK, thanks to "mutable" 
+	}
+	void foo() {
+		++counter; 
+	}
+private:
+	mutable int counter = 0; 
+};
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** :
