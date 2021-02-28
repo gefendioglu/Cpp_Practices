@@ -145,7 +145,7 @@ int main() {
 #endif // INITIALIZER_LIST
 
 
-// This section is to test dummy features
+// Constructor Initalizer List 
 // --------------------------------------------
 // --------------------------------------------
 
@@ -208,33 +208,279 @@ int main() {
 
 #endif // CONSTRUCTOR_INIT_LIST
 
+
+// The implementation of Copy Constructors 
+// --------------------------------------------
+// --------------------------------------------
+
+#ifdef COPY_CTOR
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Member {
+public:
+	Member() = default;
+	Member(const Member& other) :mx{ other.mx }, md{other.md} {
+		std::cout << "Member copy ctor is called..." << "\n";
+	} 
+	void print() const {
+		std::cout << "mx : " << mx << "\n";
+		std::cout << "md : " << md << "\n";
+	}
+	void set(const int ival, const double dval) {
+		std::cout << "Setting the object data members..." << "\n";
+		this->mx = ival;
+		this->md = dval;
+	}
+
+private:
+	int mx = 10;
+	double md = 5.4;
+
+};
+
+int main() {
+
+	Member member1;
+	member1.print();
+	member1.set(20,6.3);
+	member1.print();
+
+	Member member2 = member1; // copy ctor is called!
+	member2.print();
+	member1.set(30, 10.2);
+	member2.print();
+
+	return EXIT_SUCCESS;
+
+	/*
+		mx : 10
+		md : 5.4
+		Setting the object data members...
+		mx : 20
+		md : 6.3
+		Member copy ctor is called...
+		mx : 20
+		md : 6.3
+		Setting the object data members...
+		mx : 20
+		md : 6.3
+	*/
+}
+
+#endif // COPY_CTOR
+
+
+// Copy Ctor and The Address of Objects
+// --------------------------------------------
+// --------------------------------------------
+
+#ifdef COPY_CTOR_ADDRESS
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <conio.h>
+
+class Member {
+public:
+	Member() {
+		std::cout << "Member() default ctor is called...this : " << this << "\n";
+	}
+	~Member() {
+		std::cout << "~Member() dtor is called...this : " << this << "\n";
+	}
+	Member(const Member& other){
+		std::cout << "Member(const Member& other) copy ctor is called...this : " << this << "\n";
+		std::cout << "&other : " << &other << "\n";
+	}
+};
+
+void funcVal(Member mem) {
+	std::cout << "funcVal(Member mem) is called...this : " << &funcVal << "\n";
+
+}
+
+void funcRef(Member &mem) {
+	std::cout << "funcRef(Member &mem) is called...this : " << &funcRef << "\n";
+
+}
+
+int main() {
+	
+	Member m1; // Default ctor
+	std::cout << "&m1 : " << &m1 << "\n";
+
+	Member m2 = m1; // Copy ctor is called here !!!
+		            // m1 is sent as an argument to copy ctor for m2 object
+	std::cout << "&m2 : " << &m2 << "\n";
+
+	funcVal(m2); // Copy ctor is called here !!!
+		         // m2 is sent as an argument to copy ctor for func(m2) function
+
+	funcRef(m2); // copy ctor is NOT called !!!
+				 // three objects: m1, m2, funcVal temp. object 
+				 
+	return EXIT_SUCCESS;
+
+	/*
+		Member() default ctor is called...this : 0135F82B
+		&m1 : 0135F82B
+		Member(const Member& other) copy ctor is called...this : 0135F81F
+		&other : 0135F82B
+		&m2 : 0135F81F
+		Member(const Member& other) copy ctor is called...this : 0135F72C
+		&other : 0135F81F
+		funcVal(Member mem) is called...this : 002D1451
+		~Member() dtor is called...this : 0135F72C
+		funcRef(Member &mem) is called...this : 002D1456
+		~Member() dtor is called...this : 0135F81F
+		~Member() dtor is called...this : 0135F82B
+	*/
+}
+
+#endif // COPY_CTOR_ADDRESS
+
+// Copy Ctor withput Dangling Pointer Problem 
+// Whenever a need comes out to allocate memory block (if there is an in-class pointer), the copy ctor of this class shall be declared by user.
+// --------------------------------------------
+// --------------------------------------------
+
+#ifdef USER_DECLARED_COPY_CTOR
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <cstring>
+#include <cstdlib>
+#include <conio.h>
+
+class String {
+public:
+	String(const char* pstr) : mlenght{ std::strlen(pstr) } {
+		mptr = static_cast<char*>(malloc(mlenght + 1));
+		if (!mptr)
+		{
+			std::cerr << "not enough memory...\n";
+			std::exit(EXIT_FAILURE);
+		}
+		std::cout << "ctor is called...this : " << this << "\n";
+		std::cout << "the address of allocated block : " << (void*)mptr << "\n";
+		std::strcpy(mptr, pstr);
+	}
+	~String() {
+		std::cout << "destructor is called...this : " << this << "\n";
+		if (mptr)
+		{
+			std::free(mptr);
+		}
+		std::cout << "the address of freed block : " << (void*)mptr << "\n";
+	}
+
+	// user declared copy contructor
+	String(const String& other) : mlenght{other.mlenght} {
+		std::cout << "Copy ctor is called...this : " << this << "\n";
+		
+		mptr = static_cast<char*>(malloc(mlenght + 1));
+		if (!mptr)
+		{
+			std::cerr << "not enough memory...\n";
+			std::exit(EXIT_FAILURE);
+		}
+		std::cout << "the address of allocated block : " << (void*)mptr << "\n";
+		std::cout << "other.mptr : " << (void*)other.mptr << "\n";
+		std::strcpy(mptr, other.mptr);
+	}
+
+	size_t length()const {
+		return mlenght;
+	}
+
+	void print()const {
+		std::cout << "[" << mptr << "]" << "\n";
+	}
+
+private:
+	size_t mlenght;
+	char* mptr;
+};
+
+void func(String str) {
+	std::cout << "func is called...\n";
+	str.print();
+	std::cout << "func is ended...\n";
+}
+
+
+int main() {
+
+	String s = "Gamze Efendioglu";
+	std::cout << "length : " << s.length() << "\n";
+	s.print();
+
+	func(s);   
+	_getch(); 
+	s.print(); 
+
+	return EXIT_SUCCESS;
+
+	/*
+		ctor is called...this : 00D2F840
+		the address of allocated block : 01190578
+		length : 16
+		[Gamze Efendioglu]
+		Copy ctor is called...this : 00D2F74C
+		the address of allocated block : 01195A88
+		other.mptr : 01190578
+		func is called...
+		[Gamze Efendioglu]
+		func is ended...
+		destructor is called...this : 00D2F74C
+		the address of freed block : 01195A88
+		[Gamze Efendioglu]
+		destructor is called...this : 00D2F840
+		the address of freed block : 01190578
+	*/
+}
+
+#endif // USER_DECLARED_COPY_CTOR
+
+
+// Features 
+// --------------------------------------------
+// --------------------------------------------
+
 #ifdef FEATURE
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 
+class T{};
+class U{};
+class X{};
+
 class Data {
 public:
-	Data() = default;
-	~Data() = default; 
-	
-	void func()const {
-		++counter; // SYNTAX ERROR
-	}
-	void foo() {
-		++counter;
+	//copy assignment function (with operator overloading)
+	Data &operator=(const Data &other){
+		mt = other.mt;
+		mu = other.mu;
+		mx = other.mx;
+
+		return *this;
 	}
 
 private:
-	mutable int counter = 0; // 
+	T mt;
+	U mu;
+	X mx;
 };
 
 int main() {
-	Data data;
 
-	/*
-		
-	*/
+	Data data1;
+	Data data2;
+	data2 = data1; // data2.operator=(data1);
 }
 
 #endif // FEATURE
+

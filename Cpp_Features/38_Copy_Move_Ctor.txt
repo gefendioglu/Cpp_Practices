@@ -1,16 +1,544 @@
 
-## COPY & MOVE CONSTRUCTORS 
+## SPECIAL MEMBER FUNCTIONS  
 
 - Only special member functions can be defaulted using "default" keyword
 
+- Bu fonksyionlarýn kodu belirli koþullar oluþtuðunda compiler tarafýndan yazýlmaktadýr.
 
-
-## Copy Constructors & Assignment : 
-
-## Move Constructors & Assignment: 
-
+- The declaration types of special member functions: 
+  - not-declared 
+  - user declared 
+    - defined by user
+	- defaulted by user with "default" keyword
+	- deleted by user with "delete" keyword
+  - implicitly declared 
+	- defaulted by compiler 
+	- deleted by compiler 
 
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** :
+- **Example** : not-declared default ctor 
+
+class Data {
+public:
+	Data(int) {} // Default ctor is not-declared
+	~Data() = default; 
+private:
+	int counter = 0; 
+};
+
+int main() {
+	Data data;       // ERROR, no default ctor
+	Data data{ 10 }; // NOT ERROR,	Data(int) {}
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : user declared 
+
+class Data {
+public:
+	Data();   // user declared, not defined
+	Data() {} // user declared, defined
+	Data() = default; // user declared, defaulted
+	Data() = delete;  // user declared, deleted
+private:
+	int counter = 0; 
+};
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : implicitly declared, deleted default ctor
+ 
+class Data {
+public:
+	Data(int); 
+private:
+	int counter = 0; 
+};
+
+// Member class default ctor is deleted by compiler
+// implicitly declared, deleted
+class Member {
+private:
+	Data mx;
+};
+
+int main() {
+	Member member; // ERROR
+				   // Attempting to reference a deleted function
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+## COPY & MOVE CONSTRUCTORS
+
+## Copy Constructors : 
+
+- Ayný türden baþka bir sýnýf nesnesinden kopyalanarak hayata gelen bir nesne için copy ctor çaðrýlmaktadýr.
+
+- The copy ctor written by compiler:
+  - public, non-static member function
+  - inline member function
+  - The declaration of copy ctor --> Data(const Data &ref) = default; 
+
+  - When do we need a copy ctor special member function in a class?
+  - T is a class type, x and y are T objects:
+    T x = y; --> copy ctor
+  - While calling by-value functions 
+  - When the return value of a function is a class type, compiler needs to have a temporary object to hold this return value temporarily. In that case, copy ctor is called for this temporary object. 
+
+- Copy constructors are generally written by compiler, not by users. In some specific situations, copy constructors can be coded bu users. 
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : When copy constructors shall be written by user?
+  - If a class has a pointer type and the copy ctor of this class has been written by compiler, then the pointer types belongs to two different objects point the same object.
+  - If this object is destructed in some way, then the other pointer would be dangling pointer (points the objects which are no longer exists).
+
+class Member {
+public:
+	// Pointing the same object
+	Member(const Member& other) : ptr{other.ptr} {}
+private:
+	int* ptr;
+};
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Copy ctor and dangling pointer problem 
+  - **dangling pointer** is a kind of runtime error
+  -**deep copy**--> Instead of copying pointers, it is the copying of the object itself pointed by the copied pointer to a new allocated memory block. 
+  - with deep copying, all pointers have their own memory blocks. 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <cstring>
+#include <cstdlib>
+#include <conio.h>
+
+class String {
+public:
+	String(const char* pstr) : mlenght{ std::strlen(pstr) } {
+		mptr = static_cast<char*>(malloc(mlenght + 1));
+		if (!mptr)
+		{
+			std::cerr << "not enough memory...\n";
+			std::exit(EXIT_FAILURE);
+		}
+		std::cout << "ctor is called...this : " << this << "\n";
+		std::cout << "the address of allocated block : " << (void*)mptr << "\n";
+		std::strcpy(mptr, pstr);
+	}
+	~String() {
+		std::cout << "destructor is called...this : " << this << "\n";
+		if (mptr)
+		{
+			std::free(mptr);
+		}
+		std::cout << "the address of freed block : " << (void*)mptr << "\n";
+	}
+
+	size_t length()const {
+		return mlenght;
+	}
+
+	void print()const {
+		std::cout << "[" << mptr << "]" << "\n";
+	}
+
+private:
+	size_t mlenght;
+	char* mptr;
+};
+
+void func(String str) {
+	std::cout << "func is called...\n";
+	str.print();
+	std::cout << "func is ended...\n";
+}
+
+
+int main() {
+
+	String s = "Gamze Efendioglu";
+	std::cout << "length : " << s.length() << "\n";
+	s.print();
+
+	func(s);   
+	_getch(); 
+	s.print(); // dangling pointer - runtime error
+			   // when func is ended, the the temporary object is destroyed
+	           // copy ctor is written by compiler
+			   // not a deep copy, pointing the same object 
+
+	return EXIT_SUCCESS;
+
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Copy ctor without dangling pointer problem by the help of user declared copy constructor.
+  - Whenever a need comes out to allocate memory block (if there is an in-class pointer), the copy ctor of this class shall be declared by user.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <cstring>
+#include <cstdlib>
+#include <conio.h>
+
+class String {
+public:
+	String(const char* pstr) : mlenght{ std::strlen(pstr) } {
+		mptr = static_cast<char*>(malloc(mlenght + 1));
+		if (!mptr)
+		{
+			std::cerr << "not enough memory...\n";
+			std::exit(EXIT_FAILURE);
+		}
+		std::cout << "ctor is called...this : " << this << "\n";
+		std::cout << "the address of allocated block : " << (void*)mptr << "\n";
+		std::strcpy(mptr, pstr);
+	}
+	~String() {
+		std::cout << "destructor is called...this : " << this << "\n";
+		if (mptr)
+		{
+			std::free(mptr);
+		}
+		std::cout << "the address of freed block : " << (void*)mptr << "\n";
+	}
+
+	// user declared copy contructor
+	String(const String& other) : mlenght{other.mlenght} {
+		std::cout << "Copy ctor is called...this : " << this << "\n";
+		
+		mptr = static_cast<char*>(malloc(mlenght + 1));
+		if (!mptr)
+		{
+			std::cerr << "not enough memory...\n";
+			std::exit(EXIT_FAILURE);
+		}
+		std::cout << "the address of allocated block : " << (void*)mptr << "\n";
+		std::cout << "other.mptr : " << (void*)other.mptr << "\n";
+		std::strcpy(mptr, other.mptr);
+	}
+
+	size_t length()const {
+		return mlenght;
+	}
+
+	void print()const {
+		std::cout << "[" << mptr << "]" << "\n";
+	}
+
+private:
+	size_t mlenght;
+	char* mptr;
+};
+
+void func(String str) {
+	std::cout << "func is called...\n";
+	str.print();
+	std::cout << "func is ended...\n";
+}
+
+
+int main() {
+
+	String s = "Gamze Efendioglu";
+	std::cout << "length : " << s.length() << "\n";
+	s.print();
+
+	func(s);   
+	_getch(); 
+	s.print(); 
+
+	return EXIT_SUCCESS;
+
+	/*
+		ctor is called...this : 00D2F840
+		the address of allocated block : 01190578
+		length : 16
+		[Gamze Efendioglu]
+		Copy ctor is called...this : 00D2F74C
+		the address of allocated block : 01195A88
+		other.mptr : 01190578
+		func is called...
+		[Gamze Efendioglu]
+		func is ended...
+		destructor is called...this : 00D2F74C
+		the address of freed block : 01195A88
+		[Gamze Efendioglu]
+		destructor is called...this : 00D2F840
+		the address of freed block : 01190578
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+- **Example** :    
+
+class Data {
+public:
+	Data() : data{ 0 } {}
+	Data(const Data& mdata) {}
+private:
+	int data; 
+};
+
+int main() {
+	Data data1;
+    Data data2 = data1; // copy ctor is called 
+    Data data3(data1);  // copy ctor is called 
+    Data data4{data1};  // copy ctor is called  
+	
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Copy ctor with temporary objects   
+
+class Data {
+public:
+	Data() : data{ 0 } {}
+	Data(const Data& mdata) {}
+	void func(Data mdata);
+	~Data() = default;
+private:
+	int data; 
+};
+
+Data gdata;
+Data foo() {
+
+	//...
+	return gdata; // Temporary object is created here
+				  // Copy ctor is called !!!
+}
+
+int main() {
+	Data kdata;
+	kdata.func(kdata); // copy ctor is called here!!!
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : The implementation of copy ctor
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class T {};
+class U {};
+class X {};
+
+class Data {
+public:
+	Data() = default;
+	// copy ctor 
+	Data(const Data& other) :mt{ other.mt }, mu{ other.mu }, mx{ other.mx } {}
+private:
+	T mt;
+	U mu;
+	X mx;
+};
+
+
+int main() {
+
+	Data data1;
+	Data data2 = data1; // copy ctor is called!
+
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : The implementation of copy ctor 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Member {
+public:
+	Member() = default;
+	Member(const Member& other) :mx{ other.mx }, md{other.md} {
+		std::cout << "Member copy ctor is called..." << "\n";
+	} 
+	void print() const {
+		std::cout << "mx : " << mx << "\n";
+		std::cout << "md : " << md << "\n";
+	}
+	void set(const int ival, const double dval) {
+		std::cout << "Setting the object data members..." << "\n";
+		this->mx = ival;
+		this->md = dval;
+	}
+
+private:
+	int mx = 10;
+	double md = 5.4;
+
+};
+
+int main() {
+
+	Member member1;
+	member1.print();
+	member1.set(20,6.3);
+	member1.print();
+
+	Member member2 = member1; // copy ctor is called!
+	member2.print();
+	member1.set(30, 10.2);
+	member2.print();
+
+	return EXIT_SUCCESS;
+
+	/*
+		mx : 10
+		md : 5.4
+		Setting the object data members...
+		mx : 20
+		md : 6.3
+		Member copy ctor is called...
+		mx : 20
+		md : 6.3
+		Setting the object data members...
+		mx : 20
+		md : 6.3
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Default and Copy Constructors
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <conio.h>
+
+class Member {
+public:
+	Member() {
+		std::cout << "Member() default ctor is called...this : " << this << "\n";
+	}
+	~Member() {
+		std::cout << "~Member() dtor is called...this : " << this << "\n";
+	}
+	Member(const Member& other){
+		std::cout << "Member(const Member& other) copy ctor is called...this : " << this << "\n";
+		std::cout << "&other : " << &other << "\n";
+	}
+};
+
+void funcVal(Member mem) {
+	std::cout << "funcVal(Member mem) is called...this : " << &funcVal << "\n";
+
+}
+
+void funcRef(Member &mem) {
+	std::cout << "funcRef(Member &mem) is called...this : " << &funcRef << "\n";
+
+}
+
+int main() {
+	
+	Member m1; // Default ctor
+	std::cout << "&m1 : " << &m1 << "\n";
+
+	Member m2 = m1; // Copy ctor is called here !!!
+		            // m1 is sent as an argument to copy ctor for m2 object
+	std::cout << "&m2 : " << &m2 << "\n";
+
+	funcVal(m2); // Copy ctor is called here !!!
+		         // m2 is sent as an argument to copy ctor for func(m2) function
+
+	funcRef(m2); // copy ctor is NOT called !!!
+				 // three objects: m1, m2, funcVal temp. object 
+				 
+	return EXIT_SUCCESS;
+
+	/*
+		Member() default ctor is called...this : 0135F82B
+		&m1 : 0135F82B
+		Member(const Member& other) copy ctor is called...this : 0135F81F
+		&other : 0135F82B
+		&m2 : 0135F81F
+		Member(const Member& other) copy ctor is called...this : 0135F72C
+		&other : 0135F81F
+		funcVal(Member mem) is called...this : 002D1451
+		~Member() dtor is called...this : 0135F72C
+		funcRef(Member &mem) is called...this : 002D1456
+		~Member() dtor is called...this : 0135F81F
+		~Member() dtor is called...this : 0135F82B
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+## Copy Assignment Function:
+- Its another name is **Assignment Operator Function**
+- non-static, public, inline class member function
+- T is a class type:
+  T mx;
+  T my;
+  mx = my; --> copy assign. 
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class T{};
+class U{};
+class X{};
+
+class Data {
+public:
+	//copy assignment function (with operator overloading)
+	Data &operator=(const Data &other){
+		mt = other.mt;
+		mu = other.mu;
+		mx = other.mx;
+
+		return *this;
+	}
+
+private:
+	T mt;
+	U mu;
+	X mx;
+};
+
+int main() {
+
+	Data data1;
+	Data data2;
+	data2 = data1; // data2.operator=(data1);
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+## Move Constructors (with C++11): 
+
+## Move Assignment (with C++11): 

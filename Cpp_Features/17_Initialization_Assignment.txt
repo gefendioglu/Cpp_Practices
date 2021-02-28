@@ -68,7 +68,6 @@ int main() {
 	std::cout << "Dereferencing secondPtr (*secondPtr): "<< *secondPtr << "\n";
 }
 
-
 /----------------------------------------------
 /----------------------------------------------
 
@@ -79,6 +78,35 @@ int main() {
 
 /----------------------------------------------
 /----------------------------------------------
+
+### Uniform initialization & Non-static member initialization
+
+-**Example**: Uniform initialization & Non-static member initialization
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
+class demo {
+public:
+    demo(uint32_t ival, bool bval, std::string sval, float fval) : m_ival{ ival }, m_bval{ bval }, m_sval{ sval },
+        m_fval{ m_fval } {}
+private:
+    // non-static member initialization
+    uint32_t m_ival = 0;
+    bool m_bval = false;
+    std::string m_sval = "";
+    float m_fval = 0.0;
+};
+
+int main() {
+    // uniform initialization
+    demo obj{ 123, true, "lol", 1.1 };
+    return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
 - **Example**: Narrowing Conversion 
 
 #include <iostream>

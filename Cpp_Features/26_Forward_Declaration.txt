@@ -53,6 +53,58 @@ int main()
 /----------------------------------------------
 /----------------------------------------------
 
+### Forward Declaration
+
+-**Example**: Forward Declaration
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
+// Forward Declaration for class A
+class A;
+
+class B {
+public:
+	void setData(int mdata)	{
+		mx = mdata;
+	}
+
+	// Forward declaration is required for the parameters of sum func. 
+	friend int sum(const A&, const B&);
+private:
+	int mx;
+};
+
+class A {
+public:
+	void setData(int mdata)	{
+		my = mdata;
+	}
+	friend int sum(const A&, const B&);
+private: 
+	int my;
+};
+
+int sum(const A& m, const B& n){
+	return (m.my + n.mx);
+}
+
+int main(){
+
+	B b;
+	A a;
+	
+	a.setData(5);
+	b.setData(4);
+	std::cout << "The sum is : " << sum(a, b);
+	// The sum is : 9
+	
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
 ## "extern" C Definition
 
 - name mangling --> name decoration

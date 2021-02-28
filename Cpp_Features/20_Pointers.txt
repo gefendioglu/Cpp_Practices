@@ -5,6 +5,7 @@
 /----------------------------------------------
 
 * Pointer Types: Valid / Invalid Pointer
+
   - **Invalid pointer**: bir pointer a dinamik ömürlü nesnenin adresi atandıysa/ilk değer verilirse ve pointer değişkenin hayatı devam ederken onun gösterdiği nesnenin hayatı biterse. otomatik ömürlü tanımlanan pointer için ilk değer verilmezse
 
   - **Valid pointer**: Bir pointer bir dizinin son elemanının adresini tutarken, değeri bir arttırılırsa dizinin bittiği yerin adresini tutuyor olacaktır 
