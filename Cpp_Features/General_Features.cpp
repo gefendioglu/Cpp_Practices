@@ -6,7 +6,8 @@
 //#define CONSTRUCTOR_INIT_LIST
 //#define COPY_CTOR
 //#define COPY_CTOR_ADDRESS
-//#define USER_DECLARED_COPY_CTOR
+//#define USER_DECLARED_COPY_CTOR_ASSIGNMENT
+//#define COPY_ASSIGNMENT
 //#define VECTOR_CLASS_TEMPLATE
 //#define STRING_IMPLEMENTATION
 
@@ -21,7 +22,7 @@
 /* General C++ Features */
 // --------------------------------------------
 
-#if defined(USER_DEFINED_LITERALS) || defined(NON_STATIC_MEMBER_INIT) || defined(FORWARD_DECLARATION) || defined(INITIALIZER_LIST) || defined(CONSTRUCTOR_INIT_LIST) || defined(COPY_CTOR) || defined(COPY_CTOR_ADDRESS) || defined(USER_DECLARED_COPY_CTOR) || defined(FEATURE)
+#if defined(USER_DEFINED_LITERALS) || defined(NON_STATIC_MEMBER_INIT) || defined(FORWARD_DECLARATION) || defined(INITIALIZER_LIST) || defined(CONSTRUCTOR_INIT_LIST) || defined(COPY_CTOR) || defined(COPY_CTOR_ADDRESS) || defined(USER_DECLARED_COPY_CTOR_ASSIGNMENT) || defined(COPY_ASSIGNMENT) || defined(FEATURE)
 	#include "General_Features.h"
 #endif
 

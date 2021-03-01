@@ -110,10 +110,10 @@
     <Text Include="37_STL.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="10_Cpp_Lesson.txt">
+    <Text Include="38_Copy_Move_Ctor.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="38_Copy_Move_Ctor.txt">
+    <Text Include="11_Cpp_Lesson.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

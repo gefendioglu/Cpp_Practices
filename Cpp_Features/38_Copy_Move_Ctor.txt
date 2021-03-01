@@ -185,105 +185,6 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** : Copy ctor without dangling pointer problem by the help of user declared copy constructor.
-  - Whenever a need comes out to allocate memory block (if there is an in-class pointer), the copy ctor of this class shall be declared by user.
-
-#define _CRT_SECURE_NO_WARNINGS
-#include <iostream>
-#include <cstring>
-#include <cstdlib>
-#include <conio.h>
-
-class String {
-public:
-	String(const char* pstr) : mlenght{ std::strlen(pstr) } {
-		mptr = static_cast<char*>(malloc(mlenght + 1));
-		if (!mptr)
-		{
-			std::cerr << "not enough memory...\n";
-			std::exit(EXIT_FAILURE);
-		}
-		std::cout << "ctor is called...this : " << this << "\n";
-		std::cout << "the address of allocated block : " << (void*)mptr << "\n";
-		std::strcpy(mptr, pstr);
-	}
-	~String() {
-		std::cout << "destructor is called...this : " << this << "\n";
-		if (mptr)
-		{
-			std::free(mptr);
-		}
-		std::cout << "the address of freed block : " << (void*)mptr << "\n";
-	}
-
-	// user declared copy contructor
-	String(const String& other) : mlenght{other.mlenght} {
-		std::cout << "Copy ctor is called...this : " << this << "\n";
-		
-		mptr = static_cast<char*>(malloc(mlenght + 1));
-		if (!mptr)
-		{
-			std::cerr << "not enough memory...\n";
-			std::exit(EXIT_FAILURE);
-		}
-		std::cout << "the address of allocated block : " << (void*)mptr << "\n";
-		std::cout << "other.mptr : " << (void*)other.mptr << "\n";
-		std::strcpy(mptr, other.mptr);
-	}
-
-	size_t length()const {
-		return mlenght;
-	}
-
-	void print()const {
-		std::cout << "[" << mptr << "]" << "\n";
-	}
-
-private:
-	size_t mlenght;
-	char* mptr;
-};
-
-void func(String str) {
-	std::cout << "func is called...\n";
-	str.print();
-	std::cout << "func is ended...\n";
-}
-
-
-int main() {
-
-	String s = "Gamze Efendioglu";
-	std::cout << "length : " << s.length() << "\n";
-	s.print();
-
-	func(s);   
-	_getch(); 
-	s.print(); 
-
-	return EXIT_SUCCESS;
-
-	/*
-		ctor is called...this : 00D2F840
-		the address of allocated block : 01190578
-		length : 16
-		[Gamze Efendioglu]
-		Copy ctor is called...this : 00D2F74C
-		the address of allocated block : 01195A88
-		other.mptr : 01190578
-		func is called...
-		[Gamze Efendioglu]
-		func is ended...
-		destructor is called...this : 00D2F74C
-		the address of freed block : 01195A88
-		[Gamze Efendioglu]
-		destructor is called...this : 00D2F840
-		the address of freed block : 01190578
-	*/
-}
-
-/----------------------------------------------
-/----------------------------------------------
 - **Example** :    
 
 class Data {
@@ -434,12 +335,15 @@ int main() {
 
 class Member {
 public:
+
 	Member() {
 		std::cout << "Member() default ctor is called...this : " << this << "\n";
 	}
+
 	~Member() {
 		std::cout << "~Member() dtor is called...this : " << this << "\n";
 	}
+
 	Member(const Member& other){
 		std::cout << "Member(const Member& other) copy ctor is called...this : " << this << "\n";
 		std::cout << "&other : " << &other << "\n";
@@ -493,17 +397,27 @@ int main() {
 /----------------------------------------------
 
 ## Copy Assignment Function:
+
 - Its another name is **Assignment Operator Function**
 - non-static, public, inline class member function
+
 - T is a class type:
   T mx;
   T my;
   mx = my; --> copy assign. 
+  mx.operator=(my);
+
+- The implementation of copy assignment (Assuming that Data is a class):
+  - Data& operator=(const Data &other){}
+  - using **copy & swap** idiom (especially for exception handling)
+
+- When do we need to write copy assignment function manually?
+  - Whenever it is a necessity to make a deep copy (compilers make a memberwise copy --> the address of objects are copied, instead of objects themselves).
 
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** : 
+- **Example** : The implementation of copy assignment
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
@@ -522,6 +436,9 @@ public:
 
 		return *this;
 	}
+	void func() {
+		std::cout << "Data::func() is called...this : " << this << "\n";
+	}
 
 private:
 	T mt;
@@ -534,11 +451,477 @@ int main() {
 	Data data1;
 	Data data2;
 	data2 = data1; // data2.operator=(data1);
+	data2.operator=(data1).func();
+	
+	/*
+		Executed again !!!
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : The implementation of copy assignment
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Counter {
+public:
+	Counter() = default;
+	Counter(int x) : mx{ x } {}
+	Counter& operator=(const Counter& other){
+		std::cout << "Copy assignment is called...this : " << this << "\n";
+		std::cout << "&other : " << &other << "\n";
+
+		this->mx = other.mx;
+		return *this;
+	}
+	void func() {
+		std::cout << "Counter::func() is called...this : " << this << "\n";
+	}
+	void print()const {
+		std::cout << "mx : " << mx << "\n";
+	}
+	void set(const int val) {
+		this->mx = val;
+	}
+private:
+	int mx;
+};
+
+int main() {
+
+	Counter cnt1{10};
+	Counter cnt2{20};
+
+	cnt1.print(); // 10
+	cnt2.print(); // 20
+
+	cnt2.operator=(cnt1); // cnt2 = cnt1, copy assign. called
+	cnt1.print(); // 10
+	cnt2.print(); // 10
+
+	(cnt1 = cnt2).print(); // 10
+	// copy assign. is called 
+	//--> cnt1.operator=(cnt2).print();
+	
+	/*
+		Executed again !!!
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : The implementation of copy assignment
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Counter {
+public:
+	Counter() = default;
+	Counter(int x) : mx{ x } {}
+	Counter& operator=(const Counter& other){
+		std::cout << "Copy assignment is called...this : " << this << "\n";
+		std::cout << "&other : " << &other << "\n";
+		this->mx = other.mx;
+		return *this;
+	}
+private:
+	int mx;
+};
+
+int main() {
+
+	Counter cnt1{343};
+	Counter cnt2{522};
+	
+	std::cout << "&cnt1 : " << &cnt1 << "\n";
+	std::cout << "&cnt2 : " << &cnt2 << "\n";
+
+	cnt2 = cnt1; // cnt2.operator=(cnt1); 
+	
+	/*
+		Executed again !!!
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : The implementation of copy assignment
+  - The assignment operator returns the object reference, that's why it is a L-Value expression 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Counter {
+public:
+	Counter() = default;
+	Counter(int x) : mx{ x } {}
+	Counter& operator=(const Counter& other){
+		std::cout << "Copy assignment is called...this : " << this << "\n";
+		this->mx = other.mx;
+		return *this;
+	}
+	void print()const {
+		std::cout << "mx : " << mx << "\n";
+	}
+private:
+	int mx;
+};
+
+int main() {
+
+	Counter cnt1, cnt2, cnt3, cnt4;
+	Counter cnt5{ 115 };
+
+	//cnt1 = cnt2 = cnt3 = cnt4 = cnt5;
+	cnt1.operator=(cnt2.operator=( cnt3.operator=( cnt4.operator=(cnt5))));
+
+	cnt1.print();
+	cnt2.print();
+	cnt3.print();
+	cnt4.print();
+	cnt5.print();
+	
+	/*
+		Executed again !!!
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Copy ctor and copy assignment implementations without dangling pointer problem by the help of user declared copy constructor.
+  - Whenever a need comes out to allocate memory block (if there is an in-class pointer), the copy ctor of this class shall be declared by user.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <cstring>
+#include <cstdlib>
+#include <conio.h>
+
+class String {
+public:
+	String(const char* pstr) : mlenght{ std::strlen(pstr) } {
+		mptr = static_cast<char*>(malloc(mlenght + 1));
+		if (!mptr)
+		{
+			std::cerr << "not enough memory...\n";
+			std::exit(EXIT_FAILURE);
+		}
+		std::cout << "ctor is called...this : " << this << "\n";
+		std::cout << "the address of allocated block : " << (void*)mptr << "\n";
+		std::strcpy(mptr, pstr);
+	}
+
+	~String() {
+		std::cout << "destructor is called...this : " << this << "\n";
+		if (mptr)
+		{
+			std::free(mptr);
+		}
+		std::cout << "the address of freed block : " << (void*)mptr << "\n";
+	}
+
+	// user declared copy contructor
+	String(const String& other) : mlenght{other.mlenght} {
+		std::cout << "Copy ctor is called...this : " << this << "\n";
+		
+		// deep copying 
+		mptr = static_cast<char*>(malloc(mlenght + 1));
+		if (!mptr)
+		{
+			std::cerr << "not enough memory...\n";
+			std::exit(EXIT_FAILURE);
+		}
+		std::cout << "the address of allocated block : " << (void*)mptr << "\n";
+		std::cout << "other.mptr : " << (void*)other.mptr << "\n";
+		std::strcpy(mptr, other.mptr);
+	}
+
+	// user declared copy assignment
+	String& operator=(const String& other) {
+		// if the object is assigned to itself
+		// if the argument address and the address of object calling this function 
+		if (this == &other)
+		{
+			return *this; // function is ended directly
+		}
+
+		std::cout << "Copy assignment is called...this : " << this << "\n";
+		// The assigned object must first return its own resource. 
+		free(mptr);
+
+		this->mlenght = other.mlenght;
+		
+		// deep copying 
+		mptr = static_cast<char*>(malloc(mlenght + 1));
+		if (!mptr)
+		{
+			std::cerr << "not enough memory...\n";
+			std::exit(EXIT_FAILURE);
+		}
+		std::cout << "the address of allocated block : " << (void*)mptr << "\n";
+		std::cout << "other.mptr : " << (void*)other.mptr << "\n";
+		std::strcpy(mptr, other.mptr);
+
+		return *this;
+	}
+
+	size_t length()const {
+		return mlenght;
+	}
+
+	void print()const {
+		std::cout << "[" << mptr << "]" << "\n";
+	}
+
+private:
+	size_t mlenght;
+	char* mptr;
+};
+
+void func(String str) {
+	std::cout << "func is called...\n";
+	str.print();
+	std::cout << "func is ended...\n";
+}
+
+int main() {
+
+	String s1 = "Gamze Efendioglu";
+	s1.print();
+	std::cout << "\n\n";
+	
+	func(s1);  // copy ctor is called !!!
+	s1.print(); 
+	std::cout << "\n\n";
+	
+	String s2 = "Mehmet Efendioglu";
+	s2.print();
+	std::cout << "\n\n";
+
+	s2 = s1;   // copy assignment is called here !!!
+	s2.print();
+	std::cout << "\n\n";
+
+	s2 = s2; // self-assignment --> results in run-time error
+			 // there should be a control in copy assignment
+	std::cout << "\n\n";
+
+	return EXIT_SUCCESS;
+
+	/*
+		Executed again !!!
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Self assignment (unconsciously)
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <cstring>
+#include <cstdlib>
+
+class String {
+public:
+
+	String(const char* pstr) : mlenght{ std::strlen(pstr) } {
+		mptr = static_cast<char*>(malloc(mlenght + 1));
+		if (!mptr)
+		{
+			std::cerr << "not enough memory...\n";
+			std::exit(EXIT_FAILURE);
+		}
+		std::cout << "ctor is called...this : " << this << "\n";
+		std::strcpy(mptr, pstr);
+	}
+
+	~String() {
+		std::cout << "destructor is called...this : " << this << "\n";
+		if (mptr)
+		{
+			std::free(mptr);
+		}
+	}
+
+	// user declared copy contructor
+	String(const String& other) : mlenght{ other.mlenght } {
+		std::cout << "Copy ctor is called...this : " << this << "\n";
+
+		// deep copying 
+		mptr = static_cast<char*>(malloc(mlenght + 1));
+		if (!mptr)
+		{
+			std::cerr << "not enough memory...\n";
+			std::exit(EXIT_FAILURE);
+		}
+		std::strcpy(mptr, other.mptr);
+	}
+
+	// user declared copy assignment
+	String& operator=(const String& other) {
+		// control block for self-assignment 
+		if (this == &other)
+		{
+			return *this; // function is ended directly
+		}
+
+		std::cout << "Copy assignment is called...this : " << this << "\n";
+		// The assigned object must first return its own resource. 
+		free(mptr);
+
+		this->mlenght = other.mlenght;
+
+		// deep copying 
+		mptr = static_cast<char*>(malloc(mlenght + 1));
+		if (!mptr)
+		{
+			std::cerr << "not enough memory...\n";
+			std::exit(EXIT_FAILURE);
+		}
+		std::strcpy(mptr, other.mptr);
+
+		return *this;
+	}
+
+	void print()const {
+		std::cout << "[" << mptr << "]" << "\n";
+	}
+
+private:
+	size_t mlenght;
+	char* mptr;
+};
+
+void func(String &str1, String& str2) {
+	//...
+	str1 = str2;
+}
+
+int main() {
+
+	String s2{"Gamze Efendioglu"};
+	func(s2, s2); // self-assignment
+			      // not a run-time error, because of control blocks in copy assignment function 
+
+	return EXIT_SUCCESS;
+
+	/*
+		Executed again !!!
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+## BIG THREE
+
+- The following special member functions consist of big three: 
+  - Destructor (related to RAII idiom)
+  - Copy Ctor
+  - Copy Assignment 
+
+- If you need to write destructor to deallocate the allocated memory block for an object (RAII rule) and if copy ctor and copy assignment functions are written by compiler, then memberwise copy is realized. 
+  - For deep copying, it is mandatory to write them by user manually (to allocate different memory blocks for copied objects). 
+  - Instead of deep copying, sometimes it is required to delete copy ctor and copy assignment functions (using delete keyword).
+    - If these functions are in the private access specifier, they can not be assumed that they are deleted. Because, the other members of the same class can reach end use these functions, has the capability of copying. 
+
+- RAII Idiom (to prevent resource leak): 
+  - Resource Acquisition Is Initialization or RAII, is a C++ programming technique which binds the life cycle of a resource that must be acquired before use to the lifetime of an object (resource allocation examples: allocated heap memory, thread of execution, open socket, open file, locked mutex, disk space, database connection—anything that exists in limited supply, etc.).
+  - RAII guarantees that all resources are released when the lifetime of their controlling object ends, in reverse order of acquisition.
+
+## BIG FIVE (using instead of Big Three with modern Cpp - C++11)
+
+- The following special member functions consist of big five: 
+  - Destructor (related to RAII idiom)
+  - Copy Ctor
+  - Copy Assignment 
+  - Move Ctor
+  - Move Assignment
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Not copyable class object
+
+class Data {
+public:
+	Data() = default;
+	// not copyable
+	Data(const Data&) = delete;
+	Data& operator=(const Data&) = delete;
+private:
+};
+
+int main() {
+
+	Data data1, data2;
+	Data data3 = data1; // ERROR, copy ctor is deleted func. 
+	data1 = data2; // ERROR, copy assign. is a deleted func.  
+	
+	return EXIT_SUCCESS;
 }
 
 /----------------------------------------------
 /----------------------------------------------
 
 ## Move Constructors (with C++11): 
+
+- **Persistent Object**: If an object is a L-Value expression, then it is persistent object. In that case, the resources of these kind of objects shall not be stolen.
+  - **copy ctor** is called for persistent objects 
+- **Non-Persistent Object**: If an object is a R-Value expression (PR-Value or X-Value), then it is non-persistent object. In that case, the resources of these kind of objects can be stolen. Cause, these objects are not going to be used the remaining part of the program. 
+  - **move ctor** is called for non-persistent objects 
+  
+  11.Lesson - 1:18
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : R-Value and L-Value References with functions  
+  - R Value References were added to the language to allow the objects to be moved to another object. 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data {
+public:
+	Data() = default;
+private:
+};
+
+// const L-Value Reference
+// viable for both R-Value and L-Value calling 
+void func(const Data&) {
+	std::cout << "func(const Data &) is called...\n";
+}
+
+// R-Value Reference
+// viable only R-Value calling
+// when calling with R-Value, this function is called according to function overload resolution rules
+void func(Data&&) {
+	std::cout << "func(Data&&) is called...\n";
+}
+
+int main() {
+
+	Data data;
+	func(data);   // func(const Data &) is called...
+	func(Data{}); // func(Data&&) is called...
+				  // Data{} --> temp. object, PR-Value Expr.
+
+	return EXIT_SUCCESS;
+}
+
+
+/----------------------------------------------
+/----------------------------------------------
 
 ## Move Assignment (with C++11): 

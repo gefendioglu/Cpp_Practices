@@ -341,12 +341,12 @@ int main() {
 
 #endif // COPY_CTOR_ADDRESS
 
-// Copy Ctor withput Dangling Pointer Problem 
+// Copy Ctor without Dangling Pointer Problem 
 // Whenever a need comes out to allocate memory block (if there is an in-class pointer), the copy ctor of this class shall be declared by user.
 // --------------------------------------------
 // --------------------------------------------
 
-#ifdef USER_DECLARED_COPY_CTOR
+#ifdef USER_DECLARED_COPY_CTOR_ASSIGNMENT
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
@@ -367,6 +367,7 @@ public:
 		std::cout << "the address of allocated block : " << (void*)mptr << "\n";
 		std::strcpy(mptr, pstr);
 	}
+
 	~String() {
 		std::cout << "destructor is called...this : " << this << "\n";
 		if (mptr)
@@ -380,6 +381,7 @@ public:
 	String(const String& other) : mlenght{other.mlenght} {
 		std::cout << "Copy ctor is called...this : " << this << "\n";
 		
+		// deep copying 
 		mptr = static_cast<char*>(malloc(mlenght + 1));
 		if (!mptr)
 		{
@@ -389,6 +391,35 @@ public:
 		std::cout << "the address of allocated block : " << (void*)mptr << "\n";
 		std::cout << "other.mptr : " << (void*)other.mptr << "\n";
 		std::strcpy(mptr, other.mptr);
+	}
+
+	// user declared copy assignment
+	String& operator=(const String& other) {
+		// if the object is assigned to itself
+		// if the argument address and the address of object calling this function 
+		if (this == &other)
+		{
+			return *this; // function is ended directly
+		}
+
+		std::cout << "Copy assignment is called...this : " << this << "\n";
+		// The assigned object must first return its own resource. 
+		free(mptr);
+
+		this->mlenght = other.mlenght;
+		
+		// deep copying 
+		mptr = static_cast<char*>(malloc(mlenght + 1));
+		if (!mptr)
+		{
+			std::cerr << "not enough memory...\n";
+			std::exit(EXIT_FAILURE);
+		}
+		std::cout << "the address of allocated block : " << (void*)mptr << "\n";
+		std::cout << "other.mptr : " << (void*)other.mptr << "\n";
+		std::strcpy(mptr, other.mptr);
+
+		return *this;
 	}
 
 	size_t length()const {
@@ -410,42 +441,86 @@ void func(String str) {
 	std::cout << "func is ended...\n";
 }
 
-
 int main() {
 
-	String s = "Gamze Efendioglu";
-	std::cout << "length : " << s.length() << "\n";
-	s.print();
+	String s1 = "Gamze Efendioglu";
+	s1.print();
+	std::cout << "\n\n";
+	
+	func(s1);  // copy ctor is called !!!
+	s1.print(); 
+	std::cout << "\n\n";
+	
+	String s2 = "Mehmet Efendioglu";
+	s2.print();
+	std::cout << "\n\n";
 
-	func(s);   
-	_getch(); 
-	s.print(); 
+	s2 = s1;   // copy assignment is called here !!!
+	s2.print();
+	std::cout << "\n\n";
+
+	s2 = s2; // self-assignment --> results in run-time error
+			 // there should be a control in copy assignment
+	std::cout << "\n\n";
 
 	return EXIT_SUCCESS;
 
 	/*
-		ctor is called...this : 00D2F840
-		the address of allocated block : 01190578
-		length : 16
-		[Gamze Efendioglu]
-		Copy ctor is called...this : 00D2F74C
-		the address of allocated block : 01195A88
-		other.mptr : 01190578
-		func is called...
-		[Gamze Efendioglu]
-		func is ended...
-		destructor is called...this : 00D2F74C
-		the address of freed block : 01195A88
-		[Gamze Efendioglu]
-		destructor is called...this : 00D2F840
-		the address of freed block : 01190578
+		Executed again !!!
 	*/
 }
 
-#endif // USER_DECLARED_COPY_CTOR
+#endif // USER_DECLARED_COPY_CTOR_ASSIGNMENT
 
 
-// Features 
+// The implementation of Copy Assignment  
+// --------------------------------------------
+// --------------------------------------------
+
+#ifdef COPY_ASSIGNMENT
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Counter {
+public:
+	Counter() = default;
+	Counter(int x) : mx{ x } {}
+	Counter& operator=(const Counter& other){
+		std::cout << "Copy assignment is called...this : " << this << "\n";
+		this->mx = other.mx;
+		return *this;
+	}
+	void print()const {
+		std::cout << "mx : " << mx << "\n";
+	}
+private:
+	int mx;
+};
+
+int main() {
+
+	Counter cnt1, cnt2, cnt3, cnt4;
+	Counter cnt5{ 115 };
+
+	//cnt1 = cnt2 = cnt3 = cnt4 = cnt5;
+	cnt1.operator=(cnt2.operator=( cnt3.operator=( cnt4.operator=(cnt5))));
+
+	cnt1.print();
+	cnt2.print();
+	cnt3.print();
+	cnt4.print();
+	cnt5.print();
+	
+	/*
+		Executed again !!!
+	*/
+}
+
+#endif // COPY_ASSIGNMENT
+
+
+// Features
 // --------------------------------------------
 // --------------------------------------------
 
@@ -454,33 +529,35 @@ int main() {
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 
-class T{};
-class U{};
-class X{};
-
 class Data {
 public:
-	//copy assignment function (with operator overloading)
-	Data &operator=(const Data &other){
-		mt = other.mt;
-		mu = other.mu;
-		mx = other.mx;
-
-		return *this;
-	}
-
+	Data() = default;
+	Data(const Data&); // copy ctor 
+	Data(Data&&);      // move ctor 
 private:
-	T mt;
-	U mu;
-	X mx;
 };
+
+// const L-Value Reference
+// viable for both R-Value and L-Value calling 
+void func(const Data&) {
+	std::cout << "func(const Data &) is called...\n";
+}
+
+// R-Value Reference
+// viable only R-Value calling
+// when calling with R-Value, this function is called according to function overload resolution rules
+void func(Data&&) {
+	std::cout << "func(Data&&) is called...\n";
+}
 
 int main() {
 
-	Data data1;
-	Data data2;
-	data2 = data1; // data2.operator=(data1);
+	Data data;
+	func(data);   // func(const Data &) is called...
+	func(Data{}); // func(Data&&) is called...
+				  // Data{} --> temp. object, PR-Value Expr.
+
+	return EXIT_SUCCESS;
 }
 
 #endif // FEATURE
-
