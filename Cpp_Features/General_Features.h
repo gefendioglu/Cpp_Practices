@@ -346,7 +346,7 @@ int main() {
 // --------------------------------------------
 // --------------------------------------------
 
-#ifdef USER_DECLARED_COPY_CTOR_ASSIGNMENT
+#ifdef COPY_MOVE_OPERATIONS
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
@@ -356,8 +356,9 @@ int main() {
 
 class String {
 public:
-	String(const char* pstr) : mlenght{ std::strlen(pstr) } {
-		mptr = static_cast<char*>(malloc(mlenght + 1));
+	// there is no default constructor 
+	String(const char* pstr) : mlength{ std::strlen(pstr) } {
+		mptr = static_cast<char*>(malloc(mlength + 1));
 		if (!mptr)
 		{
 			std::cerr << "not enough memory...\n";
@@ -378,11 +379,11 @@ public:
 	}
 
 	// user declared copy contructor
-	String(const String& other) : mlenght{other.mlenght} {
+	String(const String& other) : mlength{other.mlength } {
 		std::cout << "Copy ctor is called...this : " << this << "\n";
 		
 		// deep copying 
-		mptr = static_cast<char*>(malloc(mlenght + 1));
+		mptr = static_cast<char*>(malloc(mlength + 1));
 		if (!mptr)
 		{
 			std::cerr << "not enough memory...\n";
@@ -406,10 +407,10 @@ public:
 		// The assigned object must first return its own resource. 
 		free(mptr);
 
-		this->mlenght = other.mlenght;
+		this->mlength = other.mlength;
 		
 		// deep copying 
-		mptr = static_cast<char*>(malloc(mlenght + 1));
+		mptr = static_cast<char*>(malloc(mlength + 1));
 		if (!mptr)
 		{
 			std::cerr << "not enough memory...\n";
@@ -422,8 +423,33 @@ public:
 		return *this;
 	}
 
+	// user declared move constructor
+	String(String&& other) : mlength{ std::move(other.mlength) }, mptr{std::move(other.mptr)} {
+		std::cout << "Move ctor is called...this : " << this << "\n";
+		other.mptr = nullptr;
+	}
+
+	// user declared move assignment 
+	String& operator=(String&& other) {
+		
+		// controlling the self-assginment, like in copy assign. func.  
+		if (this == &other) 
+			return *this;
+		
+		std::cout << "Move assignment is called...this : " << this << "\n";
+		this->mlength = std::move(other.mlength);
+		 
+		// firstly the source of mptr is given 
+		std::free(mptr);
+		// then, the source of other object is stolen
+		this->mptr = std::move(other.mptr);
+		other.mptr = nullptr;
+		
+		return *this;
+	}
+
 	size_t length()const {
-		return mlenght;
+		return mlength;
 	}
 
 	void print()const {
@@ -431,7 +457,7 @@ public:
 	}
 
 private:
-	size_t mlenght;
+	size_t mlength;
 	char* mptr;
 };
 
@@ -461,6 +487,11 @@ int main() {
 
 	s2 = s2; // self-assignment --> results in run-time error
 			 // there should be a control in copy assignment
+	std::cout << "\n\n";
+
+	String s3{ "Hakan" }, s4{ "Sema"};
+	String s5 = std::move(s3); // move ctor
+	s4 = std::move(s5);        // move assignm.
 	std::cout << "\n\n";
 
 	return EXIT_SUCCESS;
@@ -520,6 +551,68 @@ int main() {
 #endif // COPY_ASSIGNMENT
 
 
+// The implementation of Move Operations 
+// --------------------------------------------
+// --------------------------------------------
+
+#ifdef MOVE_CTOR_ASSIGNMENT
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class T {};
+class U {};
+class X {};
+
+class Data {
+public:
+	Data() = default;
+
+	// copy constructor
+	Data(const Data& other): mt{ other.mt }, mu{other.mu }, mx{ other.mx } {
+		std::cout << "copy ctor is called...\n";
+	}
+
+	// move constructor
+	Data(Data&& other) : mt{ std::move(other.mt) }, mu{ std::move(other.mu) }, mx{std::move(other.mx)} {
+		std::cout << "move ctor is called...\n";
+	}
+
+	// move assignment 
+	Data& operator=(Data&& other){
+
+		std::cout << "move assignment is called...\n";
+		this->mt = std::move(other.mt);
+		this->mu = std::move(other.mu);
+		this->mx = std::move(other.mx);
+
+		return *this;
+	}
+
+private:
+	T mt;
+	U mu;
+	X mx;
+};
+
+int main() {
+
+	Data data1;
+	Data data2{ data1 }; // data1 is a L-Value expr.
+						 // copy ctor is called...
+
+	Data data3{ std::move(data1) }; //std::move(data1) is a R-Value expr.
+								    // move ctor is called...
+									// data1 resource is stolen!!
+	Data data4;
+	data4 = std::move(data2); // move assignment is called...
+	
+	return EXIT_SUCCESS;
+}
+
+#endif // MOVE_CTOR_ASSIGNMENT
+
+
 // Features
 // --------------------------------------------
 // --------------------------------------------
@@ -529,33 +622,18 @@ int main() {
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 
-class Data {
-public:
-	Data() = default;
-	Data(const Data&); // copy ctor 
-	Data(Data&&);      // move ctor 
-private:
-};
-
-// const L-Value Reference
-// viable for both R-Value and L-Value calling 
-void func(const Data&) {
-	std::cout << "func(const Data &) is called...\n";
-}
-
-// R-Value Reference
-// viable only R-Value calling
-// when calling with R-Value, this function is called according to function overload resolution rules
-void func(Data&&) {
-	std::cout << "func(Data&&) is called...\n";
-}
+void func(std::ostream ost);
 
 int main() {
 
-	Data data;
-	func(data);   // func(const Data &) is called...
-	func(Data{}); // func(Data&&) is called...
-				  // Data{} --> temp. object, PR-Value Expr.
+	
+	// ERROR, non-copyable --> copy ctor is deleted!
+	
+	// ERROR, non-copyable --> copy assignment is deleted!
+
+	// NOT ERROR, movable --> move ctor is defined!
+
+	// NOT ERROR, movable --> move assignment is defined!
 
 	return EXIT_SUCCESS;
 }
