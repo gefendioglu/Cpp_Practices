@@ -26,7 +26,7 @@
   - **Shared region**: virtual classes 
 
 - Virtual Pointer/ Virtual Table:
-  - A virtual table is generated per class statically at the compile time by the compiler.
+  - A virtual table is an array of pointers to functions. It is generated per class statically at the compile time by the compiler. 
 
   - The code to override virtual function, virtual pointer is generated at the time of object construction by the compiler.
 

@@ -110,10 +110,10 @@
     <Text Include="37_STL.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="38_Copy_Move_Ctor.txt">
+    <Text Include="11_Cpp_Lesson.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="11_Cpp_Lesson.txt">
+    <Text Include="38_Copy_Move_Func.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
@@ -161,6 +161,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="STL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="38_Copy_Move_Func.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

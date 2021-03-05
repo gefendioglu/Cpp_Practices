@@ -52,7 +52,7 @@
     <Text Include="36_Cpp_Idioms.txt" />
     <Text Include="37_STL.txt" />
     <Text Include="11_Cpp_Lesson.txt" />
-    <Text Include="38_Copy_Move_Ctor.txt" />
+    <Text Include="38_Copy_Move_Func.txt" />
     <Text Include="General_Features.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -62,6 +62,7 @@
     <ClInclude Include="29_Operator_Overloading.h" />
     <ClInclude Include="30_Smart_Pointers.h" />
     <ClInclude Include="36_Cpp_Idioms.h" />
+    <ClInclude Include="38_Copy_Move_Func.h" />
     <ClInclude Include="General_Features.h" />
     <ClInclude Include="31_Templates.h" />
     <ClInclude Include="STL.h" />

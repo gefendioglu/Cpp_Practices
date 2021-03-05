@@ -21,6 +21,7 @@
 //#define INHERITANCE_EXAMPLE_I
 //#define INHERITANCE_EXAMPLE_II
 
+
 /* SMART POINTERS */
 // --------------------------------------------
 //#define SMART_POINTERS
@@ -45,6 +46,16 @@
 //#define CLASS_TEMPLATES_SPECIALIZATION
 //#define VARIADIC_FUNCTION_TEMPLATES
 
+
+/* COPY & MOVE OPERATIONS */
+// --------------------------------------------
+//#define COPY_CTOR
+//#define COPY_CTOR_ADDRESS
+//#define COPY_ASSIGNMENT
+//#define MOVE_CTOR_ASSIGNMENT
+//#define COPY_MOVE_OPERATIONS
+
+
 /* VIRTUAL CTOR && DTOR */
 // --------------------------------------------
 //#define VIRTUAL_COPY_CTOR
@@ -52,6 +63,7 @@
 //#define VIRTUAL_CONSTRUCTOR
 //#define PURE_VIRTUAL_DESTRUCTOR
 //#define CONSTRUCTORS_VIRTUAL_BASES
+
 
 /* VIRTUAL FUNCTIONS */
 // --------------------------------------------
@@ -102,6 +114,15 @@
 #endif
 
 // --------------------------------------------
+
+
+/* Copy & Move Operations */
+#if defined(COPY_CTOR) || defined(COPY_CTOR_ADDRESS) || defined(COPY_MOVE_OPERATIONS) || defined(COPY_ASSIGNMENT) || defined(MOVE_CTOR_ASSIGNMENT) 
+#include "38_Copy_Move_Func.h"
+#endif
+
+// --------------------------------------------
+
 
 /* Virtual Copy Constructors */
 #if defined(VIRTUAL_COPY_CTOR) 

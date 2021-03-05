@@ -399,3 +399,449 @@ int main(){
 /----------------------------------------------
 /----------------------------------------------
 
+### Conversion Constructor
+
+- Conversion constructors convert a non-class argument to a class type.
+  - variadic conversion is the low level 
+  - user defined conversion is the next level of variadic conversion
+  - std::string str;
+    std = "Gamze"; --> conversion ctor 
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : The usage of conversion constructor 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data{
+public:
+	Data() = default;
+	Data(int) {};
+};
+
+int main(){
+
+	Data data;
+	data = 10; // data.operator=(Data{10});
+			   // operator overloading and copying temp. object
+			   // ERROR, without Data(int) ctor 
+			   // creating Data{10} temp. object
+			   // int --> Data type conversion 
+
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : The usage of conversion constructor 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data {
+public:
+	Data() : mx{ 0 } {
+		std::cout << "Data() default ctor is called...this : " << this << "\n";
+	}
+
+	Data(int x) : mx{ x } {
+		std::cout << "Data(int x) is called...this : " << this  << "\n";
+		std::cout << "x: " << x << "\n\n";
+	};
+
+	Data& operator=(const Data& other) {
+		std::cout << "copy assginment is called...this : " << this << "\n";
+		std::cout << "&other : " << &other << "\n\n";
+		this->mx = other.mx;
+		return *this;
+	}
+
+	~Data() {
+		std::cout << "~Data() dtor is called...this : " << this << "\n";
+	}
+
+private:
+	int mx;
+};
+
+int main() {
+
+	Data data;
+	data = 10; // data.operator=(Data{10});
+
+	// first destructor is called for temp. object
+	// the last destructor is called for data object
+
+	return EXIT_SUCCESS;
+	/*
+		To be Executed again!!
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+## Consecutive Type Conversions (Conversion Sequence)
+
+- The following conversion types are realized by compilers implicitly:
+  - First: Standard conversion + Second: user defined conversion  
+  - First: user defined  conversion + Second: Standard conversion 
+
+- Consecutive user defined conversions  are not allowed by compilers 
+  - First: user defined conversion + Second: user defined conversion
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Consecutive Type Conversions
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data {
+public:
+	Data() : mx{ 0 } {}
+	Data(int x) : mx{ x } {};
+	Data& operator=(const Data& other) {
+		this->mx = other.mx;
+		return *this;
+	}
+	~Data() {}
+private:
+	int mx;
+};
+
+void func(Data data);
+void foo(const Data& ref);
+void f(Data& ref);
+
+Data gData() {
+	return 10; // conversion ctor as a return value
+}
+
+int main() {
+
+	Data data;
+	data = 5.2; // First : double --> int conversion 
+				// Second: int --> Data class type conversion
+	
+	int ival = 20.5;
+	func(20.5); // First : double --> int conversion 
+				// Second: int --> Data class type conversion
+	
+	foo(ival);  // NOT ERROR
+	f(ival);    // ERROR, temporary object is a R-Value expr.
+	            // Temp. object can not be linked to non-const L-Value ref.
+
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+### Explicit Constructor
+
+- It prevents to make a conversion ctor implicitly. It forces to use casting operators  
+- explicit ctor is created using **explicit** keyword
+- If the definition of an explicit ctor is applied in .cpp file, the keyword of **explicit** shall not be used. In this case, this keyword exists as ctro declaration in class. 
+- If the inline definition of an explicit ctor is applied, so **explicit** keyword has already been used in this definition. 
+- **explicit ctor** also prevents copy initialization for a class object. 
+- The vector and smart pointer classes of standard library have explicit constructors. Copy initialization is not allowed for the values has these class types.
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Before applying explicit constructor
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <string>
+
+class Data {
+public:
+	Data() : mx{ 0 } {}
+	explicit Data(int x) : mx{ x } {};
+	Data& operator=(const Data& other) {
+		this->mx = other.mx;
+		return *this;
+	}
+	~Data() {}
+private:
+	int mx;
+};
+
+void func(Data data);
+void foo(const Data& ref);
+void f(Data& ref);
+
+Data gData() {
+	return 10; // ERROR --> explicit ctor
+}
+
+int main() {
+
+	Data data;
+	data = 10;   // ERROR --> explicit ctor
+	
+	int ival = 20;
+	func(ival);  // ERROR --> explicit ctor
+	foo(ival);   // ERROR --> explicit ctor
+	f(ival);     // ERROR --> explicit ctor
+
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : After applying explicit constructor
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data {
+public:
+	Data() : mx{ 0 } {}
+	explicit Data(int x) : mx{ x } {};
+	Data& operator=(const Data& other) {
+		this->mx = other.mx;
+		return *this;
+	}
+	~Data() {}
+private:
+	int mx;
+};
+
+void func(Data data);
+void foo(const Data& ref);
+
+Data gData() {
+	return 10; // ERROR --> explicit ctor
+	return static_cast<Data>(10); // NOT ERROR
+}
+
+int main() {
+
+	Data d;
+	Data data = 20; // ERROR --> copy init is not allowed
+	func(20);       // ERROR --> copy init is not allowed
+	
+	data = 10;   // ERROR --> explicit ctor
+	data = static_cast<Data>(10);   // NOT ERROR
+	
+	int ival = 20;
+	func(ival);  // ERROR --> explicit ctor
+	func(static_cast<Data>(ival));  // NOT ERROR 
+	
+	foo(ival);   // ERROR --> explicit ctor
+	foo(static_cast<Data>(ival));   // NOT ERROR 
+	
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Before applying explicit constructor
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data {
+public:
+	Data() = default;
+	Data(int x, int y) : mx{ x }, my{ y } {};
+	Data& operator=(const Data& other) {
+		this->mx = other.mx;
+		this->my = other.my;
+		return *this;
+	}
+	~Data() {}
+	void print()const {
+		std::cout << "mx : " << mx << " my : " << my << "\n";
+	}
+private:
+	int mx = 0, my = 0; // default member init. 
+};
+
+int main() {
+
+	Data data;
+	data = { 12, 42 }; // data = Data{ 12, 42 };
+	data.print();
+
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : After applying explicit constructor
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data {
+public:
+	Data() = default;
+	explicit Data(int x, int y) : mx{ x }, my{ y } {};
+	Data& operator=(const Data& other) {
+		this->mx = other.mx;
+		this->my = other.my;
+		return *this;
+	}
+	~Data() {}
+	void print()const {
+		std::cout << "mx : " << mx << " my : " << my << "\n";
+	}
+private:
+	int mx = 0, my = 0; // default member init. 
+};
+
+Data func() {
+	//...
+	return {}; // return temp. object calling default ctor 
+}
+
+int main() {
+
+	Data data;
+	data = { 12, 42 }; // ERROR --> explicit ctor
+
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : The classes of standard library that have explicit ctor (For example: std::vector and std::unique_ptr) 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <vector>
+#include <memory>
+
+int main() {
+	
+	std::vector<int> ivec(100); // size_t type
+	std::cout << "ivec.size() : " << ivec.size() << "\n";
+	std::vector<int> myVec = 20; // explicit ctor --> ERROR
+
+	std::unique_ptr<int> uptr(new int);
+	std::unique_ptr<int> myPtr = new int; // explicit ctor --> ERROR
+
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Explicit default ctor 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data {
+public:
+	explicit Data() = default;
+	explicit Data(int x, int y) : mx{ x }, my{ y } {};
+	Data& operator=(const Data& other) {
+		this->mx = other.mx;
+		this->my = other.my;
+		return *this;
+	}
+	~Data() {}
+private:
+	int mx = 0, my = 0; // default member init. 
+};
+
+int main() {
+
+	Data data = {};
+	// 'Data': no appropriate default constructor available
+
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Explicit ctor and viable functions
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data {
+public:
+	Data() = default;
+	explicit Data(int x) : mx{ x }{
+		std::cout << "Data(int x) is called...\n";
+	}
+	Data(double d) : md{ d }{
+		std::cout << "Data(double x) is called...\n";
+	}
+private:
+	int mx = 0;
+	double md = 0.0;
+};
+
+int main() {
+
+	int ival = 10;
+	Data data(ival);    // Data(int x) is called...
+	Data myData = ival; // Data(double x) is called...
+						// Data(int x) is not viable, because of explicit ctor 
+
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Consecutive class type assignment
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class A {
+public:
+	A() = default;
+};
+
+class B {
+public:
+	B() = default;
+	B(A a) : ma{ a } {}
+private:
+	A ma;
+};
+
+class C {
+public:
+	C() = default;
+	C(B b) : mb{ b } {}
+private:
+	B mb;
+};
+
+int main() {
+
+	A myAdata;
+	B myBdata;
+	C myCdata;
+
+	myBdata = myAdata;
+	myCdata = myBdata;
+
+	myCdata = myAdata; // ERROR
+	// binary '=': no operator found which takes a right-hand operand of type 'A' (or there is no acceptable conversion)
+	myCdata = static_cast<C>(static_cast<B>(myAdata)); // NOT ERROR
+
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------

@@ -226,7 +226,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** :    
+- **Example** : Calling of copy constructor
 
 class Data {
 public:
@@ -895,6 +895,45 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
+- **Example** : R-Value and L-Value References with functions called in other functions
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data{
+public:
+	Data() = default;
+};
+
+void func(Data&& ref) {
+	std::cout << "func(Data&& ref) is called...\n";
+}
+
+void func(const Data& ref) {
+	std::cout << "func(const Data& ref) is called...\n";
+}
+
+void foo(const Data& ref){
+	func(ref);
+}
+
+void foo(Data&& ref) {
+	func(std::move(ref));
+}
+
+int main(){
+
+	Data data;
+	foo(data);   // func(const Data& ref) is called... 
+	foo(Data{}); // func(Data&& ref) is called...
+
+	return EXIT_SUCCESS;
+}
+
+
+/----------------------------------------------
+/----------------------------------------------
+
 - **Example** : Move operations (move ctor, move assignment) 
 
 #define _CRT_SECURE_NO_WARNINGS
@@ -1113,7 +1152,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-### General notes
+### General Notes on Move & Copy Operations: 
 
 - **Rule of Zero Rule**: If the definition of default ctor is sufficient for a class, the writing task for the other special member functions can be assigned to compiler. 
 
@@ -1129,8 +1168,23 @@ int main() {
   - SmartPointer(SmartPointer&& ref);
   - SmartPointer& operator=(SmartPointer&& ref);
 
-- **cout** is a non-copyable, but movable class in **ostream** class type, 
+/----------------------------------------------
+/----------------------------------------------
 
+- **Example** : Non-copyable, but movable class example (std::cout)
+  - **cout** is a non-copyable, but movable class in **ostream** class
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+void func(std::ostream ost);
+
+int main() {
+
+	func(std::cout); // ERROR, std::cout is non-copyable 
+	
+	return EXIT_SUCCESS;
+}
 
 /----------------------------------------------
 /----------------------------------------------
@@ -1163,3 +1217,93 @@ int main() {
 
 /----------------------------------------------
 /----------------------------------------------
+
+- **Example** : An exceptional case for calling copy ctor instead of move ctor
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+// default ctor, copy ctor is defined
+// move ctor is defined in private access modifier
+class Data {
+public:
+	Data(){}
+	Data(const Data&){
+		std::cout << "copy ctor is called...\n";
+	}
+private:
+	Data(Data&&){}
+};
+
+class Member {
+	Data data;
+};
+
+int main() {
+
+	Member mem1;
+	Member mem2{ mem1 }; // copy ctor is called... 
+	Member mem3{ std::move(mem1) }; // copy ctor is called...
+	
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- The following usage is very common in standard library: 
+
+void func(const Data& ref) {
+	Data data = ref; // copying ref parameter
+}
+
+void func(Data&& ref) {
+	Data data = std::move(ref); // moving ref parameter
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : The push_back function of vector class is overloaded like mentioned above. 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <vector>
+
+class Data{
+public:
+	Data() = default;
+	Data(const Data& ref) {
+		std::cout << "copy ctor is called...\n";
+	}
+	
+	// main aim is to move the object sending as argument
+	Data(Data&& ref) {
+		std::cout << "move ctor is called...\n";
+	}
+ 
+};
+
+int main(){
+
+	std::vector<Data> data_vec;
+	data_vec.reserve(100);
+
+	Data data;
+	data_vec.push_back(data); // data is L-Value expr.							        // push_back(const Data&) is called
+						      // copy ctor is called...
+
+	data_vec.push_back(Data{}); // Data{} is R-Value expr.
+								// push_back(Data&&) is called
+								// move ctor is called...
+	return EXIT_SUCCESS;
+
+	/*
+		copy ctor is called...
+		move ctor is called...
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
