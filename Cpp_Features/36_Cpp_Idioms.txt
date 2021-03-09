@@ -426,3 +426,8 @@ int main() {
 
 /----------------------------------------------
 /----------------------------------------------
+
+- **Rule of Zero** : Special member functions should be written by user for the classes which have pointers or references as data members on the purpose of specifying their value semantics. 
+
+/----------------------------------------------
+/----------------------------------------------

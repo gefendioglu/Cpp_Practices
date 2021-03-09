@@ -1,0 +1,176 @@
+
+## Static Members
+
+- Static data members are defined in a class (not declared). The declaration shall be made in cpp source files. 
+
+- There should not be "static" keyword in the data declaration in cpp files.
+
+- There is no space allocation for static members in a class. This situation can be controlled by sizeof operator. 
+
+- The type of static data members can be "incomplete type". 
+
+- Classes can not have non-static data members of their own type. However, they can have static objects of their own type. In that case, this kind of data types can be assumed as incomplete data type.  
+
+- Name lookup is started within class scope for static data member initialization. 
+
+- Static members which has got const & integral data type can be initialized in class. In this case, these data items are considered to be defined even if they are not defined in the cpp file. If "constexpr" keyword is used instead of "static const", then it is not mandatory that data type is one of integral types and in class initialization is also valid for the other types. 
+
+- Best Practice: non-const static data members are generally defined under private access specifier of classes. 
+
+- Best Practice: const static data members are used more common than non-consts. 
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Static data members in a class
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Member {
+public:
+	static int smx;
+private:
+	int mx, my, mz;
+	char str[16];
+	double dval;
+	static int sx, sy, sz;
+	static int sarr[100];
+};
+
+int main() {
+	
+	Member::smx = 10;
+	// error LNK2001: unresolved external symbol "public: static int Member::smx" 
+
+	std::cout << "sizeof(Member): " << sizeof(Member) << "\n";
+	/*
+		sizeof(Member): 40 --> not including static members
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : The definition and declaration of static data members of classes
+
+class Data;
+
+// member.h
+class Member {
+public:
+	static const int primes[];
+private:
+	static int smx, smy, smz, smt;
+	static Data sdata; // Incomplete data type
+	Member mem; // ERROR, can not have an object of its own class type.
+	static Member smem; // NOT ERROR, Incomplete data type
+	static std::string str;
+	static unsigned char buffer[];
+
+};
+
+// member.cpp
+// not including static keyword in cpp file
+int Member::smx;
+int Member::smy{10};
+int Member::smt = 20;
+int Member::smz(15);
+int Member::smz(); // ERROR, not an appropriate init. type
+unsigned char Member::buffer[5]{0};
+const int Member::primes[]{2,3,4,5,6,7}; // not necessary to specify its size 
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : static data members of classes
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+// member.h
+class Member {
+public:
+	static int smx;
+private:
+};
+
+// member.cpp
+int Member::smx{};
+
+int main() {
+
+	std::cout << "Member::smx : " << Member::smx << "\n";
+	Member::smx = 10;
+	std::cout << "Member::smx : " << Member::smx << "\n";
+	/*
+		Member::smx : 0
+		Member::smx : 10
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : The static data members can be accessed by using class type pointers or references (not a suggested way). 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+// member.h
+class Member {
+public:
+	static int smx;
+private:
+};
+
+// member.cpp
+int Member::smx{};
+
+int main() {
+
+	Member mem;
+	Member* ptr = &mem;
+	Member& ref = mem;
+	
+	mem.smx = 10;
+	ptr->smx = 45;
+	ref.smx = 25;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Name lookup is started within class scope for static data member initialization.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+// member.h
+class Member {
+public:
+	static int mx;
+	static int smx;
+	static const int x = 10;
+	static const bool flag = true;
+	static const double dx = 1.0; // ERROR, double is not an integral type
+private:
+};
+
+// member.cpp
+int mx = 10;
+int Member::mx = 65;
+int Member::smx = mx; // Member::mx, because of class scope
+
+int main() {
+
+	std::cout << "Member::smx : " << Member::smx << "\n";
+	/*
+		Member::smx : 65
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** :

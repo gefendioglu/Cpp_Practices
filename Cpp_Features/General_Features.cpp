@@ -1,4 +1,6 @@
 
+/* CPP FEATURES */
+// --------------------------------------------
 //#define USER_DEFINED_LITERALS
 //#define NON_STATIC_MEMBER_INIT
 //#define FORWARD_DECLARATION
@@ -9,13 +11,16 @@
 //#define VECTOR_CLASS_TEMPLATE
 //#define STRING_IMPLEMENTATION
 
+
+/* STL OPTIONAL */
+// --------------------------------------------
 //#define STL_OPTIONAL
 //#define STL_OPTIONAL_I
 //#define STL_OPTIONAL_II
 //#define STL_OPTIONAL_III
 //#define STL_OPTIONAL_Example
 
-#define FEATURE
+//#define FEATURE
 
 /* General C++ Features */
 // --------------------------------------------
@@ -40,9 +45,9 @@
 	#include "String_Implementation.h"
 #endif
 
+
 /* STL Operations */
 // --------------------------------------------
-
 #if defined(STL_OPTIONAL) || defined(STL_OPTIONAL_I)  || defined(STL_OPTIONAL_II) || defined(STL_OPTIONAL_III) || defined(STL_OPTIONAL_Example) 
 	#include "STL.h"
 #endif

@@ -1,18 +1,21 @@
 
 ## CLASSES
 
-- Data Abstraction is the most important phenomenon
-- Class Definition & Class Declaration are different mechanism. 
-- Both "struct" and "class", they are assumed as classes in C++ environment. 
-- data members (for the data in a class):
+- **Data Abstraction** is the most important phenomenon.
+- **Class Definition** & **Class Declaration** are different mechanism. 
+- Both "struct" and "class", they are assumed as classes in C++ environment.
+
+- **data members** (for the data in a class):
   - non-static data members
   - static data members
-- class member functions (for the functions in a class):
+
+- **class member functions** (for the functions in a class):
   - non-static member functions
     - non-const member functions
     - const member functions
   - static member functions
-- nested types (member types, type members):
+
+- **nested types** (member types, type members)
   
 /----------------------------------------------
 /----------------------------------------------
@@ -549,7 +552,7 @@ public:
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** :
+- **Example** : const overloading
 
 // myclass.h
 class MyClass {
@@ -582,7 +585,7 @@ void MyClass::func() {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** :
+- **Example** : const overloading
 
 // myclass.h
 class MyClass {
@@ -610,7 +613,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** :
+- **Example** : 
 
 // myclass.h
 class MyClass {
@@ -675,7 +678,7 @@ int main() {
 /----------------------------------------------
 
 ## This Pointer
-- this keyword is only used in non-static class member functions
+- "this" keyword is only used in non-static class member functions
 - this pointer is used as the address of the object for which it is called in C++. 
 - *this represents represents the object itself in C++. 
 - "this" keyword is not a pointer in C# and Java languages. In these languages, "this" keyword represents the object itself.

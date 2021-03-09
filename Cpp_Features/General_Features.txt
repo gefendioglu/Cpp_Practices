@@ -383,10 +383,14 @@ for(auto &&x : data_vec){/**/} // range based for loop --> not R-value ref.
 ### Copy Elision (Copy Elimination)
 
 - Not to allow copying and moving for compiler optimization. 
+
 - Copy elision is mandatory after C++17.
+
 - If a function takes class type parameters and it is sent temporary objects as arguments for this type of function, copy elision is applied in that case, not calling the copy ctor. Instead, it is calling parameterized ctor directly. 
-- RVO : Return Value Optimization : This optimization type doesnt depend on compiler. It is mandatory. If return value of a function is a temporary object, then copy ctor is not called, instead, copying is eliminated and the object created by calling this kind of function. 
-- NRVO : Named Return Value Optimization --> this optimization depends on compiler. 
+
+- **RVO - Return Value Optimization** : This optimization type does not depend on compiler. It is a mandatory feature. If return value of a function is a temporary object, then copy ctor is not called, instead, copying is eliminated and the object created by calling this kind of function. This feature is not controlled by user manually. 
+
+- **NRVO - Named Return Value Optimization** : This type of optimization depends on compiler. It is not a mandatory feature.
 
 /----------------------------------------------
 /----------------------------------------------

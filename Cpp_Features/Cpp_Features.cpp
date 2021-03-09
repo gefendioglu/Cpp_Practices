@@ -8,7 +8,7 @@
 /* CLASS DEFINITIONS */
 // --------------------------------------------
 //#define CLASSES
-
+#define STATIC_MEMBERS
 
 /* INHERITANCE */
 // --------------------------------------------
@@ -88,7 +88,7 @@
 // --------------------------------------------
 
 /* Classes */
-#if defined(CLASSES) 
+#if defined(CLASSES) || defined(STATIC_MEMBERS) 
 	#include "25_Classes.h"
 #endif
 

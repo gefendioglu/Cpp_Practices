@@ -317,7 +317,7 @@ public:
 	};
 
 	Data& operator=(const Data& other) {
-		std::cout << "copy assginment is called...this : " << this << "\n";
+		std::cout << "copy assignment is called...this : " << this << "\n";
 		std::cout << "&other : " << &other << "\n\n";
 		this->mx = other.mx;
 		return *this;
