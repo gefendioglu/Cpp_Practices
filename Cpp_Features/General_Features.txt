@@ -80,13 +80,51 @@ int main() {
 ## Inline Functions
 
 - Inline functions and inlined functions are different terms
+
 - Implicitly inline functions can be defined in class definition directly. If the function is defined in source file as always, then it is not an inline function. 
+
 - ODR idiom is not violated by the use of inline specifier 
+
 - Constexpr functions are implicitly inlined functions. 
+
 - Both non-static const member functions and non-static non-const member functions can be defined as inlined functions.
-- Static member functions can also be defined as inlined function
+
+- Static member functions can also be defined as inlined function.
+
 - Inline functions should be preferred to use for the small and frequently called functions.
+
 - Inline functions are very useful in terms of code optimization. The settings shall be use to set the using level of inline functions.  
+
+- Static Initialization Fiasco: It is not clear that the order of coming to life for an object in different source files. 
+
+- Before C++17, inline keyword was only used with functions. After C ++ 17, this keyword has also been used for static members and also global variables (inline variables). All compilers are compatible with this kind of important feature. This feature does not violate ODR (one definition rule) either. 
+
+- Header Only Library : These are files that consist only of header files and do not have source files dependent on to it. In these kinds of files, inline keyword provides static data members to define inside class without the needs of having a source file. 
+  - If inline keyword is not used and there is also no source file in the environment, undefined behaviour can be came out in linker phase. This is not a preferred situation.  
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : inline keyword with static data members (C++17)
+#include <iostream>
+
+// like static local variables
+inline int globalVal = 15;
+
+// member.h
+class Member {
+public:
+	static int smx;
+	inline static int smy = 10;
+};
+
+//member.cpp
+int Member::smx = 10;
+
+int main() {
+	Member mem;
+	return EXIT_SUCCESS;
+}
 
 /----------------------------------------------
 /----------------------------------------------

@@ -1,5 +1,5 @@
 
-## Static Members
+## Static Data Members
 
 - Static data members are defined in a class (not declared). The declaration shall be made in cpp source files. 
 
@@ -15,9 +15,13 @@
 
 - Static members which has got const & integral data type can be initialized in class. In this case, these data items are considered to be defined even if they are not defined in the cpp file. If "constexpr" keyword is used instead of "static const", then it is not mandatory that data type is one of integral types and in class initialization is also valid for the other types. 
 
+- In standard library, there are so many static data members like as :
+  - std::numeric_limits<int>::digits --> in <numeric> lib.
+
 - Best Practice: non-const static data members are generally defined under private access specifier of classes. 
 
 - Best Practice: const static data members are used more common than non-consts. 
+
 
 /----------------------------------------------
 /----------------------------------------------
@@ -168,6 +172,273 @@ int main() {
 	/*
 		Member::smx : 65
 	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Class declaration for static class data members 
+
+// instead of including header file (like as #include "data.h")
+// Adding forward class declaration is enough !!!
+class Data; 
+
+// member.h
+class Member {
+public:
+	static Data sdata;
+	static class Myclass sclass; // NOT ERROR
+private:
+};
+
+/----------------------------------------------
+/----------------------------------------------
+
+## Static Member Functions:
+
+- Static member functions dont have this pointers in a class. 
+
+- Static function definition: 
+  - func definition wtih "static" keyword creates an internal linkage. It means this func is only called from the cpp file. It is not possible to be called by other cpp files.
+  - the static functions defined in C can be assumed that they are in an unnamed namespace scope without using static keyword.  
+
+- Static member functions:
+  - can call other static member functions directly
+  - can reach/use static data members directly
+  - However, they can not call non-static member functions and not reach non-static data members directly. Because there is no this pointer for static functions. 
+
+- Static member functions can not declared/defined with "const" keyword. Because, this keyword represents the constantness of class address in which it is used. Since static functions dont have "this" pointers, no possibility to be const function for them. 
+
+- When calling a static member function from an object or a pointer, the address of this function is not sent to the function which is calling. Calling a static member function from client code with scope resolution operator shall be preffered in general. 
+
+- Why static local variables are preferred instead global variables? 
+  - static local variables can reach private data members, while global variables can not. 
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Static functions from C
+
+// member.cpp
+// static function definition --> internal linkage
+static void foo() {
+
+}
+
+// static functions from C, like as in an unnamed namespace without using static keyword in Cpp. 
+namespace {
+	int func(int val) {
+		//...
+		return val * val;
+	}
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Static member functions with this pointers
+  - STATIC macro definition can be made to increase the code readibility 
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#define STATIC 
+
+// member.h
+class Member {
+public:
+	void func(int);            // it has got this pointer
+	static int ival;
+	static void sfunc(int);    // it has not got this pointer
+	static void sfunc(double); // it has not got this pointer
+private:
+	int mx;
+};
+
+// member.cpp
+void Member::func(int) {
+	this->mx = 10; // NOT ERROR
+}
+// with STATIC macro
+STATIC void Member::sfunc(int) {
+	mx = 10;   // ERROR, there is no this pointer
+	ival = 10; // NOT ERROR, ival is not in the object pool
+	Member::ival = 20; // to show ival is a static member
+} 
+
+// without STATIC macro 
+void Member::sfunc(double) {}  
+
+int main() {
+
+	Member member;
+	member.func(10);  // this pointer is sent implicitly
+	member.sfunc(15); // like as global functions
+	auto sval = Member::sfunc(12); // can not deduce type 
+
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Function calling from a static member function 
+
+#include <iostream>
+
+// member.h
+class Member {
+public:
+	static void sfunc(int) {
+		foo(); // ERROR, no this pointer for this static func.
+		// error C2352: 'Member::foo': illegal call of non-static member function
+		sfunc2(); // NOT ERROR
+	}
+	void foo(){}
+	static void sfunc2(){}
+};
+
+int main() {
+
+	Member member;
+	member.sfunc(10);
+
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Static member function declarations/definitions
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+// member.h
+class Member {
+public:
+	void sfunc(); // function overloading with the following function (static void sfunc(int);)
+	static void sfunc(int) {
+		foo(); // ERROR, no this pointer for this static func.
+		Member mem1, mem2;
+		sfunc2(mem1, mem2); // NOT ERROR
+	}
+
+	Member foo(){}
+
+	static void sfunc2(const Member& rx, const Member& ry) {
+		mx = rx.mx; // NOT ERROR, static members are not in the object pool
+		my = ry.my; // ERROR, no this pointer for non-static members
+	}
+	static void sfunc3() const {};  // ERROR, can not be const
+
+	void foo() const {
+		mx = 10;
+	}
+private:
+	static int mx;
+	int my;
+};
+
+int main() {
+
+	Member member;
+	member.sfunc(10);
+
+	return EXIT_SUCCESS;
+}
+
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Calling static member functions over an object or with scope resolution operator. The latter shall be preferred as general.  
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+// member.h
+class Member {
+public:
+	static void sfunc(int){}
+};
+
+int main() {
+
+	Member mem1, mem2, mem3;
+	mem1.sfunc(10); // 	equal to --> Member::sfunc(10);
+	mem2.sfunc(20); //  equal to --> Member::sfunc(20);
+	mem3.sfunc(30); //  equal to --> Member::sfunc(30);
+	
+	
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Function overloading with static member functions
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+// member.h
+class Member {
+public:
+	static void sfunc(int){}
+	void sfunc(){}
+	void foo() {
+		sfunc(15); // not equal to this->sfunc(15);
+		sfunc();   // equal to this->sfunc();
+	}
+};
+
+// account.h
+class Account {
+public:
+	Account(double sum, double interest_rate);
+	Account(double balance, double annual_interest); // redecleration, not function overloading
+private:
+	int mx;
+};
+
+int main() {
+
+	Member mem;
+	mem.sfunc(15);
+	mem.sfunc();
+	
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Named constructor idiom with static member functions
+  - **Named Constructor Idiom**: Making constructor private, and defining a factory function in public area.
+  - This idiom can be used when function overloading is not possible.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+// Named Constructor Idiom - with a factory function
+// member.h
+class Member {
+public:
+	static Member createObject(int x);
+private:
+	int mx;
+	Member(int x) :mx{ x } {}
+};
+
+//member.cpp
+Member Member::createObject(int x) {
+	//...
+	return Member{ x }; // return with temp object
+}
+
+int main() {
+
+	auto obj = Member::createObject(12);
+	return EXIT_SUCCESS;
 }
 
 /----------------------------------------------

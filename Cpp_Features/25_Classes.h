@@ -36,7 +36,7 @@ int main() {
 		Data destructor is called..this : 00AEE138
 	*/
 
-	
+
 }
 
 #endif // CLASSES
@@ -51,30 +51,29 @@ int main() {
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 
-// member.h
-class Member {
+//complex.h
+class Complex {
 public:
-	static int mx;
-	static int smx;
-	static const int x = 10;
-	static constexpr int y = 10;
-	static const bool flag = true;
-	static const double dx = 1.0; // ERROR, double is not an integral type
-	constexpr static double dy = 1.0; // NOT ERROR, because of using constexpr instead of const
+	static Complex createCartesian(double r, double i) 
+	{
+		return Complex(r, i, 0);
+	}
+	static Complex createPolar(double distance, double angle)
+	{
+		return Complex(distance, angle);
+	}
 private:
+	int mx;
+	// adding int parameter to provide func. overloading
+	Complex(double r, double i, int);
+	Complex(double distance, double angle);
 };
 
-// member.cpp
-int mx = 10;
-int Member::mx = 65;
-int Member::smx = mx; // Member::mx, because of class scope
+//complex.cpp
 
 int main() {
 
-	std::cout << "Member::smx : " << Member::smx << "\n";
-	/*
-		Member::smx : 65
-	*/
+	return EXIT_SUCCESS;
 }
 
 #endif // STATIC_MEMBERS

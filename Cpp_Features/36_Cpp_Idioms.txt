@@ -431,3 +431,8 @@ int main() {
 
 /----------------------------------------------
 /----------------------------------------------
+
+- **Named Constructor Idiom**: Making constructor private, and defining a factory function in public area. 
+
+
+
