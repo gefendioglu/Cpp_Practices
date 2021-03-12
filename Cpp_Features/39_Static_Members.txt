@@ -18,8 +18,7 @@
 - In standard library, there are so many static data members like as :
   - std::numeric_limits<int>::digits --> in <numeric> lib.
 
-- Best Practice: non-const static data members are generally defined under private access specifier of classes. 
-
+- Best Practice: non-const static data members are generally defined under private access specifier of classes. In this case, static member functions shall use these static data members in a controlled manner. 
 - Best Practice: const static data members are used more common than non-consts. 
 
 
@@ -213,6 +212,12 @@ private:
 
 - Why static local variables are preferred instead global variables? 
   - static local variables can reach private data members, while global variables can not. 
+
+- The address types of static member functions are different from the address types of non-static member functions.
+
+- The address types of static member functions and global variables are the same.
+
+- There is no static constructor definition in Cpp. 
 
 /----------------------------------------------
 /----------------------------------------------
@@ -445,3 +450,219 @@ int main() {
 /----------------------------------------------
 
 - **Example** :
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+//complex.h
+class Complex {
+public:
+	static Complex createCartesian(double r, double i) {
+		return Complex(r, i, 0);
+	}
+	static Complex createPolar(double distance, double angle){
+		return Complex(distance, angle);
+	}
+private:
+	int mx;
+	// adding int parameter to provide func. overloading
+	Complex(double r, double i, int);
+	Complex(double distance, double angle);
+};
+
+class Formula {
+private:
+	Complex comp1 = Complex::createCartesian(1.2, 4.5);
+};
+
+int main() {
+
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : How many instances in the program?
+  - Static counter definition can be used in that case.
+    - counter is increased with constructors, copy ctors
+    - counter is decreased with destructors
+  - The address types of static member functions are different from the address types of non-static member functions.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+#include<string> 
+
+int foo();
+
+// fighter.h
+/*-------------------------------------------------*/
+class Fighter {
+public:
+	Fighter() {
+		++ms_live_count;
+		++ms_total_count;
+	}
+	Fighter(const std::string &name, int age) : mname{ std::move(name) }, mage{ age }{
+		++ms_live_count;
+		++ms_total_count;
+	}
+	~Fighter() {
+		--ms_live_count;
+	}
+	// after writing destructor, copy ctor and copy assignment shall be written too (big three, big five rules)
+	Fighter(const Fighter& ref) = delete;
+	Fighter& operator=(const Fighter& ref) = delete;
+	
+	int getAge() const { return mage; }
+	std::string getName() const { return mname; }
+	void kill();
+	void run();
+	static int get_live_count();
+	static int get_total_count();
+
+private:
+	inline static int ms_live_count{};
+	inline static int ms_total_count{};
+	std::string mname = "noname";
+	int mage = 0;
+};
+
+// fighter.cpp
+/*-------------------------------------------------*/
+int Fighter::get_live_count() {
+	return ms_live_count;
+}
+
+int Fighter::get_total_count() {
+	return ms_total_count;
+}
+
+// client code
+/*-------------------------------------------------*/
+int main() {
+
+	// function to pointer conversion, not necessary to use address operator
+	// OK, for static member functions
+	// auto fptr1 = Fighter::get_live_count;
+	int (*fptr1)() = Fighter::get_live_count; 
+
+	// auto fptr2 = foo;
+	//int (*fptr2)() = foo; 
+		
+	// NOT OK, for non-static member function
+	// member function pointer is not appropriate
+	// void (*fptr3)() = Fighter::kill; 
+
+	std::cout << "The number of live fighter : " << Fighter::get_live_count() << "\n";
+	
+	if (true) {
+		auto fighter1 = new Fighter("Gamze" , 33 );
+		auto fighter2 = new Fighter("Mehmet" , 34);
+		
+		std::cout << "The number of live fighter : " << Fighter::get_live_count() << "\n";
+		std::cout << "The number of total fighter : " << Fighter::get_total_count() << "\n";
+		
+		delete fighter1;
+		delete fighter2;
+	}
+	std::cout << "\n";
+
+	std::cout << "The number of live fighter : " << Fighter::get_live_count() << "\n";
+	std::cout << "The number of total fighter : " << Fighter::get_total_count() << "\n";
+
+	return EXIT_SUCCESS;
+
+	/*
+		The number of live fighter : 0
+		The number of live fighter : 2
+		The number of total fighter: 2
+
+		The number of live fighter : 0
+		The number of total fighter: 2
+	
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** :
+
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+#include<string> 
+#include<vector> 
+#include<algorithm> 
+
+// fighter.h
+/*-------------------------------------------------*/
+class Fighter {
+public:
+	Fighter() {
+		msvec.push_back(this);
+	}
+	Fighter(const std::string &name, int age) : mname{ std::move(name) }, mage{ age }{
+		// the address of instance is stored in a vector 
+		msvec.push_back(this);
+	}
+	~Fighter() {
+		auto iter = std::find(msvec.begin(), msvec.end(), this);
+		// iter type --> std::vector<Fighter>::iterator
+		
+		// if iter is found in the vector
+		if (iter != msvec.end()) 
+			msvec.erase(iter);
+		else
+			std::cerr << "Not found!!!\n";
+	}
+
+	Fighter(const Fighter& ref) = delete;
+	Fighter& operator=(const Fighter& ref) = delete;
+	
+	int getAge() const { return mage; }
+	std::string getName() const { return mname; }
+	void kill();
+	void run();
+	void ask_help(){}
+private:
+	std::string mname = "noname";
+	int mage = 0;
+	inline static std::vector<Fighter*> msvec{};
+};
+
+// client code
+/*-------------------------------------------------*/
+int main() {
+
+	// Static objects
+	Fighter f1{ "Mehmet", 25 };
+	Fighter f2{ "Ayse", 26 };
+	Fighter f3{ "Ece", 27 };
+	Fighter f4{ "Utku", 30 };
+
+	// Dynamic objects
+	auto pf1 = new Fighter{"Selin", 32};
+	auto pf2 = new Fighter{"Özge", 33};
+	auto pf3 = new Fighter{"Sinem", 34};
+	
+	delete pf2;
+	delete pf3;
+
+	// asking help for the other live fighters
+	f2.ask_help();
+
+
+	return EXIT_SUCCESS;
+
+	/*
+
+	
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : 

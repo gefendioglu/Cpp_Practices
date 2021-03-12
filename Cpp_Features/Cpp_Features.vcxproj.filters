@@ -113,7 +113,10 @@
     <Text Include="38_Copy_Move_Func.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="13_Cpp_Lesson.txt">
+    <Text Include="39_Static_Members.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="14_Cpp_Lesson.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

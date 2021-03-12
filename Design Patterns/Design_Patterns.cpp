@@ -11,6 +11,9 @@
 //#define CREATIONAL_PROTOTYPE_III
 //#define CREATIONAL_PROTOTYPE_FACTORY
 //#define CREATIONAL_SINGLETON
+//#define CREATIONAL_SINGLETON_II
+#define CREATIONAL_SINGLETON_III
+
 // ----------------------------------------------
 // ----------------------------------------------
 //#define BEHAVIORAL_CHAIN_OF_RESPONSIBILIY
@@ -25,7 +28,7 @@
 //#define BEHAVIORAL_VISITOR
 //#define BEHAVIORAL_VISITOR_I
 //#define BEHAVIORAL_STATE
-#define BEHAVIORAL_STRATEGY_EXAMPLE_I
+//#define BEHAVIORAL_STRATEGY_EXAMPLE_I
 //#define BEHAVIORAL_STRATEGY_EXAMPLE_II
 //#define BEHAVIORAL_TEMPLATE
 // ----------------------------------------------
@@ -93,7 +96,7 @@
 // ----------------------------------------------
 
 /* Creational Singleton Design Pattern */
-#if defined(CREATIONAL_SINGLETON) 
+#if defined(CREATIONAL_SINGLETON)|| defined(CREATIONAL_SINGLETON_II) || defined(CREATIONAL_SINGLETON_III)     
 	#include "15_Creational_Singleton.h"
 #endif
 

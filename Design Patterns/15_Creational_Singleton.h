@@ -77,3 +77,83 @@ int main() {
 }
 
 #endif // CREATIONAL_SINGLETON
+
+
+#ifdef CREATIONAL_SINGLETON_II
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
+//singleton.h
+/*-----------------------------------------------------*/
+class SingletonPtr {
+public:
+	// return value is a pointer
+	static SingletonPtr* getInstance();
+	SingletonPtr(const SingletonPtr& ref) = delete;
+	SingletonPtr& operator=(const SingletonPtr& ref) = delete;
+	int getter() const{ 
+		return mx; 
+	}
+	void setter(const int x) {
+		this->mx = x;
+	}
+private:
+	static SingletonPtr* mptr;
+	int mx;
+	SingletonPtr() = default; // preventing to be accessed by other classes
+};
+
+class SingletonRef {
+public:
+	// return value is a reference
+	static SingletonRef& getInstance() {
+		static SingletonRef sref; 
+		return sref;
+	}
+	SingletonRef(const SingletonRef& ref) = delete;
+	SingletonRef& operator=(const SingletonRef& ref) = delete;
+	int getter() const {
+		return mx;
+	}
+	void setter(const int x) {
+		this->mx = x;
+	}
+private:
+	int mx;
+	SingletonRef() = default;
+};
+
+//singleton.cpp
+/*-----------------------------------------------------*/
+SingletonPtr* SingletonPtr::mptr = nullptr;
+// the same imp. --> Singleton Singleton::*mptr = nullptr;
+
+SingletonPtr* SingletonPtr::getInstance() {
+	if (!mptr)
+		mptr = new SingletonPtr();
+	return mptr;
+}
+
+int main() {
+
+	//Singleton obj; // --> not possible to create instance directly 
+	auto objPtr = SingletonPtr::getInstance();
+	objPtr->setter(10);
+	std::cout << "objPtr->mx : " << objPtr->getter() << "\n";
+		
+	auto& objRef = SingletonRef::getInstance();
+	objRef.setter(20);
+	std::cout << "objRef.mx  : " << objRef.getter() << "\n";
+
+	/*
+		objPtr->mx : 10
+		objRef.mx  : 20
+	*/
+
+	return EXIT_SUCCESS;
+}
+
+#endif // CREATIONAL_SINGLETON_II
+
+

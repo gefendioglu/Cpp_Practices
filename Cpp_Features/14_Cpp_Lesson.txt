@@ -1,52 +1,51 @@
-#pragma once
 
-#ifdef CLASSES
+## 
 
-#define _CRT_SECURE_NO_WARNINGS
-#include <iostream>
+/----------------------------------------------
+/----------------------------------------------
 
-// data.h
-class Data {
-public:
-	Data() {
-		std::cout << "Data ctor is called..this : " << this << "\n";
-	}
-	~Data() {
-		std::cout << "Data destructor is called..this : " << this << "\n";
-	}
-private:
-	int mx, my;
-};
+- **Example**: Scope Leakage
+  - Before C++17, another scope can be defined to restrict the usage of variable 
+  - After C++17, "if with initializer" is used instead of adding another scope in these  cases. 
 
-// global class objects
-Data globalData1;
-Data globalData2;
-Data globalData3;
+/----------------------------------------------
 
-int main() {
-	std::cout << "main() function is called...\n";
-	std::cout << "&globalData : " << &globalData1 << "\n";
-	std::cout << "main() function is ended...\n";
+int x = foo(2,5);
 
-	/*
-		Data ctor is called..this : 00AEE138
-		main() function is called
-		&globalData : 00AEE138
-		main() function is ended
-		Data destructor is called..this : 00AEE138
-	*/
-
-
+if( x > 10 ){
+	//...
+	g(x);
 }
 
-#endif // CLASSES
+// x is also accessed here !!!
+
+/----------------------------------------------
+
+if( int x = foo(2,5); x > 10 ){
+	//...
+	g(x);
+}
+
+// x is not accessed here !!!
+
+/----------------------------------------------
+
+int *foo(int);
+int func(int, int);
+
+int main(){
+	if(int *ptr = foo(10); ptr != nullptr){
+		//...
+	}
+
+	// if(int *ptr = foo(20)){} --> in this case, if(true) or if(false) 
+}
 
 
-// Static Data Members & Static Member Functions
-// --------------------------------------------
-// --------------------------------------------
+/----------------------------------------------
+/----------------------------------------------
 
-#ifdef STATIC_MEMBERS
+- **Example**: Fighter class example
 
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
@@ -127,4 +126,7 @@ int main() {
 	*/
 }
 
-#endif // STATIC_MEMBERS
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: 01:30 da kaldýk --> range based loop
