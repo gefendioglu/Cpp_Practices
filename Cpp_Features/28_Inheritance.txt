@@ -14,17 +14,17 @@ https://necatiergin2019.medium.com/private-inheritance-private-kal%C4%B1t%C4%B1m
 #include <iostream>
 #include <string>
 
-class Point {
+class Member {
 public:
-	Point() = default;
-	Point(int x, int y) :mx{ x }, my{ y } {}
-	Point(const Point& other) {
+	Member() = default;
+	Member(int x, int y) :mx{ x }, my{ y } {}
+	Member(const Member& other) {
 		std::cout << "Copy constructor called " << "\n";
 		mx = other.getX();
 		my = other.getY();
 	}
 
-	Point& operator= (const Point& point) {
+	Member& operator= (const Member& Member) {
 		std::cout << "Assignment operator called " << "\n";
 		return *this;
 	}
@@ -38,8 +38,8 @@ public:
 	void setY(const int& y) { this->my = y; }
 
 	// other functions
-	Point* relativeTo(int dx, int dy) {
-		return new Point(mx + dx, my + dy);
+	Member* relativeTo(int dx, int dy) {
+		return new Member(mx + dx, my + dy);
 	}
 private:
 	int mx{ 0 }, my{ 0 };
@@ -52,23 +52,23 @@ class Graphics {};
 class Shape {
 public:
 
-	Point getCenter() const { return center; }
+	Member getCenter() const { return center; }
 	virtual Rectangle getBounds();
 	virtual void draw(Graphics g);
 protected:
-	Point center;
+	Member center;
 	Shape() {
 		this->center.setX(0);
 		this->center.setY(0);
 	}
-	Shape(Point center) { this->center = center; }
+	Shape(Member center) { this->center = center; }
 
 };
 
 class Rectangle : public Shape {
 public:
 	Rectangle() :height{ 0 }, width{ 0 } {}
-	Rectangle(Point center, int h, int w) {
+	Rectangle(Member center, int h, int w) {
 		this->center = center;
 		height = h;
 		width = w;
@@ -90,7 +90,7 @@ private:
 class Ellipse : public Shape {
 public:
 	Ellipse() :horizontalAxis{ 0 }, verticalAxis{ 0 }{}
-	Ellipse(Point center, int h, int v) {
+	Ellipse(Member center, int h, int v) {
 		this->center = center;
 		horizontalAxis = h;
 		verticalAxis = v;
@@ -115,9 +115,9 @@ private:
 int main()
 {
 	Shape* shape;
-	Point* point_ptr = new Point(10, 20);
-	Ellipse* ellipse_ptr = new Ellipse(*point_ptr, 30, 40);
-	Rectangle* rectangle_ptr = new Rectangle(*point_ptr, 50, 60);
+	Member* Member_ptr = new Member(10, 20);
+	Ellipse* ellipse_ptr = new Ellipse(*Member_ptr, 30, 40);
+	Rectangle* rectangle_ptr = new Rectangle(*Member_ptr, 50, 60);
 
 	std::cout << "rectangle : " << rectangle_ptr->getHeight() << " " << rectangle_ptr->getWidth() << "\n";
 	std::cout << "ellipse : " << ellipse_ptr->getHorizontalAxis() << " " << ellipse_ptr->getVerticalAxis() << "\n";
@@ -211,7 +211,7 @@ public:
 // --------------------------------------------
 // --------------------------------------------
 - **Example**:
-When a derived object is declared, two virtual table pointers are created in the derived class object.
+When a derived object is declared, two virtual table pointer are created in the derived class object.
 
 
 

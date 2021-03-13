@@ -178,7 +178,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-* The type conversion for void pointers:
+* The type conversion for void pointer:
 	- C++ --> T* --> void T* (OK) 
 	- C++ --> void T* --> T* (OK)
 	  C   --> void T* --> T* (NOT OK)

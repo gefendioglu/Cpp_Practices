@@ -8,7 +8,7 @@
 /* CLASS DEFINITIONS */
 // --------------------------------------------
 //#define CLASSES
-#define STATIC_MEMBERS
+//#define STATIC_MEMBERS
 
 /* INHERITANCE */
 // --------------------------------------------
@@ -22,12 +22,12 @@
 //#define INHERITANCE_EXAMPLE_II
 
 
-/* SMART POINTERS */
+/* SMART pointer */
 // --------------------------------------------
-//#define SMART_POINTERS
-//#define SMART_POINTERS_UNIQUE
-//#define SMART_POINTERS_SHARED
-//#define SMART_POINTERS_WEAK
+//#define SMART_POINTER
+//#define SMART_POINTER_UNIQUE
+//#define SMART_POINTER_SHARED
+//#define SMART_POINTER_WEAK
 
 
 /* TEMPLATES */
@@ -71,7 +71,7 @@
 //#define PRIVATE_VIRTUAL_FUNCTIONS
 //#define VIRTUAL_FUNCTIONS_CONSTRUCTORS
 //#define VIRTUAL_FUNCTIONS_DEFAULT_ARG
-//#define VIRTUAL_POINTERS
+//#define VIRTUAL_pointer
 //#define VIRTUAL_FUNCTIONS_I
 //#define VIRTUAL_FUNCTIONS_II
 //#define VIRTUAL_NONVIRTUAL_FUNCTIONS
@@ -102,7 +102,7 @@
 // --------------------------------------------
 
 /* Smart Pointers */
-#if defined(SMART_POINTERS) || defined(SMART_POINTERS_UNIQUE) || defined(SMART_POINTERS_WEAK)
+#if defined(SMART_POINTER) || defined(SMART_POINTER_UNIQUE) || defined(SMART_POINTER_WEAK)
 	#include "30_Smart_Pointers.h"
 #endif
 
@@ -140,7 +140,7 @@
 // --------------------------------------------
 
 /* Virtual Functions */
-#if defined(VIRTUAL_FUNCTIONS_DERIVED_CLASSES)  || defined(PRIVATE_VIRTUAL_FUNCTIONS) || defined(VIRTUAL_FUNCTIONS_CONSTRUCTORS) || defined(VIRTUAL_FUNCTIONS_DEFAULT_ARG) || defined(VIRTUAL_POINTERS) || defined(VIRTUAL_FUNCTIONS) || defined(VIRTUAL_NONVIRTUAL_FUNCTIONS) || defined(VIRTUAL_INLINE_FUNCTIONS) || defined(VIRTUAL_FUNCTIONS_II) || defined(VIRTUAL_FUNCTIONS_COMPOSITION) || defined(VIRTUAL_FUNCTIONS_MULTIPLE_INHERITANCE)
+#if defined(VIRTUAL_FUNCTIONS_DERIVED_CLASSES)  || defined(PRIVATE_VIRTUAL_FUNCTIONS) || defined(VIRTUAL_FUNCTIONS_CONSTRUCTORS) || defined(VIRTUAL_FUNCTIONS_DEFAULT_ARG) || defined(VIRTUAL_pointer) || defined(VIRTUAL_FUNCTIONS) || defined(VIRTUAL_NONVIRTUAL_FUNCTIONS) || defined(VIRTUAL_INLINE_FUNCTIONS) || defined(VIRTUAL_FUNCTIONS_II) || defined(VIRTUAL_FUNCTIONS_COMPOSITION) || defined(VIRTUAL_FUNCTIONS_MULTIPLE_INHERITANCE)
 	#include "Virtual_Functions.h"
 #endif
 

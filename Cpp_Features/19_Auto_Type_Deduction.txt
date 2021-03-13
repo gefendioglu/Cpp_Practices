@@ -35,7 +35,7 @@ int main() {
 	// auto x; --> auto variable must be initialized !!!
 
     // the data type of strcmp --> int *(fp)(const char *, const char *)
-	auto functionPointer = strcmp; // function to pointer conversion
+	auto functionpointer = strcmp; // function to pointer conversion
 
 	int foo();
 	auto x = foo(); // --> instead of int x = foo();
@@ -94,7 +94,7 @@ int main() {
     auto name = "gamze"; // name --> const char* (array to pointer conversion)
 
 
-    // Function Pointers :
+    // Function pointer :
     // ----------------------------------------------
     int func(int);
     // function --> int(*)(int), function to pointer conversion, auto function = &func(10);
@@ -137,7 +137,7 @@ int main() {
 	auto& stringLiteral = "gamze"; // stringLiteral --> const char (&stringLiteral)[6]
 
 
-	// Function Pointers / Function Reference:
+	// Function pointer / Function Reference:
 	// ----------------------------------------------
 	int(*fptr)(int, int);
 	auto& refFunction = fptr; // refFunction --> int(*&)(int,int)

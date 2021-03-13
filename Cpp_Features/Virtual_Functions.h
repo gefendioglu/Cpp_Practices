@@ -146,11 +146,11 @@ int main() {
 #endif // VIRTUAL_FUNCTIONS_I
 
 
-/* Virtual Pointers (VPTR) - Virtual Table (VTABLE) */
+/* Virtual pointer (VPTR) - Virtual Table (VTABLE) */
 // --------------------------------------------
 // --------------------------------------------
 
-#ifdef VIRTUAL_POINTERS
+#ifdef VIRTUAL_pointer
 
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
@@ -200,7 +200,7 @@ int main() {
 	*/
 }
 
-#endif // VIRTUAL_POINTERS
+#endif // VIRTUAL_pointer
 
 
 /* Default Arguments and Virtual Function  */

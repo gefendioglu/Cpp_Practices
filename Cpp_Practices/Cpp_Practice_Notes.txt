@@ -201,7 +201,7 @@ int main()
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: The size of pointers, arrays, vectors, strings, chars 
+- **Example**: The size of pointer, arrays, vectors, strings, chars 
 
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
@@ -238,7 +238,7 @@ int main()
     int* p = arr;
     int(*ptr)[5] = &arr;
 
-    // On my machine int is 4 bytes and pointers are 8 bytes:
+    // On my machine int is 4 bytes and pointer are 8 bytes:
     std::cout << "  sizeof(arr): " << (sizeof(arr)) << "\n";
     std::cout << "  sizeof(p)  : " << (sizeof(p)) << "\n";
     std::cout << " sizeof(*p)  : " << (sizeof(*p)) << "\n";
@@ -497,10 +497,10 @@ else
 /----------------------------------------------
 
 What is the mean of --> void *ptr ?
-- A void* does not mean anything. It is a pointer, but the type that it points to is not known.
-- void is used as a keyword. The void pointer, also known as the generic pointer, is a special type of pointer that can be pointed at objects of any data type! 
+- A void* does not mean anything. It is a pointer, but the type that it Members to is not known.
+- void is used as a keyword. The void pointer, also known as the generic pointer, is a special type of pointer that can be Membered at objects of any data type! 
 - It's not that it can return "anything". 
-- However, because the void pointer does not know what type of object it is pointing to, it can not be dereferenced! Rather, the void pointer must first be explicitly cast to another pointer type before it is dereferenced.
+- However, because the void pointer does not know what type of object it is Membering to, it can not be dereferenced! Rather, the void pointer must first be explicitly cast to another pointer type before it is dereferenced.
 
 - **Example** : void *ptr 
 int main()

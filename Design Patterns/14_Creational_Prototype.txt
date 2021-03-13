@@ -212,9 +212,9 @@ public:
 };
 
 void create_animal(animal* animal) {
-    // How to create the object of same type pointed by animal ?
-    // How to copy the object of same type pointed by animal?
-    // the created object pointed by animal class is deleted by using virtual destructor
+    // How to create the object of same type Membered by animal ?
+    // How to copy the object of same type Membered by animal?
+    // the created object Membered by animal class is deleted by using virtual destructor
     delete animal; 
 }
 

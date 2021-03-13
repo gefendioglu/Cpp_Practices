@@ -348,11 +348,11 @@ int main() {
 #endif // CONVERSION_CTOR
 
 
-// Features
+// Copy Elimination (with RVO and NRVO)
 // --------------------------------------------
 // --------------------------------------------
 
-#ifdef FEATURE
+#ifdef COPY_ELISION
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
@@ -410,7 +410,7 @@ int main() {
 	func(Data{ 10 });  // copy elimination is applied by compiler
 					  // not calling copy ctor for Data{10}
 					  // calling Data(int x) directly 
-					   
+
 	// Second destructor is called here for Data{ 10 }
 	std::cout << "main() is still going on...\n\n";
 
@@ -421,6 +421,77 @@ int main() {
 	return EXIT_SUCCESS;
 	/*
 		To be executed again!!!
+	*/
+}
+
+#endif // COPY_ELISION
+
+
+// Feature
+// --------------------------------------------
+// --------------------------------------------
+
+#ifdef FEATURE
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <memory>
+
+void* operator new(size_t n) {
+	std::cout << "operator new called n : " << n << "\n";
+	void* vptr = std::malloc(n);
+	if (!vptr){
+		throw std::bad_alloc{};
+	}
+	std::cout << "address of allocated block : " << vptr << "\n";
+	return vptr;
+}
+
+void operator delete(void *vptr) {
+	std::cout << "operator delete called vptr : " << vptr << "\n";
+	if (vptr)
+	{
+		std::free(vptr);
+	}
+
+}
+// point.h
+/*--------------------------------------------------------*/
+class Point {
+public:
+	Point() : mx{}, my{}, mz{}{
+		std::cout << "Point() ctor is called...this : " << this << "\n";
+	}
+	Point(int x, int y, int z) :mx{ x }, my{ y }, mz{ z } {
+		std::cout << "Point(int x, int y, int z) is called...this : " << this << "\n";
+	}
+	~Point() {
+		std::cout << "~Point() dtor is called...this : " << this << "\n";
+	}
+	void print()const {
+		std::cout << "[" << mx << ", " << my << ", " << mz << "]\n";
+	}
+	void set(const int x, const int y, const int z) {
+		this->mx = x;
+		this->my = y;
+		this->mz = z;
+	}
+private:
+	int mx, my, mz;
+};
+
+int main() {
+
+	std::unique_ptr<Point>ptr(new Point(10,20,30));
+	ptr->print();
+
+	ptr->set(50, 60, 70);
+	ptr->print();
+
+	return EXIT_SUCCESS;
+
+	/*
+		Executed again !!!
 	*/
 }
 

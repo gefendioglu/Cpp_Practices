@@ -16,7 +16,7 @@
   
   - **Concrete Decorator**: Concrete Decorators modify the behavior of the wrapped Concrete Component by overriding one or more methods of their parent Decorator class.
 
-- Important points about implementing Decorator Pattern:
+- Important Members about implementing Decorator Pattern:
   - use inheritance and abstract class for the common functionality 
   - use delegation instead of inheritance 
 

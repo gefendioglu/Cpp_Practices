@@ -3,7 +3,7 @@
 
 * UNDEFINED BEHAVIOUR :
 	- Always avoid undefined behaviour (ub)
-	1 - Dereferencing null pointers
+	1 - Dereferencing null pointer
 	2 - Changing string literals (read only)
 	3 - Changing variables which assigned as const
 	4 - Overflowing for signed variables

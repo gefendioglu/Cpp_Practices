@@ -132,7 +132,7 @@ int main() {
 
 #endif // COPY_CTOR_ADDRESS
 
-// Copy Ctor without Dangling Pointer Problem 
+// Copy Ctor without Dangling pointer Problem 
 // Whenever a need comes out to allocate memory block (if there is an in-class pointer), the copy ctor of this class shall be declared by user.
 // --------------------------------------------
 // --------------------------------------------

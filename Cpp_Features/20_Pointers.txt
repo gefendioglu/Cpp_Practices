@@ -1,10 +1,10 @@
 
-## POINTER TYPES 
+## pointer TYPES 
 
 /----------------------------------------------
 /----------------------------------------------
 
-* Pointer Types: Valid / Invalid Pointer
+* pointer Types: Valid / Invalid pointer
 
   - **Invalid pointer**: bir pointer a dinamik ömürlü nesnenin adresi atandýysa/ilk deðer verilirse ve pointer deðiþkenin hayatý devam ederken onun gösterdiði nesnenin hayatý biterse. otomatik ömürlü tanýmlanan pointer için ilk deðer verilmezse
 
@@ -19,11 +19,11 @@
 /----------------------------------------------
 /----------------------------------------------
 
-### Null Pointer :
+### Null pointer :
 
 * nullptr was added to the language with C++11:
 	- What is null pointer?
-	- When we need to use null pointers?
+	- When we need to use null pointer?
 	- NULL is a macro defined in the libraries like as <stdlib>, <stdio>, <time>, <string> 
 	- In our system   --> #define NULL 0 
 	  In some systems --> #define NULL ((void*) 0) 
@@ -40,8 +40,8 @@
 * nullptr --> is an address constant to eliminate the disadvantages of using 0 to represent null 
 		  --> data type is nullptr_t (in <cstddef> lib)
 			  void func(nullptr_t) --> especially used for function overloading 
-		  --> nullptr is only assigned to pointers (not taking consideration of data types)
-		  --> nullptr doesnt point any objects, and it can not be dereferenced. 
+		  --> nullptr is only assigned to pointer (not taking consideration of data types)
+		  --> nullptr doesnt Member any objects, and it can not be dereferenced. 
 
 - The following if conditions are same: 
 	- if (iptr == nullptr) {} 
@@ -95,7 +95,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
--**Example**: Pointer deðiþkenlerin flag olarak kullanýlmasý yaygýndýr. 
+-**Example**: pointer deðiþkenlerin flag olarak kullanýlmasý yaygýndýr. 
 
 	int *ptr = nullptr;
 	if(expr){
@@ -137,15 +137,15 @@ int main() {
 /----------------------------------------------	
 /----------------------------------------------
 
-- The differences between references and pointers:
+- The differences between references and pointer:
   - Referanslara ilk deðer vermek zorunlu, ilk deðer vermeden referans oluþturulamaz ! 
-  - Pointer deðiþkenlere ilk deðer vermek zorunlu deðildir. 
+  - pointer deðiþkenlere ilk deðer vermek zorunlu deðildir. 
   - "Reference to reference" kavramý yoktur; ancak "pointer to pointer" kavramý mecvuttur. 
 
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** : Pointer deðiþken farklý nesne adreslerini gösterebilir. Kendisi const olmak zorunda deðildir. 
+- **Example** : pointer deðiþken farklý nesne adreslerini gösterebilir. Kendisi const olmak zorunda deðildir. 
 
 #include <iostream>
 
@@ -197,7 +197,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: Pointers can be referenced for other pointers
+- **Example**: pointer can be referenced for other pointer
 
 #include <iostream>
 
@@ -217,3 +217,67 @@ int main() {
 
 /----------------------------------------------
 /----------------------------------------------
+
+- **Example**: void pointer
+
+int main(){
+
+	int x = 4;
+	float y = 5.5;
+
+	// A void pointer 
+	void* ptr;
+
+	// void pointer Members an address includes integer value
+	ptr = &x; 
+
+	// (int*)ptr - does type casting of void 
+	// *((int*)ptr) dereferences the typecasted 
+	std::cout << "Integer variable is = " << *((int*)ptr) << "\n";
+	
+	// void pointer Members an address includes integer value
+	ptr = &y;
+	std::cout << "Float variable is= = " << *((float*)ptr) << "\n";
+	return 0;
+
+	/*
+		Integer variable is = 4
+		Float variable is= = 5.5
+	*/
+}
+
+// --------------------------------------------
+// --------------------------------------------
+
+- **Example**: null pointer
+
+int main()
+{
+	// Null pointer 
+	int* ptr = nullptr;
+	std::cout << "The value of ptr is : " << ptr << "\n";
+	return 0;
+
+	// The value of ptr is : 00000000
+}
+
+// --------------------------------------------
+// --------------------------------------------
+
+- **Example**: wild pointer
+
+int main()
+{
+	/* wild pointer - initialize with garbage value*/
+   // Error C4700: uninitialized local variable 'p' used
+	int* p; 
+
+	int x = 10;
+	p = &x; // p is not a wild pointer now 
+	std::cout << "not wild pointer : " << p << "\n";
+
+	return 0;
+}
+
+// --------------------------------------------
+// --------------------------------------------

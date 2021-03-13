@@ -11,7 +11,7 @@
 
 // Pros: 
 // Easy to implement.
-// Memory is saved as pointers are not involved.
+// Memory is saved as pointer are not involved.
 // --------------------------------------------------
 // Cons : 
 // It is not dynamic.
@@ -289,7 +289,7 @@ int main() {
 // Pros: 
 // The stack can grow and shrink according to the needs at runtime.
 // --------------------------------------------------
-// Cons : Requires extra memory due to involvement of pointers
+// Cons : Requires extra memory due to involvement of pointer
 // --------------------------------------------------
 
 #define _CRT_SECURE_NO_WARNINGS

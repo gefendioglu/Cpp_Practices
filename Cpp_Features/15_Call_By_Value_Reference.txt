@@ -25,7 +25,7 @@
 /----------------------------------------------
 /----------------------------------------------
 
--**Example**: Swap Function with pointers - call by value
+-**Example**: Swap Function with pointer - call by value
 
 #include <iostream>
 

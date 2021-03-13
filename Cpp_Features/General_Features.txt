@@ -476,7 +476,7 @@ int main() {
 	// First destructor is called here for Data{}
 	std::cout << "main() is still going on...\n\n";
 
-	func(Data{ 10 });  // copy elimination is applied by compiler
+	func(Data{ 10 }); // copy elimination is applied by compiler
 					  // not calling copy ctor for Data{10}
 					  // calling Data(int x) directly 
 					   
@@ -496,3 +496,4 @@ int main() {
 /----------------------------------------------
 
 - **Example** :
+

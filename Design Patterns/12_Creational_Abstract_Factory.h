@@ -5,42 +5,42 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
 
-class Point {
+class Member {
 public:
-    virtual ~Point() {
-        std::cout << "Point::~Point()\n";
+    virtual ~Member() {
+        std::cout << "Member::~Member()\n";
     }
 };
 
-class Point2D :public Point {
+class Member2D :public Member {
 public:
-    ~Point2D() {
-        std::cout << "Point::~Point2D()\n";
+    ~Member2D() {
+        std::cout << "Member::~Member2D()\n";
     }
 };
 
-class Point3D : public Point {
+class Member3D : public Member {
 public:
-    ~Point3D() {
-        std::cout << "Point::~Point3D()\n";
+    ~Member3D() {
+        std::cout << "Member::~Member3D()\n";
     }
 };
 
-void create_point() {
-    // Not sure which object class would be passed here ("Point2D" or "Point3D")
-    // Point3D* ptr3d = new Point3D();
-    // Point2D* ptr2d = new Point2D();
-    Point* point = new Point();
-    delete point;
+void create_Member() {
+    // Not sure which object class would be passed here ("Member2D" or "Member3D")
+    // Member3D* ptr3d = new Member3D();
+    // Member2D* ptr2d = new Member2D();
+    Member* Member = new Member();
+    delete Member;
 }
 
 int main() {
 
-    create_point();
+    create_Member();
 
     return EXIT_SUCCESS;
     /*
-        Point::~Point()
+        Member::~Member()
     */
 }
 
@@ -54,18 +54,18 @@ int main() {
 #include<memory>
 
 // pure virtual - abstract class (can not be instantiated)
-class Point {
+class Member {
 public:
-    Point(int x, int y) : m_x{ x }, m_y{ y } {}
-    virtual ~Point() = default;
+    Member(int x, int y) : m_x{ x }, m_y{ y } {}
+    virtual ~Member() = default;
 
     // like as virtual constructor
-    virtual std::unique_ptr<Point> create() = 0;
+    virtual std::unique_ptr<Member> create() = 0;
 
     // like as virtual copy constructor
-    virtual std::unique_ptr<Point> clone() = 0;
+    virtual std::unique_ptr<Member> clone() = 0;
 
-    friend std::ostream& operator<<(std::ostream& os, const Point& obj) {
+    friend std::ostream& operator<<(std::ostream& os, const Member& obj) {
         return os << "x: " << obj.m_x << " y: " << obj.m_y;
     }
 private:
@@ -73,48 +73,48 @@ private:
     int m_y;
 };
 
-class Point2D : public Point {
+class Member2D : public Member {
 public:
     // Derived --> Base (upcasting)
-    // Point2D --> Point
-    // std::unique_ptr<Point> point2d = std::make_unique<Point2D>();
-    std::unique_ptr<Point> create() override {
-        return std::make_unique<Point2D>();
+    // Member2D --> Member
+    // std::unique_ptr<Member> Member2d = std::make_unique<Member2D>();
+    std::unique_ptr<Member> create() override {
+        return std::make_unique<Member2D>();
     }
-    // std::unique_ptr<Point> point2d = std::make_unique<Point2D>(*this);
-    std::unique_ptr<Point> clone() override {
-        return std::make_unique<Point2D>(*this);
+    // std::unique_ptr<Member> Member2d = std::make_unique<Member2D>(*this);
+    std::unique_ptr<Member> clone() override {
+        return std::make_unique<Member2D>(*this);
     }
 };
 
-class Point3D : public Point {
+class Member3D : public Member {
 public:
     // Derived --> Base (upcasting)
-    // Point3D --> Point
-    // std::unique_ptr<Point> point3d = std::make_unique<Point3D>();
-    std::unique_ptr<Point> create() override {
-        return std::make_unique<Point3D>();
+    // Member3D --> Member
+    // std::unique_ptr<Member> Member3d = std::make_unique<Member3D>();
+    std::unique_ptr<Member> create() override {
+        return std::make_unique<Member3D>();
     }
 
-    // std::unique_ptr<Point> point3d = std::make_unique<Point3D>(*this);
-    std::unique_ptr<Point> clone() override {
-        return std::make_unique<Point3D>(*this);
+    // std::unique_ptr<Member> Member3d = std::make_unique<Member3D>(*this);
+    std::unique_ptr<Member> clone() override {
+        return std::make_unique<Member3D>(*this);
     }
 };
 
-void point_func(std::unique_ptr<Point> point) {
+void Member_func(std::unique_ptr<Member> Member) {
 
-    // "create" the object of same type pointed by ?
-    auto new_point = point->create();
+    // "create" the object of same type Membered by ?
+    auto new_Member = Member->create();
 
-    // "copy" the object of same type pointed by ?
-    auto duplicate_point = point->clone();
+    // "copy" the object of same type Membered by ?
+    auto duplicate_Member = Member->clone();
 }
 
 int main() {
     // TO BE IMPLEMENTED
-    //std::unique_ptr<Point> point2d = std::make_unique<Point2D>();
-    //point_func(point2d); // NOT OK!
+    //std::unique_ptr<Member> Member2d = std::make_unique<Member2D>();
+    //Member_func(Member2d); // NOT OK!
     return EXIT_SUCCESS;
 }
 
@@ -128,15 +128,15 @@ int main() {
 #include<map>
 #include<functional>
 
-enum class PointType { Point2D, Point3D };
+enum class MemberType { Member2D, Member3D };
 
-class Point {
+class Member {
 public:
-    Point() = default;
-    Point(int x, int y) : m_x{ x }, m_y{ y } {}
-    virtual ~Point() = default;
+    Member() = default;
+    Member(int x, int y) : m_x{ x }, m_y{ y } {}
+    virtual ~Member() = default;
 
-    friend std::ostream& operator<<(std::ostream& os, const Point& obj) {
+    friend std::ostream& operator<<(std::ostream& os, const Member& obj) {
         return os << "x: " << obj.m_x << " y: " << obj.m_y;
     }
 private:
@@ -144,31 +144,31 @@ private:
     int m_y;
 };
 
-class Point2D : public Point {/* . . . */ };
-class Point3D : public Point {/* . . . */ };
+class Member2D : public Member {/* . . . */ };
+class Member3D : public Member {/* . . . */ };
 
-class PointFunctionalFactory {
+class MemberFunctionalFactory {
 public:
-    PointFunctionalFactory() {
-        m_factories[PointType::Point2D] = [] { 
-            return std::make_unique<Point2D>(); 
+    MemberFunctionalFactory() {
+        m_factories[MemberType::Member2D] = [] { 
+            return std::make_unique<Member2D>(); 
         };
-        m_factories[PointType::Point3D] = [] { 
-            return std::make_unique<Point3D>(); 
+        m_factories[MemberType::Member3D] = [] { 
+            return std::make_unique<Member3D>(); 
         };
     }
-    std::unique_ptr<Point> create(PointType type) { 
+    std::unique_ptr<Member> create(MemberType type) { 
         return m_factories[type](); 
     }
 private:
-    std::map<PointType, std::function<std::unique_ptr<Point>() >> m_factories;
+    std::map<MemberType, std::function<std::unique_ptr<Member>() >> m_factories;
 };
 
 int main() {
 
-    PointFunctionalFactory pf;
-    auto point2D = pf.create(PointType::Point2D);
-    std::cout << point2D << "\n"; // The address of point2D
+    MemberFunctionalFactory pf;
+    auto Member2D = pf.create(MemberType::Member2D);
+    std::cout << Member2D << "\n"; // The address of Member2D
     
     return EXIT_SUCCESS;
 }

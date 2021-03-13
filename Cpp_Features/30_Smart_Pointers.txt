@@ -1,10 +1,14 @@
 
-## SMART POINTERS
+## SMART pointer
+
+- Smart pointers have a structure called "exclusive ownership".
+- Smart pointer classes are not copyable, but movable
+- The pointers created using smart pointer classes can not be copied to the other pointers (protected against double deletion error). 
 
 // --------------------------------------------
 // --------------------------------------------
 
-- **Example**: Smart Pointer class (with/without templates)
+- **Example**: Smart pointer class (with/without templates)
 
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
@@ -30,7 +34,7 @@ public:
     // Destructor 
     ~SmartPtrTemp() { delete (ptr); }
 
-    // Overloading dereferncing operator 
+    // Overloading dereferencing operator 
     T& operator*() { return *ptr; }
 
     // Overloading arrow operator 
@@ -148,7 +152,7 @@ std::shared_ptr<int> p3 = wp1.lock();
 // --------------------------------------------
 // --------------------------------------------
 
-## DANGLING POINTER
+## DANGLING pointer
 
 // --------------------------------------------
 // --------------------------------------------
@@ -159,7 +163,7 @@ int main()
 {
 	int* ptr = (int*)malloc(sizeof(int));
 
-	// Deallocating a memory pointed by ptr causes dangling pointer 
+	// Deallocating a memory Membered by ptr causes dangling pointer 
 	free(ptr);
 
 	// No more a dangling pointer 
@@ -188,7 +192,7 @@ int main(){
 	int* p = fun();
 	fflush(stdin);
 
-	// p points to something which is not valid anymore, but Cpp compiler wont give an error and prints 5 
+	// p Members to something which is not valid anymore, but Cpp compiler wont give an error and prints 5 
 	std::cout << *p << "\n";
 	std::cout << p << "\n";
 
@@ -212,7 +216,7 @@ int main(){
 	int* p = fun();
 	fflush(stdin);
 
-	// p points to something which is not valid anymore 
+	// p Members to something which is not valid anymore 
 	std::cout << *p << "\n";
 	std::cout << p << "\n";
 
@@ -222,66 +226,3 @@ int main(){
 // --------------------------------------------
 // --------------------------------------------
 
-- **Example**: void pointers
-
-int main(){
-
-	int x = 4;
-	float y = 5.5;
-
-	// A void pointer 
-	void* ptr;
-
-	// void pointer points an address includes integer value
-	ptr = &x; 
-
-	// (int*)ptr - does type casting of void 
-	// *((int*)ptr) dereferences the typecasted 
-	std::cout << "Integer variable is = " << *((int*)ptr) << "\n";
-	
-	// void pointer points an address includes integer value
-	ptr = &y;
-	std::cout << "Float variable is= = " << *((float*)ptr) << "\n";
-	return 0;
-
-	/*
-		Integer variable is = 4
-		Float variable is= = 5.5
-	*/
-}
-
-// --------------------------------------------
-// --------------------------------------------
-
-- **Example**: null pointers
-
-int main()
-{
-	// Null Pointer 
-	int* ptr = nullptr;
-	std::cout << "The value of ptr is : " << ptr << "\n";
-	return 0;
-
-	// The value of ptr is : 00000000
-}
-
-// --------------------------------------------
-// --------------------------------------------
-
-- **Example**: wild pointers
-
-int main()
-{
-	/* wild pointer - initialize with garbage value*/
-   // Error C4700: uninitialized local variable 'p' used
-	int* p; 
-
-	int x = 10;
-	p = &x; // p is not a wild pointer now 
-	std::cout << "not wild pointer : " << p << "\n";
-
-	return 0;
-}
-
-// --------------------------------------------
-// --------------------------------------------

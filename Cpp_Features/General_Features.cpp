@@ -8,9 +8,10 @@
 //#define CONSTRUCTOR_INIT_LIST
 //#define TEMPORARY_OBJECTS
 //#define CONVERSION_CTOR
+//#define COPY_ELISION
 //#define VECTOR_CLASS_TEMPLATE
 //#define STRING_IMPLEMENTATION
-
+#define FEATURE
 
 /* STL OPTIONAL */
 // --------------------------------------------
@@ -25,9 +26,10 @@
 /* General C++ Features */
 // --------------------------------------------
 
-#if defined(USER_DEFINED_LITERALS) || defined(NON_STATIC_MEMBER_INIT) || defined(FORWARD_DECLARATION) || defined(INITIALIZER_LIST) || defined(CONSTRUCTOR_INIT_LIST) || defined(TEMPORARY_OBJECTS)|| defined(CONVERSION_CTOR) || defined(FEATURE)
+#if defined(USER_DEFINED_LITERALS) || defined(NON_STATIC_MEMBER_INIT) || defined(FORWARD_DECLARATION) || defined(INITIALIZER_LIST) || defined(CONSTRUCTOR_INIT_LIST) || defined(TEMPORARY_OBJECTS)|| defined(CONVERSION_CTOR) || defined(FEATURE) || defined(COPY_ELISION) 
 	#include "General_Features.h"
 #endif
+
 
 
 /* Vector Implementation */

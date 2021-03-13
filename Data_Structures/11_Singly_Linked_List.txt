@@ -5,7 +5,7 @@
 - The specifications of Linked Lists:
   - It is a linear data structure
   - The elements of a linked lists are not stored at contiguous memory locations.
-  - The elements of a linked lists are linked using pointers. 
+  - The elements of a linked lists are linked using pointer. 
   - A linked lists consists of nodes. A node contains a data field and reference(link) which provides a link to the next node. 
    
 - The operations of Linked Lists:
@@ -25,13 +25,13 @@
 - Three basic kinds of linked lists exist: 
   - Singly Linked Lists 
     - It allows one way traversing
-	- The last pointer points nullptr
+	- The last pointer Members nullptr
   - Doubly Linked Lists 
     - It allows two way traversing 
-	- It has two different types of pointers for pointing previous (P) and next node (N)
-	- Because of having two pointers, it needs one more memory locations comparing to singly linked lists
+	- It has two different types of pointer for Membering previous (P) and next node (N)
+	- Because of having two pointer, it needs one more memory locations comparing to singly linked lists
   - Circular Linked Lists 
-    - The last pointer points the first node pointer to provide circularity
+    - The last pointer Members the first node pointer to provide circularity
 
 - Linked Lists && Arrays:
   - The advantages of Linked Lists over Arrays:
@@ -111,7 +111,7 @@ IntElement* IntElement::find(IntElement* head, int data) {
 bool IntElement::deleteElement(IntElement** head, IntElement* deleteMe)
 {
 	IntElement* elem;
-	if (!head || !*head || !deleteMe) /* Check for null pointers */
+	if (!head || !*head || !deleteMe) /* Check for null pointer */
 		return false;
 
 	elem = *head;
@@ -142,12 +142,12 @@ bool IntElement::deleteElement_I(IntElement** npp, IntElement* deleteMe) {
 
 	IntElement* elem;
 
-	if (!npp || !*npp || !deleteMe) /* Check for null pointers */
+	if (!npp || !*npp || !deleteMe) /* Check for null pointer */
 		return false;
 
 	while (*npp) {
 		if (*npp == deleteMe) {
-			/* npp points to head pointer (if deleteMe is first element) or to next pointer within preceding element */
+			/* npp Members to head pointer (if deleteMe is first element) or to next pointer within preceding element */
 			*npp = deleteMe->next;
 			free(deleteMe);
 			return true;
@@ -168,18 +168,18 @@ bool IntElement::deleteElement_I(IntElement** npp, IntElement* deleteMe) {
   - Do you advance the pointer first or free the element first? 
     - If you advance the pointer first, then the freeing is impossible because you overwrote the pointer to the element to be freed. 
 	- If you free the element first, advancing the pointer is impossible, because it involves reading the next pointer in the element that was just freed.
-	- The solution is to use two pointers !!!
+	- The solution is to use two pointer !!!
 
 /----------------------------------------------
 /----------------------------------------------
 
 void IntElement::deleteList(IntElement** head)
 {
-	// First pointer points the first element of list
+	// First pointer Members the first element of list
 	IntElement* deleteMe = *head;
 
 	while (deleteMe) {
-		// Second pointer points the next element of the element which will be deleted
+		// Second pointer Members the next element of the element which will be deleted
 		IntElement* next = deleteMe->next;
 		// delete the element
 		free(deleteMe);
@@ -248,12 +248,12 @@ bool IntElement::deleteElement(IntElement** npp, IntElement* deleteMe) {
 
 	IntElement* elem;
 
-	if (!npp || !*npp || !deleteMe) /* Check for null pointers */
+	if (!npp || !*npp || !deleteMe) /* Check for null pointer */
 		return false;
 
 	while (*npp) {
 		if (*npp == deleteMe) {
-			/* npp points to head pointer (if deleteMe is first element) or to next pointer within preceding element */
+			/* npp Members to head pointer (if deleteMe is first element) or to next pointer within preceding element */
 			*npp = deleteMe->next;
 			free(deleteMe);
 			return true;
@@ -267,11 +267,11 @@ bool IntElement::deleteElement(IntElement** npp, IntElement* deleteMe) {
 
 void IntElement::deleteList(IntElement** head)
 {
-	// First pointer points the first element of list
+	// First pointer Members the first element of list
 	IntElement* deleteMe = *head;
 
 	while (deleteMe) {
-		// Second pointer points the next element of the element which will be deleted
+		// Second pointer Members the next element of the element which will be deleted
 		IntElement* next = deleteMe->next;
 		// delete the element
 		free(deleteMe);
@@ -412,7 +412,7 @@ void SinglyLinkedLists::insertNodeAfter(const int& key, Node* node) {
 		else // if not exist this node, we can insert it
 		{
 			node->next = ptr->next;
-			ptr->next = node; // the previous node shall point the inserted node address
+			ptr->next = node; // the previous node shall Member the inserted node address
 			std::cout << "Node is inserted !!!" << "\n";
 		}
 
@@ -491,7 +491,7 @@ void SinglyLinkedLists::printList() {
 		std::cout << "Singly Linked List Values: ";
 		Node* temp = head;
 
-		// while temp doesnt point the last node
+		// while temp doesnt Member the last node
 		while (temp != nullptr) {
 			std::cout << "( " << temp->key << ", " << temp->data << " )--> ";
 			temp = temp->next;
@@ -519,7 +519,7 @@ int main() {
 		std::cin >> option;
 		// dynamic memory allocation - heap
 		// it provides globally accessing the object
-		// in this case, there is a pointer in stack memory pointing to the object address located in heap memory
+		// in this case, there is a pointer in stack memory Membering to the object address located in heap memory
 		Node* n1 = new Node();
 
 		// static memory allocation - stack 

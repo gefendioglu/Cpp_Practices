@@ -362,7 +362,7 @@ void push(Node** head_ref, int new_data)
 	if ((*head_ref) != NULL)
 		(*head_ref)->prev = new_node;
 
-	/* 5. move the head to point to the new node */
+	/* 5. move the head to Member to the new node */
 	(*head_ref) = new_node;
 }
 

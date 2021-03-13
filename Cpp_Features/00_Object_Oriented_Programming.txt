@@ -20,22 +20,22 @@
 /----------------------------------------------
 
 - **Example** : Class Implementation 
-  - A class definition for Point, which is a pair of integers that represents the x and y values of a point in a Cartesian coordinate plane:
+  - A class definition for Member, which is a pair of integers that represents the x and y values of a Member in a Cartesian coordinate plane:
 
 #include <iostream>
 #include <string>
 
-class Point {
+class Member {
 public:
-	Point() = default;
-	Point(int x, int y) :mx{ x }, my{ y } {}
-	Point(const Point& other) {
+	Member() = default;
+	Member(int x, int y) :mx{ x }, my{ y } {}
+	Member(const Member& other) {
 		std::cout << "Copy constructor called " << "\n";
 		mx = other.getX();
 		my = other.getY();
 	}
 
-	Point& operator= (const Point& point) {
+	Member& operator= (const Member& Member) {
 		std::cout << "Assignment operator called " << "\n";
 		return *this;
 	}
@@ -49,8 +49,8 @@ public:
 	void setY(const int& y) { this->my = y; }
 
 	// other functions
-	Point* relativeTo(int dx, int dy) {
-		return new Point(mx + dx, my + dy);
+	Member* relativeTo(int dx, int dy) {
+		return new Member(mx + dx, my + dy);
 	}
 
 	std::string toString() {
@@ -70,15 +70,15 @@ private:
 
 int main()
 {
-	Point cartesian(10, 20);
+	Member cartesian(10, 20);
 	std::cout << "mx : " << cartesian.getX() << "\n"; // mx : 10
 	std::cout << "my : " << cartesian.getY() << "\n"; // my : 20
 
-	Point* ptr = new Point(30, 40);
+	Member* ptr = new Member(30, 40);
 	std::cout << "mx : " << ptr->getX() << "\n"; // mx : 30
 	std::cout << "my : " << ptr->getY() << "\n"; // my : 40
 
-	Point* p1 = cartesian.relativeTo(5, -5);
+	Member* p1 = cartesian.relativeTo(5, -5);
 	std::cout << "p1 : " << p1->toString() << "\n"; // NOT OK !!! To Be Controlled !!!
 }
 
@@ -198,7 +198,7 @@ stack :
 /----------------------------------------------
 int Base::x  
 string Base::str (? --> const char*)
-Base::_vptr  --> points type_info Derived, the address of Derived::~Derived(), the address of Derived::printAll()
+Base::_vptr  --> Members type_info Derived, the address of Derived::~Derived(), the address of Derived::printAll()
 int Derived::y
 
 text segment:
@@ -249,9 +249,9 @@ Memory Layout:
 stack :
 /----------------------------------------------
 int BaseX::x 
-BaseX::_vptr --> points type_info Derived, the address of Derived::~Derived(), Derived::printX()
+BaseX::_vptr --> Members type_info Derived, the address of Derived::~Derived(), Derived::printX()
 int BaseY::y
-BaseY:: _vptr --> points type_info Derived, the address of Derived::~Derived(), Derived::printY()
+BaseY:: _vptr --> Members type_info Derived, the address of Derived::~Derived(), Derived::printY()
 int Derived::z
 
 text segment:

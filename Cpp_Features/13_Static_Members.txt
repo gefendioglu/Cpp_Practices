@@ -115,7 +115,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** : The static data members can be accessed by using class type pointers or references (not a suggested way). 
+- **Example** : The static data members can be accessed by using class type pointer or references (not a suggested way). 
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
@@ -195,7 +195,7 @@ private:
 
 ## Static Member Functions:
 
-- Static member functions dont have this pointers in a class. 
+- Static member functions dont have this pointer in a class. 
 
 - Static function definition: 
   - func definition wtih "static" keyword creates an internal linkage. It means this func is only called from the cpp file. It is not possible to be called by other cpp files.
@@ -206,7 +206,7 @@ private:
   - can reach/use static data members directly
   - However, they can not call non-static member functions and not reach non-static data members directly. Because there is no this pointer for static functions. 
 
-- Static member functions can not declared/defined with "const" keyword. Because, this keyword represents the constantness of class address in which it is used. Since static functions dont have "this" pointers, no possibility to be const function for them. 
+- Static member functions can not declared/defined with "const" keyword. Because, this keyword represents the constantness of class address in which it is used. Since static functions dont have "this" pointer, no possibility to be const function for them. 
 
 - When calling a static member function from an object or a pointer, the address of this function is not sent to the function which is calling. Calling a static member function from client code with scope resolution operator shall be preffered in general. 
 
@@ -241,8 +241,9 @@ namespace {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** : Static member functions with this pointers
+- **Example** : Static member functions with "this" pointer
   - STATIC macro definition can be made to increase the code readibility 
+
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #define STATIC 

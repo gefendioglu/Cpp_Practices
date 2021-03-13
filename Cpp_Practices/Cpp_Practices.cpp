@@ -33,7 +33,7 @@
 //    int* p = arr;
 //    int(*ptr)[5] = &arr;
 //
-//    // On my machine int is 4 bytes and pointers are 8 bytes:
+//    // On my machine int is 4 bytes and pointer are 8 bytes:
 //    std::cout << "  sizeof(arr): " << (sizeof(arr)) << "\n";
 //    std::cout << "  sizeof(p)  : " << (sizeof(p)) << "\n";
 //    std::cout << " sizeof(*p)  : " << (sizeof(*p)) << "\n";

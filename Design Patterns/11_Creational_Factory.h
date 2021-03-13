@@ -6,36 +6,36 @@
 #define _USE_MATH_DEFINES
 #include<iostream> 
 
-class Point {
+class Member {
 public:
     struct Factory {
 
-        static Point NewCartesian(double x, double y) {
+        static Member NewCartesian(double x, double y) {
             return { x,y }; 
         }
 
-        static Point NewPolar(double r, double theta) {
+        static Member NewPolar(double r, double theta) {
             return{ r * cos(theta), r * sin(theta) };
         }
     };
 
-    friend std::ostream& operator<<(std::ostream& os, const Point& obj) {
+    friend std::ostream& operator<<(std::ostream& os, const Member& obj) {
         return os << "x: " << obj.m_x << " y: " << obj.m_y;
     }
 
 private:
     double   m_x;
     double   m_y;
-    Point(double x, double y) : m_x{ x }, m_y{ y } {}
+    Member(double x, double y) : m_x{ x }, m_y{ y } {}
 };
 
 int main() {
 
-    // Point p{ 1,2 };  // Not Work!!!
-    auto polar = Point::Factory::NewPolar(5, M_PI_4);
+    // Member p{ 1,2 };  // Not Work!!!
+    auto polar = Member::Factory::NewPolar(5, M_PI_4);
     std::cout << polar << "\n";  // x: 3.53553 y: 3.53553
 
-    auto cartesian = Point::Factory::NewCartesian(5, M_PI_4);
+    auto cartesian = Member::Factory::NewCartesian(5, M_PI_4);
     std::cout << cartesian << "\n";  // x: 5 y: 0.785398
 
     return EXIT_SUCCESS;
@@ -50,38 +50,38 @@ int main() {
 #define _USE_MATH_DEFINES
 #include<iostream> 
 
-enum class PointType { cartesian, polar };
+enum class MemberType { cartesian, polar };
 
-class Point {
+class Member {
 public:
     // Static class member function for cartesian coord.
-    static Point NewCartesian(const double& x, const double& y) {
-        return { x, y, PointType::cartesian };
+    static Member NewCartesian(const double& x, const double& y) {
+        return { x, y, MemberType::cartesian };
     }
 
     // Static class member function for polar coord.
-    static Point NewPolar(const double& x, const double& y) {
-        return { x * cos(y), x * sin(y), PointType::polar };
+    static Member NewPolar(const double& x, const double& y) {
+        return { x * cos(y), x * sin(y), MemberType::polar };
     }
 
-    friend std::ostream& operator<<(std::ostream& os, const Point& obj) {
+    friend std::ostream& operator<<(std::ostream& os, const Member& obj) {
         return os << "x: " << obj.m_x << " y: " << obj.m_y;
     }
 
 private:
     double m_x;
     double m_y;
-    PointType m_type;
+    MemberType m_type;
 
     // Private constructor
     // The object can't be created directly
-    Point(const double& x, const double& y, PointType type) : m_x{ x }, m_y{ y }, m_type{ type } {}
+    Member(const double& x, const double& y, MemberType type) : m_x{ x }, m_y{ y }, m_type{ type } {}
 };
 
 int main() {
 
-    // Point p{ 5, M_PI_4 };  // Not Work!!!
-    auto p = Point::NewPolar(5, M_PI_4);
+    // Member p{ 5, M_PI_4 };  // Not Work!!!
+    auto p = Member::NewPolar(5, M_PI_4);
     std::cout << p << "\n";  // x: 3.53553 y: 3.53553
 
     return EXIT_SUCCESS;
@@ -95,11 +95,11 @@ int main() {
 #define _USE_MATH_DEFINES
 #include<iostream> 
 
-class Point {
+class Member {
 public:
     // The violation of Open-Closed Principle (OCP) here, because of using friendship 
-    friend class PointFactory;
-    friend std::ostream& operator<<(std::ostream& os, const Point& obj) {
+    friend class MemberFactory;
+    friend std::ostream& operator<<(std::ostream& os, const Member& obj) {
         return os << "x: " << obj.m_x << " y: " << obj.m_y;
     }
 private:
@@ -107,29 +107,29 @@ private:
     double m_y;
 
     // Private constructor
-    Point(const double& x, const double& y) : m_x{ x }, m_y{ y } {}
+    Member(const double& x, const double& y) : m_x{ x }, m_y{ y } {}
 };
 
 // Concrete Class
-class PointFactory {
+class MemberFactory {
 public:
     // Static class member function for cartesian coord.
-    static Point NewCartesian(const double& x, const double& y) {
+    static Member NewCartesian(const double& x, const double& y) {
         return { x, y };
     }
     // Static class member function for polar coord.
-    static Point NewPolar(const double& r, const double& theta) {
+    static Member NewPolar(const double& r, const double& theta) {
         return { r * cos(theta),  r * sin(theta) };
     }
 };
 
 int main() {
 
-    // Point p{ 1,2 };  // Not Work!!!
-    auto polar = PointFactory::NewPolar(5, M_PI_4);
+    // Member p{ 1,2 };  // Not Work!!!
+    auto polar = MemberFactory::NewPolar(5, M_PI_4);
     std::cout << polar << "\n";  // x: 3.53553 y: 3.53553
 
-    auto cartesian = PointFactory::NewCartesian(5, M_PI_4);
+    auto cartesian = MemberFactory::NewCartesian(5, M_PI_4);
     std::cout << cartesian << "\n";  // x: 5 y: 0.785398
 
     return EXIT_SUCCESS;

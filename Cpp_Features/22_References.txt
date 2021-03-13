@@ -1,5 +1,5 @@
 
-## REFERENCES :
+## REFERENCES 
 
 /----------------------------------------------
 /----------------------------------------------
@@ -157,7 +157,7 @@ int main()
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: A sample for the usage of auto keyword with references and pointers
+- **Example**: A sample for the usage of auto keyword with references and pointer
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>

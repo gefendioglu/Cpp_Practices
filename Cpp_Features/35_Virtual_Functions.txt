@@ -25,8 +25,8 @@
   - **Invariant region**: non-virtual classes
   - **Shared region**: virtual classes 
 
-- Virtual Pointer/ Virtual Table:
-  - A virtual table is an array of pointers to functions. It is generated per class statically at the compile time by the compiler. 
+- Virtual pointer/ Virtual Table:
+  - A virtual table is an array of pointer to functions. It is generated per class statically at the compile time by the compiler. 
 
   - The code to override virtual function, virtual pointer is generated at the time of object construction by the compiler.
 
@@ -252,7 +252,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: Virtual Pointers (VPTR) - Virtual Table (VTABLE) 
+- **Example**: Virtual pointer (VPTR) - Virtual Table (VTABLE) 
 
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 

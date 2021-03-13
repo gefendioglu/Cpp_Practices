@@ -1,10 +1,10 @@
 #pragma once
 
-// Smart Pointers
+// Smart pointer
 // --------------------------------------------
 // --------------------------------------------
 
-#ifdef SMART_POINTERS
+#ifdef SMART_POINTER
 
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
@@ -54,13 +54,13 @@ int main()
 	return EXIT_SUCCESS;
 }
 
-#endif // SMART_POINTERS
+#endif // SMART_POINTER
 
-// Smart Pointers --> std::unique_ptr<>
+// Smart pointer --> std::unique_ptr<>
 // --------------------------------------------
 // --------------------------------------------
 
-#ifdef SMART_POINTERS_UNIQUE
+#ifdef SMART_POINTER_UNIQUE
 
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
@@ -95,13 +95,13 @@ int main(){
 	return EXIT_SUCCESS;
 }
 
-#endif // SMART_POINTERS_UNIQUE
+#endif // SMART_POINTER_UNIQUE
 
-// Smart Pointers --> std::shared_ptr<>
+// Smart pointer --> std::shared_ptr<>
 // --------------------------------------------
 // --------------------------------------------
 
-#ifdef SMART_POINTERS_SHARED
+#ifdef SMART_POINTER_SHARED
 
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
@@ -138,14 +138,14 @@ int main(){
 	return EXIT_SUCCESS;
 }
 
-#endif // SMART_POINTERS_SHARED
+#endif // SMART_POINTER_SHARED
 
 
-// Smart Pointers --> std::weak_ptr<> 
+// Smart pointer --> std::weak_ptr<> 
 // --------------------------------------------
 // --------------------------------------------
 
-#ifdef SMART_POINTERS_WEAK
+#ifdef SMART_POINTER_WEAK
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream> 
@@ -161,7 +161,7 @@ int main() {
 }
 
 
-#endif // SMART_POINTERS_WEAK
+#endif // SMART_POINTER_WEAK
 
 
 

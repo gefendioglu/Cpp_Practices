@@ -519,7 +519,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: Pointer Equivalence Example (with the same class hierarchy and run-time polymorphism)
+- **Example**: pointer Equivalence Example (with the same class hierarchy and run-time polymorphism)
 
 int main() {
 

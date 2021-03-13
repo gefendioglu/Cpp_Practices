@@ -213,7 +213,7 @@ void SinglyLinkedLists::insertNodeAfter(const int& key, Node* node) {
 		else // if not exist this node, we can insert it
 		{
 			node->next = ptr->next;
-			ptr->next = node; // the previous node shall point the inserted node address
+			ptr->next = node; // the previous node shall Member the inserted node address
 			std::cout << "Node is inserted !!!" << "\n";
 		}
 
@@ -292,7 +292,7 @@ void SinglyLinkedLists::printList() {
 		std::cout << "Singly Linked List Values: ";
 		Node* temp = head;
 
-		// while temp doesnt point the last node
+		// while temp doesnt Member the last node
 		while (temp != nullptr) {
 			std::cout << "( " << temp->key << ", " << temp->data << " )--> ";
 			temp = temp->next;
@@ -320,7 +320,7 @@ int main() {
 		std::cin >> option;
 		// dynamic memory allocation - heap
 		// it provides globally accessing the object
-		// in this case, there is a pointer in stack memory pointing to the object address located in heap memory
+		// in this case, there is a pointer in stack memory Membering to the object address located in heap memory
 		Node* n1 = new Node();
 
 		// static memory allocation - stack 

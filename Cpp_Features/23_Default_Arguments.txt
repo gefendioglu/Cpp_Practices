@@ -381,7 +381,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** : Default arguments for const char pointr type parameters
+- **Example** : Default arguments for const char Memberr type parameters
 
 #include <iostream>
 

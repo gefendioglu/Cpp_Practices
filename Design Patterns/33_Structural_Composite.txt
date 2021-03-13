@@ -69,7 +69,7 @@ int main() {
 // ----------------------------------------------------
 
 - **Example** : Composite Design Pattern using Curiously Recurring Template Pattern(CRTP) 
-  - A neuron structure which has connections to other neurons that modelled as vectors of pointers (std::vector<Neuron*>) for input-output neuron connection.
+  - A neuron structure which has connections to other neurons that modelled as vectors of pointer (std::vector<Neuron*>) for input-output neuron connection.
   -	It separates out the type-dependent & independent functionality and bind type independent functionality with the base class using self-referencing template.
 
 #define _CRT_SECURE_NO_WARNINGS

@@ -340,7 +340,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- Example: Pointers can be referenced for other pointers
+- Example: pointer can be referenced for other pointer
 
 ```cpp
 #include <iostream>
@@ -504,7 +504,7 @@ int main()
 	// rr			  --> L-Value (interviews)
 	// str			  --> L-Value (struct object)
 	// str.x		  --> L-Value (struct object)
-	// ptr			  --> L-Value (pointer points an object)
+	// ptr			  --> L-Value (pointer Members an object)
 	// *ptr			  --> L-Value (dereferencing)
 	// &ptr			  --> R-Value (with address operator)
 	// ptr->a         --> L-Value (struct object)
