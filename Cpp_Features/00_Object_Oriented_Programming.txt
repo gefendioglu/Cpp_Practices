@@ -281,3 +281,437 @@ class A : public Y, public Z { int a; };
 
 /----------------------------------------------
 /----------------------------------------------
+
+## Dynamic Objects
+
+- The objects are created dynamically and it is not limited ant kind of scope. They can be defined in a specified time range. 
+
+- There are 4 different types of "new" operators in Cpp: 
+  - new T   --> delete val  
+  - new T[] --> delete val[]
+  - new (expr) T
+  - new (nothrow)
+
+- It is not common to use "new" operators directly to create an object. Instead, the classes which are using these operators directly such as smart pointer classes (unique_ptr, shared_ptr) are preffered to use. 
+
+- In the cases whenever static or automatic objects do not meet the requirements, in these cases we need dynamic objects.
+  - In the case that the number of instances are specified in run-time.
+  - In the case that the data type of an instance is specified in run-time. 
+  - In the case that a community of different numbers of objects sharing the same resource.
+
+- If there is no need to create a dynamic objects, then it should not be done. Handling dynamic objects is difficult and they are very error-prone. 
+
+- void *operator new(size_t n) --> like as malloc in C
+- If an error come out during memory allocation for dynamic objects, then exception handling mechanism kicks in and turns "bad allocation" error.  
+
+- There is no garbage collector mechanism (no related thread doing this). User is responsible to manage dynamic objects, when a dynamic object completes its task, then the user shall delete it and provide to de-allocate the memory. 
+
+- When a dynamic object is created with operator new :  
+  - new Member(12, 10, 20); --> It calls two functions, firstly it calls memory allocation function, then calls class contructor 
+  (Member*)(operator new (sizeof(Member))); 
+  - delete ptr; --> It calls destructor, firstly it calls destructor, then calls operator delete function for memory deallocation. 
+    - void operator delete(void *vp)
+	- operator new    --> like as malloc function
+    - operator delete --> like as free function
+
+- If the object is not deleted, in this case resource leak comes out because of the following reasons: 
+  - Destructor is not called
+  - operator delete function is not called
+  - Dangling pointer or double deletion errors might be came out. 
+  
+- Resource leak and memory leak are different mechanisms. Resource leak includes memory leak too. The reason of resource leak might be for example not de-allocated memory for dynamic objects.
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Dangling Pointer (Continuing to use a deleted object)
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include "point.h"
+
+int main() {
+
+	Point *ptr = new Point(10,20,30);
+	Point* ptr2 = ptr;
+	ptr->print();
+
+	delete ptr;
+	ptr2->print(); // dangling pointer 
+
+	return EXIT_SUCCESS;
+
+	/*
+		Executed again !!!
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Double deletion error
+  - Genellikle kopyalanan pointerlarýn delete edilmesi ve ardýndan kopya alan pointerýn tekrar delete edilmesi ile ortaya çýkar. 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include "point.h"
+
+int main() {
+
+	Point *ptr = new Point(10,20,30);
+	Point* ptr2 = ptr;
+	ptr->print();
+
+	delete ptr;
+	delete ptr2; // double deletion
+
+	return EXIT_SUCCESS;
+
+	/*
+		Executed again !!!
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Creating dynamic objects
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <string>
+#include <memory>
+
+void* operator new(size_t n) {
+	std::cout << "operator new called n : " << n << "\n";
+	void* vptr = std::malloc(n);
+	if (!vptr){
+		throw std::bad_alloc{};
+	}
+	std::cout << "address of allocated block : " << vptr << "\n";
+	return vptr;
+}
+
+void operator delete(void *vptr) {
+	std::cout << "operator delete called vptr : " << vptr << "\n";
+	if (vptr)
+	{
+		std::free(vptr);
+	}
+
+}
+
+// point.h
+/*--------------------------------------------------------*/
+class Point {
+public:
+	Point() : mx{}, my{}, mz{}{
+		std::cout << "Point() ctor is called...this : " << this << "\n";
+	}
+	Point(int x, int y, int z) :mx{ x }, my{ y }, mz{ z } {
+		std::cout << "Point(int x, int y, int z) is called...this : " << this << "\n";
+	}
+	~Point() {
+		std::cout << "~Point() dtor is called...this : " << this << "\n";
+	}
+	void print()const {
+		std::cout << "[" << mx << ", " << my << ", " << mz << "]\n";
+	}
+	void set(const int x, const int y, const int z) {
+		this->mx = x;
+		this->my = y;
+		this->mz = z;
+	}
+private:
+	int mx, my, mz;
+};
+
+int main() {
+
+	Point *ptr = new Point(10,20,30);
+	//auto *ptr = new Point(10,20,30);
+	//Point* ptr = new Point{ 10, 20, 30 };
+	//Point* ptr(new Point(10, 20, 30));
+	//Point* ptr{ new Point(10, 20, 30) };
+
+	std::cout << "ptr : " << ptr << "\n";
+	ptr->print();
+
+	delete ptr;
+
+	return EXIT_SUCCESS;
+
+	/*
+		Executed again !!!
+	*/
+}
+
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**:  delete[] operator
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include "point.h"
+
+int main() {
+
+	int n;
+	std::cout << "How many elements are there in the array :  ";
+	std::cin >> n;
+	Point* ptr = new Point[n];
+
+	// delete ptr; --> undefined behaviour
+	delete[] ptr;
+
+	return EXIT_SUCCESS;
+
+	/*
+		Executed again !!!
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Creating dynamic objects using smart pointers (adding <memory> library)
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include "point.h"
+
+int main() {
+
+	std::unique_ptr<Point>ptr(new Point(10,20,30));
+
+	return EXIT_SUCCESS;
+
+	/*
+		Executed again !!!
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Fighter class based on object oriented design
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+#include<string> 
+#include<vector> 
+#include<algorithm> 
+
+// fighter.h
+/*-------------------------------------------------*/
+class Fighter {
+public:
+	Fighter() {
+		msvec.push_back(this);
+	}
+	Fighter(const std::string &name, int age) : mname{ std::move(name) }, mage{ age }{
+		// the address of instance is stored in a vector 
+		msvec.push_back(this);
+	}
+	~Fighter() {
+		// iter type --> std::vector<Fighter>::iterator
+		// if iter is found in the vector, if with initializer
+		if (auto iter = std::find(msvec.begin(), msvec.end(), this); iter != msvec.end())
+			msvec.erase(iter);
+		else
+			std::cerr << "Not found!!!\n";
+	}
+
+	Fighter(const Fighter& ref) = delete;
+	Fighter& operator=(const Fighter& ref) = delete;
+	
+	int getAge() const { return mage; }
+	std::string getName() const { return mname; }
+	void kill();
+	void run();
+	void ask_help();
+private:
+	std::string mname = "noname";
+	int mage = 0;
+	inline static std::vector<Fighter*> msvec{};
+};
+
+// fighter.cpp
+void Fighter::ask_help() {
+	// range based for loop
+	for (auto ftr: msvec) {
+		if(ftr != this) // it is not the object itself
+		std::cout << ftr->mname << " ";
+	}
+	std::cout << "Help!!!\n";
+}
+
+// client code
+/*-------------------------------------------------*/
+int main() {
+
+	// Static objects
+	Fighter f1{ "Mehmet", 25 };
+	Fighter f2{ "Ayse", 26 };
+	Fighter f3{ "Ece", 27 };
+	Fighter f4{ "Utku", 30 };
+
+	// Dynamic objects
+	auto pf1 = new Fighter{"Selin", 32};
+	auto pf2 = new Fighter{"Özge", 33};
+	auto pf3 = new Fighter{"Sinem", 34};
+	
+	delete pf2;
+	delete pf3;
+
+	// asking help for the other live fighters
+	f2.ask_help();
+
+
+	return EXIT_SUCCESS;
+
+	/*
+		Mehmet Ece Utku Selin Help!!
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+### Temporary Objects:
+
+- After using a temporary object (after evaluating the related row about it), its destructor is called to destroy the object. Each time its constructors are called, whenever a temporary object is created like as a normal object. 
+
+- Sometimes compiler creates a temporary object implicitly, and sometimes user orients the compiler to create a temporary object. 
+
+- Temporary objects are important in terms of efficiency.
+
+- Temporary objects can be linked to  R-Value and const L-Value references. They are not linked to non-const L-Value expressions. 
+
+- Temporary objects are not named, they only include their type names.
+
+- const L-value references can be linked to temporary objects. In that case, the life of temporary objects extended till the end of reference scope (life extension)
+  - const Data& ref = Data{ 12 };
+
+- Temporary objects are also used as a return value of a function.
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Temporary class objects 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data {
+public:
+	Data(): mx{ 0 }, my{ 0 } {
+		std::cout << "Data() default ctor is called...\n";
+	};
+	Data(int x) : mx{ x }, my{ 0 }{
+		std::cout << "Data(int x) ctor is called...\n";
+	}
+	Data(int x, int y) : mx{ x }, my{ y }{
+		std::cout << "Data(int x, int y) ctor is called...\n";
+	}
+	~Data() {
+		std::cout << "~Data() destructor is called...\n";
+	}
+	void print()const {
+		std::cout << "mx : " << mx << " my : " << my << "\n";
+	}
+private:
+	int mx,my;
+};
+
+void func(const Data &ref) {
+	std::cout << "func(const Data& ref) is called...\n";
+}
+
+void func(Data&& ref) {
+	std::cout << "func(Data&& ref) is called...\n";
+}
+
+int main() {
+
+	// All the followings are temporary objects
+	// They can call directly their class member functions
+	Data{}.print();        // Data{} --> PR-Value expr.
+	Data{ 12 }.print();    // Data{12} --> PR-Value expr.
+	Data{ 12,25 }.print(); // Data{12,25} --> PR-Value expr.
+
+	std::cout << "\n";
+	const Data& ref = Data{ 12 };
+	
+	std::cout << "\n";
+	Data data;
+	func(data); // data is L-Value expr.
+				// func(const Data &ref) is called
+
+	std::cout << "\n";
+	func(Data(15)); // Data(15) is a  PR-Value expr. 
+					// Data(15) can be linked to const L-Val.
+					// Data(15) can be linked to R-Val.
+					// both func() are viable (?)
+	
+	/*
+		Data() default ctor is called...
+		mx : 0 my : 0
+		Data(int x) ctor is called...
+		mx : 12 my : 0
+		Data(int x, int y) ctor is called...
+		mx : 12 my : 25
+		~Data() destructor is called...
+
+		Data(int x) ctor is called...
+
+		Data() default ctor is called...
+		func(const Data& ref) is called...
+		
+		Data(int x) ctor is called...
+		func(Data&& ref) is called...
+		~Data() destructor is called...
+		~Data() destructor is called...
+		~Data() destructor is called...
+	*/
+
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Temporary objects as function return value and as arguments sent to a function  
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <string>
+
+void func(const std::string& ref) {
+	std::cout << "string : " << ref << "\n";
+}
+
+std::string func() {
+	char c = 'B';
+	//...
+	return std::string(100, c); // temp. object 
+}
+
+int main(){
+
+	// calling func(const std::string& ref) with temp. object
+	func(std::string(100, 'A')); 
+	
+	std::cout << "\n";
+	func();
+
+	return EXIT_SUCCESS;
+	/*
+		Executed again!!!
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------

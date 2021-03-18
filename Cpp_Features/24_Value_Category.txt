@@ -417,7 +417,6 @@ Type &ref = func(); // OK --> L-Value expression
 /----------------------------------------------
 /---------------------------------------------
 
-
 - **Example** :R value references and R value expressions
 
 #define _CRT_SECURE_NO_WARNINGS
@@ -635,6 +634,29 @@ int main()
 	std::cout << "ref2 : " << ref2 << "\n";  // ref2 : 5
 
 }
+
+/----------------------------------------------
+/----------------------------------------------
+
+### Forwarding Reference versus R-Value References 
+
+- They are both represented by && operators.
+
+- Forwarding reference was added to the languagas as a new feature, because of existing move semantics and perfect forwarding. 
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Forwarding Reference versus R-Value References 
+
+void func(Data&& ref); // func parameter is R-value ref.
+
+template<typename T>
+void foo(T&& ref); // foo parameter is not R-value ref.
+				   // it is forwarding ref.(universal ref.)
+
+for(auto &&x : data_vec){/**/} // range based for loop --> not R-value ref.
+							   // it is forwarding ref.
 
 /----------------------------------------------
 /----------------------------------------------

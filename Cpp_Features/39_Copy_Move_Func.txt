@@ -155,7 +155,7 @@ private:
 
 - **Example** : Copy ctor and dangling pointer problem 
   - **dangling pointer** is a kind of runtime error
-  -**deep copy**--> Instead of copying pointer, it is the copying of the object itself Membered by the copied pointer to a new allocated memory block. 
+  -**deep copy**--> Instead of copying pointer, it is the copying of the object itself pointed by the copied pointer to a new allocated memory block. 
   - with deep copying, all pointer have their own memory blocks. 
 
 #define _CRT_SECURE_NO_WARNINGS

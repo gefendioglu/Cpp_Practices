@@ -1,10 +1,10 @@
 
-## pointer TYPES 
+## POINTER TYPES 
 
 /----------------------------------------------
 /----------------------------------------------
 
-* pointer Types: Valid / Invalid pointer
+* Pointer Types: Valid / Invalid pointer
 
   - **Invalid pointer**: bir pointer a dinamik ömürlü nesnenin adresi atandýysa/ilk deðer verilirse ve pointer deðiþkenin hayatý devam ederken onun gösterdiði nesnenin hayatý biterse. otomatik ömürlü tanýmlanan pointer için ilk deðer verilmezse
 
@@ -55,6 +55,7 @@
 
 /----------------------------------------------	
 /----------------------------------------------
+
 -**Example**:
 
 #include <stdlib.h>
@@ -107,7 +108,6 @@ int main() {
 /----------------------------------------------
 
 -**Example**: Dangling pointer: Gösterdiði nesnenin ömrünün bitmesi ile geçerliliðini kaybeden pointerlardýr.
-
 
 #include <iostream>
 #include <cstdlib>

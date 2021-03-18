@@ -5,10 +5,16 @@
 //#define FUNCTION_OVERLOADING
 
 
+/* OPERATOR OVERLOADING */
+// --------------------------------------------
+//#define OPERATOR_OVERLOADING
+
+
 /* CLASS DEFINITIONS */
 // --------------------------------------------
 //#define CLASSES
 //#define STATIC_MEMBERS
+
 
 /* INHERITANCE */
 // --------------------------------------------
@@ -86,6 +92,12 @@
 #endif
 
 // --------------------------------------------
+
+/* Operatpr Overloading */
+#if defined(OPERATOR_OVERLOADING) 
+#include "29_Operator_Overloading.h"
+#endif
+
 
 /* Classes */
 #if defined(CLASSES) || defined(STATIC_MEMBERS) 

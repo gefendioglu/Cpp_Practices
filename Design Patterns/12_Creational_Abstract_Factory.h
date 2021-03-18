@@ -104,10 +104,10 @@ public:
 
 void Member_func(std::unique_ptr<Member> Member) {
 
-    // "create" the object of same type Membered by ?
+    // "create" the object of same type pointed by ?
     auto new_Member = Member->create();
 
-    // "copy" the object of same type Membered by ?
+    // "copy" the object of same type pointed by ?
     auto duplicate_Member = Member->clone();
 }
 

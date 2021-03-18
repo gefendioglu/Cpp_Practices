@@ -10,7 +10,7 @@
 - This pattern provides flexibility to develop abstraction and the implementation independently.  
 
 - With the usage of PIMPL idiom (a form of Bridge Pattern), the implementation details can be hiden from the client.
-  - All about hiding the implementation details of a particular class by sticking it into separate implementation Membered by pointer.
+  - All about hiding the implementation details of a particular class by sticking it into separate implementation pointed by pointer.
   - TO BE COMPLETED and EXAMPLE is added !!!
 
 // ----------------------------------------------------

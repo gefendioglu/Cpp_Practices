@@ -2,7 +2,7 @@
 ## SMART pointer
 
 - Smart pointers have a structure called "exclusive ownership".
-- Smart pointer classes are not copyable, but movable
+- Smart pointer classes are not copyable, but movable. It means copy constructor and copy assginment functions are deleted. 
 - The pointers created using smart pointer classes can not be copied to the other pointers (protected against double deletion error). 
 
 // --------------------------------------------
@@ -60,7 +60,103 @@ int main()
 // --------------------------------------------
 // --------------------------------------------
 
-- **Example**: unique_ptr
+- **Example**: Smart Pointers with their deleted copy ctor and copy assignment functions
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+#include "point.h" 
+
+int main() {
+
+	std::unique_ptr<Point>ptr1(new Point(10,20,30));
+	std::unique_ptr<Point>ptr2(new Point(10,20,30));
+
+	// SYNTAX ERROR, copy assignment func is deleted for smart pointers
+	ptr1 = ptr2; 
+
+	// SYNTAX ERROR, copy ctor is deleted for smart pointers
+	std::unique_ptr<Point>ptr3 = ptr1;
+
+	// NOT ERROR, move ctor is defined for smart pointers 
+	auto ptr4 = std::move(ptr1);
+
+	// NOT ERROR, move assignment function is defined for smart pointers 
+	ptr1 = std::move(ptr2);
+
+	return EXIT_SUCCESS;
+}
+
+// --------------------------------------------
+// --------------------------------------------
+
+- **Example**: The effect of smart pointers on a class
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <string>
+#include <memory>
+
+// Member class is also non-copyable, but movable
+// due to the existence of smart pointer as a data member
+class Member {
+public:
+	Member() = default;
+	std::unique_ptr<std::string> uptr;
+private:
+};
+
+int main() {
+
+	Member mem1, mem2;
+	
+	// Member class is non - copyable, but movable
+	Member mem3 = mem2; // SYNTAX ERROR 
+	mem3 = mem2;        // SYNTAX ERROR
+
+	Member mem4 = std::move(mem2); // NOT ERROR
+	mem4 = std::move(mem1);		   // NOT ERROR
+	
+	return EXIT_SUCCESS;
+}
+
+// --------------------------------------------
+// --------------------------------------------
+
+- **Example**: Function calling with smart pointers
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <memory>
+#include "point.h" 
+
+// Member class is also non-copyable, but movable
+class Member {
+public:
+	Member() = default;
+	std::unique_ptr<std::string> uptr;
+};
+
+void func(std::unique_ptr<Point> uptr);
+void foo(Member mem);
+
+int main() {
+
+	Member mem;
+	foo(std::move(mem)); // NOT ERROR
+	foo(mem);            // SYNTAX ERROR
+
+	std::unique_ptr<Point> uptr{ new Point{1,2,3} };
+	func(std::move(uptr));  // NOT ERROR
+	func(uptr);				// SYNTAX ERROR
+
+	return EXIT_SUCCESS;
+
+}
+
+// --------------------------------------------
+// --------------------------------------------
+
+- **Example**: "unique_ptr" class 
 
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
@@ -98,7 +194,7 @@ int main(){
 // --------------------------------------------
 // --------------------------------------------
 
-- **Example**: shared_ptr
+- **Example**: "shared_ptr" class
 
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
@@ -139,7 +235,7 @@ int main(){
 // --------------------------------------------
 // --------------------------------------------
 
-- **Example**: weak_ptr
+- **Example**: "weak_ptr" class
 
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
@@ -152,18 +248,13 @@ std::shared_ptr<int> p3 = wp1.lock();
 // --------------------------------------------
 // --------------------------------------------
 
-## DANGLING pointer
-
-// --------------------------------------------
-// --------------------------------------------
-
 - **Example**: De-allocation of memory
 
 int main()
 {
 	int* ptr = (int*)malloc(sizeof(int));
 
-	// Deallocating a memory Membered by ptr causes dangling pointer 
+	// Deallocating a memory pointed by ptr causes dangling pointer 
 	free(ptr);
 
 	// No more a dangling pointer 

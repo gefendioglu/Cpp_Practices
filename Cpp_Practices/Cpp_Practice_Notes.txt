@@ -498,7 +498,7 @@ else
 
 What is the mean of --> void *ptr ?
 - A void* does not mean anything. It is a pointer, but the type that it Members to is not known.
-- void is used as a keyword. The void pointer, also known as the generic pointer, is a special type of pointer that can be Membered at objects of any data type! 
+- void is used as a keyword. The void pointer, also known as the generic pointer, is a special type of pointer that can be pointed at objects of any data type! 
 - It's not that it can return "anything". 
 - However, because the void pointer does not know what type of object it is Membering to, it can not be dereferenced! Rather, the void pointer must first be explicitly cast to another pointer type before it is dereferenced.
 

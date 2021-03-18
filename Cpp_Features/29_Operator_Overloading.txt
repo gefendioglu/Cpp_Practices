@@ -3,4 +3,117 @@
 
  - If operator < exists, the other operators can be overloaded on the basis of i. Other operators can be made type independent for reusability purpose.
 
- - 
+ - In string class, the operator overloading mechanism is used intensively for example to sum a string and a string literal. 
+
+ - There are two types of operator functions:  
+   - global operator function (definition in global space)
+   - member operator function (definition in class)
+     - this type of function shall be defined as non-static 
+	 - it is not possible to define a static member operator function in a class
+
+- Overloading mechanism can be defined for only operators which are in the operator set in Cpp. 
+  - For ex: Not possible to overload @ operator such as --> x @ y
+
+- One of the operands shall be a class type for any kind of operator functions. 
+  - For ex: assumed that for i1, i2 their types are integer
+    - Operator overloading is not applied for --> i1 + i2, !i1, etc. 
+
+- Some operators can not be overloaded. For example:
+  - dot operator (.)
+  - sizeof() operator
+  - scope resolution operator(::)
+  - .* operator
+  - ternary operator (? : )
+  - typeid() operator 
+
+- The following operators can be overloaded:
+  - reference operator (*)
+  - arrow operator (->)
+  - address operator (&)
+  - parantheses operator ([])
+  - function call operator ()
+  - type conversion operators (??)
+
+- Some operators can be overloaded, but only as member functions, not in the global scope:
+  - special member function assignment operator (=), not all assignment operators 
+  - parantheses operator ([])
+  - function call operator ()
+  - arrow operator (->)
+  - type conversion operators (??)
+  
+- Naming for operator functions: 
+  - "operator" keyword must be used in the function definition
+  - For ex: operator!, operator<, etc.
+
+- Operator functions can not take default arguments, except function call operator. 
+
+- Operator Arity: It defines of whether the operator is binary operator or unary operator. This feature can not be changed with overloading mechanism. If an operator is a binary operator, it will remain as a binary operator, even after operator overloading mechanism is applied for it. 
+  - 
+
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Operator overloading for sum operation 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
+class Complex {
+public:
+	Complex(int r = 0, int i = 0) { real = r; imag = i; }
+
+	// This function is called when '+' is used with 
+	// between two Complex objects 
+	Complex& operator + (Complex const& obj) {
+		Complex res;
+		res.real = real + obj.real;
+		res.imag = imag + obj.imag;
+		return res;
+	}
+	void print() {
+		std::cout << real << " + i" << imag << "\n";
+	}
+private:
+	int real, imag;
+};
+
+
+int main()
+{
+	Complex c1(10, 5), c2(2, 4);
+	Complex c3 = c1 + c2; // An example call to "operator+" 
+	c3.print();
+
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** :
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <string>
+
+
+int main() {
+	std::string str1{ "ahmet" };
+	std::string str2{ "mehmet" };
+	
+	//overloading of operator+ 
+	auto str3 = str1 + str2;
+
+	//overloading of operator==
+	if (str1 == str2){
+		//...
+	}
+
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** :

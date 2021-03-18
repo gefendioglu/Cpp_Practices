@@ -427,14 +427,15 @@ int main() {
 #endif // COPY_ELISION
 
 
-// Feature
+// Dynamic Memory Allocation - Creating dynamic objects
 // --------------------------------------------
 // --------------------------------------------
 
-#ifdef FEATURE
+#ifdef DYNAMIC_OBJECTS
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
+#include <string>
 #include <memory>
 
 void* operator new(size_t n) {
@@ -482,11 +483,16 @@ private:
 
 int main() {
 
-	std::unique_ptr<Point>ptr(new Point(10,20,30));
+	Point* ptr = new Point(10, 20, 30);
+	//auto *ptr = new Point(10,20,30);
+	//Point* ptr = new Point{ 10, 20, 30 };
+	//Point* ptr(new Point(10, 20, 30));
+	//Point* ptr{ new Point(10, 20, 30) };
+
+	std::cout << "ptr : " << ptr << "\n";
 	ptr->print();
 
-	ptr->set(50, 60, 70);
-	ptr->print();
+	delete ptr;
 
 	return EXIT_SUCCESS;
 
@@ -495,4 +501,31 @@ int main() {
 	*/
 }
 
-#endif // FEATURE
+#endif // DYNAMIC_OBJECTS
+
+
+// Features
+// --------------------------------------------
+// --------------------------------------------
+
+#ifdef FEATURE
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <string>
+
+class Member {
+public:
+
+
+};
+
+int main() {
+
+	Member mem;
+	!mem; // overloading for operator! function
+
+	return EXIT_SUCCESS;
+}
+
+#endif // DYNAMIC_OBJECTS

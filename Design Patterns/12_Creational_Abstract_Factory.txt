@@ -112,10 +112,10 @@ public:
 
 void Member_func(Member* Member) {
     
-    // "create" the object of same type i.e. Membered by who ?
+    // "create" the object of same type i.e. pointed by who ?
     auto new_Member = Member->create(); 
 
-    // "copy" the object of same type i.e. Membered by who ?
+    // "copy" the object of same type i.e. pointed by who ?
     auto duplicate_Member = Member->clone();    
     delete Member;
 }

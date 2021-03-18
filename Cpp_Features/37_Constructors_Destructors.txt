@@ -33,7 +33,11 @@
 
 - Default constructors are the contructors with no parameters or with parameters taken default arguments for all. 
 
-- 
+- Eðer compiler sýnýfýn özel üye fonksiyonlarýndan birini yazarken geçersiz bir kod yazma durumuna düþerse, bu durumda yazmasý gereken özel üye fonksiyonunu siler.
+
+- If the compiler writes an invalid code while writing one of the special member functions, then it deletes these functions.
+
+- If the functions which are going to be deleted are "move" functions, these functions are considered as not declared at all. 
 
 /----------------------------------------------
 /----------------------------------------------
@@ -606,3 +610,80 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
+### Copy Elision (Copy Elimination)
+
+- Not to allow copying and moving for compiler optimization. 
+
+- Copy elision is mandatory after C++17.
+
+- If a function takes class type parameters and it is sent temporary objects as arguments for this type of function, copy elision is applied in that case, not calling the copy ctor. Instead, it is calling parameterized ctor directly. 
+
+- **RVO - Return Value Optimization** : This optimization type does not depend on compiler. It is a mandatory feature. If return value of a function is a temporary object, then copy ctor is not called, instead, copying is eliminated and the object created by calling this kind of function. This feature is not controlled by user manually. 
+
+- **NRVO - Named Return Value Optimization** : This type of optimization depends on compiler. It is not a mandatory feature.
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Copy Elimination, RVO  
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data {
+public:
+	Data() : mx{ 0 } {
+		std::cout << "Data() default ctor is called...this : " << this << "\n";
+	}
+	Data(int x) : mx{ x } {
+		std::cout << "Data(int x) is called...this : " << this << "\n";
+	}
+	Data(const Data& other) : mx{ other.mx } {
+		std::cout << "Data(const Data&) copy ctor is called...this : " << this << "\n";
+	}
+
+	~Data() {
+		std::cout << "~Data() destructor is called...this : " << this << "\n";
+	}
+private:
+	int mx;
+};
+
+void func(Data data) {
+	std::cout << "func(Data data) is called...\n";
+}
+
+// RVO - Return Value Optimization
+// Mandatory Copy Elision (C++17)
+// When foo() is called, copy ctor is not called for return value 
+Data foo() {
+	//...
+	return Data{ 20 };
+}
+
+int main() {
+
+	std::cout << "main() is started...\n";
+	func(Data{});
+	// First destructor is called here for Data{}
+	std::cout << "main() is still going on...\n\n";
+
+	func(Data{ 10 }); // copy elimination is applied by compiler
+					  // not calling copy ctor for Data{10}
+					  // calling Data(int x) directly 
+					   
+	// Second destructor is called here for Data{ 10 }
+	std::cout << "main() is still going on...\n\n";
+
+	Data data = foo();
+	std::cout << "main() is ended...\n";
+	// Third destructor is called here for "data" object
+
+	return EXIT_SUCCESS;
+	/*
+		To be executed again!!!
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------

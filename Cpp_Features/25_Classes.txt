@@ -164,7 +164,7 @@ int main(){
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** : Dereferencing a pointer (Membered to nullptr address), it is an undefined behaviour 
+- **Example** : Dereferencing a pointer (pointed to nullptr address), it is an undefined behaviour 
 
 class MyClass {
 public:
@@ -1033,7 +1033,7 @@ void MyClass::func() {
 /----------------------------------------------
 
 - **Example** : The usage of const parameter and const pointer in a function
-- low level const --> The object Membered by the pointer cannot be changed.
+- low level const --> The object pointed by the pointer cannot be changed.
 - top level const --> The pointer itself cannot be changed.
 - TO BO CHECKED !!!
 

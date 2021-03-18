@@ -1,0 +1,137 @@
+
+### Range Based Loop
+
+- If container is assumed as any kind of container, range based for loops can be one of the followings: 
+  - for(T x : container)   -->  for(auto x : container)
+  - for(T &x : container)  -->  for(auto &x : container)
+  - for(T &&x : container) -->  for(auto &&x : container)
+
+- Each type of "for loops" are interpreted differently by compilers. 
+- You traverse all elements of containers with for range loops, not a part of it. 
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: For range loop --> for(auto x : container)
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+int main() {
+
+	int arr[]{ 1,4,5,6,8,12,98,23 };
+
+	// array elements are copied to x value 
+	// x is not a reference for array elements
+	for (auto x : arr) {
+		std::cout << x << " ";
+		x++; // not effect the array elements
+	}
+
+	std::cout << "\n";
+
+	// The array elements are not changed.
+	for (auto x : arr) {
+		std::cout << x << " ";
+	}
+
+	return EXIT_SUCCESS;
+
+	/*
+		1 4 5 6 8 12 98 23
+		1 4 5 6 8 12 98 23
+	*/
+}
+
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: For range loop --> for(auto &x : container)
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+int main() {
+	int arr[]{ 1,4,5,6,8,12,98,23 };
+
+	// x is a reference for array elements
+	for (auto &x : arr) { 
+		std::cout << x << " ";
+		x++; // effects the array elements
+	}
+
+	std::cout << "\n";
+
+	// The array elements must have changed.
+	for (auto x : arr) {
+		std::cout << x << " ";
+	}
+
+	return EXIT_SUCCESS;
+	
+	/*	
+		1 4 5 6 8 12 98 23
+		2 4 6 7 8 13 99 24
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Constant for range loops --> for( const auto &x : container)
+  - Whenever you want to access the array elements, but not intend to change their values, const keyword shall be used in "for range" loops. 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+int main() {
+
+	int arr[]{ 1,4,5,6,8,12,98,23 };
+
+	// array elements are copied to x value 
+	// x is not a reference for array elements
+	for (const auto &x : arr) {
+		std::cout << x << " ";
+		x++; // SYNTAX ERROR, x is a const reference
+	}
+
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: For range loop with forwarding ref. --> for(auto &&x : container)
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <vector>
+
+int main() {
+
+	std::vector<int> ivec{1, 4, 5, 6, 8, 12, 98, 23};
+
+	// x is a forwarding reference (universal ref.)
+	for (auto&& x : ivec) {
+		std::cout << x << " ";
+		x++; // effects the array elements
+	}
+
+	std::cout << "\n";
+
+	// The array elements must have changed.
+	for (auto x : ivec) {
+		std::cout << x << " ";
+	}
+
+	return EXIT_SUCCESS;
+
+	/*
+		1 4 5 6 8 12 98 23
+		2 4 6 7 8 13 99 24
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------

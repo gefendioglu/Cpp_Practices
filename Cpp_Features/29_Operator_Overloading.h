@@ -1,5 +1,10 @@
-#pragma once
 
+
+// Operator Overloading 
+// --------------------------------------------
+// --------------------------------------------
+
+#ifdef OPERATOR_OVERLOADING
 
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream> 
@@ -23,14 +28,17 @@ private:
 	int real, imag;
 };
 
+
 int main()
 {
 	Complex c1(10, 5), c2(2, 4);
 	Complex c3 = c1 + c2; // An example call to "operator+" 
 	c3.print();
+
+	return EXIT_SUCCESS;
 }
 
-
+#endif OPERATOR_OVERLOADING
 
 
 
