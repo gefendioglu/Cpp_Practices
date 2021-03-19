@@ -47,9 +47,104 @@
 
 - Operator functions can not take default arguments, except function call operator. 
 
-- Operator Arity: It defines of whether the operator is binary operator or unary operator. This feature can not be changed with overloading mechanism. If an operator is a binary operator, it will remain as a binary operator, even after operator overloading mechanism is applied for it. 
+- Operator Arity: It defines of whether the operator is binary operator or unary operator. This feature can not be changed with overloading mechanism. If an operator is a binary operator, it will remain as a binary operator, even after operator overloading mechanism is applied to it. 
+
+- In global space:
+  - Binary operators --> have 2 parameters 
+  - Unary operators  --> have 1 parameter
+
+- In class space (as a member function and generally const function):
+  - Binary operators --> have 1 parameter 
+  - Unary operators  --> do not have any parameters
+ 
+- What is the common feature for the following operators?
+  - +, -, &, * --> they are both unary and binary operators 
+
+- Operator precedence and associativity level can not be changed with overloading mechanism.
+
+- Operator overloading mechanism includes function overloading mechanism too. 
+
+
+- Why do we need global operator functions? 
   - 
 
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Operator overloading in global space and in class space
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Member {
+public:
+	// unary operator overloading in class space
+	// bool operator!() const;
+
+	// binary operator overloading in class space
+	// bool operator<(Member) const;
+};
+
+// unary operator overloading in global space
+bool operator!(Member mem1);
+
+// binary operator overloading in global space
+bool operator<(Member mem1, Member mem2);
+
+int main() {
+
+	Member mem1, mem2;
+	
+	// calling for "operator!(Member)" func.
+	bool val1 = !mem1; 
+	
+	// calling "operator<(Member, Member)" func.
+	bool val2 = mem1 < mem2; 
+
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : The operators which are both unary and binary 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class SmartPtr {
+public:
+	// it should be an unary operator
+	// therefore, it is dereferencing operator
+	// int& operator*(); 
+};
+
+// dereferencing operator overloading in global space 
+int& operator*(SmartPtr);
+
+class Matrix {
+public:
+	// it should be an unary operator
+	// therefore, it is product operator
+	// Matrix operator*(const Matrix&);
+};
+
+// product operator overloading in global space 
+Matrix operator*(const Matrix&, const Matrix&);
+
+int main() {
+
+	SmartPtr smrtPtr;
+	Matrix mtrx1, mtrx2;
+
+	// calls dereferencing operator overloading func.
+	auto val1 = *smrtPtr; 
+
+	// calls product operator overloading func.
+	auto val2 = mtrx1 * mtrx2;
+
+	return EXIT_SUCCESS;
+}
 
 /----------------------------------------------
 /----------------------------------------------
@@ -91,24 +186,31 @@ int main()
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** :
+- **Example** : Operator overloading in "string" class 
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <string>
 
-
 int main() {
+
 	std::string str1{ "ahmet" };
 	std::string str2{ "mehmet" };
+	std::string str3{ "gamze" };
+	std::cout << str3[2] << " ";
 	
-	//overloading of operator+ 
-	auto str3 = str1 + str2;
+	// calls member operator overloading functions
+	std::cout << str3.operator[](1) << "\n";
+	str1.operator+=(str2);
+	str1.operator=(str2);
 
-	//overloading of operator==
-	if (str1 == str2){
+	// calls global operator< overloading func.
+	if (operator<(str1, str2))	{
 		//...
 	}
+
+	// calls global operator+ overloading func.
+	auto str4 = operator+(str1, str2);
 
 	return EXIT_SUCCESS;
 }
@@ -116,4 +218,139 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** :
+- **Example** : Operator overloading in "iostream" class 
+
+#include <iostream>
+
+int main() {
+
+	int ival = 10;
+	std::cout.operator<<(ival);
+	// operator(std::cout, ival); --> NOT OK 
+
+	if (std::cin.operator bool()) {
+		//...
+	}
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : In the case that overloading functions are in class space as member functions
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Member {
+public:
+	Member operator*(Member) const;
+	Member operator+(Member) const;
+	bool operator<(Member) const;
+
+};
+
+int main() {
+
+	Member mem1, mem2, mem3, mem4;
+
+	// operator precedence and asociativity is important to have an expected result
+	auto val1 = mem1 * mem2 + mem3 < mem4;
+
+	// The same definitions as above
+	auto val2 = ((mem1 * mem2) + mem3) < mem4;
+	auto val3 = mem1.operator*(mem2).operator+(mem3).operator<(mem4);
+	
+
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : In the case that the above overloading functions are in global space
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Member {
+public:
+};
+
+Member operator*(Member, Member);
+Member operator+(Member, Member);
+bool operator<(Member, Member);
+
+int main() {
+
+	Member mem1, mem2, mem3, mem4;
+
+	// operator precedence and associativity is important to have an expected result
+	auto val1 = mem1 * mem2 + mem3 < mem4;
+
+	// The same definitions as above
+	auto val2 = ((mem1 * mem2) + mem3) < mem4;
+	auto val3 = operator<(operator+(operator*(mem1,mem2), mem3), mem4);
+
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : The result of having different types of parameters for operator<< functions.
+  - member overloading operator<< function --> it has void* parameter, so if any string literals are sent as argument to this operator function, then this function returns the argument's address, instead of its value. 
+  - global overloading operator<< function --> it has char* [] parameter, so if any string literals are sent as argument to this operator function, then this function returns the argument's value. 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+int main() {
+
+	int ival = 10;
+	double dval = 10.5;
+
+	std::cout << ival << " " << dval;
+	std::cout << "\n\n";
+
+	//The following does not return the same output
+	std::cout.operator<<(ival).operator<<(" ").operator<<(dval);
+	std::cout << "\n\n";
+
+	//The following returns the same output
+	//by calling global operator<< func. for string literal --> " "
+	operator<<(std::cout.operator<<(ival), " ").operator<<(dval);
+
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Operator overloading with function overloading
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Ostream {
+public:
+	Ostream& operator<<(int);
+	Ostream& operator<<(double);
+};
+
+std::ostream& operator<<(std::ostream& os, const std::string& str);
+
+int main() {
+
+	Ostream ostr;
+	ostr.operator<<(10);
+	ostr.operator<<(10.5);
+
+	std::string str;
+	operator<<(std::cout, str);
+
+	return EXIT_SUCCESS;
+}
+
+/----------------------------------------------
+/----------------------------------------------

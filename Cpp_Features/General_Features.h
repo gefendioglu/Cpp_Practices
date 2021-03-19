@@ -512,20 +512,16 @@ int main() {
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
-#include <string>
 
-class Member {
-public:
 
+class Date {
 
 };
 
 int main() {
 
-	Member mem;
-	!mem; // overloading for operator! function
 
 	return EXIT_SUCCESS;
 }
 
-#endif // DYNAMIC_OBJECTS
+#endif // FEATURE
