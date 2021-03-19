@@ -30,7 +30,7 @@
 /----------------------------------------------
 /----------------------------------------------
 
-### L-VALUE REFERENCES for functions : 
+### L-VALUE REFERENCES (for functions)
   
 | Function Type                | Call Value                                           | 
 | ---------------------------- |:---------------------------------------------------- |
@@ -68,7 +68,7 @@
     - ref is a L value expression 
   - T &&ref is a R value expression (the data type of ref is a R value expression)
      - void func(T &&ref); --> move semantic
-     - T&& func(); --> return value is R value reference 
+     - T&& func();         --> return value is R value reference 
   - auto &&ref = expr; --> this is not R value reference, it is forwarding reference !!! (forwarding reference, if there is type deduction using with && specifier.)
 
 /----------------------------------------------
