@@ -1,34 +1,34 @@
 ## VALUE CATEGORY:
 
-/----------------------------------------------
-/----------------------------------------------
-
 - What is the difference between "expression" and "statement"?
-   expression --> 10, x, x+10, a*a + b*b > 10. etc (operators, objects, constants, etc.)
-   statement  --> all expressions which have ; at the end. 
-	              x = 10  --> expression
-				  x = 10; --> statement (expression statement)
-	- "const" keyword doesnt effect the value category 
+  - expression --> 10, x, x+10, a*a + b*b > 10. etc (operators, objects, constants, etc.)
+  - statement  --> all expressions which have ; at the end. 
+    - x = 10  --> expression
+    - x = 10; --> statement (expression statement)
+  - "const" keyword does not effect the value category 
 
 - What is the data type?
-	- int, int*, int&, int [], int (*)(int), etc.
+  - int, int*, int&, int [], int (*)(int), etc.
 
 - The value category types in Cpp:
-	- L Value (Left Value):
-	  the values that point objects
-	  they have a place in the memory 
+  - L Value (Left Value):
+    - The values that point objects
+    - They have a place in the memory 
 
-	- X Value (Expiring Value):
-	  not defined in C language
-	  the values that point objects
-	  kodda doðrudan bir isim olarak karþýmýza çýkmaz (bir kimliði yoktur.)
+  - X Value (Expiring Value):
+    - Not defined in C language
+    - The values that point objects
+    - It does not appear as a direct name in the code (it does not have an ID.)
 	  
-	- PR Value (Pure Right Value):
-	  the values that not point any objects
-	  they dont have any place in the memory 
+  - PR Value (Pure Right Value):
+    - The values that not point any objects
+    - They do not have any place in the memory 
+    
+   - L Value + X Value = GL Value 
+   - PR Value + X Value = R Value 
 
-	- L Value + X Value = GL Value 
-	- PR Value + X Value = R Value 
+/----------------------------------------------
+/----------------------------------------------
 
 ### L-VALUE REFERENCES for functions : 
 
@@ -50,7 +50,8 @@
 |                           | C++                                         |
 | ------------------------- |--------------------------------------------:|
 | void  func(Type x);       |  --> call by value                          |
-| void  func(Type *ptr);    |  --> call by value                          |   
+| void  func(Type *ptr);    |  --> call by value                          |
+
 
 
 
@@ -70,16 +71,16 @@
 /----------------------------------------------
 
 ### R-VALUE REFERENCES 
-    - References does not allocate memory, the memory allocation is for objects 
-    - Adding to C++ standard with C++11 
-    - Adding for move semantics and perfect forwarding reference 
-    - R value reference must be initialized with R Value expression 
-    - T &&ref = 10; // OK --> R value reference 
-	    - ref is a L value expression 
-	  - T &&ref is a R value expression (the data type of ref is a R value expression)
-	  - void func(T &&ref); --> move semantic
-	  - T&& func(); --> return value is R value reference 
-      - auto &&ref = expr; --> this is not R value reference, it is forwarding reference !!! (forwarding reference, if there is type deduction using with && specifier.)
+- References does not allocate memory, the memory allocation is for objects 
+- Adding to C++ standard with C++11 
+- Adding for move semantics and perfect forwarding reference 
+  - R value reference must be initialized with R Value expression 
+  - T &&ref = 10; // OK --> R value reference 
+    - ref is a L value expression 
+  - T &&ref is a R value expression (the data type of ref is a R value expression)
+     - void func(T &&ref); --> move semantic
+     - T&& func(); --> return value is R value reference 
+  - auto &&ref = expr; --> this is not R value reference, it is forwarding reference !!! (forwarding reference, if there is type deduction using with && specifier.)
 
 /----------------------------------------------
 /----------------------------------------------
@@ -87,7 +88,7 @@
 - The differences of value categories between C and CPP ? 
 
 |           |  C      | C++                                          |
-| --------- |:-------:| --------------------------------------------:|
+| --------- |:-------:|:-------------------------------------------- |
 | ++x       | R-Value | L-Value                                      |
 | --x       | R-Value | L-Value                                      | 
 | a,b       | R-Value | L-Value (even if right operand is an object) |  
