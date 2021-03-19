@@ -47,14 +47,14 @@
 /----------------------------------------------
 /----------------------------------------------
 
-* Type func(); 
-  func(); --> R-Value expression
-  Type &ref = func();       // NOT OK
-  const Type &ref = func(); // OK --> R-Value expression
+- Type func(); 
+  - func(); --> R-Value expression
+  - Type &ref = func();       // NOT OK
+  - const Type &ref = func(); // OK --> R-Value expression
 
-* Type &func(); 
-  func(); --> L-Value expression
-  Type &ref = func(); // OK --> L-Value expression
+- Type &func(); 
+  - func(); --> L-Value expression
+  - Type &ref = func(); // OK --> L-Value expression
 
 /----------------------------------------------
 /----------------------------------------------
