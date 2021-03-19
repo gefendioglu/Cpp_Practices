@@ -31,19 +31,19 @@
 /----------------------------------------------
 
 ### L-VALUE REFERENCES for functions : 
-                                               
-| ---------------------------- |:--------------------------------------------------------- |
-| void  func(Type x);          |  --> call by value                                        |
-| void  func(Type *ptr);       |  --> call by value                                        |
-| void  func(Type &ref);       |  --> call by reference (both reads and writes the object) |
-| void  func(const Type *ptr); |  --> call by reference (reads only from the object)       |
-| void  func(const Type &ref); |  --> call by reference (reads only from the object)       |
-| Type  *func();               |  --> return value is the address of the returned object   |
-| Type  &func();               |  --> return value is the reference of the returned object |
-| const Type  *func();         |  --> return value is the address of the returned object   |
-| const Type  &func();         |  --> return value is the reference of the returned object |
+  
+| Function Type                | Call Value                                           | 
+| ---------------------------- |:---------------------------------------------------- |
+| void  func(Type x);          | call by value                                        |
+| void  func(Type *ptr);       | call by value                                        |
+| void  func(Type &ref);       | call by reference (both reads and writes the object) |
+| void  func(const Type *ptr); | call by reference (reads only from the object)       |
+| void  func(const Type &ref); | call by reference (reads only from the object)       |
+| Type  *func();               | return value is the address of the returned object   |
+| Type  &func();               | return value is the reference of the returned object |
+| const Type  *func();         | return value is the address of the returned object   |
+| const Type  &func();         | return value is the reference of the returned object |
     
-
 /----------------------------------------------
 /----------------------------------------------
 
