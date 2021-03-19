@@ -31,29 +31,18 @@
 /----------------------------------------------
 
 ### L-VALUE REFERENCES for functions : 
-
-*  void  func(Type x);          --> call by value
-/----------------------------------------------
-*  void  func(Type *ptr);       --> call by reference (nesneyi hem okur hem de yazar)
-*  void  func(Type &ref);       --> call by reference (nesneyi hem okur hem de yazar)
-/----------------------------------------------
-*  void  func(const Type *ptr); --> call by reference (nesneden sadece okuma yapar)
-*  void  func(const Type &ref); --> call by reference (nesneden sadece okuma yapar)
-/----------------------------------------------
-*  Type  *func();       --> return value geri dönülen nesnenin adresi
-*  Type  &func();       --> return value geri dönülen nesnenin referansı
-/----------------------------------------------
-*  const Type  *func(); --> return value geri dönülen nesnenin adresi
-*  const Type  &func(); --> return value geri dönülen nesnenin referansı
-
-
-|                           | C++                                         |
-| ------------------------- |--------------------------------------------:|
-| void  func(Type x);       |  --> call by value                          |
-| void  func(Type *ptr);    |  --> call by value                          |
-
-
-
+                                               
+| ---------------------------- |:--------------------------------------------------------- |
+| void  func(Type x);          |  --> call by value                                        |
+| void  func(Type *ptr);       |  --> call by value                                        |
+| void  func(Type &ref);       |  --> call by reference (both reads and writes the object) |
+| void  func(const Type *ptr); |  --> call by reference (reads only from the object)       |
+| void  func(const Type &ref); |  --> call by reference (reads only from the object)       |
+| Type  *func();               |  --> return value is the address of the returned object   |
+| Type  &func();               |  --> return value is the reference of the returned object |
+| const Type  *func();         |  --> return value is the address of the returned object   |
+| const Type  &func();         |  --> return value is the reference of the returned object |
+    
 
 /----------------------------------------------
 /----------------------------------------------
@@ -131,10 +120,10 @@ struct Data{
 
 int main() {
 	
-	int number = 10; // number --> L Value
+	int number = 10;    // number --> L Value
 	
-	Data myData; // myData --> L Value 
-	myData.x;    // myData.x --> L Value 
+	Data myData;        // myData --> L Value 
+	myData.x;           // myData.x --> L Value 
 
 	int* ptr = &number; // (*ptr) --> L Value
 	int array[5]{};     // array[2] --> L Value
@@ -145,9 +134,10 @@ int main() {
 
 - **Example**: Finding value category
 
-* ValueCategory.h --> 
-/----------------------------------------------
 ```cpp
+// ValueCategory.h --> 
+//----------------------------------------------
+
 #pragma once
 #include <iostream>
 
@@ -169,8 +159,8 @@ struct ValueCategory<T &&> {
 #define valuecategory(exp) (std::cout << "Value category of \"" #exp"\" is : " << ValueCategory<decltype((exp))>::ptrstr << "\n");
 
 
-* main.cpp -->
-/----------------------------------------------
+// main.cpp -->
+//----------------------------------------------
 #include <iostream>
 #include "ValueCategory.h"
 
@@ -180,7 +170,7 @@ int&& xfunc();
 
 int main() {
 	
-	int number = 10;		   // number --> L Value
+	int number = 10;	   // number --> L Value
 	const int realNumber = 0;  // realNumber --> L Value 
 	int& refNumber = ++number; // ++number is L Value and  &refNumber is L Value
 	// int& refNumber = number++;  --> Error : number++ is R Value, &refNumber is L Value 
@@ -231,14 +221,14 @@ int main() {
 /----------------------------------------------
 
 - **Example**: 
-- 
+
 ```cpp
 #include <iostream>
 
 int main() {
 
 	int firstNumber = 10;
-	int& ref = firstNumber; // ref --> L value ref. ref = firstNumber
+	int& ref = firstNumber;        // ref --> L value ref. ref = firstNumber
 	int* const ptr = &firstNumber; // (*ptr) = firstNumber
 
 	std::cout << "ref : " << ref << "\n";     // ref = 10
@@ -286,8 +276,8 @@ int main() {
 	// if auto is used  --> auto  = int* referansArray
 	// if auto& is used --> auto = int (&referansArray)[5]
 
-	std::cout << "(&refArray) : " << (&refArray) << "\n"; // (&refArray) = 006FF7F4
-	std::cout << "(&refArray) address: " << refArray << "\n";     // refArray = 006FF7F4
+	std::cout << "(&refArray) : " << (&refArray) << "\n";            // (&refArray) = 006FF7F4
+	std::cout << "(&refArray) address: " << refArray << "\n";        // refArray = 006FF7F4
 	std::cout << "referansArray address: " << referansArray << "\n"; // referansArray = 006FF7F4
 }
 ```
@@ -303,7 +293,7 @@ int main() {
 int main() {
 
 	int firstNumber = 10;
-	int& ref = firstNumber; // ref --> L value ref. ref = firstNumber
+	int& ref = firstNumber;        // ref --> L value ref. ref = firstNumber
 	int* const ptr = &firstNumber; // (*ptr) = firstNumber
 
 	std::cout << "ref : " << ref << "\n";     // ref = 10
@@ -351,8 +341,8 @@ int main() {
 	// if auto is used  --> auto  = int* referansArray
 	// if auto& is used --> auto = int (&referansArray)[5]
 
-	std::cout << "(&refArray) : " << (&refArray) << "\n"; // (&refArray) = 006FF7F4
-	std::cout << "(&refArray) address: " << refArray << "\n";     // refArray = 006FF7F4
+	std::cout << "(&refArray) : " << (&refArray) << "\n";            // (&refArray) = 006FF7F4
+	std::cout << "(&refArray) address: " << refArray << "\n";        // refArray = 006FF7F4
 	std::cout << "referansArray address: " << referansArray << "\n"; // referansArray = 006FF7F4
 }
 ```
@@ -372,11 +362,11 @@ int main() {
 	int** ptrptr = &ptr;  // ptrptr --> &ptr
 	int**& ref = ptrptr;  // ref --> ptrptr 
 	
-	std::cout << "(*ptr) : " << *ptr << "\n";     // *ptr  = 10
-	std::cout << "(ptrptr) : " << ptrptr << "\n"; // ptrptr = 005BFB4C
-	std::cout << "(**ref) : " << **ref << "\n";   // **ref = 10
-	std::cout << "(++**ref) : " << ++**ref << "\n";   // ++**ref = 11
-	std::cout << "(&ref) : " << &ref << "\n";     // &ref = 005BFB40
+	std::cout << "(*ptr) : " << *ptr << "\n";       // *ptr  = 10
+	std::cout << "(ptrptr) : " << ptrptr << "\n";   // ptrptr = 005BFB4C
+	std::cout << "(**ref) : " << **ref << "\n";     // **ref = 10
+	std::cout << "(++**ref) : " << ++**ref << "\n"; // ++**ref = 11
+	std::cout << "(&ref) : " << &ref << "\n";       // &ref = 005BFB40
 }
 ```
 
@@ -393,16 +383,16 @@ void  func(Type x); //  call by value
 /----------------------------------------------
 
 ```cpp
-void  func(Type *ptr); // call by reference (nesneyi hem okur hem de yazar)
-void  func(Type &ref); // call by reference (nesneyi hem okur hem de yazar)
+void  func(Type *ptr); // call by reference (both reads and writes the object)
+void  func(Type &ref); // call by reference (both reads and writes the object)
 ```
 
 /----------------------------------------------
 /----------------------------------------------
 
 ```cpp
-void  func(const Type *ptr); // call by reference (nesneden sadece okuma yapar)
-void  func(const Type &ref); // call by reference (nesneden sadece okuma yapar)
+void  func(const Type *ptr); // call by reference (reads only from the object)
+void  func(const Type &ref); // call by reference (reads only from the object)
 ```
 
 /----------------------------------------------
@@ -459,22 +449,22 @@ int main() {
 	int&& ref2 = foo();   // OK --> foo() is a R value expression
 	int&& ref = func();   // NOT OK --> func() is a L value expression
 	int& r = ref1;        // OK --> ref is a L value expression
-	r = 10;				  // OK --> assignment for L-value expression
+	r = 10;		      // OK --> assignment for L-value expression
 
-	value + 5;			// --> R value expression
-	++value;			// --> L value expression
-	--value;			// --> L value expression
-	value > 10;			// --> R value expression (comparisons)
+	value + 5;		// --> R value expression
+	++value;		// --> L value expression
+	--value;		// --> L value expression
+	value > 10;		// --> R value expression (comparisons)
 	value && 10;		// --> R value expression
-	!value ;			// --> R value expression
-	value & 10;			// --> R value expression
-	value++;			// --> R value expression
+	!value ;		// --> R value expression
+	value & 10;		// --> R value expression
+	value++;		// --> R value expression
 	value--;	        // --> R value expression
-	value > 10 ? 1 : 0; // --> R value expression
-	foo();				// --> R value expression
+	value > 10 ? 1 : 0;     // --> R value expression
+	foo();			// --> R value expression
 
 	int x = 10, y = 20;
-	(x = 10) = y;       // (x = 10) --> L value expression
+	(x = 10) = y;           // (x = 10) --> L value expression
 }
 ```
 
@@ -506,44 +496,44 @@ int main()
 	MyStruct& nr{ str };
 	int a[10];
 
-	// x      --> L-Value 
-	// x + 5  --> PR-Value
-	// &x     --> PR-Value
-	// &y     --> PR-Value (no dependency with const)
-	// y      --> L-Value  (no dependency with const)
-	// ++x    --> L-Value  (prefix --> L-Value)
-	// x++    --> PR-Value (postfix --> PR-Value)
-	// --x    --> L-Value  (prefix --> L-Value)
-	// x--	  --> PR-Value (postfix --> PR-Value)
-	// (x, y)		  --> L-Value (right operand --> y is L-Value)
+	// x      	  --> L-Value 
+	// x + 5  	  --> PR-Value
+	// &x     	  --> PR-Value
+	// &y     	  --> PR-Value (no dependency with const)
+	// y      	  --> L-Value  (no dependency with const)
+	// ++x    	  --> L-Value  (prefix --> L-Value)
+	// x++    	  --> PR-Value (postfix --> PR-Value)
+	// --x    	  --> L-Value  (prefix --> L-Value)
+	// x--	  	  --> PR-Value (postfix --> PR-Value)
+	// (x, y)	  --> L-Value (right operand --> y is L-Value)
 	// x > 5 ? x : y  --> L-Value (both operands are L-Value)
 	// x > 5 ? x : 7  --> PR-Value (right operand is R-Value)
 	// x > y          --> PR-Value (comparison operators)
 	// x && y         --> PR-Value (logic operators)
-	// +x			  --> PR-Value (positive operators)
-	// -x			  --> PR-Value (negative operators)
+	// +x		  --> PR-Value (positive operators)
+	// -x		  --> PR-Value (negative operators)
 	// (double)x      --> PR-Value (type conversion operators)
 	// f1()           --> PR-Value (return value is not reference)
-	// f2()			  --> L-Value (return value is reference)
-	// f3()			  --> X-Value (return value is R-reference)
+	// f2()		  --> L-Value (return value is reference)
+	// f3()		  --> X-Value (return value is R-reference)
 	// r	          --> L-Value 
-	// rr			  --> L-Value (interviews)
-	// str			  --> L-Value (struct object)
-	// str.x		  --> L-Value (struct object)
-	// ptr			  --> L-Value (pointer Members an object)
-	// *ptr			  --> L-Value (dereferencing)
-	// &ptr			  --> R-Value (with address operator)
+	// rr		  --> L-Value (interviews)
+	// str		  --> L-Value (struct object)
+	// str.x	  --> L-Value (struct object)
+	// ptr		  --> L-Value (pointer Members an object)
+	// *ptr		  --> L-Value (dereferencing)
+	// &ptr		  --> R-Value (with address operator)
 	// ptr->a         --> L-Value (struct object)
 	// &ptr->a        --> PR-Value (&(ptr->a) address operator)
-	// ptr + 1		  --> PR-Value (arithmetic operator)
-	// a			  --> L-Value 
-	// *a		      --> L-Value (dereferencing)
-	// a + 3		  --> PR-Value (arithmetic operator)
-	// a[4]			  --> L-Value
-	// nr			  --> L-Value (reference)
-	// nr.a			  --> L-Value 
-	// int()		  --> PR-Value (temporary object)
-	// int{}		  --> PR-Value (temporary object)
+	// ptr + 1	  --> PR-Value (arithmetic operator)
+	// a		  --> L-Value 
+	// *a		  --> L-Value (dereferencing)
+	// a + 3	  --> PR-Value (arithmetic operator)
+	// a[4]		  --> L-Value
+	// nr		  --> L-Value (reference)
+	// nr.a		  --> L-Value 
+	// int()	  --> PR-Value (temporary object)
+	// int{}	  --> PR-Value (temporary object)
 	// MyStruct()	  --> PR-Value (temporary object)
 	// MyStruct{}     --> PR-Value (temporary object)
 }
@@ -615,24 +605,24 @@ int main()
 
 int main()
 {
-	auto a; // NOT OK, must be initialized ! 
-	int& b; // NOT OK, must be initialized ! 
-	auto c = 10; // OK
-	int& d = c;  // OK
-	const auto& e = 20; // OK
-	int& f = ++c;    // OK 
-	int& g = c + 5;  // NOT OK, c+5 --> R-Value is not assigned to L value ref. 
-	int&& h = c % 2; // OK, c % 2 --> R-value is assigned to R-Value ref. 
+	auto a; 	    	// NOT OK, must be initialized ! 
+	int& b;             	// NOT OK, must be initialized ! 
+	auto c = 10;        	// OK
+	int& d = c;  	    	// OK
+	const auto& e = 20; 	// OK
+	int& f = ++c;       	// OK 
+	int& g = c + 5;     	// NOT OK, c+5 --> R-Value is not assigned to L value ref. 
+	int&& h = c % 2;    	// OK, c % 2 --> R-value is assigned to R-Value ref. 
 	
-	int func();  // func() is R-Value
-	int&& j = func(); // func() is assigned to R-value ref. 
+	int func();         	// func() is R-Value
+	int&& j = func();   	// func() is assigned to R-value ref. 
 	
-	int& foo(); // foo() is L-Value 
-	int&& m = foo(); // foo() is not assigned to R-value ref.
+	int& foo();        	// foo() is L-Value 
+	int&& m = foo();    	// foo() is not assigned to R-value ref.
 
-	int ival = 10; // ival --> L-Value
+	int ival = 10;          // ival --> L-Value
 	int&& rval = ival + 10; // ival + 10--> R-value, is assigned to R-Value ref. 
-	int& p = rval; // rval--> L-value, is assigned to L-value ref.
+	int& p = rval;          // rval--> L-value, is assigned to L-value ref.
 }
 ```
 
@@ -671,8 +661,8 @@ int main()
 /----------------------------------------------
 
 ### Forwarding Reference versus R-Value References 
-    - They are both represented by && operators
-    - Forwarding reference was added to the languagas as a new feature, because of existing move semantics and perfect forwarding. 
+- They are both represented by && operators
+- Forwarding reference was added to the languagas as a new feature, because of existing move semantics and perfect forwarding. 
 
 /----------------------------------------------
 /----------------------------------------------
@@ -684,10 +674,10 @@ void func(Data&& ref); // func parameter is R-value ref.
 
 template<typename T>
 void foo(T&& ref); // foo parameter is not R-value ref.
-				   // it is forwarding ref.(universal ref.)
+		   // it is forwarding ref.(universal ref.)
 
 for(auto &&x : data_vec){/**/} // range based for loop --> not R-value ref.
-							   // it is forwarding ref.
+			       // it is forwarding ref.
 ```
 
 /----------------------------------------------
