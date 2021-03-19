@@ -4,7 +4,7 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
 
 - [Undefined Behaviour & Undefined Specifier](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/11_Undefined_Behaviour.md)
 
-- [Value Category](https://github.com/gefendioglu/Cpp_Practices/blob/master/02_Lesson/Value_Category.md)
+- [Value Category](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/24_Value_Category.md)
 
 - [Call By Value & Call By Reference](https://github.com/gefendioglu/Cpp_Practices/blob/master/03_Lesson/Call_By_Value_Call_By_Reference.md)
 
