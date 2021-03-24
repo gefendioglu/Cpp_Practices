@@ -10,7 +10,7 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
 
 - [Pointer Types](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/20_Pointers.md)
 
-- [Initialization & Assignment](https://github.com/gefendioglu/Cpp_Practices/blob/master/02_Lesson/Initialization.md)
+- [Initialization & Assignment](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/17_Initialization_Assignment.md)
 
 - [Default Arguments](https://github.com/gefendioglu/Cpp_Practices/blob/master/03_Lesson/Default_Arguments.md)
 
