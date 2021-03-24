@@ -3,8 +3,8 @@
 
 - C   --> always call-by-value
 - C++ --> depends on function definition
-	- func(int);   --> call-by-value OR 
-	- func(int &); --> call-by-reference
+  - func(int);   --> call-by-value OR 
+  - func(int &); --> call-by-reference
 
 - C --> 
   - setfunc(T *ptr); --> set function, setter, mutator
@@ -16,11 +16,11 @@
 
 - C --> 
   - setfunc(T *ptr);        --> output parameters
-	-	getfunc(const T *ptr);  --> input parameters
+  - getfunc(const T *ptr);  --> input parameters
 
 - C++ --> class Data{};
-	- void setter(Data &ref);       --> the parameter will be changed
-	- void getter(const Data& ref); --> the parameter will only be read
+  - void setter(Data &ref);       --> the parameter will be changed
+  - void getter(const Data& ref); --> the parameter will only be read
 
 /----------------------------------------------
 /----------------------------------------------
@@ -52,7 +52,7 @@ int main() {
 	std::cout << "firstNumber : " << firstNumber << "\n";     // firstNumber = 43 
 	std::cout << "secondNumber : " << secondNumber << "\n";   // secondNumber = 35
   
-  swapRef(firstNumber, secondNumber);
+  	swapRef(firstNumber, secondNumber);
 
 	std::cout << "firstNumber : " << firstNumber << "\n";     // firstNumber = 35 
 	std::cout << "secondNumber : " << secondNumber << "\n";   // secondNumber = 43
@@ -66,6 +66,7 @@ int main() {
 #include <iostream>
 
 int main() {
+
 	int firstNumber = 35;
 	const int& ref1 = firstNumber;
 	int const& ref2 = firstNumber;
@@ -84,11 +85,10 @@ int main() {
 ```cpp
 #include <iostream>
 
-int getter(const int& ref) {
-	return ref;
-}
+int getter(const int& ref) { return ref; }
 
 int main() {
+
 	int firstNumber = 35;
 	const int secondNumber = 43;
 	
@@ -117,9 +117,8 @@ int main() {
 	
 	std::cout << "getter(firstNumber): " << setter(firstNumber)<<"\n";
 	//std::cout << "getter(secondNumber): " << setter(secondNumber)<<"\n";
-
-  // Error: qualifiers dropped in binding reference of type "int &" to initializer of type "const int"
-  // Error : 'int setter(int &)' : cannot convert argument 1 from 'const int' to 'int &'
+	// Error: qualifiers dropped in binding reference of type "int &" to initializer of type "const int"
+	// Error : 'int setter(int &)' : cannot convert argument 1 from 'const int' to 'int &'
 }
 ```
 
