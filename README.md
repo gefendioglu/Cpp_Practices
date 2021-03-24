@@ -6,9 +6,7 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
 
 - [Value Category](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/24_Value_Category.md)
 
-- [Call By Value & Call By Reference](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/15_Call_By_Value_Reference.md)
-
-- [Return Value](https://github.com/gefendioglu/Cpp_Practices/blob/master/03_Lesson/Return_Value.md)
+- [Call By Value & Call By Reference & Return Value](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/15_Call_By_Value_Reference.md)
 
 - [Pointer Types](https://github.com/gefendioglu/Cpp_Practices/blob/master/03_Lesson/Pointer_Types.md)
 
