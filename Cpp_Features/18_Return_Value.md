@@ -32,14 +32,14 @@ int& refFunc() {
 #include <iostream>
 int command = 45;
 
-int& refFunc() {	return command; }
+int& refFunc() { return command; }
 
 int main() {
 
 	refFunc() = 100; // refFunc() is a L-Value
 	std::cout << "command: " << command << "\n"; // command = 100
   
-  int& ref = refFunc();
+  	int& ref = refFunc();
 	ref = 500;
 	std::cout << "command : " << command << "\n"; // command : 500
   
@@ -79,7 +79,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-### Trailing Return Type (-> return-type)
+### Trailing Return Type
 
 **Example** : Trailing Return Type (with auto and decltype keywords)
 
@@ -94,9 +94,9 @@ auto add(X x, Y y) -> decltype(x + y){
 
 int main() {
 
-	std::cout << "add(1, 2)     : " << add(1, 2)     << "\n";  // 
-	std::cout << "add(1, 2.0)   : " << add(1, 2.0)   << "\n";  // 
-	std::cout << "add(1.5, 1.5) : " << add(1.5, 1.5) << "\n";  // 
+	std::cout << "add(1, 2)     : " << add(1, 2)     << "\n";   
+	std::cout << "add(1, 2.0)   : " << add(1, 2.0)   << "\n"; 
+	std::cout << "add(1.5, 1.5) : " << add(1.5, 1.5) << "\n";  
 
 	/*
 		add(1, 2)     : 3
