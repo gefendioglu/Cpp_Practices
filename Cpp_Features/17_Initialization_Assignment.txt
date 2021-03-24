@@ -239,13 +239,9 @@ private:
 int main() {
 	Data data;
 	data.print(); // undefined behaviour for non-initialized data members
-	/*
-		mCopy : 0
-	*/
+	// mCopy : 0
 }
 
 /----------------------------------------------
 /----------------------------------------------
-
-- **Example** :
 

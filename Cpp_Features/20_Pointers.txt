@@ -6,15 +6,13 @@
 
 * Pointer Types: Valid / Invalid pointer
 
-  - **Invalid pointer**: bir pointer a dinamik ömürlü nesnenin adresi atandýysa/ilk deðer verilirse ve pointer deðiþkenin hayatý devam ederken onun gösterdiði nesnenin hayatý biterse. otomatik ömürlü tanýmlanan pointer için ilk deðer verilmezse
+  - **Invalid Pointer**:  An invalid pointer becomes an invalid pointer if the address of a dynamic object is assigned to a pointer or if the initial value is given and the pointer variable's life ends while the life of the pointer variable continues. When automatically defined pointers are not initialized, they become invalid pointers.
 
-  - **Valid pointer**: Bir pointer bir dizinin son elemanýnýn adresini tutarken, deðeri bir arttýrýlýrsa dizinin bittiði yerin adresini tutuyor olacaktýr 
+  - **Valid Pointer**: A pointer will hold the address of the last element of an array, while incrementing its value by one will be holding the address of where the array ends.
 
-  - Deðeri nullptr olan bir pointer deðiþken hiçbir nesneyi göstermemektedir. Asla derefere edilmemelidir. 
+  - **Null Pointer**: A pointer with the value nullptr does not point to any object. It should never be dereferenced. In addition to this, the concept of "null reference" does not exist!
 
-  - **Null pointer**: kavramý mevcut; ancak "null reference" kavramý bulunmaz!
-
-  - **Dangling pointer**: Gösterdiði nesnenin ömrünün bitmesi ile geçerliliðini kaybeden pointerlardýr.
+  - **Dangling Pointer**: They are pointers that lose their validity when the life of the object it points to.
 
 /----------------------------------------------
 /----------------------------------------------
@@ -82,21 +80,20 @@ int main() {
 /----------------------------------------------
 
 - The usage of null pointer: 
-  - Adres döndüren fonksiyonlarda, baþarýsýzlýk deðeri olarak --> return nullptr; 
-	  T* func(){...}
+  - In functions that return addresses (T* func(){...}), nullptr is returned as the failure value.
 
-  - Bazý fonksiyonlarda arama iþlemi için kullanýlabilir.
-	  Aranan deðer bulunursa   --> bulunan deðerin adresi
-	  Aranan deðer bulunamazsa --> nullptr deðeri döndürülür.
-	
-  - Parametresi pointer olan fonksiyonlarda yaygýn olarak kullanýlmaktadýr. Ya nesne adresi ya da nullptr argüman olarak bu fonksiyonlara gönderilebilmektedir. Bu durumda fonksiyon nesne adresi ile çaðrýldýðýnda farklý, nullptr ile çaðrýldýðýnda farklý bir iþ yapacak þekilde tasarlanabilir.
+  - It can be used for searching in some functions:
+	- If the searched value is found -> returns the address of the value
+	- If the searched value is not found -> returns "nullptr"" 
+
+  - It is widely used in functions whose parameter is pointer. The addresses of the objects or nullptr can be passed to these functions as arguments. The function can be designed to do a different job when called with the object address, and a different job when called with nullptr.
 	- void func(T *ptr){...} --> func(nullptr); 
 	- fflush(nullptr); --> from standard lib. 
 
 /----------------------------------------------
 /----------------------------------------------
 
--**Example**: pointer deðiþkenlerin flag olarak kullanýlmasý yaygýndýr. 
+-**Example**: It is common to use pointer variables as flags.
 
 	int *ptr = nullptr;
 	if(expr){
@@ -107,7 +104,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
--**Example**: Dangling pointer: Gösterdiði nesnenin ömrünün bitmesi ile geçerliliðini kaybeden pointerlardýr.
+-**Example**: Dangling pointers
 
 #include <iostream>
 #include <cstdlib>
@@ -138,14 +135,14 @@ int main() {
 /----------------------------------------------
 
 - The differences between references and pointer:
-  - Referanslara ilk deðer vermek zorunlu, ilk deðer vermeden referans oluþturulamaz ! 
-  - pointer deðiþkenlere ilk deðer vermek zorunlu deðildir. 
-  - "Reference to reference" kavramý yoktur; ancak "pointer to pointer" kavramý mecvuttur. 
+  - It is mandatory to give an inital value yo references, they can not be created without initialization.
+  - It is not mandatory to initialize pointers.
+  - There is no concept of "reference to reference"; however, the concept of "pointer to pointer" is available.
 
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** : pointer deðiþken farklý nesne adreslerini gösterebilir. Kendisi const olmak zorunda deðildir. 
+- **Example** : Pointers can point the addresses of different objects. It doesn't have to be const itself.
 
 #include <iostream>
 
@@ -165,10 +162,9 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** : Referanslardan oluþan bir dizi yazýlamaz. 
+- **Example** : An array constituting of references cannot be written.
 
 #include <iostream>
-
 int x, y, z, t;
 
 int main() {

@@ -512,16 +512,30 @@ int main() {
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
+#include <iosfwd>
 
+#ifndef COUNTER_INCLUDED
+#define COUNTER_INCLUDED
 
-class Date {
-
+class Counter {
+public:
+	Counter() = default; // default member init. 
+	explicit Counter(int);
+private:
 };
+
+std::ostream&  operator<<(std::ostream& os, const Counter& cnt);
 
 int main() {
 
+	Counter cnt1;
+	Counter cnt2{100};
+	std::cout << cnt1 << " " << cnt2 << " ";
+	operator<<(std::cout, cnt1);
 
 	return EXIT_SUCCESS;
 }
+
+#endif
 
 #endif // FEATURE
