@@ -2,10 +2,13 @@
 
 - **Invalid Pointer**: An invalid pointer becomes an invalid pointer if the address of a dynamic object is assigned to a pointer or if the initial value is given and the pointer variable's life ends while the life of the pointer variable continues. 
   When automatically defined pointers are not initialized, they become invalid pointers.
+  
 - **Valid Pointer**: A pointer will hold the address of the last element of an array, 
     while incrementing its value by one will be holding the address of where the array ends.
+    
 - **Null Pointer**: A pointer with the value nullptr does not point to any object. It should never be dereferenced. 
   In addition to this, the concept of "null reference" does not exist!
+  
 - **Dangling Pointer**: They are pointers that lose their validity when the life of the object it points to.
   
 /----------------------------------------------
@@ -78,9 +81,11 @@ int main() {
 
 - The usage of null pointers: 
   - In functions that return addresses (T* func(){...}), nullptr is returned as the failure value.
+  
   - It can be used for searching in some functions:
 	  - If the searched value is found -> returns the address of the value
 	  - If the searched value is not found -> returns "nullptr""
+	  
   - It is widely used in functions whose parameter is pointer. 
   The addresses of the objects or nullptr can be passed to these functions as arguments. 
   The function can be designed to do a different job when called with the object address, and a different job when called with nullptr.
