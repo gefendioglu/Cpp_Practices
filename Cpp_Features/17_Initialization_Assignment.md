@@ -226,23 +226,21 @@ public:
 	}
 private:
 	std::string ms;
-	int marray1[5] = { 1,2,3,4,5 }; // OK, in-class init.
-	int marray2[5] { 1,2,3,4,5 };   // OK, in-class init.
+	int marray1[5] = { 1,2,3,4,5 };   // OK, in-class init.
+	int marray2[5] { 1,2,3,4,5 };     // OK, in-class init.
 	//int marray3[] = { 1,2,3,4,5 };  // NOT OK, array size shall be specified
-	int mx = 10;  // OK, in-class init.
-	int my{ 20 }; // OK, in-class init.
+	int mx = 10;           // OK, in-class init.
+	int my{ 20 }; 	       // OK, in-class init.
 	int* ptr = &globalVal; // OK, in-class init.
 	int& ref{ globalVal }; // OK, in-class init.
-	int mCopy;			   // OK, non-initialized data members
+	int mCopy;	       // OK, non-initialized data members
 	int mFunc = func(10);  // OK, in-class init.			  
 };
 
 int main() {
 	Data data;
 	data.print(); // undefined behaviour for non-initialized data members
-	/*
-		mCopy : 0
-	*/
+	// mCopy : 0
 }
 ```
 
