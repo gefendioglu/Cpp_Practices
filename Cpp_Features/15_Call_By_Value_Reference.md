@@ -10,9 +10,9 @@
   - setfunc(T *ptr); --> set function, setter, mutator
   - getfunc(const T *ptr);  
     - --> get function, getter, accessor
-		- --> copy only pointer size, not all data
-		- --> applicable especially for arrays
-	- func(T value); --> copy all amount of data
+    - --> copy only pointer size, not all data
+    - --> applicable especially for arrays
+  - func(T value); --> copy all amount of data
 
 - C --> 
   - setfunc(T *ptr);        --> output parameters
