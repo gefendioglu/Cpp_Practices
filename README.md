@@ -10,19 +10,15 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
 
 - [Pointer Types](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/20_Pointers.md)
 
-- [Null Pointers](https://github.com/gefendioglu/Cpp_Practices/blob/master/02_Lesson/Null_Pointers.md)
+- [Initialization & Assignment](https://github.com/gefendioglu/Cpp_Practices/blob/master/02_Lesson/Initialization.md)
 
-- [Initialization](https://github.com/gefendioglu/Cpp_Practices/blob/master/02_Lesson/Initialization.md)
-
-- [Assignment](https://github.com/gefendioglu/Cpp_Practices/blob/master/03_Lesson/Assignment.md)
-
-- [Default Argument](https://github.com/gefendioglu/Cpp_Practices/blob/master/03_Lesson/Default_Arguments.md)
+- [Default Arguments](https://github.com/gefendioglu/Cpp_Practices/blob/master/03_Lesson/Default_Arguments.md)
 
 - [Type Conversion](https://github.com/gefendioglu/Cpp_Practices/blob/master/02_Lesson/Type_Conversion.md)
 
 - [Auto Type Deduction](https://github.com/gefendioglu/Cpp_Practices/blob/master/02_Lesson/Auto_Type_Deduction.md)
 
-- [Enum Class](https://github.com/gefendioglu/Cpp_Practices/blob/master/02_Lesson/Enum_Class.md)
+- [Enum Types & Enum Class](https://github.com/gefendioglu/Cpp_Practices/blob/master/02_Lesson/Enum_Class.md)
 
 ## Data Structures in C++: 
 
