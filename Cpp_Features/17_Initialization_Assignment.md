@@ -1,0 +1,248 @@
+## C++ INITIALIZATION
+
+- There are lots of initialization methods in C++:
+	- copy initialization
+	- default initialization
+	- zero initialization
+
+- What is indetermined value? 
+
+```cpp
+#include <iostream>
+int randomNumber; // default : zero initialization for global variables 
+
+int main() {
+	// Default initialization and undefined behaviour
+	// The value is indetermined value 
+	int number; 
+	int *ptr; 
+
+	// Copy initialization
+	int inum = 10; 
+	double dnum = 2.3;
+	
+	// Zero initializaiton
+	static int snum; // default : zero initialization for static local variables
+	bool flag = false;
+	int* iptr = nullptr;
+	long double ldnum = 0;
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+* The syntax type of initialization: 
+	- copy initialization
+	- value initialization (direct initialization)
+	- uniform initialization (brace initialization)
+
+```cpp
+#include <iostream>
+struct Data {};
+
+int main() {
+	
+	// Copy init. 
+	int number1 = 10; 
+
+	// Value init. (direct init.)
+	int number2(20); 
+	int number3{};
+	Data myData{};
+	int func(); // --> NOT value init.,it is function  declaration
+	Data myData(); // --> NOT value init.,it is function  declaration
+
+	// Uniform init. (brace init.)
+	int number4{ 30 };
+	int primes[]{2,3,5,7,11,13};
+	
+	int* firstPtr{ primes }; // --> int* secondPtr = &primes[0];
+	int* secondPtr = &primes[0];
+
+	std::cout << "Dereferencing firstPtr (*firstPtr): "<< *firstPtr << "\n";
+	std::cout << "Dereferencing secondPtr (*secondPtr): "<< *secondPtr << "\n";
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+* What are the reasons of using uniform initialization?
+	- Narrowing Conversion
+	- Most Vexing Parse : If the definition has the meaning both variable and function at the same time (because of using paranthesis)
+
+/----------------------------------------------
+/----------------------------------------------
+
+### Uniform initialization & Non-static member initialization
+
+**Example** : Uniform initialization & Non-static member initialization
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
+class demo {
+public:
+    demo(uint32_t ival, bool bval, std::string sval, float fval) : m_ival{ ival }, m_bval{ bval }, m_sval{ sval },
+        m_fval{ m_fval } {}
+private:
+    // non-static member initialization
+    uint32_t m_ival = 0;
+    bool m_bval = false;
+    std::string m_sval = "";
+    float m_fval = 0.0;
+};
+
+int main() {
+    // uniform initialization
+    demo obj{ 123, true, "lol", 1.1 };
+    return EXIT_SUCCESS;
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+**Example** : Narrowing Conversion 
+
+```cpp
+#include <iostream>
+
+int main() {
+	// Narrowing conversion: (double --> int) 
+	double dnumber = 2.6;
+	int copyInit = dnumber;     // Warning : possible loss of data 
+	int directInit(dnumber);    // Warning : possible loss of data
+	int uniformInit{ dnumber }; // Error : narrowing conversion 
+
+	std::cout << "dnumber: " << dnumber << "\n";
+	std::cout << "copyInit: " << copyInit << "\n";
+	std::cout << "directInit: " << directInit << "\n";
+	std::cout << "uniformInit: " << uniformInit << "\n";
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+**Example** : Most Vexing Parse
+
+```cpp
+#include <iostream>
+struct Data {};
+struct Stream {
+	Stream(Data);
+};
+
+int main() {
+	
+	// Function declaration, not a direct init.
+	// warning C4930 :prototyped function not called (was a variable definition intended ? )
+	Stream firstStream(Data());
+	
+	// Uniform initialization, not a function declaration
+	Stream secondStream{ Data() }; 
+}
+```
+
+## C++ ASSIGNMENT 
+
+/----------------------------------------------
+/----------------------------------------------
+
+**Example** : Assigning a pointer and reference values 
+
+```cpp
+#include <iostream>
+
+int main() {
+
+	int firstNumber = 10;
+	int secondNumber = 99;
+
+	int* ptr = &firstNumber;
+	int*& refpointer = ptr;
+
+	std::cout << "ptr : " << ptr << "\n";				// ptr : 00AFFAF8
+	std::cout << "refpointer : " << refpointer << "\n"; // refpointer : 00AFFAF8
+
+	*refpointer = 300; // *refpointer --> firstNumber
+	std::cout << "firstNumber : " << firstNumber << "\n";  // firstNumber : 300
+		
+	refpointer = &secondNumber;
+	*refpointer = 700; // *refpointer --> secondNumber
+	std::cout << "secondNumber : " << secondNumber << "\n"; // secondNumber : 700
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+**Example** : Assigning references 
+
+```cpp
+#include <iostream>
+
+int main() {
+	int firstNumber = 10;
+	int secondNumber = 99;
+
+	int& ref1 = firstNumber;
+	int& ref2 = ref1;
+	++ref2; 
+  
+	std::cout << "ref1 : " << ref1 << "\n"; // ref1: 11
+	std::cout << "ref2 : " << ref2 << "\n"; // ref2 : 11
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Default member initialization / in-class initialization
+  - Class data members can be initialized constant or non-constant values.
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+int globalVal;
+int func(int x) {
+	return x * x - 1;
+}
+
+class Data {
+public:
+	Data() = default;
+	~Data() = default; 
+	void print() const {
+		std::cout << "mCopy : " << mCopy << "\n";
+	}
+	void func() const{
+		mx = 20; // NOT OK, this->mx = 20; 
+				     // this->mx --> const Data *const this
+	}
+private:
+	std::string ms;
+	int marray1[5] = { 1,2,3,4,5 };   // OK, in-class init.
+	int marray2[5] { 1,2,3,4,5 };     // OK, in-class init.
+	//int marray3[] = { 1,2,3,4,5 };  // NOT OK, array size shall be specified
+	int mx = 10;           // OK, in-class init.
+	int my{ 20 }; 	       // OK, in-class init.
+	int* ptr = &globalVal; // OK, in-class init.
+	int& ref{ globalVal }; // OK, in-class init.
+	int mCopy;	       // OK, non-initialized data members
+	int mFunc = func(10);  // OK, in-class init.			  
+};
+
+int main() {
+	Data data;
+	data.print(); // undefined behaviour for non-initialized data members
+	// mCopy : 0
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
