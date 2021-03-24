@@ -12,13 +12,13 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
 
 - [Initialization & Assignment](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/17_Initialization_Assignment.md)
 
-- [Default Arguments](https://github.com/gefendioglu/Cpp_Practices/blob/master/03_Lesson/Default_Arguments.md)
+- [Default Arguments]()
 
-- [Type Conversion](https://github.com/gefendioglu/Cpp_Practices/blob/master/02_Lesson/Type_Conversion.md)
+- [Type Conversion]()
 
-- [Auto Type Deduction](https://github.com/gefendioglu/Cpp_Practices/blob/master/02_Lesson/Auto_Type_Deduction.md)
+- [Auto Type Deduction]()
 
-- [Enum Types & Enum Class](https://github.com/gefendioglu/Cpp_Practices/blob/master/02_Lesson/Enum_Class.md)
+- [Enum Types & Enum Class]()
 
 ## Data Structures in C++: 
 
