@@ -3,7 +3,7 @@
 /----------------------------------------------
 /----------------------------------------------
 
--**Example**: Return value is a pointer 
+**Example** : Return value is a pointer 
 
 ```cpp
 int* ptrFunc() {
@@ -13,7 +13,7 @@ int* ptrFunc() {
 }
 ```
 
--**Example**:  return value is reference 
+**Example** :  return value is reference 
 
 ```cpp
 int& refFunc() {
@@ -26,7 +26,7 @@ int& refFunc() {
 /----------------------------------------------
 /----------------------------------------------
 
--**Example**: When function return value is reference, then the function is a L-Value 
+**Example** : When function return value is reference, then the function is a L-Value 
 
 ```cpp
 #include <iostream>
@@ -48,7 +48,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
--**Example**: When function return value is reference or address --> undefined behaviour
+**Example** : When function return value is reference or address --> undefined behaviour
 
 ```cpp
 #include <iostream>
@@ -81,7 +81,7 @@ int main() {
 
 ### Trailing Return Type (-> return-type)
 
--**Example**: Trailing Return Type (with auto and decltype keywords)
+**Example** : Trailing Return Type (with auto and decltype keywords)
 
 ```cpp
 #define _CRT_SECURE_NO_WARNINGS
