@@ -1,14 +1,13 @@
 ## POINTER TYPES 
 
 - Pointer Types: Valid / Invalid pointer
-  - **Invalid Pointer**: An invalid pointer becomes an invalid pointer if the address of a dynamic object is assigned to a pointer or 
-  if the initial value is given and the pointer variable's life ends while the life of the pointer variable continues. 
+  - **Invalid Pointer**: An invalid pointer becomes an invalid pointer if the address of a dynamic object is assigned to a pointer or if the initial value is given and the pointer variable's life ends while the life of the pointer variable continues. 
   When automatically defined pointers are not initialized, they become invalid pointers.
  - **Valid Pointer**: A pointer will hold the address of the last element of an array, 
     while incrementing its value by one will be holding the address of where the array ends.
-  - **Null Pointer**: A pointer with the value nullptr does not point to any object. It should never be dereferenced. 
+ - **Null Pointer**: A pointer with the value nullptr does not point to any object. It should never be dereferenced. 
   In addition to this, the concept of "null reference" does not exist!
-  - **Dangling Pointer**: They are pointers that lose their validity when the life of the object it points to.
+ - **Dangling Pointer**: They are pointers that lose their validity when the life of the object it points to.
   
 /----------------------------------------------
 /----------------------------------------------
@@ -32,19 +31,19 @@
 	  NULL pointer conversion --> int *ptr = 0; --> int *ptr = NULL;
 
 - nullptr 
-  - --> is an address constant to eliminate the disadvantages of using 0 to represent null 
-	- --> data type is nullptr_t (in <cstddef> lib)
-	- void func(nullptr_t) --> especially used for function overloading 
-	- --> nullptr is only assigned to pointer (not taking consideration of data types)
-	- --> nullptr doesnt Member any objects, and it can not be dereferenced. 
+  - --> is an address constant to eliminate the disadvantages of using 0 to represent null ,
+  - --> data type is nullptr_t (in <cstddef> lib)
+  - void func(nullptr_t) --> especially used for function overloading 
+  - --> nullptr is only assigned to pointer (not taking consideration of data types)
+  - --> nullptr doesnt Member any objects, and it can not be dereferenced. 
 
 - The following if conditions are same: 
-	- if (iptr == nullptr) {} 
-	- if (!iptr) {}
+  - if (iptr == nullptr) {} 
+  - if (!iptr) {}
 
 - The following if conditions are same: 
-	- if (iptr != nullptr) {} 
-	- if (iptr) {}
+  - if (iptr != nullptr) {} 
+  - if (iptr) {}
 
 - It is not suggested to use NULL macro in cpp 
 
@@ -245,7 +244,7 @@ int main(){
 // --------------------------------------------
 // --------------------------------------------
 
-- **Example** : Null pointers
+**Example** : Null pointers
 
 ```cpp
 int main(){
