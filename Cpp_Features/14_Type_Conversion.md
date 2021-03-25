@@ -8,25 +8,24 @@
 	- dynamic_cast
 
 - The type conversion between different address types:
-	- The data type and pointer type shall be compatible to each other, C++ --> error
-	- The data type and pointer type shall be compatible to each other, C   --> warning
+  - The data type and pointer type shall be compatible to each other, C++ --> error
+  - The data type and pointer type shall be compatible to each other, C   --> warning
 	
 - No type conversion between pointer types automatically in C++
-	- T* --> U* (T and U are two different data type)
+  - T* --> U* (T and U are two different data type)
        
 - The type conversion rules for const address types (const int *):
   -  C   --> The type conversion from const address data types to non-const address data types is OK.
   -  C++ --> No type conversion from const address data types to non-const address data types. 
-		 - const T* --> T* (NOT OK)
-
-   -  C   --> The type conversion from non-const address data types to const address data types is OK.
-   -  C++ --> The type conversion from non-const address data types to const address data types is OK.
-		  - T* --> const T* (OK)
+     - const T* --> T* (NOT OK)
+  -  C   --> The type conversion from non-const address data types to const address data types is OK.
+  -  C++ --> The type conversion from non-const address data types to const address data types is OK.
+     - T* --> const T* (OK)
  
 - The type conversion for void pointer:
-	- C++ --> T* --> void T* (OK) 
-	- C++ --> void T* --> T* (OK)
-	- C   --> void T* --> T* (NOT OK)
+  - C++ --> T* --> void T* (OK) 
+  - C++ --> void T* --> T* (OK)
+  - C   --> void T* --> T* (NOT OK)
     
 /----------------------------------------------
 /----------------------------------------------
@@ -39,6 +38,7 @@
 enum Color{White, Gray, Black};
 
 int main() {
+
 	enum Color mycolor = Gray;
 	mycolor = (Color)2;	// mycolor = 2; --> is OK in main.c
 	std::cout << "mycolor: " << mycolor << "\n"; // mycolor: 2
@@ -57,6 +57,7 @@ enum Color{White, Gray, Black};
 enum Position{OFF, ON};
 
 int main() {
+
 	enum Color myColor = Gray;     // --> Gray : 1
 	enum Position myPosition = ON; // --> ON : 0
 	myColor = (Color)myPosition;   // mycolor = myPosition; --> is OK in main.c
@@ -79,12 +80,13 @@ enum Color{White, Gray, Black};
 enum Position{OFF, ON};
 
 int main() {
+
 	enum Color myColor = Black;     // --> Gray : 2
 	enum Position myPosition = OFF; // --> OFF : 0
 	int number1 = myColor;
 	int number2 = myPosition;
 	
-  std::cout << "number1: " << number1 << "\n"; // number1: 2 --> myColor
+  std::cout << "number1: " << number1 << "\n";       // number1: 2 --> myColor
 	std::cout << "number2: " << number2 << "\n"; // number2: 0 --> myPosition
 }
 ```
@@ -100,9 +102,10 @@ int main() {
 #include <iostream>
 
 int main() {
+
 	int x = 0;
 	int* ptr = &x; // int* ptr = x;     --> OK, warning in main.c 
-				         // int number = ptr; --> OK, warning in main.c 
+		       // int number = ptr; --> OK, warning in main.c 
 }
 ```
 
@@ -115,6 +118,7 @@ int main() {
 #include <iostream>
 
 int main() {
+
 	int x = 10;
 	// double* ptr = &x; --> C++ a value of type cannot be used to initialize an entity of type
 	// double* ptr = &x; --> C warning C4133 : incompatible types from 'int*' to 'double*'
@@ -131,6 +135,7 @@ int main() {
 #include <iostream>
 
 int main() {
+
 	int x = 10;
 	// &x --> the data type of x : int*
 
@@ -165,10 +170,11 @@ int main() {
 #include <iostream>
 
 int main() {
+
 	int x = 10;
 	const int *cptr = &x; // T* --> const T* (OK)
 	
-  const char* name = "Gamze Efendioglu";
+  	const char* name = "Gamze Efendioglu";
 	// char* name = "Gamze Efendioglu"; --> Error in main.cpp, not Error in main.c
 	// Error C2440 'initializing': cannot convert from 'const int *' to 'int *'	
 }
@@ -183,6 +189,7 @@ int main() {
 #include <iostream>
 
 int main() {
+
 	int ival = 10;
 	unsigned int uval = 20;
 	double dval = 5;
@@ -208,6 +215,7 @@ int main() {
 #include <stdlib.h>
 
 int main() {
+
 	size_t n;
 	// int* iptr = malloc(n * sizeof(int)); // NOT OK --> 
 	int* iptr = (int*)malloc(n * sizeof(int));
@@ -223,6 +231,7 @@ int main() {
 #include <ctime>
 
 int main(){
+
     int x, y;
     srand(static_cast<unsigned int>(time(nullptr)));
     std::cin >> x >> y;
@@ -239,7 +248,8 @@ int main(){
 ```cpp
 #include <iostream>
 
-int main(){
+int main() {
+
     int x = -1; 
     unsigned int y = 1;
     if (x > y)
@@ -254,7 +264,8 @@ int main(){
 ```cpp
 #include <iostream>
 
-int main(){
+int main() {
+
     char c = 178; 
     if (c ==178)
         std::cout << "True\n";
@@ -276,10 +287,11 @@ char* StrChr(const char* p, int c) {
 			return const_cast<char*>(p);
 	}
     ++p;
-	// warning C4715: 'StrChr': not all control paths return a value
+    // warning C4715: 'StrChr': not all control paths return a value
 }
 
 int main() {
+
 	char c = 178;
 	// warning C4309: 'initializing': truncation of constant value
 	if (c == 178)
@@ -299,13 +311,14 @@ int main() {
 #include <iostream>
 
 int main(){
+
 	double dval = 324.2354;
 	unsigned char* p = reinterpret_cast<unsigned char*>(&dval); // OK!!!
 	unsigned char* p = const_cast<unsigned char*>(&dval);  // NOT OK!!!
 	unsigned char* p = static_cast<unsigned char*>(&dval); // NOT OK!!!
 	
-  for (size_t i = 0; i < sizeof(dval); ++i)
-		std::cout << p[i] << " ";
+  	for (size_t i = 0; i < sizeof(dval); ++i)
+	std::cout << p[i] << " ";
 }
 ```
 
@@ -319,6 +332,7 @@ int main(){
 enum Color{Black, White, Green};
 
 int main(){
+
 	Color mycolor{Green};
 	mycolor = 3; // ERROR !!!
 }
@@ -332,6 +346,7 @@ int main(){
 enum Color{Black, White, Green};
 
 int main(){
+
 	Color mycolor{Green};
 	int ival = 2;
 	//mycolor = ival; // ERROR !!!
@@ -347,8 +362,9 @@ int main(){
 #include <cstdlib>
 
 int main(){
+
 	size_t n = 10000;
-	char* p = malloc(n); // ERROR
+	char* p = malloc(n);      		 // ERROR
 	char* p = static_cast<char*>(malloc(n)); // NOT ERROR
 }
 ```
@@ -362,6 +378,7 @@ int main(){
 #include <iostream>
 
 int main(){
+
 	const double* ptr = nullptr;
 	char* p = const_cast<char*>(ptr);       // ERROR
 	char* p = reinterpret_cast<char*>(ptr); // ERROR
@@ -403,12 +420,13 @@ public:
 };
 
 int main(){
+
 	Data data;
 	data = 10; // data.operator=(Data{10});
-			   // operator overloading and copying temp. object
-			   // ERROR, without Data(int) ctor 
-			   // creating Data{10} temp. object
-			   // int --> Data type conversion 
+		   // operator overloading and copying temp. object
+		   // ERROR, without Data(int) ctor 
+		   // creating Data{10} temp. object
+		   // int --> Data type conversion 
 
 	return EXIT_SUCCESS;
 }
@@ -450,6 +468,7 @@ private:
 };
 
 int main() {
+
 	Data data;
 	data = 10; // data.operator=(Data{10});
 
@@ -457,9 +476,6 @@ int main() {
 	// the last destructor is called for data object
 
 	return EXIT_SUCCESS;
-	/*
-		To be Executed again!!
-	*/
 }
 ```
 
@@ -470,7 +486,7 @@ int main() {
 
 - The following conversion types are realized by compilers implicitly:
   - First: Standard conversion + Second: user defined conversion  
-  - First: user defined  conversion + Second: Standard conversion 
+  - First: user defined conversion + Second: Standard conversion 
 
 - Consecutive user defined conversions  are not allowed by compilers 
   - First: user defined conversion + Second: user defined conversion
@@ -506,6 +522,7 @@ Data gData() {
 }
 
 int main() {
+
 	Data data;
 	data = 5.2; // First : double --> int conversion 
 				// Second: int --> Data class type conversion
@@ -571,6 +588,7 @@ Data gData() {
 }
 
 int main() {
+
 	Data data;
 	data = 10;   // ERROR --> explicit ctor
 	
@@ -614,6 +632,7 @@ Data gData() {
 }
 
 int main() {
+
 	Data d;
 	Data data = 20; // ERROR --> copy init is not allowed
 	func(20);       // ERROR --> copy init is not allowed
@@ -659,6 +678,7 @@ private:
 };
 
 int main() {
+
 	Data data;
 	data = { 12, 42 }; // data = Data{ 12, 42 };
 	data.print();
@@ -699,6 +719,7 @@ Data func() {
 }
 
 int main() {
+
 	Data data;
 	data = { 12, 42 }; // ERROR --> explicit ctor
 
@@ -718,6 +739,7 @@ int main() {
 #include <memory>
 
 int main() {
+
 	std::vector<int> ivec(100); // size_t type
 	std::cout << "ivec.size() : " << ivec.size() << "\n";
 	std::vector<int> myVec = 20; // explicit ctor --> ERROR
@@ -787,7 +809,7 @@ int main() {
 	int ival = 10;
 	Data data(ival);    // Data(int x) is called...
 	Data myData = ival; // Data(double x) is called...
-						// Data(int x) is not viable, because of explicit ctor 
+			    // Data(int x) is not viable, because of explicit ctor 
 
 	return EXIT_SUCCESS;
 }
