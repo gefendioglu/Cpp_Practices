@@ -1,9 +1,9 @@
 ## C++ DEFAULT ARGUMENTS
 
 - Setting default definitions for function calls that take the same arguments provides error protection. 
-- 
+
 - No cost for run-time, It is a completely compile-time mechanism. 
-- 
+
 - It is common for default arguments to be made in the function definition. However, in special cases, it is also applied in function declarations. However, it is a mistake to do it in both the function declarations and the definitions.
 
 - Default Argument
@@ -11,10 +11,8 @@
   - int foo(int = func(12, 64));
   - foo();   --> foo(func(12,64));
   - foo(45); --> foo(func(45, 64));
+  
 - func(12, , 45); // NOT OK --> all right arguments shall be filled !!!
-
-
-
 
 - Global variables and functions are run before main() function !!! 
 
@@ -39,14 +37,14 @@ int main() {
 
 	variadicFunc(10, 20, 30);  // OK
 	variadicFunc(10, 20);      // OK
-	variadicFunc(10);		       // OK
-	variadicFunc();			       // NOT OK --> first parameter shall be filled !!!
+	variadicFunc(10);	   // OK
+	variadicFunc();		   // NOT OK --> first parameter shall be filled !!!
 	variadicFunc(1, 2, 3, 4);  // OK
 
 	Printf("gamze", 20, 30);   // OK
 	Printf("gamze", 20);       // OK
-	Printf("gamze");		       // OK
-	Printf();			             // NOT OK --> first parameter shall be filled !!!
+	Printf("gamze");	   // OK
+	Printf();		   // NOT OK --> first parameter shall be filled !!!
 	Printf("gamze", 2, 3, 4);  // OK
 }
 ```
@@ -61,15 +59,15 @@ int main() {
 
 void func(int , int , int z = 10);
 void foo1(int x = 30, int y = 20 , int z = 10);
-void foo2(int x, int y = 20 , int);		      // Syntax Error
+void foo2(int x, int y = 20 , int);	    // Syntax Error
 void foo3(int x, int y = 20 , int z = 10);  // Not Syntax Error
 
 int main() {
 
 	func(10, 20, 30);  // OK --> z = 30
 	func(10, 20);      // OK --> z = 10
-	func(10);		       // NOT OK --> second argument shall be sent !
-	func();			       // NOT OK --> first and second arguments shall be sent !
+	func(10);	   // NOT OK --> second argument shall be sent !
+	func();		   // NOT OK --> first and second arguments shall be sent !
 	func(1, 2, 3, 4);  // NOT OK --> No fourth parameters in function declaration
 
 	foo1();       // OK --> foo1(30,20,10);
@@ -82,7 +80,6 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: 
 ```cpp
 #include <iostream>
 
@@ -99,7 +96,6 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** : 
 ```cpp
 #include <iostream>
 
@@ -163,7 +159,7 @@ void foo(int x, int y, int z) {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: Default arguments for references 
+- **Example** : Default arguments for references 
 
 ```cpp
 #include <iostream>
@@ -200,7 +196,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: Default arguments for functions with string parameters (const char*) 
+- **Example** : Default arguments for functions with string parameters (const char*) 
 
 ```cpp
 #include <iostream>
@@ -217,7 +213,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: Default arguments for functions defined in a header file
+- **Example** : Default arguments for functions defined in a header file
 
 ```cpp
 #include <iostream>
@@ -236,7 +232,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: Calling default arguments with wrapper functions
+- **Example** : Calling default arguments with wrapper functions
 
 ```cpp
 #include <iostream>
@@ -259,8 +255,6 @@ int main() {
 
 /----------------------------------------------
 /----------------------------------------------
-
-- **Example**: 
 
 ```cpp
 #include <iostream>
@@ -395,6 +389,7 @@ int main() {
 /----------------------------------------------
 
 - **Example** : Function redecleration for default arguments
+
 ```cpp
 #include <iostream>
 
