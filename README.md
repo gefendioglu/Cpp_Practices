@@ -20,7 +20,7 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
 
 - [Enum Types & Enum Class](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/12_Enum_Types_Classes.md)
 
-- [Static Data Mmebers & Static Member Functions](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/13_Static_Members.md)
+- [Static Data Members & Static Member Functions](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/13_Static_Members.md)
 
 ## Data Structures in C++: 
 
