@@ -29,9 +29,10 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
 - [Class Types](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/25_Classes.md)
   - Scope Definitions, Name Lookup Rules, Access Control, This Pointer, Setter & Getter Functions, Inline Functions 
 
-- [Constructors & Destructors](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/37_Constructors_Destructors.md)
-
-- [Copy & Move Functions](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/39_Copy_Move_Functions.md)
+- [Special Member Functions]
+   - [Constructors & Destructors](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/37_Constructors_Destructors.md)  
+   
+   - [Copy & Move Functions](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/39_Copy_Move_Functions.md)
 
 - [Function Overloading](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/27_Function_Overloading.md)
   - Const Overloading, Function Overload Resolution 
