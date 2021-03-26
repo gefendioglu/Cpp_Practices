@@ -28,6 +28,7 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
   - Scope Definitions, Name Lookup Rules, Access Control, This Pointer, Setter & Getter Functions, Inline Functions 
 
 - [Function Overloading](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/27_Function_Overloading.md)
+  - Const Overloading, Function Overload Resolution 
 
 - [Operator Overloading](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/29_Operator_Overloading.md)
 
