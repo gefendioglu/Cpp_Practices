@@ -114,7 +114,7 @@ int main(){
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: A sample for the usage of auto keyword with references 
+- **Example** : A sample for the usage of auto keyword with references 
 
 ```cpp
 #define _CRT_SECURE_NO_WARNINGS
@@ -145,7 +145,7 @@ int main(){
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: A sample for the usage of reference values 
+- **Example** : A sample for the usage of reference values 
 
 ```cpp
 #define _CRT_SECURE_NO_WARNINGS
@@ -170,7 +170,7 @@ int main(){
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example**: A sample for the usage of auto keyword with references and pointer
+- **Example** : A sample for the usage of auto keyword with references and pointer
 
 ```cpp
 #define _CRT_SECURE_NO_WARNINGS
@@ -192,7 +192,7 @@ int main(){
 /----------------------------------------------
 /----------------------------------------------
 
-## Forwarding Reference: 
+## Forwarding Reference 
 
 - Related to perfect forwarding mechanism (auto &&refref = expr;)
 
