@@ -53,13 +53,12 @@ public:
 	MyClass();	
 	MyClass() const;  // NOT OK, constructors are not const!!!
 	static MyClass(); // NOT OK, constructors are not static!!!
-					          // static ctor is valid for some other languages
+			  // static ctor is valid for some other languages
 	// Constructor Overloading 
 	MyClass(int);	
 	MyClass(int,int);	
 	MyClass(double);	
 	void func();
-  
 private:
 	int mx, my;
 };
@@ -82,10 +81,9 @@ int main() {
 
 class Data {
 public:
-	Data(int x) {	std::cout << "Data(int x)\n";	}
-	Data(double x) {	std::cout << "Data(double x)\n"; }
+	Data(int x) { std::cout << "Data(int x)\n"; }
+	Data(double x) { std::cout << "Data(double x)\n"; }
 	Data(int x, int y) { std::cout << "Data(int x, int y)\n"; }
-  
 private: 
 	int mx, my, mz;
 };
@@ -95,7 +93,7 @@ int main() {
 	Data data1{1.2};   // Data(double x)
 	Data data2{20};    // Data(int x)
 	Data data3{2.0f};  // float --> double (promotion)
-					           // Data(double x) is called !!!
+			   // Data(double x) is called !!!
 	Data data4{ 65u }; // NOT OK, ambiquity
   
 }
@@ -201,7 +199,7 @@ int main() {
 class Data {
 public:
 	Data() { std::cout << "Data ctor is called..this : " << this << "\n";	}
-	~Data() {	std::cout << "Data destructor is called..this : " << this << "\n"; }
+	~Data() { std::cout << "Data destructor is called..this : " << this << "\n"; }
 private:
 	int mx, my;
 };
@@ -214,7 +212,7 @@ void func() {
 	static int cnt = 0;
 	std::cout << "func is called with "<< ++cnt << " times" "\n";
 	
-  // static local objects, this object will be destructed after main() func is completed.
+       // static local objects, this object will be destructed after main() func is completed.
 	static Data sData;
   
 }
@@ -296,7 +294,7 @@ public:
 
 int main() {
 	Data arrayData[100];
-  /*
+  	/*
 		To be executed again...
 	*/
 }
@@ -314,7 +312,7 @@ int main() {
 class Data {
 public:
 	Data() { std::cout << "Data ctor is called..this : " << this << "\n";	}
-	~Data() {	std::cout << "Data destructor is called..this : " << this << "\n"; }
+	~Data() { std::cout << "Data destructor is called..this : " << this << "\n"; }
 };
 
 int main() {
@@ -325,7 +323,7 @@ int main() {
 	std::cout << "main() function is still going on [1]...\n";
 	std::cout << "main() function is still going on [2]...\n";
 	
-  delete data;
+  	delete data;
 	std::cout << "main() function is still going on [3]...\n";
 	std::cout << "main() function is still going on [4]...\n";
 	std::cout << "main() function is still going on [5]...\n";
@@ -397,8 +395,8 @@ int main() {
 	for (int i = 0; i < 10; ++i)
 		foo(mData);
 		// because the parameter is call by value
-	  // copy ctor is also called in this case
-	  // destructor is called ten times.
+	  	// copy ctor is also called in this case
+	 	// destructor is called ten times.
 	
 	/*
 		To be executed to add here. 
@@ -417,7 +415,7 @@ int main() {
 class Data {
 public:
 	Data() { std::cout << "Data() default ctor is called..this : " << this << "\n";	}
-	~Data() {	std::cout << "~Data() destructor is called..this : " << this << "\n";	}
+	~Data() { std::cout << "~Data() destructor is called..this : " << this << "\n";	}
 private: 
 	int mx, my, mz;
 };
@@ -450,8 +448,8 @@ int main() {
 
 class Data {
 public:
-	Data(int x) {	std::cout << "Data(int x) ctor is called... x: "<< x << " this: " << this << "\n"; }
-	~Data() {	std::cout << "~Data() destructor is called... this : " << this << "\n";	}
+	Data(int x) { std::cout << "Data(int x) ctor is called... x: "<< x << " this: " << this << "\n"; }
+	~Data() { std::cout << "~Data() destructor is called... this : " << this << "\n"; }
 private: 
 	int mx, my, mz;
 };
@@ -483,8 +481,8 @@ int main() {
 
 class Data {
 public:
-	explicit Data(int x) { std::cout << "Data(int x) ctor is called... x: "<< x << " this: " << this << "\n";	}
-	~Data() {	std::cout << "~Data() destructor is called... this : " << this << "\n";	}
+	explicit Data(int x) { std::cout << "Data(int x) ctor is called... x: "<< x << " this: " << this << "\n"; }
+	~Data() { std::cout << "~Data() destructor is called... this : " << this << "\n"; }
 private: 
 	int mx, my, mz;
 };
@@ -510,14 +508,13 @@ class Data {
 public:
 	// constructor initializer list
 	Data(int x, int y, int z, const int cm, double ref) :mx{ x }, my{ y }, mz{ z }, cm{cm}, ref{ ref }{
-    std::cout << "Data ctor is called...\n";
+    		std::cout << "Data ctor is called...\n";
 		//The followings are assignment, not initialization 
 		//this->mx = 0; 
 		//this->ref = 0;
 		//this->cm = 0; can not be assigned any values
 	}
-	~Data() {	std::cout << "Data destructor is called...\n"; }
-  
+	~Data() { std::cout << "Data destructor is called...\n"; }
 private: 
 	int mx, my, mz;
 	const int cm; // const data members must be initilalized
@@ -561,7 +558,7 @@ public:
 		std::cout << "Data(const int cm, double ref) ctor is called...\n";
 	}
 
-	~Data() {	std::cout << "Data destructor is called...\n"; }
+	~Data() { std::cout << "Data destructor is called...\n"; }
 
 	void print()const {
 
@@ -573,7 +570,6 @@ public:
 		std::cout << " cm : " << cm << "\n"; 
 		std::cout << " ref : " << ref << "\n";
 	}
-
 private: 
 	int mx, my, mz;
 	int* ptr;
@@ -624,9 +620,10 @@ class Data {
 public:
 	Data() : mx{ 0 } { std::cout << "Data() default ctor is called...this : " << this << "\n"; }
 	Data(int x) : mx{ x } {	std::cout << "Data(int x) is called...this : " << this << "\n";	}
-	Data(const Data& other) : mx{ other.mx } { std::cout << "Data(const Data&) copy ctor is called...this : " << this << "\n"; }
-	~Data() {	std::cout << "~Data() destructor is called...this : " << this << "\n"; }
-  
+	Data(const Data& other) : mx{ other.mx } { 
+		std::cout << "Data(const Data&) copy ctor is called...this : " << this << "\n"; 
+	}
+	~Data() { std::cout << "~Data() destructor is called...this : " << this << "\n"; }
 private:
 	int mx;
 };
@@ -651,8 +648,8 @@ int main() {
 	std::cout << "main() is still going on...\n\n";
 
 	func(Data{ 10 }); // copy elimination is applied by compiler
-					  // not calling copy ctor for Data{10}
-					  // calling Data(int x) directly 
+			  // not calling copy ctor for Data{10}
+			  // calling Data(int x) directly 
 					   
 	// Second destructor is called here for Data{ 10 }
 	std::cout << "main() is still going on...\n\n";
