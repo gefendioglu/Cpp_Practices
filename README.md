@@ -22,6 +22,8 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
 
 - [Pointer Types](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/20_Pointers.md)
 
+- [Smart Pointers](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/30_Smart_Pointers.md)
+
 - [Reference Types](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/22_References.md)
 
 - [Class Types](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/25_Classes.md)
