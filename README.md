@@ -8,10 +8,6 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
 
 - [Call By Value & Call By Reference & Return Value](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/15_Call_By_Value_Reference.md)
 
-- [Pointer Types](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/20_Pointers.md)
-
-- [Reference Types](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/22_References.md)
-
 - [Initialization & Assignment](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/17_Initialization_Assignment.md)
 
 - [Default Arguments](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/23_Default_Arguments.md)
@@ -24,6 +20,11 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
 
 - [Static Data Members & Static Member Functions](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/13_Static_Members.md)
 
+- [Pointer Types](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/20_Pointers.md)
+
+- [Reference Types](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/22_References.md)
+
+- [Class Types](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/25_Classes.md)
 
 
 ## Data Structures in C++: 
