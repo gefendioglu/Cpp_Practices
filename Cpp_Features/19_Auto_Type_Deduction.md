@@ -164,11 +164,11 @@ int main() {
 	auto ptr = &firstNumber;    // ptr --> int* ptr 
 	auto* p = &firstNumber;     // p --> int* p
 	
-  // ----------------------------------------------
+        // ----------------------------------------------
 	int* intPtr;
 	auto p = &intPtr;  // p --> int** p
 	
-  // ----------------------------------------------
+        // ----------------------------------------------
 	int* const constPtr = &firstNumber;
 	auto p = &constPtr; // p --> int* const* p
 
@@ -176,7 +176,7 @@ int main() {
 	// ----------------------------------------------
 	auto& refAuto = firstNumber;        // refAuto -->  int& refAuto
 	const auto &refConstAuto = refAuto; // refConstAuto --> const int& refConstAuto --> 
-									                    // very common usage
+					    // very common usage
 	
 	// Static Auto -->  static is not a type specifier
 	// ----------------------------------------------
