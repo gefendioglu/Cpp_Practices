@@ -1,0 +1,687 @@
+
+## STATIC DATA MEMBERS
+
+- Static data members are defined in a class (not declared). The declaration shall be made in cpp source files. 
+
+- There should not be "static" keyword in the data declaration in cpp files.
+
+- There is no space allocation for static members in a class. This situation can be controlled by sizeof operator. 
+
+- The type of static data members can be "incomplete type". 
+
+- Classes can not have non-static data members of their own type. However, they can have static objects of their own type. In that case, this kind of data types can be assumed as incomplete data type.  
+
+- Name lookup is started within class scope for static data member initialization. 
+
+- Static members which has got const & integral data type can be initialized in class. In this case, these data items are considered to be defined even if they are not defined in the cpp file. If "constexpr" keyword is used instead of "static const", then it is not mandatory that data type is one of integral types and in class initialization is also valid for the other types. 
+
+- In standard library, there are so many static data members like as :
+  - std::numeric_limits<int>::digits --> in <numeric> lib.
+
+- Best Practice: non-const static data members are generally defined under private access specifier of classes. In this case, static member functions shall use these static data members in a controlled manner. 
+
+- Best Practice: const static data members are used more common than non-consts. 
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Static data members in a class
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Member {
+public:
+	static int smx;
+  
+private:
+	int mx, my, mz;
+	char str[16];
+	double dval;
+	static int sx, sy, sz;
+	static int sarr[100];
+};
+
+int main() {
+	
+	Member::smx = 10;
+	// error LNK2001: unresolved external symbol "public: static int Member::smx" 
+
+	std::cout << "sizeof(Member): " << sizeof(Member) << "\n";
+	//sizeof(Member): 40 --> not including static members
+	
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : The definition and declaration of static data members of classes
+
+```cpp
+class Data;
+
+// member.h
+class Member {
+public:
+	static const int primes[];
+  
+private:
+	static int smx, smy, smz, smt;
+	static Data sdata; // Incomplete data type
+	Member mem; // ERROR, can not have an object of its own class type.
+	static Member smem; // NOT ERROR, Incomplete data type
+	static std::string str;
+	static unsigned char buffer[];
+};
+
+// member.cpp
+// not including static keyword in cpp file
+int Member::smx;
+int Member::smy{10};
+int Member::smt = 20;
+int Member::smz(15);
+int Member::smz(); // ERROR, not an appropriate init. type
+unsigned char Member::buffer[5]{0};
+const int Member::primes[]{2,3,4,5,6,7}; // not necessary to specify its size 
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Static data members of classes
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+// member.h
+class Member {
+public:
+	static int smx;
+private:
+};
+
+// member.cpp
+int Member::smx{};
+
+int main() {
+
+	std::cout << "Member::smx : " << Member::smx << "\n";
+	Member::smx = 10;
+	std::cout << "Member::smx : " << Member::smx << "\n";
+	/*
+		Member::smx : 0
+		Member::smx : 10
+	*/
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : The static data members can be accessed by using class type pointer or references (not a suggested way). 
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+// member.h
+class Member {
+public:
+	static int smx;
+private:
+};
+
+// member.cpp
+int Member::smx{};
+
+int main() {
+
+	Member mem;
+	Member* ptr = &mem;
+	Member& ref = mem;
+	
+	mem.smx = 10;
+	ptr->smx = 45;
+	ref.smx = 25;
+  
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Name lookup is started within class scope for static data member initialization.
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+// member.h
+class Member {
+public:
+	static int mx;
+	static int smx;
+	static const int x = 10;
+	static const bool flag = true;
+	static const double dx = 1.0; // ERROR, double is not an integral type
+private:
+};
+
+// member.cpp
+int mx = 10;
+int Member::mx = 65;
+int Member::smx = mx; // Member::mx, because of class scope
+
+int main() {
+
+	std::cout << "Member::smx : " << Member::smx << "\n"; // Member::smx : 65
+	
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Class declaration for static class data members 
+
+```cpp
+// instead of including header file (like as #include "data.h")
+// Adding forward class declaration is enough !!!
+class Data; 
+
+// member.h
+class Member {
+public:
+	static Data sdata;
+	static class Myclass sclass; // NOT ERROR
+};
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+##  STATIC MEMBER FUNCTIONS
+
+- Static member functions dont have this pointer in a class. 
+
+- Static function definition: 
+  - func definition wtih "static" keyword creates an internal linkage. It means this func is only called from the cpp file. It is not possible to be called by other cpp files.
+  - the static functions defined in C can be assumed that they are in an unnamed namespace scope without using static keyword.  
+
+- Static member functions:
+  - can call other static member functions directly
+  - can reach/use static data members directly
+  - However, they can not call non-static member functions and not reach non-static data members directly. Because there is no this pointer for static functions. 
+
+- Static member functions can not declared/defined with "const" keyword. Because, this keyword represents the constantness of class address in which it is used. Since static functions dont have "this" pointer, no possibility to be const function for them. 
+
+- When calling a static member function from an object or a pointer, the address of this function is not sent to the function which is calling. Calling a static member function from client code with scope resolution operator shall be preffered in general. 
+
+- Why static local variables are preferred instead global variables? 
+  - static local variables can reach private data members, while global variables can not. 
+
+- The address types of static member functions are different from the address types of non-static member functions.
+
+- The address types of static member functions and global variables are the same.
+
+- There is no static constructor definition in Cpp. 
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Static functions from C
+
+```cpp
+// member.cpp
+// static function definition --> internal linkage
+static void foo() {
+
+}
+
+// static functions from C, like as in an unnamed namespace without using static keyword in Cpp. 
+namespace {
+	int func(int val) {
+		//...
+		return val * val;
+	}
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Static member functions with "this" pointer
+  - STATIC macro definition can be made to increase the code readibility 
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#define STATIC 
+
+// member.h
+class Member {
+public:
+	void func(int);            // it has got this pointer
+	static int ival;
+	static void sfunc(int);    // it has not got this pointer
+	static void sfunc(double); // it has not got this pointer
+private:
+	int mx;
+};
+
+// member.cpp
+void Member::func(int) {
+	this->mx = 10; // NOT ERROR
+}
+// with STATIC macro
+STATIC void Member::sfunc(int) {
+	mx = 10;   // ERROR, there is no this pointer
+	ival = 10; // NOT ERROR, ival is not in the object pool
+	Member::ival = 20; // to show ival is a static member
+} 
+
+// without STATIC macro 
+void Member::sfunc(double) {}  
+
+int main() {
+
+	Member member;
+	member.func(10);  // this pointer is sent implicitly
+	member.sfunc(15); // like as global functions
+	auto sval = Member::sfunc(12); // can not deduce type 
+
+	return EXIT_SUCCESS;
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Function calling from a static member function 
+
+```cpp
+#include <iostream>
+
+// member.h
+class Member {
+public:
+	static void sfunc(int) {
+		foo(); // ERROR, no this pointer for this static func.
+		// error C2352: 'Member::foo': illegal call of non-static member function
+		sfunc2(); // NOT ERROR
+	}
+	void foo(){}
+	static void sfunc2(){}
+};
+
+int main() {
+
+	Member member;
+	member.sfunc(10);
+  
+	return EXIT_SUCCESS;
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Static member function declarations/definitions
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+// member.h
+class Member {
+public:
+	void sfunc(); // function overloading with the following function (static void sfunc(int);)
+	static void sfunc(int) {
+		foo(); // ERROR, no this pointer for this static func.
+		Member mem1, mem2;
+		sfunc2(mem1, mem2); // NOT ERROR
+	}
+
+	Member foo(){}
+  
+	static void sfunc2(const Member& rx, const Member& ry) {
+		mx = rx.mx; // NOT ERROR, static members are not in the object pool
+		my = ry.my; // ERROR, no this pointer for non-static members
+	}
+  
+	static void sfunc3() const {};  // ERROR, can not be const !!!
+	void foo() const {
+		mx = 10;
+	}
+private:
+	static int mx;
+	int my;
+};
+
+int main() {
+
+	Member member;
+	member.sfunc(10);
+
+	return EXIT_SUCCESS;
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Calling static member functions over an object or with scope resolution operator. 
+The latter shall be preferred as general.  
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+// member.h
+class Member {
+public:
+	static void sfunc(int){}
+};
+
+int main() {
+
+	Member mem1, mem2, mem3;
+	mem1.sfunc(10); // 	equal to --> Member::sfunc(10);
+	mem2.sfunc(20); //  equal to --> Member::sfunc(20);
+	mem3.sfunc(30); //  equal to --> Member::sfunc(30);
+	
+	return EXIT_SUCCESS;
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Function overloading with static member functions
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+// member.h
+class Member {
+public:
+	static void sfunc(int){}
+	void sfunc(){}
+	void foo() {
+		sfunc(15); // not equal to this->sfunc(15);
+		sfunc();   // equal to this->sfunc();
+	}
+};
+
+// account.h
+class Account {
+public:
+	Account(double sum, double interest_rate);
+	Account(double balance, double annual_interest); // redecleration, not function overloading
+  
+private:
+	int mx;
+};
+
+int main() {
+
+	Member mem;
+	mem.sfunc(15);
+	mem.sfunc();
+	
+	return EXIT_SUCCESS;
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Named constructor idiom with static member functions
+  - **Named Constructor Idiom**: Making constructor private, and defining a factory function in public area.
+  - This idiom can be used when function overloading is not possible.
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+// Named Constructor Idiom - with a factory function
+// member.h
+class Member {
+public:
+	static Member createObject(int x);
+private:
+	int mx;
+	Member(int x) :mx{ x } {}
+};
+
+//member.cpp
+Member Member::createObject(int x) {
+	//...
+	return Member{ x }; // return with temp object
+}
+
+int main() {
+
+	auto obj = Member::createObject(12);
+	return EXIT_SUCCESS;
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Using static data and functions with classes
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+//complex.h
+class Complex {
+public:
+	static Complex createCartesian(double r, double i) {
+		return Complex(r, i, 0);
+	}
+	static Complex createPolar(double distance, double angle){
+		return Complex(distance, angle);
+	}
+private:
+	int mx;
+	// adding int parameter to provide func. overloading
+	Complex(double r, double i, int);
+	Complex(double distance, double angle);
+};
+
+class Formula {
+private:
+	Complex comp1 = Complex::createCartesian(1.2, 4.5);
+};
+
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : How many instances in the program?
+  - Static counter definition can be used in that case.
+    - counter is increased with constructors and copy ctors
+    - counter is decreased with destructors
+  - The address types of static member functions are different from the address types of non-static member functions.
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+#include<string> 
+
+int foo();
+
+// fighter.h
+/*-------------------------------------------------*/
+class Fighter {
+public:
+	Fighter() {
+		++ms_live_count;
+		++ms_total_count;
+	}
+	Fighter(const std::string &name, int age) : mname{ std::move(name) }, mage{ age }{
+		++ms_live_count;
+		++ms_total_count;
+	}
+	~Fighter() {
+		--ms_live_count;
+	}
+	// after writing destructor, copy ctor and copy assignment shall be written too (big three, big five rules)
+	Fighter(const Fighter& ref) = delete;
+	Fighter& operator=(const Fighter& ref) = delete;
+	
+	int getAge() const { return mage; }
+	std::string getName() const { return mname; }
+	void kill();
+	void run();
+	static int get_live_count();
+	static int get_total_count();
+
+private:
+	inline static int ms_live_count{};
+	inline static int ms_total_count{};
+	std::string mname = "noname";
+	int mage = 0;
+};
+
+// fighter.cpp
+/*-------------------------------------------------*/
+int Fighter::get_live_count() {
+	return ms_live_count;
+}
+
+int Fighter::get_total_count() {
+	return ms_total_count;
+}
+
+// client code
+/*-------------------------------------------------*/
+int main() {
+
+	// function to pointer conversion, not necessary to use address operator
+	// OK, for static member functions
+	// auto fptr1 = Fighter::get_live_count;
+	int (*fptr1)() = Fighter::get_live_count; 
+
+	// auto fptr2 = foo;
+	//int (*fptr2)() = foo; 
+		
+	// NOT OK, for non-static member function
+	// member function pointer is not appropriate
+	// void (*fptr3)() = Fighter::kill; 
+
+	std::cout << "The number of live fighter : " << Fighter::get_live_count() << "\n";
+	
+	if (true) {
+		auto fighter1 = new Fighter("Gamze" , 33 );
+		auto fighter2 = new Fighter("Mehmet" , 34);
+		
+		std::cout << "The number of live fighter : " << Fighter::get_live_count() << "\n";
+		std::cout << "The number of total fighter : " << Fighter::get_total_count() << "\n";
+		
+		delete fighter1;
+		delete fighter2;
+	}
+	std::cout << "\n";
+
+	std::cout << "The number of live fighter : " << Fighter::get_live_count() << "\n";
+	std::cout << "The number of total fighter : " << Fighter::get_total_count() << "\n";
+
+	return EXIT_SUCCESS;
+
+	/*
+		The number of live fighter : 0
+		The number of live fighter : 2
+		The number of total fighter: 2
+
+		The number of live fighter : 0
+		The number of total fighter: 2
+	
+	*/
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Using static data and functions with classes
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+#include<string> 
+#include<vector> 
+#include<algorithm> 
+
+// fighter.h
+/*-------------------------------------------------*/
+class Fighter {
+public:
+	Fighter() {
+		msvec.push_back(this);
+	}
+	Fighter(const std::string &name, int age) : mname{ std::move(name) }, mage{ age }{
+		// the address of instance is stored in a vector 
+		msvec.push_back(this);
+	}
+	~Fighter() {
+		auto iter = std::find(msvec.begin(), msvec.end(), this);
+		// iter type --> std::vector<Fighter>::iterator
+		
+		// if iter is found in the vector
+		if (iter != msvec.end()) 
+			msvec.erase(iter);
+		else
+			std::cerr << "Not found!!!\n";
+	}
+
+	Fighter(const Fighter& ref) = delete;
+	Fighter& operator=(const Fighter& ref) = delete;
+	
+	int getAge() const { return mage; }
+	std::string getName() const { return mname; }
+	void kill();
+	void run();
+	void ask_help(){}
+private:
+	std::string mname = "noname";
+	int mage = 0;
+	inline static std::vector<Fighter*> msvec{};
+};
+
+// client code
+/*-------------------------------------------------*/
+int main() {
+
+	// Static objects
+	Fighter f1{ "Mehmet", 25 };
+	Fighter f2{ "Ayse", 26 };
+	Fighter f3{ "Ece", 27 };
+	Fighter f4{ "Utku", 30 };
+
+	// Dynamic objects
+	auto pf1 = new Fighter{"Selin", 32};
+	auto pf2 = new Fighter{"Özge", 33};
+	auto pf3 = new Fighter{"Sinem", 34};
+	
+	delete pf2;
+	delete pf3;
+
+	// asking help for the other live fighters
+	f2.ask_help();
+
+	return EXIT_SUCCESS;
+
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------

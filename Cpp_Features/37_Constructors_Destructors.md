@@ -1,0 +1,654 @@
+
+## CONSTRUCTORS 
+
+- Constructors have the same name like class name 
+- Constructors dont have any return value mechanism 
+- Constructors can be defined in cpp files.
+- Constructors can not be called by a class instance from client code. 
+- Constructors can be overloaded!!!
+- Constructors can be public, private or protected.
+- Constructors must not be : 
+  - static member function 
+  - const member functions 
+  - global functions 
+
+### Default Constructor: 
+
+- If there is no constructor declaration/definition in a class, compiler writes public/non-static/inline/default constructor automatically (implicitly declared constructor). 
+  For ex: MyClass(){} // with no parameters 
+
+- Default constructors are the contructors with no parameters or with parameters taken default arguments for all. 
+
+- If the compiler gets into writing an invalid code while writing one of the special member functions of the class, then it deletes the special member function it should write.
+
+- If the functions which are going to be deleted are "move" functions, these functions are considered as not declared at all. 
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Constructor Overloading 
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+// myclass.h
+class MyClass {
+public:
+	MyClass();	
+	MyClass() const;  // NOT OK, constructors are not const!!!
+	static MyClass(); // NOT OK, constructors are not static!!!
+			  // static ctor is valid for some other languages
+	// Constructor Overloading 
+	MyClass(int);	
+	MyClass(int,int);	
+	MyClass(double);	
+	void func();
+private:
+	int mx, my;
+};
+
+int main() {
+	MyClass m;
+	m.func();    // OK
+	m.MyClass(); // NOT OK, constructors can not be called from client code!!!
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Constructor Overloading
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data {
+public:
+	Data(int x) { std::cout << "Data(int x)\n"; }
+	Data(double x) { std::cout << "Data(double x)\n"; }
+	Data(int x, int y) { std::cout << "Data(int x, int y)\n"; }
+private: 
+	int mx, my, mz;
+};
+
+int main() {
+
+	Data data1{1.2};   // Data(double x)
+	Data data2{20};    // Data(int x)
+	Data data3{2.0f};  // float --> double (promotion)
+			   // Data(double x) is called !!!
+	Data data4{ 65u }; // NOT OK, ambiquity
+  
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Default constructors and creating a class instance 
+
+```cpp
+// data.h
+class Data {
+public:
+	Data(int); // No defualt ctor for this class
+private:
+	int mx, my;
+};
+
+int main() {
+
+	Data dt; // NOT OK, because no default ctor definition!!!
+	         // no appropriate default ctor available error
+	Data data{10}; // OK, because Data(int) ctor 
+  
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+## DESTRUCTORS 
+
+- While creating an class instance, it is mandatory that its constructor to be finalized (to be executed till the end of constructor scope). However, while destructing an instance, it is only enough to call its destructor in run time. 
+- Destructors are non-static class member functions
+- Destructors have the same name with class name (with tilde token)
+- Destructors dont have a return value mechanism 
+- Destructors can not be overloaded !!!
+- Destructors can be called by a class instance from a client code, but in one special case. 
+- Destructors dont take any parameters !!!
+- Destructors can not be:
+  - static member functions
+  - const member functions 
+  - global functions
+  like as constructors. 
+- If there is no destructor declaration/definition in a class, compiler writes public/non-static/inline destructor automatically (implicitly declared destructor)
+- It is mandatory for a class to have a destructor (implicitly declared or not). Not possible the otherwise. 
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : The usage of destructors
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+// data.h
+class Data {
+public:
+	Data(int);
+	~Data();
+private:
+	int mx, my;
+};
+
+int main() {
+
+	Data data{10}; // OK, because Data(int); ctor
+	data.~Data();  // OK, for a special case, not common usage
+
+	Data *ptr = new Data(10);
+	ptr->~Data();  // OK, for a special case, not common usage
+  
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- General Notes related to class objects with constructors & destructors:
+  - Class objects can be static, automatic, dynamic.  
+  
+  - Static local variables (local static instance definition) is equal to global variables (global instance definition). 
+  
+  - The usage of global class objects are very common in the embedded programming area (like as std::cout, std::cin)
+  
+  - The order of starting to life for the global objects (or static local objects) in different files is not guaranteed. 
+  (Static Initialization Fiasco). Can the order of life come to be controlled with "forward declaration"?
+ 
+  - Normally, constructors are called in the order that they are defined for global class objects defined under the same file.
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Global class objects and ctor/destructors (TO BE EXECUTED AGAIN)
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+// data.h
+class Data {
+public:
+	Data() { std::cout << "Data ctor is called..this : " << this << "\n";	}
+	~Data() { std::cout << "Data destructor is called..this : " << this << "\n"; }
+private:
+	int mx, my;
+};
+
+// global class objects
+Data globalData;
+
+void func() {
+
+	static int cnt = 0;
+	std::cout << "func is called with "<< ++cnt << " times" "\n";
+	
+       // static local objects, this object will be destructed after main() func is completed.
+	static Data sData;
+  
+}
+
+int main() {
+	
+	std::cout << "main() function is called\n";
+	std::cout << "&globalData : " << &globalData << "\n";
+	
+	for (int i = 0; i < 10; ++i)
+		func();
+	std::cout << "main() function is ended\n";
+
+	/*  
+		Data ctor is called..this : 00AEE138
+		main() function is called
+		&globalData : 00AEE138
+		main() function is ended
+		Data destructor is called..this : 00AEE138
+	*/
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Class objects and their life (with the relations of constructors & destructors)
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data {
+public:
+	Data() { std::cout << "Data ctor is called..this : " << this << "\n"; }
+	~Data() {	std::cout << "Data destructor is called..this : " << this << "\n"; }
+private:
+	int mx, my;
+};
+
+int main() {
+	
+	Data firstData;
+	// Default ctor shall be called here for firstData object.
+	std::cout << "main() function is called\n";
+	{
+		Data secondData;
+		// Default ctor shall be called here for secondData object.
+		std::cout << "main() function is still going on...\n";
+		// Destructor shall be called here for secondData object.
+	}
+
+	std::cout << "main() function is ended\n";
+	// Destructor shall be called here for firstData object.
+		
+	/*
+		To be executed again...
+	*/
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Printing the numbers from 0 to 100 on the console using with constructors & destructors
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data {
+public:
+	Data() {
+		static int ival = 0;
+		std::cout << ival++ << " ";
+	}
+	~Data() {}
+};
+
+int main() {
+	Data arrayData[100];
+  	/*
+		To be executed again...
+	*/
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Dynamic Memory Allocation by calling constructors & destructors
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data {
+public:
+	Data() { std::cout << "Data ctor is called..this : " << this << "\n";	}
+	~Data() { std::cout << "Data destructor is called..this : " << this << "\n"; }
+};
+
+int main() {
+	
+	// Default ctor shall be called here for firstData object.
+	std::cout << "main() function is called\n";
+	auto data = new Data;
+	std::cout << "main() function is still going on [1]...\n";
+	std::cout << "main() function is still going on [2]...\n";
+	
+  	delete data;
+	std::cout << "main() function is still going on [3]...\n";
+	std::cout << "main() function is still going on [4]...\n";
+	std::cout << "main() function is still going on [5]...\n";
+	std::cout << "main() function is ended\n";
+
+	/*
+		To be executed to add here. 
+	*/
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Calling destructors
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data {
+public:
+	Data() { std::cout << "Data ctor is called..this : " << this << "\n";	}
+	~Data() {	std::cout << "Data destructor is called..this : " << this << "\n"; }
+};
+
+int main() {
+	
+	Data data;
+	Data* ptr = &data; 
+	// not a dynamic memory allocation 
+	// the destructor will be called when main() function is ended
+
+	/*
+		To be executed to add here. 
+	*/
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : 
+  - Calling ctor and destructor only once with "call by reference"
+  - Calling ctor and destructor more than once with "call by value"
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data {
+public:
+	Data() { std::cout << "Data ctor is called..this : " << this << "\n";	}
+	~Data() { std::cout << "Data destructor is called..this : " << this << "\n"; }
+};
+
+void func(Data& data) {	/*...*/ }
+void foo(Data data) {	/*...*/ }
+
+int main() {
+	
+	Data data;
+	for (int i = 0; i < 10; ++i)
+		func(data); 
+	  // because the parameter is call by ref
+	  // ctor & destructor are called only once !!!
+	
+	Data mData;
+	for (int i = 0; i < 10; ++i)
+		foo(mData);
+		// because the parameter is call by value
+	  	// copy ctor is also called in this case
+	 	// destructor is called ten times.
+	
+	/*
+		To be executed to add here. 
+	*/
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : How can we create an object by calling default ctor? 
+  - If the constructor is written with parameters, then default ctor is not implicitly created by compiler. 
+  - User has the responsibility to write default ctor as needed. 
+
+```cpp
+class Data {
+public:
+	Data() { std::cout << "Data() default ctor is called..this : " << this << "\n";	}
+	~Data() { std::cout << "~Data() destructor is called..this : " << this << "\n";	}
+private: 
+	int mx, my, mz;
+};
+
+int main() {
+	
+	// calling default ctor for all the following cases
+	Data data;      // default init.
+	Data data{};    // value init. 
+	Data data();    // function declaration 
+	                // prototyped function not called warning 
+
+	Data arr[10];   // default init. for class arrays
+	Data arr[10]{}; // value init. for class arrays
+
+	/*
+		To be executed again... 
+	*/
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Calling ctor with parameters 
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data {
+public:
+	Data(int x) { std::cout << "Data(int x) ctor is called... x: "<< x << " this: " << this << "\n"; }
+	~Data() { std::cout << "~Data() destructor is called... this : " << this << "\n"; }
+private: 
+	int mx, my, mz;
+};
+
+int main() {
+	
+	// calling ctor with parameters 
+	Data data1(10);    // direct init.
+	Data data2{ 20 };  // direct list init., uniform init.
+	Data data3{ 2.5 }; // narrowing conversion is an error 
+	Data data4 = 30;   // copy init.
+
+	/*
+		To be executed again... 
+	*/
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Explicit ctor 
+  - explicit type specifier are generally used with one-parameter ctors
+  - copy initialization is an error, while using expplicit ctor
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data {
+public:
+	explicit Data(int x) { std::cout << "Data(int x) ctor is called... x: "<< x << " this: " << this << "\n"; }
+	~Data() { std::cout << "~Data() destructor is called... this : " << this << "\n"; }
+private: 
+	int mx, my, mz;
+};
+
+int main() {
+	Data data4 = 30;   
+	// NOT OK, not allowed copy init. with explicit ctor
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** :
+  - Constructor Initializer List / Member Initalizer List (MIL syntax)
+  - initializer_list is a kind of class type, not a constructor initializer list
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data {
+public:
+	// constructor initializer list
+	Data(int x, int y, int z, const int cm, double ref) :mx{ x }, my{ y }, mz{ z }, cm{cm}, ref{ ref }{
+    		std::cout << "Data ctor is called...\n";
+		//The followings are assignment, not initialization 
+		//this->mx = 0; 
+		//this->ref = 0;
+		//this->cm = 0; can not be assigned any values
+	}
+	~Data() { std::cout << "Data destructor is called...\n"; }
+private: 
+	int mx, my, mz;
+	const int cm; // const data members must be initilalized
+	double& ref;  // references must be initilalized
+};
+
+int main() {
+
+	Data data{ 1,2,3,4,5 }; // memory deallocation automatically
+	Data* dataPtr = new Data(1,2,3,4,5);
+	delete dataPtr; // memory deallocation manually
+  
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Constructor Initializer List 
+  - The order of constructor initializer list is not related to specify which object is created first which is not. Instead, the member declaration order does that. 
+  - It should be prefered that all data members are initialized.
+  - Using a pointer as a data member in a class is generally not a good idea.
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+int func(){ 
+	//...
+	return 1;
+}
+
+class Data {
+public:
+	// constructor initializer list
+	Data(int x, int y, int z, const int cm, double ref) :mx{ x }, my{ y }, mz{ z }, ptr{nullptr}, cm{ cm }, ref{ ref }{
+		std::cout << "Data ctor is called...\n";
+	}
+
+	Data(const int cm, double ref) : mz{ func() }, vptr{std::malloc(1000)}, cm{ cm }, ref{ ref }{
+		std::cout << "Data(const int cm, double ref) ctor is called...\n";
+	}
+
+	~Data() { std::cout << "Data destructor is called...\n"; }
+
+	void print()const {
+
+		std::cout << " mx : " << mx << "\n";
+		std::cout << " my : " << my << "\n"; 
+		std::cout << " mz : " << mz << "\n"; 
+		std::cout << " ptr : " << ptr << "\n"; 
+		std::cout << " vptr : " << vptr << "\n"; 
+		std::cout << " cm : " << cm << "\n"; 
+		std::cout << " ref : " << ref << "\n";
+	}
+private: 
+	int mx, my, mz;
+	int* ptr;
+	void* vptr;
+	const int cm; // const data members must be initilalized
+	double& ref;  // references must be initilalized
+};
+
+int main() {
+
+	Data data{ 1,2,3,4,5 };
+	data.print();
+
+	Data mdata{3,4};
+	mdata.print();
+
+	/*
+		To be executed again...
+	*/
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+### Copy Elision (Copy Elimination)
+
+- Not to allow copying and moving for compiler optimization. 
+
+- Copy elision is mandatory after C++17.
+
+- If a function takes class type parameters and it is sent temporary objects as arguments for this type of function, copy elision is applied in that case, not calling the copy ctor. Instead, it is calling parameterized ctor directly. 
+
+- **RVO - Return Value Optimization** : This optimization type does not depend on compiler. It is a mandatory feature. If return value of a function is a temporary object, then copy ctor is not called, instead, copying is eliminated and the object created by calling this kind of function. This feature is not controlled by user manually. 
+
+- **NRVO - Named Return Value Optimization** : This type of optimization depends on compiler. It is not a mandatory feature.
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Copy Elimination, RVO  
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+class Data {
+public:
+	Data() : mx{ 0 } { std::cout << "Data() default ctor is called...this : " << this << "\n"; }
+	Data(int x) : mx{ x } {	std::cout << "Data(int x) is called...this : " << this << "\n";	}
+	Data(const Data& other) : mx{ other.mx } { 
+		std::cout << "Data(const Data&) copy ctor is called...this : " << this << "\n"; 
+	}
+	~Data() { std::cout << "~Data() destructor is called...this : " << this << "\n"; }
+private:
+	int mx;
+};
+
+void func(Data data) {
+	std::cout << "func(Data data) is called...\n";
+}
+
+// RVO - Return Value Optimization
+// Mandatory Copy Elision (C++17)
+// When foo() is called, copy ctor is not called for return value 
+Data foo() {
+	//...
+	return Data{ 20 };
+}
+
+int main() {
+
+	std::cout << "main() is started...\n";
+	func(Data{});
+	// First destructor is called here for Data{}
+	std::cout << "main() is still going on...\n\n";
+
+	func(Data{ 10 }); // copy elimination is applied by compiler
+			  // not calling copy ctor for Data{10}
+			  // calling Data(int x) directly 
+					   
+	// Second destructor is called here for Data{ 10 }
+	std::cout << "main() is still going on...\n\n";
+
+	Data data = foo();
+	std::cout << "main() is ended...\n";
+	// Third destructor is called here for "data" object
+
+	return EXIT_SUCCESS;
+	/*
+		To be executed again!!!
+	*/
+}
+
+/----------------------------------------------
+/----------------------------------------------
+
