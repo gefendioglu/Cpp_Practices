@@ -25,7 +25,7 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
 - [Reference Types](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/22_References.md)
 
 - [Class Types](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/25_Classes.md)
-  - Including Scope Definitions, Name Lookup Rules with Access Control, Inline Functions and This Pointer
+  - Scope Definitions, Name Lookup Rules, Access Control, This Pointer, Setter & Getter Functions, Inline Functions 
 
 - [Function Overloading](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/27_Function_Overloading.md)
 
