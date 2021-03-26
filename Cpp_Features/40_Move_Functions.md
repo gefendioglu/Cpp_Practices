@@ -8,6 +8,9 @@
 - **Non-Persistent Object**: If an object is a R-Value expression (PR-Value or X-Value), then it is non-persistent object. In that case, the resources of these kind of objects can be stolen. Cause, these objects are not going to be used in the remaining part of the program. 
   - **move ctor** is called for non-persistent objects 
  
+/----------------------------------------------
+/----------------------------------------------
+
 ## Move Assignment (with C++11): 
 
 - The implementation of move assignment (non-static, public, inline): 
@@ -31,13 +34,13 @@
 - **Example** : R-Value and L-Value References with functions  
   - R Value References were added to the language to allow the objects to be moved to other objects. 
 
+```cpp
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 
 class Data {
 public:
 	Data() = default;
-private:
 };
 
 // const L-Value Reference
@@ -58,16 +61,18 @@ int main() {
 	Data data;
 	func(data);   // func(const Data &) is called...
 	func(Data{}); // func(Data&&) is called...
-				  // Data{} --> temp. object, PR-Value Expr.
+		      // Data{} --> temp. object, PR-Value Expr.
 
 	return EXIT_SUCCESS;
 }
+```
 
 /----------------------------------------------
 /----------------------------------------------
 
 - **Example** : R-Value and L-Value References with functions 
 
+```cpp
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 
@@ -93,19 +98,21 @@ int main() {
 
 	Data data1;
 	func(data1); // L-Value ref.
-				 // func(const Data& ref) is called...
+		     // func(const Data& ref) is called...
 	func(static_cast<Data&&>(data1)); // R-Value ref.
-									  // func(Data&& ref) is called...
+					  // func(Data&& ref) is called...
 	func(std::move(data1)); // R-Value ref.
-							// func(Data&& ref) is called...
+				// func(Data&& ref) is called...
 	return EXIT_SUCCESS;
 }
+```
 
 /----------------------------------------------
 /----------------------------------------------
 
 - **Example** : R-Value and L-Value References with functions called in other functions
 
+```cpp
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 
@@ -138,13 +145,14 @@ int main(){
 
 	return EXIT_SUCCESS;
 }
-
+```
 
 /----------------------------------------------
 /----------------------------------------------
 
 - **Example** : Move operations (move ctor, move assignment) 
 
+```cpp
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 
@@ -157,12 +165,16 @@ public:
 	Data() = default;
 
 	// copy constructor
-	Data(const Data& other): mt{ other.mt }, mu{other.mu }, mx{ other.mx } {
+	Data(const Data& other): mt{ other.mt }, 
+				 mu{other.mu }, 
+				 mx{ other.mx } {
 		std::cout << "copy ctor is called...\n";
 	}
 
 	// move constructor
-	Data(Data&& other) : mt{ std::move(other.mt) }, mu{ std::move(other.mu) }, mx{std::move(other.mx)} {
+	Data(Data&& other) : mt{ std::move(other.mt) }, 
+			     mu{ std::move(other.mu) }, 
+			     mx{std::move(other.mx)} {
 		std::cout << "move ctor is called...\n";
 	}
 
@@ -176,7 +188,6 @@ public:
 
 		return *this;
 	}
-
 private:
 	T mt;
 	U mu;
@@ -187,16 +198,17 @@ int main() {
 
 	Data data1;
 	Data data2{ data1 }; // data1 is a L-Value expr.
-						 // copy ctor is called...
+			     // copy ctor is called...
 
 	Data data3{ std::move(data1) }; //std::move(data1) is a R-Value expr.
-								    // move ctor is called...
-									// data1 resource is stolen!!
+					// move ctor is called...
+					// data1 resource is stolen!!
 	Data data4;
 	data4 = std::move(data2); // move assignment is called...
 	
 	return EXIT_SUCCESS;
 }
+```
 
 /----------------------------------------------
 /----------------------------------------------
@@ -205,6 +217,7 @@ int main() {
   - Copy ctor and copy assignment implementations without dangling pointer problem by the help of user declared copy constructor.
   - Whenever a need comes out to allocate memory block (if there is an in-class pointer), the copy ctor of this class shall be declared by user.
 
+```cpp
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <cstring>
@@ -298,6 +311,7 @@ public:
 		 
 		// firstly the source of mptr is given 
 		std::free(mptr);
+		
 		// then, the source of other object is stolen
 		this->mptr = std::move(other.mptr);
 		other.mptr = nullptr;
@@ -312,7 +326,6 @@ public:
 	void print()const {
 		std::cout << "[" << mptr << "]" << "\n";
 	}
-
 private:
 	size_t mlength;
 	char* mptr;
@@ -343,7 +356,7 @@ int main() {
 	std::cout << "\n\n";
 
 	s2 = s2; // self-assignment --> results in run-time error
-			 // there should be a control in copy assignment
+		 // there should be a control in copy assignment
 	std::cout << "\n\n";
 
 	String s3{ "Hakan" }, s4{ "Sema"};
@@ -357,6 +370,7 @@ int main() {
 		Executed again !!!
 	*/
 }
+```
 
 /----------------------------------------------
 /----------------------------------------------
@@ -383,23 +397,24 @@ int main() {
 - **Example** : Non-copyable, but movable class example (std::cout)
   - **cout** is a non-copyable, but movable class in **ostream** class
 
+```cpp
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 
 void func(std::ostream ost);
 
 int main() {
-
 	func(std::cout); // ERROR, std::cout is non-copyable 
-	
 	return EXIT_SUCCESS;
 }
+```
 
 /----------------------------------------------
 /----------------------------------------------
 
 - **Example** : Non-copyable, but movable class example (smart pointer)
 
+```cpp
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <memory>
@@ -423,12 +438,14 @@ int main() {
 
 	return EXIT_SUCCESS;
 }
+```
 
 /----------------------------------------------
 /----------------------------------------------
 
 - **Example** : An exceptional case for calling copy ctor instead of move ctor
 
+```cpp
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 
@@ -437,16 +454,12 @@ int main() {
 class Data {
 public:
 	Data(){}
-	Data(const Data&){
-		std::cout << "copy ctor is called...\n";
-	}
+	Data(const Data&){ std::cout << "copy ctor is called...\n"; }
 private:
 	Data(Data&&){}
 };
 
-class Member {
-	Data data;
-};
+class Member { Data data; };
 
 int main() {
 
@@ -456,25 +469,29 @@ int main() {
 	
 	return EXIT_SUCCESS;
 }
+```
 
 /----------------------------------------------
 /----------------------------------------------
 
 - The following usage is very common in standard library: 
 
-void func(const Data& ref) {
+```cpp
+void func(const Data& ref) { 
 	Data data = ref; // copying ref parameter
 }
 
 void func(Data&& ref) {
 	Data data = std::move(ref); // moving ref parameter
 }
+```
 
 /----------------------------------------------
 /----------------------------------------------
 
 - **Example** : The push_back function of vector class is overloaded like mentioned above. 
 
+```cpp
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <vector>
@@ -493,18 +510,18 @@ public:
  
 };
 
-int main(){
+int main() {
 
 	std::vector<Data> data_vec;
 	data_vec.reserve(100);
 
 	Data data;
-	data_vec.push_back(data); // data is L-Value expr.							        // push_back(const Data&) is called
-						      // copy ctor is called...
-
+	data_vec.push_back(data);   // data is L-Value expr.							        
+	                            // push_back(const Data&) is called
+				    // copy ctor is called...
 	data_vec.push_back(Data{}); // Data{} is R-Value expr.
-								// push_back(Data&&) is called
-								// move ctor is called...
+				    // push_back(Data&&) is called
+				    // move ctor is called...
 	return EXIT_SUCCESS;
 
 	/*
@@ -512,6 +529,7 @@ int main(){
 		move ctor is called...
 	*/
 }
+```
 
 /----------------------------------------------
 /----------------------------------------------
