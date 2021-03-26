@@ -36,7 +36,7 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
 
    - [Move Constructors & Move Assignment Functions](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/40_Move_Functions.md)
    
-   - [General Notes on Copy & Move Fundtions](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/General_Notes_Copy_Move_Func.md)
+   - [General Notes on Copy & Move Functions](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/General_Notes_Copy_Move_Func.md)
 
 - [Function Overloading](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/27_Function_Overloading.md)
   - Const Overloading, Function Overload Resolution 
