@@ -6,15 +6,21 @@
 - It is in compiler time (early binding)
 
 - Early Binding (Static Binding) : Compiler can understand which function is called. 
-  -  Dynamic Binding (Late Binding) : Compiler does know which function is called in run-time (for ex. if you are calling a function pointer in run-time, or virtual functions are resolved in run time too)
-  - The Rules About Function Overloading:  
-    - Function should have the same function name and they should be defined/declared in the same scope
-	  - Functions with the same name must have different signatures.
-	    - int func(int, int);
-	      - the function signature --> func(int, int)
-	      - return value --> int 
+
+-  Dynamic Binding (Late Binding) : Compiler does know which function is called in run-time (for ex. if you are calling a function pointer in run-time, or virtual functions are resolved in run time too)
+
+- The Rules About Function Overloading:  
+  - Function should have the same function name and they should be defined/declared in the same scope
+  - Functions with the same name must have different signatures.
+    - int func(int, int);
+      - the function signature --> func(int, int)
+      - return value --> int 
+
+/----------------------------------------------
+/----------------------------------------------
 
 - "char", "signed char", "unsigned char" --> They are distinct types 
+
 ```cpp
 void func(char);
 void func(signed char); // function overloading 
@@ -114,35 +120,34 @@ int main() {
 
 - If there is function overloading, then which function is called?
   - **invalid** --> syntax error
-	  - no match  --> there is no function matching with the given function call
-	  - ambiguity --> there are more than one valid function matching with the given function call
-	- **valid** --> it is known that which function is called !!! 
+    - no match  --> there is no function matching with the given function call
+    - ambiguity --> there are more than one valid function matching with the given function call
+  - **valid** --> it is known that which function is called !!! 
 	
-	- For the first time, the candidate functions create the overload set.  
-	
-	- **Viable Function** : If the function placed in the overloaded set can be called whenever it is alone.
-	  - If the parameter number is the same with the calling function (default arguments are also in this situation)
-	  - If there is a legal conversion between arguments of the calling function and parameters of the called function. 
-	  - If there are two viable functions, the ambiguity error is taken (compilers generally show the functions that cause this situation )
-	    - The priority in this case (from the worst to the best): 
-		    - variadic conversion (coming from C)
-		    - user-defined conversion (it is only in C++)
-		    - standard conversion (whether there is data loss or not)
-		      - int --> double
-			  - int --> char
-			  - int --> long double 
-			  - long double -> char 
-			  - int * --> void* (the opposite is not valid)
-			  - enum --> int (the opposite is not valid)
-		- If there are two viable functions and both of them are applicable for standard conversion 
-		  - Standard conversions (from the best to worst):
-		    - exact match
-			    - L-Value to R-Value transformation
-			    - const conversion
-			    - array to pointer conversion (array decay)
-			    - function o pointer conversion
-			  - promotion
-			  - conversion (If there is two conversion --> ambiguity error)
+- For the first time, the candidate functions create the overload set.  
+  - **Viable Function** : If the function placed in the overloaded set can be called whenever it is alone.
+    - If the parameter number is the same with the calling function (default arguments are also in this situation)
+    - If there is a legal conversion between arguments of the calling function and parameters of the called function. 
+    - If there are two viable functions, the ambiguity error is taken (compilers generally show the functions that cause this situation )
+      - The priority in this case (from the worst to the best): 
+        - variadic conversion (coming from C)
+	- user-defined conversion (it is only in C++)
+	- standard conversion (whether there is data loss or not)
+	  - int --> double
+	  - int --> char
+	  - int --> long double 
+	  - long double -> char 
+	  - int * --> void* (the opposite is not valid)
+	  - enum --> int (the opposite is not valid)
+    - If there are two viable functions and both of them are applicable for standard conversion 
+      - Standard conversions (from the best to worst):
+	- exact match
+	  - L-Value to R-Value transformation
+	  - const conversion
+	  - array to pointer conversion (array decay)
+	  - function o pointer conversion
+	- promotion
+	- conversion (If there is two conversion --> ambiguity error)
 
 - Standard Conversion - Promotion 
   - Integral Promotion: If the arithmetic operations are applied on the types under int, then integral promotion shows up. 
@@ -179,7 +184,7 @@ int main() {
 
 	int x = 10;
 	func(x);  // calling with L-Value --> syntax error
-			      // both are viable --> ambiguity 
+		  // both are viable --> ambiguity 
 	func(20); // calling with R-Value --> not syntax error
 	          // void func(int); is called (the other is not viable function)
 } 
@@ -196,7 +201,7 @@ int main() {
 
 	int x = 10;
 	func(10); // both functions are viable !!
-			      // R-Value ref. --> const L-Value ref. is OK !
+		  // R-Value ref. --> const L-Value ref. is OK !
 }
 ```
 
@@ -228,7 +233,7 @@ void func(const int* ptr);
 
 int main() {
 	int x = 10;
-	func(&x); // 
+	func(&x);  
 }
 ```
 
@@ -284,7 +289,7 @@ void func(double);
 int main() {
 	func(1.2f); // void func(double); is called 
 	            // because of promotion : float --> double 
-				      // float --> int (conversion has the least priority)
+		    // float --> int (conversion has the least priority)
 }
 ```
 
@@ -360,7 +365,7 @@ int main() {
 	int ival = 10;
 	func(&ival); // not syntax error  --> void func(bool); is called
 	             // the address type  --> bool (true)
-				       // null address type --> bool (false)
+		     // null address type --> bool (false)
 } 
 ```
 
@@ -697,8 +702,8 @@ void func(float, float, float);
 int main() {
 
 	func(12, 6u, 3.4);   // void func(int, double, long); is called
-					     // for the first parameter, the first function has the highest priority 
-			             // for the other functions, second parameters have the same priority 
+			     // for the first parameter, the first function has the highest priority 
+			     // for the other functions, second parameters have the same priority 
 	func(3.4, 4u, 3.4);  // void func(double, int, int); is called
 	func(12u, 34, 2.3);  // void func(double, int, int); is called
 	func(12u, 34, 2.3f); // ambiguity --> the last parameter of third function has the highest priority, but the second parameter of second function has the highest priority,
