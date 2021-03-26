@@ -18,7 +18,7 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
 
 - [Auto Type Deduction](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/19_Auto_Type_Deduction.md)
 
-- [Enum Types & Enum Class]()
+- [Enum Types & Enum Class](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/12_Enum_Types_Classes.md)
 
 ## Data Structures in C++: 
 
