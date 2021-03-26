@@ -120,7 +120,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-* Hangi nesne parametre olarak alındıysa onun adresi ile geri dönülebilir. 
+* Whichever object is taken as a parameter, it can be returned with its address.
 
 struct Data {
 	int x, y, z;
@@ -135,7 +135,7 @@ struct Data *func(struct Data *ptr){
 /----------------------------------------------
 /----------------------------------------------
 
-* Nesnenin kendisi parametre olarak alınır ve geri dönüş değeri de kendisi olur
+* The object itself is taken as a parameter and the return value is itself.
 
 struct Data& reffunc(struct Data &ref) { 
 

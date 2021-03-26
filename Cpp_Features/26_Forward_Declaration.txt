@@ -143,3 +143,60 @@ extern "C" {
 
 /----------------------------------------------
 /----------------------------------------------
+
+
+## Function Re-Declaration
+
+- If you add function scope for each of these function declarations, you receive a syntax error.
+
+- function declaration without parameter name --> error in C
+
+- function declaration without parameter name --> not error in C++
+
+- Because this feature is used for function overlaoding and the unspecified name wont be used in function definition --> void func(int); 
+
+```cpp
+int foo(int x, int y);
+int foo(int, int );       // function redecleration
+double foo(int, int);     // syntax error
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+```cpp
+// type alias
+typedef int Word; // both C and C++
+using Word = int; // C++
+typedef int Int32;
+
+int func(int);
+int func(Int32); // function redeclaration, not syntax error
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+```cpp
+int func(int);
+int func(const int );
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+```cpp
+void foo(int* ptr);
+void foo(int *const ptr);
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+```cpp
+int foo(int x, int y);
+int foo(int x, int y = 10);
+```
+
+/----------------------------------------------
+/----------------------------------------------

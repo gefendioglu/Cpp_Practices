@@ -1,15 +1,12 @@
 
 ## "auto" Type Deduction 
 
-/----------------------------------------------
-/----------------------------------------------
 
-* The tools in Cpp using the specifications of type deduction: 
+- The tools in Cpp using the specifications of type deduction: 
 	- auto specifier 
 	- decltype specifier (TBD)
 	- templates (TBD)
 
-/----------------------------------------------
 - auto specifier : 
 	- The meaning of auto specifier is different in C and C++
 	- AAA : Almost Always Auto
@@ -18,6 +15,12 @@
 	  - the common usage of auto:  
 		- generic programming
 		- while assigning a function result/address to a variable/pointer
+
+- auto type deduction with reference semantics: 
+  - The rules are different for the following statements suing with auto specifier:
+    - auto x = expr;
+	- auto &ref = expr; 
+	- auto &&refref = expr; 
 
 /----------------------------------------------
 /----------------------------------------------
@@ -46,15 +49,6 @@ int main() {
 	int funct(int, int);
 	auto fptr = &funct; // the data type of fptr --> int(*fptr)(int, int)
 }
-
-/----------------------------------------------
-/----------------------------------------------
-
-- auto type deduction with reference semantics: 
-  - The rules are different for the following statements suing with auto specifier:
-    - auto x = expr;
-	- auto &ref = expr; 
-	- auto &&refref = expr; 
 
 /----------------------------------------------
 /----------------------------------------------
@@ -149,7 +143,6 @@ int main() {
 
 }
 
-
 /----------------------------------------------
 /----------------------------------------------
 
@@ -240,38 +233,6 @@ int main()
 	std::cout << "r1[3] : " << r1[3] << "\n"; // r1[3] : 4
 	std::cout << "r2[3] : " << r2[3] << "\n"; // r2[3] : 4
 	std::cout << "(r1[3] == r2[3]) : " << (r1[3] == r2[3]) << "\n"; // (r1[3] == r2[3]) : 1
-}
-
-/----------------------------------------------
-/----------------------------------------------
-
-## Forwarding Reference: 
-- Related to perfect forwarding mechanism (auto &&refref = expr;)
-
-/----------------------------------------------
-/----------------------------------------------
-
-- **Example** : Forwarding Reference (Universal Reference)
-
-#define _CRT_SECURE_NO_WARNINGS
-#include <iostream>
-
-int main()
-{
-	int x = 10;
-	int y = 20;
-
-	// forwarding reference (both ref1 and ref2)
-	// universal reference (called by Scott Meyers)
-	auto&& ref1 = x;      // OK, x --> L-Value 
-	// ref1 is initialized a L-value, so ref1 is a L-value
-	
-	auto&& ref2 = x + 10; // OK,  x + 10 --> R-Value
-	// ref2 is initialized a R-value, so ref2 is a R-value
-    
-	// R-Value ref. (both ref3 and ref4)
-	int&& ref3 = x;    // NOT OK, x is L-Value is not assigned to R-Value ref. syntax error 
-	int&& ref4 = x+10; // OK,  x + 10 --> R-Value, ref4 is alsý R-Value ref. here 
 }
 
 /----------------------------------------------

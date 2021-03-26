@@ -110,13 +110,16 @@
     <Text Include="16_Range_Based_Loops.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="15_Cpp_Lesson.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="38_STL.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="39_Copy_Move_Func.txt">
+    <Text Include="16_Cpp_Lesson.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="40_Move_Functions.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="39_Copy_Functions.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

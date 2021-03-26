@@ -668,7 +668,7 @@ int main() {
 - **Example** : Counter class example 
   - If incomplete type is enough for the current file, then all header file which includes its complete type version should not be added to the file.  
   - "iosfwd" standard library includes the forward declaration of input/output stream classes. 
-  - 15.lesson - 02:12  
+  - 
 
 
 /----------------------------------------------

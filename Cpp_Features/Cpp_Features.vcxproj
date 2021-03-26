@@ -27,7 +27,7 @@
     <Text Include="00_Object_Oriented_Programming.txt" />
     <Text Include="11_Undefined_Behaviour.txt" />
     <Text Include="12_Enum_Types_Classes.txt" />
-    <Text Include="15_Cpp_Lesson.txt" />
+    <Text Include="16_Cpp_Lesson.txt" />
     <Text Include="14_Type_Conversion.txt" />
     <Text Include="15_Call_By_Value_Reference.txt" />
     <Text Include="16_Range_Based_Loops.txt" />
@@ -53,7 +53,8 @@
     <Text Include="36_Cpp_Idioms.txt" />
     <Text Include="38_STL.txt" />
     <Text Include="13_Static_Members.txt" />
-    <Text Include="39_Copy_Move_Func.txt" />
+    <Text Include="39_Copy_Functions.txt" />
+    <Text Include="40_Move_Functions.txt" />
     <Text Include="General_Features.txt" />
   </ItemGroup>
   <ItemGroup>

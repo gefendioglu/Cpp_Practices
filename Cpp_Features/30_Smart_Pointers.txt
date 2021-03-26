@@ -1,5 +1,5 @@
 
-## SMART pointer
+## SMART POINTERS
 
 - Smart pointers have a structure called "exclusive ownership".
 - Smart pointer classes are not copyable, but movable. It means copy constructor and copy assginment functions are deleted. 
@@ -283,7 +283,7 @@ int main(){
 	int* p = fun();
 	fflush(stdin);
 
-	// p Members to something which is not valid anymore, but Cpp compiler wont give an error and prints 5 
+	// p points to something which is not valid anymore, but Cpp compiler wont give an error and prints 5 
 	std::cout << *p << "\n";
 	std::cout << p << "\n";
 
