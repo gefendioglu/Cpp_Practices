@@ -1,4 +1,4 @@
-## Name Lookup
+## Name Lookup Rules
 
 - The results of name lookup in C++:
   - syntax error 
