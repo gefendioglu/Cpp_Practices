@@ -35,9 +35,7 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
 
   - [This Pointer](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/25_4_This_Pointer.md)
 
-  - [Setter & Getter Functions](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/25_5_Setter_Getter_Func.md)
-
-  - [Inline Functions](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/25_6_Inline_Func.md)
+  - [Inline Functions & ODR](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/25_5_Inline_Functions.md)
 
 - [Special Member Functions](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/Special_Member_Functions.md)
    - [Constructors & Destructors & Copy Elision](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/37_Constructors_Destructors.md)  
