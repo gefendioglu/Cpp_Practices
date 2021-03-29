@@ -27,7 +27,17 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
 - [Reference Types](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/22_References.md)
 
 - [Class Types](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/25_Classes.md)
-  - Scope Definitions, Name Lookup Rules, Access Control, This Pointer, Setter & Getter Functions, Inline Functions 
+  - [Scope Definitions](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/25_1_Scope_Definitions.md)
+
+  - [Name Lookup Rules](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/25_2_Name_Lookup.md)
+
+  - [Access Control](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/25_3_Access_Control.md)
+
+  - [This Pointer](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/25_4_This_Pointer.md)
+
+  - [Setter & Getter Functions](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/25_5_Setter_Getter_Func.md)
+
+  - [Inline Functions](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/25_6_Inline_Func.md)
 
 - [Special Member Functions](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/Special_Member_Functions.md)
    - [Constructors & Destructors & Copy Elision](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/37_Constructors_Destructors.md)  
