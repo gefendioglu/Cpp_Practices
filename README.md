@@ -57,6 +57,8 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
 
 - [Operator Overloading](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/29_Operator_Overloading.md)
 
+- [General Cpp Features](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/General_Features.md)
+
 ## Data Structures in C++: 
 
 - [Linked Lists](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Practices/Linked_List.md)
