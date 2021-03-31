@@ -43,7 +43,7 @@ private:
 
 ## The Operations of Doubly Linked Lists:
 
-### Appending a Node
+### Appending Node
   - Get the new node
     - Check if node exists with the same key
       - if true --> abort
@@ -79,7 +79,7 @@ private:
 /----------------------------------------------
 /----------------------------------------------
 
-- **Prepending a node**:
+### Prepending Node
   - Get the new node
     - Check if node exists with the same key
       - if true --> abort
@@ -112,7 +112,7 @@ private:
 /----------------------------------------------
 /----------------------------------------------
 
-- **Inserting a node**:
+### Inserting Node
   - Get the new node & the key of node in the list after which you want to link this new node
     - Check if node exists with the same key as new node
       - if true --> abort
@@ -172,7 +172,7 @@ void insertNodeAfter(const int& key, Node* node) {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Deleting a node**:
+### Deleting Node
   - Get the key of node that you want to delete
   - Check if node exists with the same key as new node
     - if true --> abort
@@ -222,7 +222,7 @@ void insertNodeAfter(const int& key, Node* node) {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Updating a node**:
+### Updating Node
   - Get the key of node that you want to delete
   - Check if node exists with the same key as new node
     - if true --> abort
