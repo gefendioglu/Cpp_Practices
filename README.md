@@ -63,6 +63,8 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
 
 - [Linked Lists](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Practices/Linked_List.md)
   - [Singly Linked Lists](https://github.com/gefendioglu/Cpp_Practices/blob/master/Data_Structures/11_Singly_Linked_List.md)
+  - [Doubly Linked Lists](https://github.com/gefendioglu/Cpp_Practices/blob/master/Data_Structures/12_Doubly_Linked_List.md)
+  - [Circular Linked Lists](https://github.com/gefendioglu/Cpp_Practices/blob/master/Data_Structures/13_Circular_Linked_List.md)
 
 - [Trees](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Practices/Trees_Graphs.md)
 
