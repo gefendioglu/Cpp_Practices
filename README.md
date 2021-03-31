@@ -28,31 +28,21 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
 
 - [Class Types](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/25_Classes.md)
   - [Scope Definitions](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/25_1_Scope_Definitions.md)
-
   - [Name Lookup Rules](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/25_2_Name_Lookup.md)
-
   - [Access Control](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/25_3_Access_Control.md)
-
   - [This Pointer](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/25_4_This_Pointer.md)
-
   - [Inline Functions & ODR](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/25_5_Inline_Functions.md)
 
 - [Special Member Functions](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/Special_Member_Functions.md)
    - [Constructors & Destructors & Copy Elision](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/37_Constructors_Destructors.md)  
-   
    - [Virtual Constructors & Destructors](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/34_Virtual_Ctor_Dtor.md)  
-   
    - [Copy Constructors & Copy Assignment Functions](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/39_Copy_Functions.md)
-
    - [Virtual Copy Constructors](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/33_Virtual_Copy_Ctor.md)
-
    - [Move Constructors & Move Assignment Functions](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/40_Move_Functions.md)
-   
    - [General Notes on Copy & Move Functions](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/General_Notes_Copy_Move_Func.md)
 
 - [Function Overloading](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/27_Function_Overloading.md)
   - [Const Overloading](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/27_1_Const_Overloading.md)
-
   - [Function Overload Resolution](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/27_2_Function_Overload_Resolution.md)
 
 - [Operator Overloading](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/29_Operator_Overloading.md)
@@ -74,9 +64,7 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
 
 - [Object Oriented Programming](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Practices/Object_Oriented_Programming.md)
   - [Dynamic Objects](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/01_Dynamic_Objects.md)
-  
   - [Temporary Objects](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/02_Temporary_Objects.md)
-  
   - [Resource Management](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/03_Resource_Management.md)
 
 - [Design Patterns](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Practices/Design_Patterns.md)
