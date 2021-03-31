@@ -1,8 +1,11 @@
 
-## Singly Linked Lists:
+## SINGLY LINKED LISTS
 - Each data element in the list has a link (a pointer or reference) to the element that follows it in the list. 
+
 - The first element in a singly linked list is referred to as the "head" of the list. 
+
 - The last element in such a list is called the "tail".
+
 - When defining classes in C++ for singly linked list, particularly in template form, it’s best to add copy constructors and copy assignment operators so you don’t depend on the compiler- generated versions.
 
 /----------------------------------------------
