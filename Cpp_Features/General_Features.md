@@ -1,5 +1,5 @@
 
-### Type Aliases
+### 1- TYPE ALIASES 
 
 - type aliases are easier to read 
 - type aliase are compatible with C++ templates types
@@ -15,7 +15,7 @@ using func_ptr = int (*)(int);
 /----------------------------------------------
 /----------------------------------------------
 
-### User Defined Literals
+### 2- USER DEFINED LITERALS 
 
 -**Example**: User Defined Literals
  - Adding constexpr will serve zero cost run-time performance impact
@@ -37,7 +37,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-### Initializer List (std::initializer_list) 
+### 3- INITIALIZER LIST (std::initializer_list) 
 
 -**Example**: Initializer List
 
@@ -74,7 +74,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-## Inline Functions
+## 4- INLINE FUNCTIONS 
 
 - Inline functions and inlined functions are different terms
 
@@ -162,7 +162,7 @@ constexpr int factorial(int n) { return n < 2 ? 1 : factorial(n - 1) * n; }
 /----------------------------------------------
 /----------------------------------------------
 
-## Delete Functions 
+## 5- DELETE FUNCTIONS  
 
 - The following function types can be deleted using "delete" keyword:
   - global functions
@@ -266,7 +266,8 @@ private:
 /----------------------------------------------
 /----------------------------------------------
 
-### Scope Leakage:
+### 6- SCOPE LEAKAGE
+
 - Before C++17, another scope can be defined to restrict the usage of variable 
 - After C++17, "if with initializer" is used instead of adding another scope in these  cases. 
 
@@ -311,7 +312,7 @@ int main(){
 /----------------------------------------------
 /----------------------------------------------
 
-### Range Based Loop
+### 7- RANGE BASED LOOP 
 
 - If container is assumed as any kind of container, range based for loops can be one of the followings: 
   - for(T x : container)   -->  for(auto x : container)
