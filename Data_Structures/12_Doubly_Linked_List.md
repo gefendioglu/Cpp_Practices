@@ -41,9 +41,9 @@ private:
 /----------------------------------------------
 /----------------------------------------------
 
-## The operations of doubly linked lists:
+## The Operations of Doubly Linked Lists:
 
-- **Appending a node**
+### Appending a Node
   - Get the new node
     - Check if node exists with the same key
       - if true --> abort
