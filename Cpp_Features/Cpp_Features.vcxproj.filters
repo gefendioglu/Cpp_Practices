@@ -77,12 +77,6 @@
     <Text Include="32_Decltype_Type_Deduction.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="33_Virtual_Copy_Constructor.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="34_Virtual_Destructor_Constructor.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="35_Virtual_Functions.txt">
       <Filter>Resource Files</Filter>
     </Text>
@@ -107,9 +101,6 @@
     <Text Include="13_Static_Members.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="16_Range_Based_Loops.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="38_STL.txt">
       <Filter>Resource Files</Filter>
     </Text>
@@ -120,6 +111,12 @@
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="39_Copy_Functions.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="33_Virtual_Copy_Ctor.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="34_Virtual_Ctor_Dtor.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

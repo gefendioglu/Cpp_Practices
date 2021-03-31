@@ -30,7 +30,6 @@
     <Text Include="16_Cpp_Lesson.txt" />
     <Text Include="14_Type_Conversion.txt" />
     <Text Include="15_Call_By_Value_Reference.txt" />
-    <Text Include="16_Range_Based_Loops.txt" />
     <Text Include="17_Initialization_Assignment.txt" />
     <Text Include="18_Return_Value.txt" />
     <Text Include="19_Auto_Type_Deduction.txt" />
@@ -46,8 +45,8 @@
     <Text Include="30_Smart_Pointers.txt" />
     <Text Include="31_Templates.txt" />
     <Text Include="32_Decltype_Type_Deduction.txt" />
-    <Text Include="33_Virtual_Copy_Constructor.txt" />
-    <Text Include="34_Virtual_Destructor_Constructor.txt" />
+    <Text Include="33_Virtual_Copy_Ctor.txt" />
+    <Text Include="34_Virtual_Ctor_Dtor.txt" />
     <Text Include="35_Virtual_Functions.txt" />
     <Text Include="37_Constructors_Destructors.txt" />
     <Text Include="36_Cpp_Idioms.txt" />

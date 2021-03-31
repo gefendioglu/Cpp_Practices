@@ -1,6 +1,6 @@
 #pragma once
 
-// Circular Linked List Implentation 
+// Circular Linked List Implentation - TO BE COMPLETED 
 // --------------------------------------------------
 // --------------------------------------------------
 
@@ -42,7 +42,6 @@ public:
 		return temp;
 	}
 
-	// Appending a node 
 	void appendNode(Node* node);
 	void prependNode(Node* node);
 	void insertNodeAfter(const int& key, Node* node);

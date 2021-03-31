@@ -34,6 +34,7 @@
     - In a constructor, the virtual function call mechanism is disabled because overriding from derived classes hasn’t yet happened. Objects are constructed from the base up, “base before derived”.
 	- Destruction is done “derived class before base class”, so virtual functions behave as in constructors: Only the local definitions are used and no calls are made to override functions to avoid touching the (now destroyed) derived class part of the object.
 
+
 /----------------------------------------------
 /----------------------------------------------
 

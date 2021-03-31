@@ -503,7 +503,7 @@ int main(){
 	data_vec.reserve(100);
 
 	Data data;
-	data_vec.push_back(data); // data is L-Value expr.							        // push_back(const Data&) is called
+	data_vec.push_back(data); // data is L-Value expr.							                // push_back(const Data&) is called
 						      // copy ctor is called...
 
 	data_vec.push_back(Data{}); // Data{} is R-Value expr.

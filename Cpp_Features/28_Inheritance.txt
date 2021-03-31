@@ -214,8 +214,6 @@ public:
 When a derived object is declared, two virtual table pointer are created in the derived class object.
 
 
-
-
 // --------------------------------------------
 // --------------------------------------------
 
