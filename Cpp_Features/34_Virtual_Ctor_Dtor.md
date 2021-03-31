@@ -1,0 +1,476 @@
+
+## Virtual Constructor & Destructor 
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Virtual Destructor (without using virtual destructor in base class)
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
+class base {
+public:
+	base() { std::cout << "Constructing base \n"; }
+
+	// without virtual destructor causing undefined behavior
+	// if this class is used for inheritance
+	~base()	{ std::cout << "Destructing base \n"; }
+};
+
+class derived : public base {
+public:
+	derived() { std::cout << "Constructing derived \n"; }
+	~derived() { std::cout << "Destructing derived \n"; }
+};
+
+int main(void) {
+
+	derived* d = new derived();
+	base* b = d;
+
+	// Deleting a derived class object using a pointer of base class type 
+  	// that has a non-virtual destructor results in undefined behavior.
+	delete b;
+	return 0;
+
+	/*
+		Constructing base
+		Constructing derived
+		Destructing base
+	*/
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Virtual Destructor (with using virtual destructor in base class)
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
+class base {
+public:
+	base()	{ std::cout << "Constructing base \n"; }
+
+	// without virtual destructor causing undefined behavior
+	// if this class is used for inheritance
+	virtual ~base()	{ std::cout << "Destructing base \n"; }
+};
+
+class derived : public base {
+public:
+	derived() { std::cout << "Constructing derived \n"; }
+	~derived() { std::cout << "Destructing derived \n"; }
+};
+
+int main(void) {
+
+	derived* d = new derived();
+	base* b = d;
+
+	// Deleting a derived class object using a pointer of base class type 
+  	// that has a non-virtual destructor results in undefined behavior.
+	// The object of derived class is not destructed properly
+	delete b;
+	return 0;
+
+	/*
+		Constructing base
+		Constructing derived
+		Destructing derived
+		Destructing base
+	*/
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Virtual Constructor
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
+// Starting a Library 
+class Base{
+public:
+	Base() { }
+
+	// Ensures to invoke actual object destructor 
+	virtual ~Base() { }
+
+	// A pure virtual function to provide an interface 
+	virtual void DisplayAction() = 0;
+};
+
+class Derived1 : public Base {
+public:
+	Derived1() { std::cout << "Derived1 created" << "\n"; }
+	~Derived1() { std::cout << "Derived1 destroyed" << "\n"; }
+	void DisplayAction() override {	std::cout << "Action from Derived1" << "\n"; }
+};
+
+class Derived2 : public Base {
+public:
+	Derived2() { std::cout << "Derived2 created" << "\n"; }
+	~Derived2() { std::cout << "Derived2 destroyed" << "\n"; }
+	void DisplayAction() override {	std::cout << "Action from Derived2" << "\n"; }
+};
+// Ending a Library 
+
+class User {
+public:
+	// Creates Drived1 
+	User() : pBase(nullptr)	{
+		// What if Derived2 is required? Add an if-else ladder 
+		pBase = new Derived1();
+	}
+
+	~User()	{
+		if (pBase) {
+			delete pBase;
+			pBase = nullptr;
+		}
+	}
+
+	// Delegates to actual object 
+	void Action() {	pBase->DisplayAction();	}
+private:
+	Base* pBase;
+};
+
+int main() {
+
+	User* user = new User();
+	
+	// Need Derived1 functionality only 
+	user->Action();
+	delete user;
+
+	/*
+		Derived1 created
+		Action from Derived1
+		Derived1 destroyed
+	*/
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**:  Virtual Constructor (with enhanced version of previous code)
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
+// Starting a Library 
+class Base {
+public:
+	// The "Virtual Constructor" 
+	static Base* Create(int id);
+
+	Base() { }
+
+	// Ensures to invoke actual object destructor 
+	virtual ~Base() { }
+
+	// A pure virtual function to provide an interface 
+	virtual void DisplayAction() = 0;
+};
+
+class Derived1 : public Base {
+public:
+	Derived1() { std::cout << "Derived1 created" << "\n"; }
+	~Derived1() { std::cout << "Derived1 destroyed" << "\n"; }
+	void DisplayAction() override { std::cout << "Action from Derived1" << "\n"; }
+};
+
+class Derived2 : public Base {
+public:
+	Derived2() { std::cout << "Derived2 created" << "\n"; }
+	~Derived2() { std::cout << "Derived2 destroyed" << "\n"; }
+	void DisplayAction() override { std::cout << "Action from Derived2" << "\n"; }
+};
+
+class Derived3 : public Base {
+public:
+	Derived3() { std::cout << "Derived3 created" << "\n"; }
+	~Derived3() { std::cout << "Derived3 destroyed" << "\n"; }
+	void DisplayAction() override { std::cout << "Action from Derived3" << "\n"; }
+};
+
+Base* Base::Create(int id) {
+	// User code need not be recompiled to create newly added class objects 
+	if (id == 1)
+		return new Derived1;
+	else if (id == 2)
+		return new Derived2;
+	else
+		return new Derived3;
+}
+// Ending a Library 
+
+
+//  User is utility class trying to make use of the hierarchy. 
+class User {
+public:
+	User() : pBase(nullptr)	{
+		// Receives an object of Base hierarchy at runtime 
+		int input;
+
+		std::cout << "Enter ID (1, 2 or 3): ";
+		std::cin >> input;
+
+		while ((input != 1) && (input != 2) && (input != 3)) {
+			std::cout << "Enter ID (1, 2 or 3 only): ";
+			std::cin >> input;
+		}
+
+		// Get object from the "Virtual Constructor" 
+		pBase = Base::Create(input);
+	}
+
+	~User() {
+		if (pBase) {
+			delete pBase;
+			pBase = nullptr;
+		}
+	}
+
+	// Delegates to actual object 
+	void Action() {	pBase->DisplayAction();	}
+
+private:
+	Base* pBase;
+};
+
+int main() {
+
+	User* user = new User();
+	user->Action();
+	delete user;
+
+	/*
+		Enter ID (1, 2 or 3): 1
+		Derived1 created
+		Action from Derived1
+		Derived1 destroyed
+	*/
+
+	/*
+		Enter ID (1, 2 or 3): 2
+		Derived2 created
+		Action from Derived2
+		Derived2 destroyed
+	*/
+
+	/*
+		Enter ID (1, 2 or 3): 3
+		Derived3 created
+		Action from Derived3
+		Derived3 destroyed
+	*/
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**:  Pure virtual destructor
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
+class Base {
+public:
+	// Pure virtual destructor 
+	virtual ~Base() = 0; 
+};
+
+Base::~Base() {	std::cout << "Pure virtual destructor is called" << "\n"; }
+
+class Derived : public Base {
+public:
+	~Derived() { std::cout << "~Derived() is executed" << "\n"; }
+};
+
+int main() {
+
+	Base* b = new Derived();
+	delete b;
+	return 0;
+
+	/*
+		~Derived() is executed
+		Pure virtual destructor is called
+	*/
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Constructors of Virtual Bases (with calling virtual base class constructor implicitly)
+  - If the constructors of virtual base class is not called explicitly, the compiler will automatically insert a call to their default constructors. This situation can lead to some unexpected results.
+ 
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
+class Top {
+public:
+	Top() { 
+		top_val = -1; 
+		std::cout << "Top::Top()\n";
+	}
+	Top(int top_val) { 
+		this->top_val = top_val; 
+		std::cout << "Top::Top(int)\n";
+	}
+	int top_val;
+};
+
+class Left : virtual public Top {
+public:
+	Left() { 
+		left_val = -2;
+		std::cout << "Left::Left()\n";
+	}
+	Left(int top_val, int left_val) : Top(top_val) { 
+		this->left_val = left_val;
+		std::cout << "Left::Left(int, int)\n";
+	}
+	int left_val;
+};
+
+class Right : virtual public Top {
+public:
+	Right() { 
+		right_val = -3; 
+		std::cout << "Right::Right()\n";
+	}
+	Right(int top_val, int right_val) : Top(top_val) {
+		this->right_val = right_val; 
+		std::cout << "Right::Right(int, int)\n";
+	}
+	int right_val;
+};
+
+class Bottom : public Left, public Right {
+public:
+	Bottom() { 
+		bottom_val = -4;
+		std::cout << "Bottom::Bottom()\n";
+	}
+	Bottom(int top_val, int left_val, int right_val, int bottom_val) : Left(top_val, left_val), Right(top_val, right_val) {
+		this->bottom_val = bottom_val;
+		std::cout << "Bottom::Bottom(int, int, int, int)\n";
+	}
+	int bottom_val;
+};
+
+int main() {
+
+	Bottom bottom(1, 2, 3, 4);
+
+	std::cout << "bottom.Left::top_val = " << bottom.Left::top_val << "\n";
+	std::cout << "bottom.Right::top_val = " << bottom.Right::top_val << "\n";
+	std::cout << "bottom.top_val = " << bottom.top_val << "\n";
+	std::cout << "bottom.left_val = " << bottom.left_val << "\n";
+	std::cout << "bottom.right_val = " << bottom.right_val << "\n";
+
+	return 0;
+
+	/*
+		Top::Top()
+		Left::Left(int, int)
+		Right::Right(int, int)
+		Bottom::Bottom(int, int, int, int)
+		bottom.Left::top_val = -1
+		bottom.Right::top_val = -1
+		bottom.top_val = -1
+		bottom.left_val = 2
+		bottom.right_val = 3
+	*/
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Constructors of Virtual Bases (changing the constructor of "Bottom" derived class)
+
+```cpp
+class Bottom : public Left, public Right{
+public:
+	Bottom() { 
+		bottom_val = -4;
+		std::cout << "Bottom::Bottom()\n";
+	}
+	Bottom(int top_val, int left_val, int right_val, int bottom_val) :  Top(top_val), Left(top_val, left_val), Right(top_val, right_val) {
+		this->bottom_val = bottom_val;
+		std::cout << "Bottom::Bottom(int, int, int, int)\n";
+	}
+	int bottom_val;
+};
+
+int main() {
+
+	Bottom bottom(1, 2, 3, 4);
+
+	std::cout << "bottom.Left::top_val = " << bottom.Left::top_val << "\n";
+	std::cout << "bottom.Right::top_val = " << bottom.Right::top_val << "\n";
+	std::cout << "bottom.top_val = " << bottom.top_val << "\n";
+	std::cout << "bottom.left_val = " << bottom.left_val << "\n";
+	std::cout << "bottom.right_val = " << bottom.right_val << "\n";
+
+	return 0;
+
+	/*
+		Top::Top(int)
+		Left::Left(int, int)
+		Right::Right(int, int)
+		Bottom::Bottom(int, int, int, int)
+		bottom.Left::top_val = 1
+		bottom.Right::top_val = 1
+		bottom.top_val = 1
+		bottom.left_val = 2
+		bottom.right_val = 3
+	*/
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example**: Pointer equivalence Example (with the same class hierarchy and run-time polymorphism)
+
+```cpp
+int main() {
+
+	Bottom* bptr = new Bottom();
+	Right* rptr = bptr;
+	if (rptr == bptr)
+		printf("Equal!\n");
+
+	return 0;
+
+	/*
+		Top::Top()
+		Left::Left()
+		Right::Right()
+		Bottom::Bottom()
+		Equal!
+	*/
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
