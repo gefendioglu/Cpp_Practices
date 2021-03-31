@@ -1,5 +1,5 @@
 
-## VIRTUAL CONSTRUCTOR & DESTRUCTOR
+## Virtual Constructor & Destructor 
 
 /----------------------------------------------
 /----------------------------------------------
@@ -12,25 +12,17 @@
 
 class base {
 public:
-	base() { 
-    std::cout << "Constructing base \n"; 
-  }
+	base() { std::cout << "Constructing base \n"; }
 
 	// without virtual destructor causing undefined behavior
 	// if this class is used for inheritance
-	~base()	{	
-    std::cout << "Destructing base \n"; 
-   }
+	~base()	{ std::cout << "Destructing base \n"; }
 };
 
 class derived : public base {
 public:
-	derived() {
-		std::cout << "Constructing derived \n";
-	}
-	~derived() {
-		std::cout << "Destructing derived \n";
-	}
+	derived() { std::cout << "Constructing derived \n"; }
+	~derived() { std::cout << "Destructing derived \n"; }
 };
 
 int main(void) {
@@ -39,7 +31,7 @@ int main(void) {
 	base* b = d;
 
 	// Deleting a derived class object using a pointer of base class type 
-  // that has a non-virtual destructor results in undefined behavior.
+  	// that has a non-virtual destructor results in undefined behavior.
 	delete b;
 	return 0;
 
@@ -62,25 +54,17 @@ int main(void) {
 
 class base {
 public:
-	base()	{
-		std::cout << "Constructing base \n";
-	}
+	base()	{ std::cout << "Constructing base \n"; }
 
 	// without virtual destructor causing undefined behavior
 	// if this class is used for inheritance
-	virtual ~base()	{
-		std::cout << "Destructing base \n";
-	}
+	virtual ~base()	{ std::cout << "Destructing base \n"; }
 };
 
 class derived : public base {
 public:
-	derived() {
-		std::cout << "Constructing derived \n";
-	}
-	~derived() {
-		std::cout << "Destructing derived \n";
-	}
+	derived() { std::cout << "Constructing derived \n"; }
+	~derived() { std::cout << "Destructing derived \n"; }
 };
 
 int main(void) {
@@ -89,10 +73,9 @@ int main(void) {
 	base* b = d;
 
 	// Deleting a derived class object using a pointer of base class type 
-  // that has a non-virtual destructor results in undefined behavior.
+  	// that has a non-virtual destructor results in undefined behavior.
 	// The object of derived class is not destructed properly
 	delete b;
-
 	return 0;
 
 	/*
@@ -127,38 +110,21 @@ public:
 
 class Derived1 : public Base {
 public:
-	Derived1()	{
-		std::cout << "Derived1 created" << "\n";
-	}
-
-	~Derived1()	{
-		std::cout << "Derived1 destroyed" << "\n";
-	}
-
-	void DisplayAction() override {
-		std::cout << "Action from Derived1" << "\n";
-	}
+	Derived1() { std::cout << "Derived1 created" << "\n"; }
+	~Derived1() { std::cout << "Derived1 destroyed" << "\n"; }
+	void DisplayAction() override {	std::cout << "Action from Derived1" << "\n"; }
 };
 
 class Derived2 : public Base {
 public:
-	Derived2()	{
-		std::cout << "Derived2 created" << "\n";
-	}
-
-	~Derived2()	{
-		std::cout << "Derived2 destroyed" << "\n";
-	}
-
-	void DisplayAction() override {
-		std::cout << "Action from Derived2" << "\n";
-	}
+	Derived2() { std::cout << "Derived2 created" << "\n"; }
+	~Derived2() { std::cout << "Derived2 destroyed" << "\n"; }
+	void DisplayAction() override {	std::cout << "Action from Derived2" << "\n"; }
 };
 // Ending a Library 
 
 class User {
 public:
-
 	// Creates Drived1 
 	User() : pBase(nullptr)	{
 		// What if Derived2 is required? Add an if-else ladder 
@@ -173,9 +139,7 @@ public:
 	}
 
 	// Delegates to actual object 
-	void Action() {
-		pBase->DisplayAction();
-	}
+	void Action() {	pBase->DisplayAction();	}
 private:
 	Base* pBase;
 };
@@ -183,10 +147,9 @@ private:
 int main() {
 
 	User* user = new User();
-
+	
 	// Need Derived1 functionality only 
 	user->Action();
-
 	delete user;
 
 	/*
@@ -223,48 +186,23 @@ public:
 
 class Derived1 : public Base {
 public:
-	Derived1() {
-		std::cout << "Derived1 created" << "\n";
-	}
-
-	~Derived1() {
-		std::cout << "Derived1 destroyed" << "\n";
-	}
-
-	void DisplayAction() override {
-		std::cout << "Action from Derived1" << "\n";
-	}
+	Derived1() { std::cout << "Derived1 created" << "\n"; }
+	~Derived1() { std::cout << "Derived1 destroyed" << "\n"; }
+	void DisplayAction() override { std::cout << "Action from Derived1" << "\n"; }
 };
 
-class Derived2 : public Base
-{
+class Derived2 : public Base {
 public:
-	Derived2() {
-		std::cout << "Derived2 created" << "\n";
-	}
-
-	~Derived2() {
-		std::cout << "Derived2 destroyed" << "\n";
-	}
-
-	void DisplayAction() override {
-		std::cout << "Action from Derived2" << "\n";
-	}
+	Derived2() { std::cout << "Derived2 created" << "\n"; }
+	~Derived2() { std::cout << "Derived2 destroyed" << "\n"; }
+	void DisplayAction() override { std::cout << "Action from Derived2" << "\n"; }
 };
 
 class Derived3 : public Base {
 public:
-	Derived3() {
-		std::cout << "Derived3 created" << "\n";
-	}
-
-	~Derived3() {
-		std::cout << "Derived3 destroyed" << "\n";
-	}
-
-	void DisplayAction() override {
-		std::cout << "Action from Derived3" << "\n";
-	}
+	Derived3() { std::cout << "Derived3 created" << "\n"; }
+	~Derived3() { std::cout << "Derived3 destroyed" << "\n"; }
+	void DisplayAction() override { std::cout << "Action from Derived3" << "\n"; }
 };
 
 Base* Base::Create(int id) {
@@ -289,8 +227,7 @@ public:
 		std::cout << "Enter ID (1, 2 or 3): ";
 		std::cin >> input;
 
-		while ((input != 1) && (input != 2) && (input != 3))
-		{
+		while ((input != 1) && (input != 2) && (input != 3)) {
 			std::cout << "Enter ID (1, 2 or 3 only): ";
 			std::cin >> input;
 		}
@@ -300,16 +237,14 @@ public:
 	}
 
 	~User() {
-		if (pBase){
+		if (pBase) {
 			delete pBase;
 			pBase = nullptr;
 		}
 	}
 
 	// Delegates to actual object 
-	void Action() {
-		pBase->DisplayAction();
-	}
+	void Action() {	pBase->DisplayAction();	}
 
 private:
 	Base* pBase;
@@ -359,18 +294,15 @@ public:
 	virtual ~Base() = 0; 
 };
 
-Base::~Base() {
-	std::cout << "Pure virtual destructor is called" << "\n";
-}
+Base::~Base() {	std::cout << "Pure virtual destructor is called" << "\n"; }
 
 class Derived : public Base {
 public:
-	~Derived()	{
-		std::cout << "~Derived() is executed" << "\n";
-	}
+	~Derived() { std::cout << "~Derived() is executed" << "\n"; }
 };
 
 int main() {
+
 	Base* b = new Derived();
 	delete b;
 	return 0;
@@ -386,7 +318,7 @@ int main() {
 /----------------------------------------------
 
 - **Example**: Constructors of Virtual Bases (with calling virtual base class constructor implicitly)
-  - If the constructors of virtual base class is not called explicitly, the compiler will automatically insert a call to their default constructors.This situation can lead to some unexpected results.
+  - If the constructors of virtual base class is not called explicitly, the compiler will automatically insert a call to their default constructors. This situation can lead to some unexpected results.
  
 ```cpp
 #define _CRT_SECURE_NO_WARNINGS
@@ -437,11 +369,10 @@ public:
 		bottom_val = -4;
 		std::cout << "Bottom::Bottom()\n";
 	}
-	Bottom(int top_val, int left_val, int right_val, int bottom_val) : Left(top_val, left_val), Right(top_val, right_val)	{
+	Bottom(int top_val, int left_val, int right_val, int bottom_val) : Left(top_val, left_val), Right(top_val, right_val) {
 		this->bottom_val = bottom_val;
 		std::cout << "Bottom::Bottom(int, int, int, int)\n";
 	}
-
 	int bottom_val;
 };
 
@@ -483,11 +414,10 @@ public:
 		bottom_val = -4;
 		std::cout << "Bottom::Bottom()\n";
 	}
-	Bottom(int top_val, int left_val, int right_val, int bottom_val) :  Top(top_val), Left(top_val, left_val), Right(top_val, right_val)	{
+	Bottom(int top_val, int left_val, int right_val, int bottom_val) :  Top(top_val), Left(top_val, left_val), Right(top_val, right_val) {
 		this->bottom_val = bottom_val;
 		std::cout << "Bottom::Bottom(int, int, int, int)\n";
 	}
-
 	int bottom_val;
 };
 
