@@ -69,6 +69,9 @@ This repo includes the important CPP features with sample codes (C++11, C++14, C
 - [Big O Analysis in C++](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Practices/Big_O_Analysis.md)
 
 - [Object Oriented Programming](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Practices/Object_Oriented_Programming.md)
+  - [Dynamic Objects](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/01_Dynamic_Objects.md)
+  
+  - [Temporary Objects](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Features/02_Temporary_Objects.md)
 
 - [Design Patterns](https://github.com/gefendioglu/Cpp_Practices/blob/master/Cpp_Practices/Design_Patterns.md)
 
