@@ -701,20 +701,783 @@ int main() {
 - **Example** : Counter class example 
   - If incomplete type is enough for the current file, then all header file which includes its complete type version should not be added to the file.  
   - "iosfwd" standard library includes the forward declaration of input/output stream classes. 
+  - inserter operator functions shall be declared as global operator functions (operator<<)
+
+```cpp
+#ifndef COUNTER_INCLUDED
+#define COUNTER_INCLUDED
+#include <iostream>
+#include <iosfwd>
+
+class Counter {
+public:
+	Counter() = default; // default member init. 
+	explicit Counter(int);
+
+	// operator<< function can access the private members  
+	friend std::ostream& operator<<(std::ostream& os, const Counter& cnt) {
+		// inline operator function definition can de done here
+	}
+private:
+};
+
+//std::ostream&  operator<<(std::ostream& os, const Counter& cnt); 
+
+int main() {
+
+	Counter cnt1;
+	Counter cnt2{100};
+	std::cout << cnt1 << " " << cnt2 << " ";
+	operator<<(std::cout, cnt1);
+
+	return EXIT_SUCCESS;
+}
+
+#endif
+```
  
 /----------------------------------------------
 /----------------------------------------------
 
-**Example** : Implementing a wrapper class which uses int type in the backend (defining different features thanks to operator overloading mechanism)
+- **Example** : Implementing a wrapper class which uses int type in the backend (defining different features thanks to operator overloading mechanism)
+  - **operator<** and **operator==** are more important than the other operator functions. Because the other operator can be defined by using these two operator functions. 
 
 ```cpp
 // wrapper class (using int type in the backend)
-class Mint {
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
+// myint.h
+// --------------------------------------------
+class MyInt {
 public:
+	MyInt() = default;
+	explicit MyInt(int val) : mval{ val } {}
+
+	// operator< and operator== functions as inline functions 
+	friend bool operator<(const MyInt& ref1, const MyInt& ref2) {
+		return ref1.mval < ref2.mval;
+	}
+	friend bool operator==(const MyInt& ref1, const MyInt& ref2) {
+		return ref1.mval == ref2.mval;
+	}
+
+	// inserter - extractor operator functions
+	friend std::ostream& operator<<(std::ostream& os, const MyInt& ref);
+	friend std::istream& operator>>(std::istream& is, MyInt& ref);
+private:
+	int mval{};
+	 
+};
+
+// myint.cpp
+// --------------------------------------------
+inline bool operator>(const MyInt& ref1, const MyInt& ref2) {
+	return ref2 < ref1;
+}
+
+inline bool operator>=(const MyInt& ref1, const MyInt& ref2) {
+	return !(ref1 < ref2);
+}
+
+inline bool operator<=(const MyInt& ref1, const MyInt& ref2) {
+	return !(ref2 < ref1);
+}
+
+inline bool operator!=(const MyInt& ref1, const MyInt& ref2) {
+	return !(ref1 == ref2);
+}
+
+std::ostream& operator<<(std::ostream& os, const MyInt& ref) {
+	return os << "[ " << ref.mval << " ]";
+}
+
+std::istream& operator>>(std::istream& is, MyInt& ref) {
+	return is >> ref.mval;
+}
+
+// test code 
+// --------------------------------------------
+int main() {
+
+	MyInt mval1, mval2{ 20 };
+	std::cout << mval1 << " " << mval2 << "\n";
+
+	std::cout << "Enter two values: ";
+	std::cin >> mval1 >> mval2;
+	std::cout << mval1 << " " << mval2 << "\n";
+
+	// operator<(mval1, mval2);
+	if (mval1 < mval2)
+		std::cout << "mval1 is smaller than mval2. " << "\n";
+	// operator==(mval1, mval2);
+	if (mval1 == mval2)
+		std::cout << "mval1 is equal to mval2. " << "\n";
+
+	std::cout << std::boolalpha;
+	std::cout << mval1 << " <  " << mval2 << " = " << (mval1 < mval2) << "\n"; 
+	std::cout << mval1 << " <= " << mval2 << " = " << (mval1 <= mval2) << "\n";
+	std::cout << mval1 << " >  " << mval2 << " = " << (mval1 > mval2) << "\n";
+	std::cout << mval1 << " >= " << mval2 << " = " << (mval1 >= mval2) << "\n";
+	std::cout << mval1 << " == " << mval2 << " = " << (mval1 == mval2) << "\n";
+	std::cout << mval1 << " != " << mval2 << " = " << (mval1 != mval2) << "\n";
+
+	return EXIT_SUCCESS;
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Comparison Operator Function Example
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+#include<conio.h> 
+#include "utility.h" 
+
+// myint.h
+// --------------------------------------------
+class MyInt {
+public:
+	MyInt() = default;
+	explicit MyInt(int val) : mval{ val } {}
+
+	// operator< and operator== functions as inline functions 
+	friend bool operator<(const MyInt& ref1, const MyInt& ref2) {
+		return ref1.mval < ref2.mval;
+	}
+	friend bool operator==(const MyInt& ref1, const MyInt& ref2) {
+		return ref1.mval == ref2.mval;
+	}
+
+	// inserter - extractor operator functions
+	friend std::ostream& operator<<(std::ostream& os, const MyInt& ref);
+	friend std::istream& operator>>(std::istream& is, MyInt& ref);
+
+	static MyInt random();
+private:
+	int mval{};
+
+};
+
+// myint.cpp
+// --------------------------------------------
+inline bool operator>(const MyInt& ref1, const MyInt& ref2) {
+	return ref2 < ref1;
+}
+
+inline bool operator>=(const MyInt& ref1, const MyInt& ref2) {
+	return !(ref1 < ref2);
+}
+
+inline bool operator<=(const MyInt& ref1, const MyInt& ref2) {
+	return !(ref2 < ref1);
+}
+
+inline bool operator!=(const MyInt& ref1, const MyInt& ref2) {
+	return !(ref1 == ref2);
+}
+
+std::ostream& operator<<(std::ostream& os, const MyInt& ref) {
+	return os << "[ " << ref.mval << " ]";
+}
+
+std::istream& operator>>(std::istream& is, MyInt& ref) {
+	return is >> ref.mval;
+}
+
+MyInt MyInt::random() {
+	// Irand is a user-defined class to generate random numbers between 0-1000
+	return MyInt{ Irand{ 0, 1000 }() };
+}
+
+
+// test code for comparison operator functions 
+// --------------------------------------------
+int main() {
+
+	std::cout << std::boolalpha;
+
+	for (;;) {
+
+		auto mval1{ MyInt::random() };
+		auto mval2{ MyInt::random() };
+
+		std::cout << mval1 << " <  " << mval2 << " = " << (mval1 < mval2) << "\n";
+		std::cout << mval1 << " <= " << mval2 << " = " << (mval1 <= mval2) << "\n";
+		std::cout << mval1 << " >  " << mval2 << " = " << (mval1 > mval2) << "\n";
+		std::cout << mval1 << " >= " << mval2 << " = " << (mval1 >= mval2) << "\n";
+		std::cout << mval1 << " == " << mval2 << " = " << (mval1 == mval2) << "\n";
+		std::cout << mval1 << " != " << mval2 << " = " << (mval1 != mval2) << "\n";
+		_getch();
+		system("cls");
+
+		/*
+			For Example:
+			[ 538 ] <  [ 973 ] = true
+			[ 538 ] <= [ 973 ] = true
+			[ 538 ] >  [ 973 ] = false
+			[ 538 ] >= [ 973 ] = false
+			[ 538 ] == [ 973 ] = false
+			[ 538 ] != [ 973 ] = true
+		
+		*/
+	}
+
+	return EXIT_SUCCESS;
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Arithmetic Operator Functions Examples
+  - Exception handling shall be applied for the followig operator functions (operator+=, operator-=, operator*=, operator/=) 
+  - operator+ is written by using --> operator+=
+  - operator- is written by using --> operator-=
+  - operator* is written by using --> operator*=
+  - operator/ is written by using --> operator/=
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+#include<conio.h> 
+#include "utility.h" 
+
+// myint.h
+// --------------------------------------------
+class MyInt {
+public:
+	MyInt() = default;
+	explicit MyInt(int val) : mval{ val } {}
+
+	MyInt& operator+=(MyInt other) {
+		this->mval += other.mval;
+		return *this;
+	}
+
+	MyInt& operator-=(MyInt other) {
+		this->mval -= other.mval;
+		return *this;
+	}
+
+	MyInt& operator*=(MyInt other) {
+		this->mval *= other.mval;
+		return *this;
+	}
+
+	MyInt& operator/=(MyInt other) {
+		this->mval /= other.mval;
+		return *this;
+	}
+
+	// inserter - extractor operator functions
+	friend std::ostream& operator<<(std::ostream& os, const MyInt& ref);
+	friend std::istream& operator>>(std::istream& is, MyInt& ref);
+	static MyInt random();
+private:
+	int mval{};
+
+};
+
+// myint.cpp
+// --------------------------------------------
+inline MyInt operator+(MyInt mval1, MyInt mval2) {
+	return mval1 += mval2;
+}
+
+inline MyInt operator-(MyInt mval1, MyInt mval2) {
+	return mval1 -= mval2;
+}
+
+inline MyInt operator*(MyInt mval1, MyInt mval2) {
+	return mval1 *= mval2;
+}
+
+inline MyInt operator/(MyInt mval1, MyInt mval2) {
+	return mval1 /= mval2;
+}
+
+std::ostream& operator<<(std::ostream& os, const MyInt& ref) {
+	return os << "[ " << ref.mval << " ]";
+}
+
+std::istream& operator>>(std::istream& is, MyInt& ref) {
+	return is >> ref.mval;
+}
+
+MyInt MyInt::random() {
+
+	return MyInt{ Irand{ 0, 1000 }() };
+}
+
+
+// test code for arithmetic operator functions
+// --------------------------------------------
+int main() {
+
+	std::cout << std::boolalpha;
+
+	for (;;) {
+
+		auto mval1{ MyInt::random() };
+		auto mval2{ MyInt::random() };
+
+		std::cout << mval1 << " +  " << mval2 << " = " << (mval1 + mval2) << "\n";
+		std::cout << mval1 << " -  " << mval2 << " = " << (mval1 - mval2) << "\n";
+		std::cout << mval1 << " *  " << mval2 << " = " << (mval1 * mval2) << "\n";
+		std::cout << mval1 << " /  " << mval2 << " = " << (mval1 / mval2) << "\n";
+		_getch();
+		system("cls");
+
+		/*
+			For Example:
+			[ 794 ] +  [ 485 ] = [ 1279 ]
+			[ 794 ] -  [ 485 ] = [ 309 ]
+			[ 794 ] *  [ 485 ] = [ 385090 ]
+			[ 794 ] /  [ 485 ] = [ 1 ]
+		
+		*/
+	}
+
+	return EXIT_SUCCESS;
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Prefix and postfix operator functions examples
+  - If "value" is a L-Value expression --> "+value" is a R-Value expression
+  - sign operators (+,-) do not have a side effect on typed values
+  - prefix  --> ++x --> returns --> x + 1 (L-Value expr. in C++)
+  - postfix --> x++ --> returns --> x (R-Value expr. in C++)
+  - prefix and postfix oeprators are unary operators, so in order to differentiate the operator functions, then a parameter can be added as a dummy parameter to postfix operator function (for the reason of function overload resolution). This dummy parameter should not be named, it has only its type name. 
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+#include<conio.h> 
+#include "utility.h" 
+
+// myint.h
+// --------------------------------------------
+class MyInt {
+public:
+	MyInt() = default;
+	explicit MyInt(int val) : mval{ val } {}
+	int getVal()const { return mval; }
+	void setVal(const int val) { this->mval = val; }
+
+	// prefix operator++ --> ++val 
+	MyInt& operator++() {
+		++mval;
+		return *this;
+	}
+
+	// prefix operator-- --> --val
+	MyInt& operator--() {
+		--mval;
+		return *this;
+	}
+
+	// postfix operator++ --> val++
+	MyInt operator++(int) {
+		MyInt retval{ *this };
+		++(*this);
+		return retval;
+	}
+
+	// postfix operator-- --> val--
+	MyInt operator--(int) {
+		MyInt retval{ *this };
+		--(*this);
+		return retval;
+	}
+
+	// operator+ and operator- as class member funcs
+	MyInt operator+() const {
+		return *this;
+	}
+
+	MyInt operator-() const {
+		return MyInt{ -mval };
+	}
+ 
+	MyInt& operator+=(MyInt other) {
+		this->mval += other.mval;
+		return *this;
+	}
+
+	MyInt& operator-=(MyInt other) {
+		this->mval -= other.mval;
+		return *this;
+	}
+
+	MyInt& operator*=(MyInt other) {
+		this->mval *= other.mval;
+		return *this;
+	}
+
+	MyInt& operator/=(MyInt other) {
+		this->mval /= other.mval;
+		return *this;
+	}
+
+	// inserter - extractor operator functions
+	friend std::ostream& operator<<(std::ostream& os, const MyInt& ref);
+	friend std::istream& operator>>(std::istream& is, MyInt& ref);
+	static MyInt random();
 
 private:
-	int mx;
+	int mval{};
+
 };
+
+// myint.cpp
+// --------------------------------------------
+std::ostream& operator<<(std::ostream& os, const MyInt& ref) {
+	return os << "[ " << ref.mval << " ]";
+}
+
+std::istream& operator>>(std::istream& is, MyInt& ref) {
+	return is >> ref.mval;
+}
+
+MyInt MyInt::random() {
+
+	return MyInt{ Irand{ 0, 1000 }() };
+}
+
+// --------------------------------------------
+
+// In global space, how to write prefix and postfix operator funcs.
+// inline MyInt& operator++(MyInt);     // prefix ++
+// inline MyInt operator++(MyInt, int); // postfix ++ 
+
+// --------------------------------------------
+
+// Test code for prefix/postfix operator functions
+// --------------------------------------------
+int main() {
+
+	std::cout << std::boolalpha;
+
+	for (;;) {
+
+		auto mval1{ MyInt::random() };
+		auto mval2{ MyInt::random() };
+		
+		std::cout << "mval1 : " << mval1 << "\n";
+		std::cout << "++mval1 : " << ++mval1 << "\n";
+		std::cout << "mval1++ : " << mval1++ << "\n\n";
+		
+		std::cout << "mval2 : " << mval2 << "\n";
+		std::cout << "--mval2 : " << --mval2 << "\n";
+		std::cout << "mval2-- : " << mval2-- << "\n";
+		_getch();
+		system("cls");
+	}
+
+	return EXIT_SUCCESS;
+
+	/*
+		mval1 : [ 169 ]
+		++mval1 : [ 170 ]
+		mval1++ : [ 170 ]
+
+		mval2 : [ 478 ]
+		--mval2 : [ 477 ]
+		mval2-- : [ 477 ]
+	*/
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- Operator overloading is different for the following special operators:
+  - Index operator : []
+  - Dereferencing operator : * 
+  - Member selection (arrow) operator : ->
+  - Function call operator : ()
+  - Type conversion operator : <> 
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Index operator [] overloading
+  - <vector>, <deque>, <array>, <string> classes overloads index operator 
+
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+
+	std::string name{ "gamze" };
+	auto c = name[0]; // OK, get the value of name[0]
+	name[0] = 'k';    // OK, set the value of name[0]
+	name.operator[](2) = 't'; 
+
+	std::cout << "name : " << name << "\n"; // name : katze
+
+	const std::string cname{ "mehmet" };
+	auto cn = cname[0];   // OK, get the value of cname[0]
+	//cname[0] = 'n';     // NOT OK, no possible to set the value of cname[0], return value const& (because of const overloading)
+
+	return EXIT_SUCCESS;
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : User defined array class example for operator overloading 
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+
+// myarray.h
+// --------------------------------------------
+class MyArray {
+public:
+	MyArray(size_t size, int val = 0);
+	~MyArray();
+	MyArray(const MyArray&) = delete;
+	MyArray& operator=(const MyArray&) = delete;
+	size_t size()const { return msize; }
+	int& operator[](size_t index);
+	const int& operator[](size_t index)const;
+	friend std::ostream& operator<<(std::ostream &os, const MyArray& arr);
+private:
+	int* mptr;
+	size_t msize;
+};
+
+// myarray.cpp
+// --------------------------------------------
+MyArray::MyArray(size_t size, int val) :msize{ size }, mptr{ new int[msize] }{
+	for (size_t i = 0; i < msize; ++i)
+		mptr[i] = val;
+}
+
+MyArray::~MyArray() {
+	delete[]mptr;
+}
+
+int& MyArray::operator[](size_t index) {
+	return mptr[index];
+}
+
+const int& MyArray::operator[](size_t index)const {
+	std::cout << "const overloading of operator[] is called...\n";
+	return mptr[index];
+}
+
+std::ostream& operator<<(std::ostream& os, const MyArray& arr) {
+	
+	os << "[ ";
+
+	for (size_t i = 0; i < arr.msize - 1; ++i)
+		os << arr.mptr[i] << ", ";
+
+	os << arr.mptr[arr.msize - 1] << " ]";
+
+	return os;
+}
+
+
+// Test code for user defined array class
+// --------------------------------------------
+int main() {
+
+	MyArray arr(10, 5);
+	std::cout << arr << "\n";
+
+	for (size_t i = 0; i < arr.size(); ++i)
+		arr[i] = i;
+	std::cout << arr << "\n";
+
+	auto val = arr[4]; // auto val = arr.operator[](4);
+	arr[4] = 20;
+
+	std::cout << "After setting array values...\n";
+	std::cout << arr << "\n";
+
+	// Defining const array 
+	const MyArray carr{ 10, 10 };
+	std::cout << carr << "\n";
+
+	auto cval = carr[4];  // OK, thanks to const overloading
+	//carr[4] = 20;       // NOT OK, thanks to const overloading  
+
+	return EXIT_SUCCESS;
+
+	/*
+		[ 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 ]
+		[ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+		After setting array values...
+		[ 0, 1, 2, 3, 20, 5, 6, 7, 8, 9 ]
+		[ 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 ]
+		const overloading of operator[] is called...
+	*/
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Containers and const operator function overloading 
+
+```cpp
+#include <iostream>
+#include <vector>
+
+int main() {
+
+	std::vector<int> vec{ 0,2,4,6,8,10 };
+
+	++vec.front(); // OK, vec.front() --> 0 
+	--vec.back();  // OK, vec.back() --> 10
+	std::cout << "vec.front() : " << vec.front() << "\n"; 
+	// vec.front() : 1
+	std::cout << "vec.back()  : " << vec.back() << "\n";  
+	// vec.back()  : 9
+
+	const std::vector<double> cvec{ 0.1, 2.1, 4.1, 6.1, 8.1, 10.1 };
+	++cvec.front(); // NOT OK, cvec.front() --> 0.1 (const value) 
+	--cvec.back();  // NOT OK, cvec.back() --> 10.1 (const value)
+
+	return EXIT_SUCCESS;
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Dereferencing operator* and member selection operator-> overloading
+  - pointer like classes like as smart pointers overlaods these two operators
+  - smart pointers are important to manage a dynamic objects in terms of deleting it after its life is finalized!!!
+  - Exception: ptr->func(); --> ptr.operator->()->func(); --> therefore, arrow operator function is overloaded as class member function and assumed as unary operator (it can not be global operator function)
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+#include "myint.h"
+
+// myintptr.h --> like as smart pointer typed class, 
+// movable, but not copyable
+// --------------------------------------------
+class MyIntPtr {
+public:
+	explicit MyIntPtr(MyInt* ptr) : myptr{ ptr } {}
+	MyIntPtr(const MyIntPtr&) = delete;
+	MyIntPtr& operator=(const MyIntPtr&) = delete;
+
+	~MyIntPtr() { 
+		if(myptr != nullptr)
+			delete myptr; 
+	}
+	MyInt& operator*() {
+		return *myptr;
+	}
+
+	MyInt* operator->() {
+		return myptr;
+	}
+private:
+	MyInt* myptr;
+};
+
+
+// Test code for prefix/postfix operator functions
+// --------------------------------------------
+int main() {
+
+	MyIntPtr myptr{ new MyInt{ 12 } }; // explicit keyword effect
+	std::cout << "*myptr : " << *myptr << "\n";
+	std::cout << "myptr->getVal() : " << myptr->getVal() << "\n";
+	
+	myptr->setVal(10);
+	std::cout << "myptr->getVal() : " << myptr->getVal() << "\n";
+
+	return EXIT_SUCCESS;
+
+	/*
+		*myptr : [ 12 ]
+		myptr->getVal() : 12
+		myptr->getVal() : 10
+	*/
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Class template definition for the user defined smart pointer class in the previous example with operator overloading
+  - CTAD : Constructor Template Argument Deduction --> provides to deduce the type of template class
+
+```cpp
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream> 
+#include "myint.h"
+
+// Template definition for user defined smart pointer class
+// --------------------------------------------
+
+template<typename T>
+class SmartPtr {
+public:
+	explicit SmartPtr(T* ptr) : myptr{ ptr } {}
+	SmartPtr(const SmartPtr&) = delete;
+	SmartPtr& operator=(const SmartPtr&) = delete;
+	
+	~SmartPtr() {
+		if (myptr != nullptr)
+			delete myptr;
+	}
+	T& operator*() {
+		return *myptr;
+	}
+
+	T* operator->() {
+		return myptr;
+	}
+private:
+	T* myptr;
+};
+
+
+// Test code for the user defined smart pointer class
+// --------------------------------------------
+int main() {
+
+	SmartPtr<MyInt> myptr{ new MyInt{ 12 } }; 
+	std::cout << "*myptr : " << *myptr << "\n";
+	std::cout << "myptr->getVal() : " << myptr->getVal() << "\n";
+	
+	myptr->setVal(10);
+	std::cout << "myptr->getVal() : " << myptr->getVal() << "\n";
+
+	SmartPtr<std::string> myptr{ new std::string {"gamze"} }; 
+	std::cout << "*myptr : " << *myptr << "\n";
+	std::cout << "myptr->size() : " << myptr->size() << "\n";
+
+	return EXIT_SUCCESS;
+
+	/*
+		*myptr : [ 12 ]
+		myptr->getVal() : 12
+		myptr->getVal() : 10
+
+		*myptr : gamze
+		myptr->size() : 5
+	*/
+}
 ```
 
 /----------------------------------------------
