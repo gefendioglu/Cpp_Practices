@@ -739,97 +739,9 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-- **Example** : Implementing a wrapper class which uses int type in the backend (defining different features thanks to operator overloading mechanism)
-  - **operator<** and **operator==** are more important than the other operator functions. Because the other operator can be defined by using these two operator functions. 
-
-```cpp
-// wrapper class (using int type in the backend)
-#define _CRT_SECURE_NO_WARNINGS
-#include<iostream> 
-
-// myint.h
-// --------------------------------------------
-class MyInt {
-public:
-	MyInt() = default;
-	explicit MyInt(int val) : mval{ val } {}
-
-	// operator< and operator== functions as inline functions 
-	friend bool operator<(const MyInt& ref1, const MyInt& ref2) {
-		return ref1.mval < ref2.mval;
-	}
-	friend bool operator==(const MyInt& ref1, const MyInt& ref2) {
-		return ref1.mval == ref2.mval;
-	}
-
-	// inserter - extractor operator functions
-	friend std::ostream& operator<<(std::ostream& os, const MyInt& ref);
-	friend std::istream& operator>>(std::istream& is, MyInt& ref);
-private:
-	int mval{};
-	 
-};
-
-// myint.cpp
-// --------------------------------------------
-inline bool operator>(const MyInt& ref1, const MyInt& ref2) {
-	return ref2 < ref1;
-}
-
-inline bool operator>=(const MyInt& ref1, const MyInt& ref2) {
-	return !(ref1 < ref2);
-}
-
-inline bool operator<=(const MyInt& ref1, const MyInt& ref2) {
-	return !(ref2 < ref1);
-}
-
-inline bool operator!=(const MyInt& ref1, const MyInt& ref2) {
-	return !(ref1 == ref2);
-}
-
-std::ostream& operator<<(std::ostream& os, const MyInt& ref) {
-	return os << "[ " << ref.mval << " ]";
-}
-
-std::istream& operator>>(std::istream& is, MyInt& ref) {
-	return is >> ref.mval;
-}
-
-// test code 
-// --------------------------------------------
-int main() {
-
-	MyInt mval1, mval2{ 20 };
-	std::cout << mval1 << " " << mval2 << "\n";
-
-	std::cout << "Enter two values: ";
-	std::cin >> mval1 >> mval2;
-	std::cout << mval1 << " " << mval2 << "\n";
-
-	// operator<(mval1, mval2);
-	if (mval1 < mval2)
-		std::cout << "mval1 is smaller than mval2. " << "\n";
-	// operator==(mval1, mval2);
-	if (mval1 == mval2)
-		std::cout << "mval1 is equal to mval2. " << "\n";
-
-	std::cout << std::boolalpha;
-	std::cout << mval1 << " <  " << mval2 << " = " << (mval1 < mval2) << "\n"; 
-	std::cout << mval1 << " <= " << mval2 << " = " << (mval1 <= mval2) << "\n";
-	std::cout << mval1 << " >  " << mval2 << " = " << (mval1 > mval2) << "\n";
-	std::cout << mval1 << " >= " << mval2 << " = " << (mval1 >= mval2) << "\n";
-	std::cout << mval1 << " == " << mval2 << " = " << (mval1 == mval2) << "\n";
-	std::cout << mval1 << " != " << mval2 << " = " << (mval1 != mval2) << "\n";
-
-	return EXIT_SUCCESS;
-}
-```
-
-/----------------------------------------------
-/----------------------------------------------
-
 - **Example** : Comparison Operator Function Example
+  - Implementing a wrapper class which uses int type in the backend (defining different features thanks to operator overloading mechanism)
+  - **operator<** and **operator==** are more important than the other operator functions. Because the other operator can be defined by using these two operator functions. 
 
 ```cpp
 #define _CRT_SECURE_NO_WARNINGS
@@ -898,6 +810,28 @@ MyInt MyInt::random() {
 // --------------------------------------------
 int main() {
 
+	MyInt mval1, mval2{ 20 };
+	std::cout << mval1 << " " << mval2 << "\n";
+
+	std::cout << "Enter two values: ";
+	std::cin >> mval1 >> mval2;
+	std::cout << mval1 << " " << mval2 << "\n";
+
+	// operator<(mval1, mval2);
+	if (mval1 < mval2)
+		std::cout << "mval1 is smaller than mval2. " << "\n";
+	// operator==(mval1, mval2);
+	if (mval1 == mval2)
+		std::cout << "mval1 is equal to mval2. " << "\n";
+
+	std::cout << std::boolalpha;
+	std::cout << mval1 << " <  " << mval2 << " = " << (mval1 < mval2) << "\n"; 
+	std::cout << mval1 << " <= " << mval2 << " = " << (mval1 <= mval2) << "\n";
+	std::cout << mval1 << " >  " << mval2 << " = " << (mval1 > mval2) << "\n";
+	std::cout << mval1 << " >= " << mval2 << " = " << (mval1 >= mval2) << "\n";
+	std::cout << mval1 << " == " << mval2 << " = " << (mval1 == mval2) << "\n";
+	std::cout << mval1 << " != " << mval2 << " = " << (mval1 != mval2) << "\n";
+	
 	std::cout << std::boolalpha;
 
 	for (;;) {
@@ -1394,7 +1328,7 @@ private:
 };
 
 
-// Test code for prefix/postfix operator functions
+// Test code for dereferencing and member selection operator functions
 // --------------------------------------------
 int main() {
 
