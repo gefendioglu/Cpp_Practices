@@ -441,14 +441,14 @@ int main() {
 void* operator new(size_t n) {
 	std::cout << "operator new called n : " << n << "\n";
 	void* vptr = std::malloc(n);
-	if (!vptr){
+	if (!vptr) {
 		throw std::bad_alloc{};
 	}
 	std::cout << "address of allocated block : " << vptr << "\n";
 	return vptr;
 }
 
-void operator delete(void *vptr) {
+void operator delete(void* vptr) {
 	std::cout << "operator delete called vptr : " << vptr << "\n";
 	if (vptr)
 	{
@@ -512,30 +512,25 @@ int main() {
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
-#include <iosfwd>
-
-#ifndef COUNTER_INCLUDED
-#define COUNTER_INCLUDED
-
-class Counter {
-public:
-	Counter() = default; // default member init. 
-	explicit Counter(int);
-private:
-};
-
-std::ostream&  operator<<(std::ostream& os, const Counter& cnt);
+#include <vector>
 
 int main() {
 
-	Counter cnt1;
-	Counter cnt2{100};
-	std::cout << cnt1 << " " << cnt2 << " ";
-	operator<<(std::cout, cnt1);
+	std::vector<int> vec{ 0,2,4,6,8,10 };
+
+	++vec.front(); // OK, vec.front() --> 0 
+	--vec.back();  // OK, vec.back() --> 10
+	std::cout << "vec.front() : " << vec.front() << "\n"; 
+	// vec.front() : 1
+	std::cout << "vec.back()  : " << vec.back() << "\n";  
+	// vec.back()  : 9
+
+	const std::vector<double> cvec{ 0.1, 2.1, 4.1, 6.1, 8.1, 10.1 };
+	++cvec.front(); // NOT OK, cvec.front() --> 0.1 (const value) 
+	--cvec.back();  // NOT OK, cvec.back() --> 10.1 (const value)
 
 	return EXIT_SUCCESS;
 }
 
-#endif
-
 #endif // FEATURE
+

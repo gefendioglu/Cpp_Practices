@@ -12,7 +12,7 @@
 //#define VECTOR_CLASS_TEMPLATE
 //#define STRING_IMPLEMENTATION
 //#define DYNAMIC_OBJECTS
-#define FEATURE
+//#define FEATURE
 
 /* STL OPTIONAL */
 // --------------------------------------------

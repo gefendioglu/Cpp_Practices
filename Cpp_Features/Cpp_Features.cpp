@@ -8,6 +8,9 @@
 /* OPERATOR OVERLOADING */
 // --------------------------------------------
 //#define OPERATOR_OVERLOADING
+//#define OPERATOR_OVERLOADING_II
+#define OPERATOR_OVERLOADING_III
+//#define OPERATOR_OVERLOADING_IV
 
 
 /* CLASS DEFINITIONS */
@@ -93,11 +96,12 @@
 
 // --------------------------------------------
 
-/* Operatpr Overloading */
-#if defined(OPERATOR_OVERLOADING) 
+/* Operator Overloading */
+#if defined(OPERATOR_OVERLOADING) || defined(OPERATOR_OVERLOADING_II)  || defined(OPERATOR_OVERLOADING_III) || defined(OPERATOR_OVERLOADING_IV) 
 #include "29_Operator_Overloading.h"
 #endif
 
+// --------------------------------------------
 
 /* Classes */
 #if defined(CLASSES) || defined(STATIC_MEMBERS) 

@@ -22,6 +22,7 @@
     <ClCompile Include="Cpp_Features.cpp" />
     <ClCompile Include="Cpp_Idioms.cpp" />
     <ClCompile Include="General_Features.cpp" />
+    <ClCompile Include="utility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="00_Object_Oriented_Programming.txt" />
@@ -68,6 +69,7 @@
     <ClInclude Include="31_Templates.h" />
     <ClInclude Include="STL.h" />
     <ClInclude Include="String_Implementation.h" />
+    <ClInclude Include="utility.h" />
     <ClInclude Include="Value_Category.h" />
     <ClInclude Include="Vector_Implementation.h" />
     <ClInclude Include="Virtual_Copy_Ctor.h" />
