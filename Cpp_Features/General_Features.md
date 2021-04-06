@@ -1,5 +1,5 @@
 
-### 1- TYPE ALIASES 
+## 1- TYPE ALIASES 
 
 - type aliases are easier to read 
 - type aliase are compatible with C++ templates types
@@ -15,7 +15,7 @@ using func_ptr = int (*)(int);
 /----------------------------------------------
 /----------------------------------------------
 
-### 2- USER DEFINED LITERALS 
+## 2- USER DEFINED LITERALS 
 
 -**Example**: User Defined Literals
  - Adding constexpr will serve zero cost run-time performance impact
@@ -37,7 +37,7 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
-### 3- INITIALIZER LIST (std::initializer_list) 
+## 3- INITIALIZER LIST (std::initializer_list) 
 
 -**Example**: Initializer List
 
@@ -266,7 +266,7 @@ private:
 /----------------------------------------------
 /----------------------------------------------
 
-### 6- SCOPE LEAKAGE
+## 6- SCOPE LEAKAGE
 
 - Before C++17, another scope can be defined to restrict the usage of variable 
 - After C++17, "if with initializer" is used instead of adding another scope in these  cases. 
@@ -312,7 +312,7 @@ int main(){
 /----------------------------------------------
 /----------------------------------------------
 
-### 7- RANGE BASED LOOP 
+## 7- RANGE BASED LOOP 
 
 - If container is assumed as any kind of container, range based for loops can be one of the followings: 
   - for(T x : container)   -->  for(auto x : container)
@@ -456,3 +456,134 @@ int main() {
 /----------------------------------------------
 /----------------------------------------------
 
+## 8- FRIEND FUNCTION DECLARATION  
+
+- "friend" specifier is used to access the private part of a class by a function which is not a member of the same class. 
+
+- There are 3 different types of friend declaration by supporting a friendship for:
+  - global functions
+  - class member functions
+  - classes
+
+- In friend declaration, the class does not need to have the function definition.  
+
+- It does not matter where to define a friend declaration. It might be under public or private part of a class.
+
+- It is not possible (and not sensible either) to give friendship to class member functions for the same class.
+
+- The class taking friendship from another class, it does not mean that this class have to give friendship too. 
+
+- It is not possible to give friendship for a specific private function to a class. A class taking the friendship can access all private members of another class giving the friendship to this class. (If we want to access a specific private member of a class, then we use attorney client idiom) 
+
+- If a base class gives friendship to another class (supposed to be called as "Member" class), it does not mean that the derived class which is inherited from this base class can access the private members of Member class. 
+
+```cpp
+class Base {
+public:
+	friend class Member;
+};
+
+class Derived : public Base {
+public:
+	void derFunc();
+private:
+	int derVal;
+};
+
+class Member {
+public:
+	void memFunc(Derived der) {
+		der.derFunc(); // OK,it is a public func 
+		der.derVal;    // NOT OK, not a friend of Derived class
+	}
+};
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Friend Function Declaration 
+
+```cpp
+class Data {
+public:
+	void dfunc();
+};
+
+class Member {
+public:
+	friend void gfunc(Member mem);
+
+	// Data class definition must be done before this friend declaration, incomplete declaration can not be accepted, neither!!!  
+	friend void Data::dfunc();
+private:
+	void pfunc();
+};
+
+void gfunc(Member mem) {
+	//...
+	mem.pfunc(); // OK, thanks to friend declaration !!!
+}
+
+void Data::dfunc() {
+	//...
+	Member mem;
+	mem.pfunc();  // OK, thanks to friend declaration !!!
+}
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Giving friendship to all class members
+  - In this case, the class giving friendship is not obliged to see the definition/declaration of the class taking this friendship.
+
+```cpp
+class Member {
+public:
+	// To give friendship for all members of Data class, not need to Data class declaration/definition!!!
+	friend class Data;
+private:
+	void pfunc();
+};
+
+class Data {
+public:
+	void dfunc();
+
+	// All members of Data class can access to all members of Member class
+	void func1(Member mem) {
+		//...
+		mem.pfunc(); 
+	}
+	void func2() {
+		//...
+		Member mem;
+		mem.pfunc();
+	}
+};
+```
+
+/----------------------------------------------
+/----------------------------------------------
+
+- **Example** : Global operator function inline definition with friend declaration. 
+  - Normally binary operators take two parameters, if they are defined in global space. If they are defined in class, they can continue to have this feature, because of using friend declaration. 
+ 
+```cpp
+class Member {
+public:
+	// global operator function - inline definition thanks to friend declaration
+	friend bool operator<(Member mem1, Member mem2) {
+		return mem1.mx < mem2.mx;
+	}
+	int getVal()const {
+		return mx;
+	}
+private:
+	int mx;
+};
+```
+
+/----------------------------------------------
+/----------------------------------------------
